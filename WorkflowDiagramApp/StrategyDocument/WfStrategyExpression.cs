@@ -1,4 +1,6 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using WorkflowDiagram;
+using WorkflowDiagramApp.Editors;
 
 namespace WorkflowDiagramApp.StrategyDocument {
     public class WfStrategyExpression : WfStrategyNodeBase {
@@ -15,52 +19,64 @@ namespace WorkflowDiagramApp.StrategyDocument {
         public override string Type => "Expression";
 
         protected override bool OnInitializeCore(WfRunner runner) {
-            return true;
+            if(Script == null)
+                Script = CreateScript();
+            if(Script == null)
+                Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Error, Text = "Could not parse expression. Compilation errors." });
+            return Script != null;
         }
 
         public override void OnVisit(WfRunner runner) {
-            if(Script == null)
-                Script = CreateScript();
-            Task<ScriptState<object>> task = Script.RunAsync();
-            task.Wait();
-            Outputs[0].Value = task.Result.ReturnValue;
+            Task<ScriptState<object>> task = null;
+            try {
+                task = Script.RunAsync(this);
+                task.Wait();
+                Outputs[0].OnVisit(runner, task.Result.ReturnValue);
+            }
+            catch(Exception e) {
+                Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Error, Text = "Exception occurs while visit node. " + e.ToString() });
+                HasErrors = true;
+                Outputs[0].OnVisit(runner, 0);
+            }
         }
 
         protected virtual Script<object> CreateScript() {
-            Script<object> res = CSharpScript.Create(string.Format("" +
-                "using System;" +
-                "   try {" +
-                "       {0}" +
-                "       return {1};" +
-                "   }" +
-                "   catch(Exception) {" +
-                "       return 0;" +
-                "}", CreateParametersList(), Expression));
-            return res;
-        }
-
-        protected string CreateParametersList() {
-            StringBuilder b = new StringBuilder();
-            foreach(var p in Inputs) {
-                WfExpressionInputPoint ep = p as WfExpressionInputPoint;
-                if(ep == null)
-                    continue;
-                b.Append(CreateParameter(ep));
+            try {
+                Script<object> res = CSharpScript.Create(Expression, ScriptOptions.Default.WithImports("System.Math"), GetType());
+                return res;
             }
-            return b.ToString();
+            catch(Exception) {
+                return null;
+            }
         }
-
-        private string CreateParameter(WfExpressionInputPoint p) {
-            if(p.InputType == WfValueType.Boolean)
-                return string.Format("bool {0} = {1};", p.Name, p.Value);
-            if(p.InputType == WfValueType.Decimal)
-                return string.Format("double {0} = {1};", p.Name, p.Value);
-            return string.Format("string {0} = \"{1}\";", p.Name, p.Value);
-        }
+        
+        [XmlIgnore]
+        [Browsable(false)]
+        public object In0 { get { return Inputs[0].Value; } }
+        [XmlIgnore]
+        [Browsable(false)]
+        public object In1 { get { return Inputs[1].Value; } }
+        [XmlIgnore]
+        [Browsable(false)]
+        public object In2 { get { return Inputs[2].Value; } }
+        [XmlIgnore]
+        [Browsable(false)]
+        public object In3 { get { return Inputs[3].Value; } }
+        [XmlIgnore]
+        [Browsable(false)]
+        public object In4 { get { return Inputs[4].Value; } }
+        [XmlIgnore]
+        [Browsable(false)]
+        public object In5 { get { return Inputs[5].Value; } }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {
             return new WfConnectionPoint[] {
-                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In0", Text = "In0",  }
+                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In0", Text = "In0", Requirement = WfRequirementType.Optional },
+                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In1", Text = "In1", Requirement = WfRequirementType.Optional },
+                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In2", Text = "In2", Requirement = WfRequirementType.Optional },
+                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In3", Text = "In3", Requirement = WfRequirementType.Optional },
+                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In4", Text = "In4", Requirement = WfRequirementType.Optional },
+                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In5", Text = "In5", Requirement = WfRequirementType.Optional }
             }.ToList();
         }
 
@@ -71,7 +87,7 @@ namespace WorkflowDiagramApp.StrategyDocument {
         }
 
         string expression = "0";
-        [Category("Expression")]
+        [Category("Expression"), PropertyEditor(typeof(RepositoryItemExpressionEditor))]
         public string Expression {
             get { return expression; }
             set {

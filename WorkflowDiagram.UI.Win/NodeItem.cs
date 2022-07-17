@@ -118,12 +118,12 @@ namespace WorkflowDiagram.UI.Win {
 
             StringBuilder b = new StringBuilder();
             foreach(var point in Node.Inputs) {
-                b.AppendLine(string.Format(inRow.Template, point.Name));
+                b.AppendLine(string.Format(inRow.Template, point.Name, point.Text));
             }
             res.Template = res.Template.Replace("InRows", b.ToString());
             b.Clear();
             foreach(var point in Node.Outputs) {
-                b.AppendLine(string.Format(outRow.Template, point.Name));
+                b.AppendLine(string.Format(outRow.Template, point.Name, point.Text));
             }
             res.Template = res.Template.Replace("OutRows", b.ToString());
             res.Styles += "\n" + inRow.Styles + "\n" + outRow.Styles;
@@ -184,9 +184,15 @@ namespace WorkflowDiagram.UI.Win {
             using(GraphicsCacheDxHtmlWrapper wrapper = new GraphicsCacheDxHtmlWrapper(cache, UserLookAndFeel.Default)) {
                 var elemVisit = TemplateElement.FindElementById("key_visit");
                 var elemInit = TemplateElement.FindElementById("key_init");
+                var root = TemplateElement.FindElementById("key_item");
 
                 elemInit.Style.SetBackgroundColor(Node.IsInitialized ? Color.FromArgb(255, Color.Green) : Color.FromArgb(40, Color.Green));
                 elemVisit.Style.SetBackgroundColor(Color.FromArgb(40, Color.OrangeRed));
+
+                if(Node.HasErrors)
+                    root.Style.SetBackgroundColor(Color.FromArgb(40, Color.Red));
+                else
+                    root.Style.SetBackgroundColor(CommonSkins.GetSkin(UserLookAndFeel.Default).GetSystemColor(SystemColors.Window));
 
                 TemplateElement.Calc(wrapper, rect, app.GetFont(), app.GetForeColor());
             }
@@ -207,7 +213,6 @@ namespace WorkflowDiagram.UI.Win {
                         Width = sz.Width;
                         Height = sz.Height;
                     }
-
                 }
                 else
                     TemplateElement.ViewInfo.Location = r.Location;
@@ -249,6 +254,13 @@ namespace WorkflowDiagram.UI.Win {
                 if(pi != null)
                     return pi.GetValue(Node)?.ToString();
             }
+
+            WfConnectionPoint point = Node.Inputs[fieldName];
+            if(point != null)
+                return point.DisplayText;
+            point = Node.Outputs[fieldName];
+            if(point != null)
+                return point.DisplayText;
 
             pi = this.GetType().GetProperty(fieldName, BindingFlags.Instance | BindingFlags.Public);
             return pi == null ? null : pi.GetValue(this)?.ToString();

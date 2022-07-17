@@ -34,13 +34,13 @@ namespace WorkflowDiagramApp.StrategyDocument {
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {
             return new WfConnectionPoint[] {
-                new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "Object In", Text = "Object In" }
+                new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "ObjectIn", Text = "Object In" }
             }.ToList();
         }
 
         protected override List<WfConnectionPoint> GetDefaultOutputs() {
             return new WfConnectionPoint[] {
-                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Data Out", Text = "Data Out" }
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "DataOut", Text = "Data Out" }
             }.ToList();
         }
     }

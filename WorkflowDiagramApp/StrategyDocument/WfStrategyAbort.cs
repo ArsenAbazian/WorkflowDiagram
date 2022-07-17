@@ -27,7 +27,7 @@ namespace WorkflowDiagramApp.StrategyDocument {
 
         protected override List<WfConnectionPoint> GetDefaultOutputs() {
             return new WfConnectionPoint[] {
-                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Result Code", Text = "Result Code", Requirement = WfRequirementType.Optional },
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "ResultCode", Text = "Result Code", Requirement = WfRequirementType.Optional },
             }.ToList();
         }
 

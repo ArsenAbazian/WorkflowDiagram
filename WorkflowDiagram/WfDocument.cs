@@ -34,7 +34,7 @@ namespace WorkflowDiagram {
         public int FontSizeDelta { get; set; } = 0;
 
         public List<WfNode> GetStartNodes() {
-            return Nodes.Where(n => !n.HasInputConnections).ToList();
+            return Nodes.Where(n => !n.HasInputConnections).OrderBy(n => n.OrderIndex).ToList();
         }
 
         public List<WfNode> GetEndNodes() {
@@ -86,6 +86,7 @@ namespace WorkflowDiagram {
             if(string.IsNullOrEmpty(FileName))
                 return;
             string path = Path.GetDirectoryName(fullPath);
+            Reset();
             SerializationHelper.Save(this, GetType(), fullPath);
         }
 
@@ -124,6 +125,24 @@ namespace WorkflowDiagram {
                 conn.From = FindConnectionPoint(conn.FromId);
                 if(conn.From != null)
                     conn.From.Connectors.Add(conn);
+
+                RemoveUnusedConnectors();
+            }
+        }
+
+        public void RemoveUnusedConnectors() {
+            for(int ni= 0; ni < Nodes.Count; ni++) {
+                WfNode node = Nodes[ni];
+                for(int pi = 0; pi < node.Points.Count; pi++) {
+                    WfConnectionPoint point = node.Points[pi];
+                    for(int i = 0; i < point.Connectors.Count;) {
+                        if(point.Connectors[i].From == null || point.Connectors[i].To == null) {
+                            Connectors.Remove(point.Connectors[i]);
+                            point.Connectors.RemoveAt(i);
+                        }
+                        else i++;
+                    }
+                }
             }
         }
 

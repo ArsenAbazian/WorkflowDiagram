@@ -18,7 +18,7 @@ namespace WorkflowDiagram {
 
         object _value;
         [Category("Value")]
-        public object Value {
+        public virtual object Value {
             get { return _value; }
             set {
                 if(object.Equals(Value, value))
@@ -39,7 +39,7 @@ namespace WorkflowDiagram {
         }
 
         event PropertyChangedEventHandler propertyChanged;
-        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {
+        public event PropertyChangedEventHandler PropertyChanged {
             add {
                 this.propertyChanged += value;
             }
@@ -69,8 +69,9 @@ namespace WorkflowDiagram {
         [Browsable(false)]
         public string DisplayText {
             get {
-                if(Value == null) 
-                    return "null";
+                if(Value == null) {
+                    return "";
+                }
                 return Value.ToString();
             }
         }
@@ -88,8 +89,10 @@ namespace WorkflowDiagram {
             }
         }
 
-        public void OnVisit(WfRunner runner, object value) {
+        protected bool ValueCalculated { get; set; }
+        public virtual void OnVisit(WfRunner runner, object value) {
             Value = value;
+            ValueCalculated = true;
             if(Type == WfConnectionPointType.In)
                 return;
             foreach(WfConnector c in Connectors)
@@ -109,7 +112,17 @@ namespace WorkflowDiagram {
 
         public virtual void Reset() {
             VisitIndex = -1;
+            if(ValueCalculated) {
+                Value = null;
+                ValueCalculated = false;
+            }
         }
+
+        public virtual void OnInitialize(WfRunner runner) {
+            Value = null;
+        }
+
+        public WfEditOperation AllowedOperations { get; set; } = WfEditOperation.None;
     }
 
     public enum WfConnectionPointType {
@@ -121,5 +134,13 @@ namespace WorkflowDiagram {
         Default,
         Mandatory,
         Optional
+    }
+    
+    [Flags]
+    public enum WfEditOperation {
+        None = 0x0,
+        Add = 0x1,
+        Remove = 0x2,
+        Edit = 0x4
     }
 }

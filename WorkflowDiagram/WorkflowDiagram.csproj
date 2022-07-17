@@ -47,6 +47,7 @@
     <Compile Include="WfConnectionPoint.cs" />
     <Compile Include="WfConnectionPointCollection.cs" />
     <Compile Include="WfConnectorCollection.cs" />
+    <Compile Include="WfDiagnosticInfo.cs" />
     <Compile Include="WfDocument.cs" />
     <Compile Include="WfNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -171,3 +171,4 @@ D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagramApp\bin\Debug\r
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagramApp\bin\Debug\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagramApp\bin\Debug\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagramApp\bin\Debug\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagramApp\obj\Debug\WorkflowDiagramApp.Editors.ExpressionEditorForm.resources

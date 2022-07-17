@@ -19,7 +19,7 @@ namespace WorkflowDiagramApp.StrategyDocument {
         }
 
         public override void OnVisit(WfRunner runner) {
-            Outputs[0].Value = Value;
+            Outputs[0].OnVisit(runner, Value);
         }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {

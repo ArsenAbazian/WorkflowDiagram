@@ -114,6 +114,15 @@
     <Compile Include="Editors\CandlestickIntervalEditor.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Editors\ExpressionEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Editors\ExpressionEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editors\ExpressionEditorForm.Designer.cs">
+      <DependentUpon>ExpressionEditorForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editors\ObjectValueEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +156,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StrategyDocument\WfExpressionInputPoint.cs" />
     <Compile Include="StrategyDocument\WfStrategyAbort.cs" />
+    <Compile Include="StrategyDocument\WfStrategyStorageValue.cs" />
+    <Compile Include="StrategyDocument\WfStrategySwitch.cs" />
     <Compile Include="StrategyDocument\WfStrategyConditional.cs" />
     <Compile Include="StrategyDocument\WfStrategyConstantValue.cs" />
     <Compile Include="StrategyDocument\WfStrategyCustomProperty.cs" />
@@ -154,6 +165,9 @@
     <Compile Include="StrategyDocument\WfStrategyExpression.cs" />
     <Compile Include="StrategyDocument\WfStrategyNodeBase.cs" />
     <Compile Include="StrategyDocument\WfTickerInputNode.cs" />
+    <EmbeddedResource Include="Editors\ExpressionEditorForm.resx">
+      <DependentUpon>ExpressionEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Editors\ObjectValueEditForm.resx">
       <DependentUpon>ObjectValueEditForm.cs</DependentUpon>
     </EmbeddedResource>

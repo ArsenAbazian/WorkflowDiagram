@@ -67,18 +67,25 @@ namespace WorkflowDiagramApp.StrategyDocument {
 
         protected override bool OnInitializeCore(WfRunner runner) {
             Exchange e = Crypto.Core.Exchange.Get(Exchange);
-            if(!e.Connect())
+            if(!e.Connect()) {
+                Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Error, Text = "Could not connect to exchange." });
                 return false;
+            }
             TickerCore = e.GetTicker(Ticker);
-            if(TickerCore == null)
+            if(TickerCore == null) {
+                Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Error, Text = "Ticker with specified name does not exist on exchange." });
                 return false;
+            }
             TickerCore.StartListenTickerStream();
             return true;
         }
         public override void OnVisit(WfRunner runner) {
             DataContext = TickerCore;
             Outputs["Ticker"].OnVisit(runner, TickerCore);
-            Outputs["Current Price"].OnVisit(runner, TickerCore.Last);
+            Outputs["CurrentPrice"].OnVisit(runner, TickerCore.Last);
+            Outputs["HighestBid"].OnVisit(runner, TickerCore.OrderBook.HighestBid);
+            Outputs["LowestAsk"].OnVisit(runner, TickerCore.OrderBook.LowestAsk);
+            Outputs["Spread"].OnVisit(runner, TickerCore.OrderBook.LowestAsk - TickerCore.OrderBook.HighestBid);
         }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {
@@ -88,7 +95,10 @@ namespace WorkflowDiagramApp.StrategyDocument {
         protected override List<WfConnectionPoint> GetDefaultOutputs() {
             return new WfConnectionPoint[] {
                 new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Ticker", Text = "Ticker" },
-                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Current Price", Text = "Current Price" }
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "CurrentPrice", Text = "Last" },
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "HighestBid", Text = "Highest Bid" },
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "LowestAsk", Text = "Lowest Ask" },
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Spread", Text = "Spread" }
             }.ToList();
         }
     }

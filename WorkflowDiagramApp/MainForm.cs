@@ -130,7 +130,7 @@ namespace WorkflowDiagramApp {
             WfRunner runner = new WfRunner(Document);
             ActiveRunner = runner;
             bool res = runner.Initialize();
-            if(!res)
+            if(res)
                 XtraMessageBox.Show("Test initialization failed!", "Initialization");
             else
                 XtraMessageBox.Show("Successfully initialized!", "Initialization");
@@ -144,10 +144,12 @@ namespace WorkflowDiagramApp {
             WfRunner runner = new WfRunner(Document);
             ActiveRunner = runner;
             bool res = runner.Initialize();
-            if(!res)
+            if(!res) {
                 XtraMessageBox.Show("Test initialization failed!", "Initialization");
+                return;
+            }
             runner.RunAsync().ContinueWith(t => {
-                if(!t.Result == false)
+                if(t.Result == false)
                     XtraMessageBox.Show("Execution failed!", "Execution");
                 else
                     XtraMessageBox.Show("Executed succesfully!", "Execution");
@@ -163,10 +165,12 @@ namespace WorkflowDiagramApp {
             WfRunner runner = new WfRunner(Document);
             ActiveRunner = runner;
             bool res = runner.Initialize();
-            if(!res)
+            if(!res) {
                 XtraMessageBox.Show("Test initialization failed!", "Initialization");
+                return;
+            }
             runner.RunOnceAsync().ContinueWith(t => {
-                if(!t.Result == false)
+                if(t.Result == false)
                     XtraMessageBox.Show("Execution failed!", "Execution");
                 else
                     XtraMessageBox.Show("Executed succesfully!", "Execution");

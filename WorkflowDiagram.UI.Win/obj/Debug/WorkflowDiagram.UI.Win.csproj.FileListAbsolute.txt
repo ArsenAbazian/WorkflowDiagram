@@ -36,3 +36,4 @@ D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Deb
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\DevExpress.XtraNavBar.v22.1.pdb
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.csproj.CopyComplete
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\MetaSharp.dll
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.ConnectionsEditor.resources

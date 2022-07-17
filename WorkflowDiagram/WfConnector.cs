@@ -44,6 +44,7 @@ namespace WorkflowDiagram {
         protected internal virtual void OnRemoved() {
             From = null;
             To = null;
+            Document.RemoveUnusedConnectors();
         }
 
         Guid fromId;
@@ -138,7 +139,7 @@ namespace WorkflowDiagram {
         }
 
         event PropertyChangedEventHandler propertyChanged;
-        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {
+        public event PropertyChangedEventHandler PropertyChanged {
             add {
                 this.propertyChanged += value;
             }

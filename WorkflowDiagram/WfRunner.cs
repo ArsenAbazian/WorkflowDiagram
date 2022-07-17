@@ -100,6 +100,8 @@ namespace WorkflowDiagram {
                         }
                         processed = true;
                         VisitNode(currentNodes[i], visitIndex);
+                        if(currentNodes[i].HasErrors)
+                            return false;
                         if(IsStopped)
                             return Success;
                         if(CancellationSource != null && CancellationSource.IsCancellationRequested)
@@ -116,6 +118,7 @@ namespace WorkflowDiagram {
                         return false;
                 }
             }
+            Success = true;
             return true;
         }
 

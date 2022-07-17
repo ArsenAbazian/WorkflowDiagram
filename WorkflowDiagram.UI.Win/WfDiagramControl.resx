@@ -289,10 +289,10 @@
 </value>
   </data>
   <metadata name="barAndDockingController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>272, 25</value>
+    <value>136, 12</value>
   </metadata>
   <metadata name="dockManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>139, 25</value>
+    <value>70, 12</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>203</value>
@@ -306,7 +306,6 @@
 .item {
 	background-color: @Window;
 	border-color: @ControlLight;
-	padding: 2px 0;
 	border-style: solid;
 	border-width: 1px;
 	border-radius: 3px;
@@ -315,6 +314,7 @@
 
 .header {
 	font-size: 12px;
+	background-color: @ControlLight/0.3;
 	color: @WindowText;
 	display: flex;
 	justify-content: center;
@@ -369,7 +369,7 @@
   </data>
   <data name="Default.Template" xml:space="preserve">
     <value>&lt;div class="container"&gt;
-	&lt;div class="item"&gt;
+	&lt;div class="item" id="key_item"&gt;
 		&lt;div class="header"&gt;${Type}&lt;/div&gt;
 		&lt;div class="header"&gt;${Name} {Header}&lt;/div&gt;
 		&lt;div class="separator"&gt;&lt;/div&gt;
@@ -390,8 +390,6 @@
   </data>
   <data name="InRow.Styles" xml:space="preserve">
     <value>.in-item{
-	font-size: 10px;
-	color: @WindowText;
 	display: flex;
 	padding: 4px 0;
 	align-items: center;
@@ -405,13 +403,22 @@
 }
 	.in-point:hover {
 		box-shadow: 0px 0px 3px @Information;	
-	}</value>
+	}
+	
+.value {
+	font-size: 8px;
+	color: @DisabledText;
+	margin: 0 4px;
+}
+
+.name {
+	font-size: 12px;
+	color: @WindowText;
+}</value>
   </data>
   <data name="OutRow.Styles" xml:space="preserve">
     <value>.out-item {
-	font-size: 10px;
 	width: 100%;
-	color: @WindowText;
 	display: flex;
 	padding: 4px 0;
 	align-items: center;
@@ -427,10 +434,21 @@
 }
 	.out-point:hover {
 		box-shadow: 0px 0px 3px @Success;	
-	}</value>
+	}
+	
+.value {
+	font-size: 8px;
+	color: @DisabledText;
+	margin: 0 4px;
+}
+
+.name {
+	font-size: 12px;
+	color: @WindowText;
+}</value>
   </data>
   <metadata name="barManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1020, 19</value>
+    <value>510, 9</value>
   </metadata>
   <data name="bciShowConnectorText.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.1" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -512,10 +530,10 @@
 </value>
   </data>
   <metadata name="wfNodeBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>847, 19</value>
+    <value>424, 9</value>
   </metadata>
   <metadata name="svgImageCollection1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>392, 97</value>
+    <value>196, 48</value>
   </metadata>
   <data name="wevToolbar.OptionsViewStyles.Content.HtmlTemplate.Styles" xml:space="preserve">
     <value>.button {
@@ -554,37 +572,40 @@
 	font-size: 12px;
 }</value>
   </data>
+  <metadata name="wfDiagnosticInfoBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>691, 97</value>
+  </metadata>
   <metadata name="xtraSaveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>470, 25</value>
+    <value>235, 12</value>
   </metadata>
   <metadata name="diagramDataBindingController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>622, 19</value>
+    <value>311, 9</value>
   </metadata>
   <metadata name="applicationMenu1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1145, 19</value>
+    <value>573, 9</value>
   </metadata>
   <metadata name="diagramBarController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 58</value>
+    <value>9, 29</value>
   </metadata>
   <metadata name="PrintMenuPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>192, 58</value>
+    <value>96, 29</value>
   </metadata>
   <metadata name="ExportAsPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>368, 58</value>
+    <value>184, 29</value>
   </metadata>
   <metadata name="ImageToolsBringToFrontContainerPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>535, 58</value>
+    <value>268, 29</value>
   </metadata>
   <metadata name="ImageToolsSendToBackContainerPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>841, 58</value>
+    <value>421, 29</value>
   </metadata>
   <metadata name="ToolsContainerPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1142, 58</value>
+    <value>571, 29</value>
   </metadata>
   <metadata name="BringToFrontPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 97</value>
+    <value>9, 48</value>
   </metadata>
   <metadata name="SendToBackPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>207, 97</value>
+    <value>104, 48</value>
   </metadata>
 </root>

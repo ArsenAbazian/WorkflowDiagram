@@ -39,10 +39,14 @@ namespace WorkflowDiagramApp.StrategyDocument {
         public override void OnVisit(WfRunner runner) {
             bool result = CalcOperation();
             DataContext = result;
-            if(result)
+            if(result) {
                 Outputs["True"].OnVisit(runner, true);
-            else
+                Outputs["False"].Value = null;
+            }
+            else {
                 Outputs["False"].OnVisit(runner, false);
+                Outputs["True"].Value = null;
+            }
         }
 
         protected virtual bool CalcOperation() {

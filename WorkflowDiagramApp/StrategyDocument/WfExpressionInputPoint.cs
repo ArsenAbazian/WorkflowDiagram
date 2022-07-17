@@ -7,6 +7,5 @@ using WorkflowDiagram;
 
 namespace WorkflowDiagramApp.StrategyDocument {
     public class WfExpressionInputPoint : WfConnectionPoint {
-        public WfValueType InputType { get; set; }
     }
 }

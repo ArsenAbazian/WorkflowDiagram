@@ -312,8 +312,11 @@ namespace WorkflowDiagram.UI.Win {
                 return;
             Point delta = new Point(e.Location.X - this.downPoint.X, e.Location.Y - this.downPoint.Y);
             if(delta.X > SystemInformation.DragSize.Width ||
-                delta.Y > SystemInformation.DragSize.Height)
+                delta.Y > SystemInformation.DragSize.Height) {
                 this.gridControl1.DoDragDrop(((WfNode)downItem.Row.RowKey).Clone(), DragDropEffects.Move);
+                this.downItem = null;
+                this.wevToolbar.RefreshData();
+            }
         }
 
         private void wevToolbar_MouseUp(object sender, MouseEventArgs e) {
@@ -416,9 +419,22 @@ namespace WorkflowDiagram.UI.Win {
                     this.propertyGridControl1.SelectedObjects = selItems;
                 else
                     this.propertyGridControl1.SelectedObject = item.DataContext;
+                if(selItems[0] is WfNode) {
+                    this.connectionsEditor1.Connections = ((WfNode)selItems[0]).Inputs;
+                    this.connectionsEditor2.Connections = ((WfNode)selItems[0]).Outputs;
+                    this.gcDiagnostics.DataSource = ((WfNode)selItems[0]).Diagnostic;
+                }
+                else {
+                    this.connectionsEditor1.Connections = null;
+                    this.connectionsEditor2.Connections = null;
+                    this.gcDiagnostics.DataSource = null;
+                }
             }
             else {
                 this.propertyGridControl1.SelectedObject = null;
+                this.connectionsEditor1.Connections = null;
+                this.connectionsEditor2.Connections = null;
+                this.gcDiagnostics.DataSource = null;
             }
             //UpdateBarItems();
         }
@@ -478,6 +494,27 @@ namespace WorkflowDiagram.UI.Win {
             finally {
                 this.deletingInProcess = false;
                 this.diagramControl1.EndUpdate();
+            }
+        }
+
+        private void diagramControl1_CustomDrawItem(object sender, CustomDrawItemEventArgs e) {
+            WfConnector conn = e.Item.DataContext as WfConnector;
+            if(conn != null) {
+                if(!AnimationEnabled)
+                    return;
+                DiagramConnector c = (DiagramConnector)e.Item;
+                e.DefaultDraw(CustomDrawItemMode.Background);
+                int count = (int)(AnimationProgress / 0.2f);
+                float start = AnimationProgress - 0.2f * count;
+                float end = Math.Min(AnimationProgress, 1.0f);
+                for(float k = start; k <= end; k += 0.2f) {
+                    float len = k > 1.0f ? k - 1.0f : k;
+                    System.Windows.Point pt = ((IDiagramConnector)c).CalcLinePoint(k);
+                    e.GraphicsCache.FillEllipse((float)pt.X - 3.0f, (float)pt.Y - 3.0f, 6.0f, 6.0f, c.Appearance.BorderColor);
+                }
+
+                e.DefaultDraw(CustomDrawItemMode.Content);
+                return;
             }
         }
     }

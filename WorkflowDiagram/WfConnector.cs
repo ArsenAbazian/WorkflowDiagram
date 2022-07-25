@@ -73,6 +73,22 @@ namespace WorkflowDiagram {
 
         protected internal WfDocument Document { get; set; }
 
+        [XmlIgnore]
+        [Browsable(false)]
+        public string FromNodeName { get { return FromNode?.Name; } }
+
+        [XmlIgnore]
+        [Browsable(false)]
+        public string ToNodeName { get { return ToNode?.Name; } }
+
+        [XmlIgnore]
+        [Browsable(false)]
+        public string FromPointName { get { return From?.Text; } }
+
+        [XmlIgnore]
+        [Browsable(false)]
+        public string ToPointName { get { return To?.Text; } }
+
         WfConnectionPoint from;
         [XmlIgnore]
         [Browsable(false)]

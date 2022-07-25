@@ -26,7 +26,6 @@ namespace WorkflowDiagramApp {
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.directXFormContainerControl1 = new DevExpress.XtraEditors.DirectXFormContainerControl();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
@@ -37,34 +36,27 @@ namespace WorkflowDiagramApp {
             this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.bbiRun = new DevExpress.XtraBars.BarButtonItem();
             this.bbiTestInit = new DevExpress.XtraBars.BarButtonItem();
+            this.biRunOnce = new DevExpress.XtraBars.BarButtonItem();
+            this.biCancel = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.xtraOpenFileDialog1 = new DevExpress.XtraEditors.XtraOpenFileDialog(this.components);
-            this.biRunOnce = new DevExpress.XtraBars.BarButtonItem();
-            this.biCancel = new DevExpress.XtraBars.BarButtonItem();
-            this.directXFormContainerControl1.SuspendLayout();
+            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
+            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // directXFormContainerControl1
-            // 
-            this.directXFormContainerControl1.Controls.Add(this.ribbonControl1);
-            this.directXFormContainerControl1.Controls.Add(this.ribbonStatusBar1);
-            this.directXFormContainerControl1.Location = new System.Drawing.Point(2, 62);
-            this.directXFormContainerControl1.Margin = new System.Windows.Forms.Padding(4);
-            this.directXFormContainerControl1.Name = "directXFormContainerControl1";
-            this.directXFormContainerControl1.Size = new System.Drawing.Size(1838, 953);
-            this.directXFormContainerControl1.TabIndex = 0;
             // 
             // ribbonControl1
             // 
+            this.ribbonControl1.AllowMdiChildButtons = false;
             this.ribbonControl1.CommandLayout = DevExpress.XtraBars.Ribbon.CommandLayout.Simplified;
             this.ribbonControl1.Controller = this.barAndDockingController1;
-            this.ribbonControl1.EmptyAreaImageOptions.ImagePadding = new System.Windows.Forms.Padding(60, 58, 60, 58);
             this.ribbonControl1.ExpandCollapseItem.Id = 0;
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
@@ -80,18 +72,15 @@ namespace WorkflowDiagramApp {
             this.biRunOnce,
             this.biCancel});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.Margin = new System.Windows.Forms.Padding(6);
             this.ribbonControl1.MaxItemId = 11;
             this.ribbonControl1.Name = "ribbonControl1";
-            this.ribbonControl1.OptionsMenuMinWidth = 660;
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbonControl1.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2019;
             this.ribbonControl1.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.False;
             this.ribbonControl1.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide;
-            this.ribbonControl1.Size = new System.Drawing.Size(1838, 76);
+            this.ribbonControl1.Size = new System.Drawing.Size(931, 71);
             this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
-            this.ribbonControl1.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Hidden;
             // 
             // barAndDockingController1
             // 
@@ -158,6 +147,22 @@ namespace WorkflowDiagramApp {
             this.bbiTestInit.Name = "bbiTestInit";
             this.bbiTestInit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiTestInit_ItemClick);
             // 
+            // biRunOnce
+            // 
+            this.biRunOnce.Caption = "Run Once";
+            this.biRunOnce.Id = 9;
+            this.biRunOnce.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("biRunOnce.ImageOptions.SvgImage")));
+            this.biRunOnce.Name = "biRunOnce";
+            this.biRunOnce.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.biRunOnce_ItemClick);
+            // 
+            // biCancel
+            // 
+            this.biCancel.Caption = "Cancel";
+            this.biCancel.Id = 10;
+            this.biCancel.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("biCancel.ImageOptions.SvgImage")));
+            this.biCancel.Name = "biCancel";
+            this.biCancel.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.biCancel_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -193,52 +198,49 @@ namespace WorkflowDiagramApp {
             // 
             // ribbonStatusBar1
             // 
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 899);
-            this.ribbonStatusBar1.Margin = new System.Windows.Forms.Padding(6);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 505);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(1838, 54);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(931, 24);
             // 
             // xtraOpenFileDialog1
             // 
             this.xtraOpenFileDialog1.FileName = "xtraOpenFileDialog1";
             // 
-            // biRunOnce
+            // documentManager1
             // 
-            this.biRunOnce.Caption = "Run Once";
-            this.biRunOnce.Id = 9;
-            this.biRunOnce.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("biRunOnce.ImageOptions.SvgImage")));
-            this.biRunOnce.Name = "biRunOnce";
-            this.biRunOnce.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.biRunOnce_ItemClick);
-            // 
-            // biCancel
-            // 
-            this.biCancel.Caption = "Cancel";
-            this.biCancel.Id = 10;
-            this.biCancel.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("biCancel.ImageOptions.SvgImage")));
-            this.biCancel.Name = "biCancel";
-            this.biCancel.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.biCancel_ItemClick);
+            this.documentManager1.BarAndDockingController = this.barAndDockingController1;
+            this.documentManager1.MdiParent = this;
+            this.documentManager1.MenuManager = this.ribbonControl1;
+            this.documentManager1.RibbonAndBarsMergeStyle = DevExpress.XtraBars.Docking2010.Views.RibbonAndBarsMergeStyle.WhenNotFloating;
+            this.documentManager1.View = this.tabbedView1;
+            this.documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
+            this.tabbedView1});
+            this.documentManager1.DocumentActivate += new DevExpress.XtraBars.Docking2010.Views.DocumentEventHandler(this.documentManager1_DocumentActivate);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1842, 1017);
-            this.Controls.Add(this.directXFormContainerControl1);
-            this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.ClientSize = new System.Drawing.Size(931, 529);
+            this.Controls.Add(this.ribbonStatusBar1);
+            this.Controls.Add(this.ribbonControl1);
+            this.IsMdiContainer = true;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
-            this.Text = "Form1";
-            this.directXFormContainerControl1.ResumeLayout(false);
-            this.directXFormContainerControl1.PerformLayout();
+            this.Ribbon = this.ribbonControl1;
+            this.StatusBar = this.ribbonStatusBar1;
+            this.Text = "Workflow Designer";
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private DevExpress.XtraEditors.DirectXFormContainerControl directXFormContainerControl1;
         private DevExpress.XtraBars.BarButtonItem bbiNew;
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControl1;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
@@ -257,6 +259,8 @@ namespace WorkflowDiagramApp {
         private DevExpress.XtraBars.BarButtonItem bbiTestInit;
         private DevExpress.XtraBars.BarButtonItem biRunOnce;
         private DevExpress.XtraBars.BarButtonItem biCancel;
+        private DevExpress.XtraBars.Docking2010.DocumentManager documentManager1;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
     }
 }
 

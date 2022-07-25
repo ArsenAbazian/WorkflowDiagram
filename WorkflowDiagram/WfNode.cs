@@ -23,6 +23,25 @@ namespace WorkflowDiagram {
             return new WfConnectionPoint() { Type = type };
         }
 
+        protected string ConstrainStringValue(string value) {
+            if(value == null)
+                value = string.Empty;
+            value = value.Trim();
+            return value;
+        }
+
+        object image = null;
+        [XmlIgnore]
+        [Browsable(false)]
+        public object Image {
+            get {
+                if(image == null)
+                    image = CreateImage();
+                return image;
+            }
+        }
+        protected virtual object CreateImage() { return null; }
+
         event PropertyChangedEventHandler propertyChanged;
         public event PropertyChangedEventHandler PropertyChanged {
             add { this.propertyChanged += value; }

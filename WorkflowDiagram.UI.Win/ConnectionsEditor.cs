@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WorkflowDiagram.Editors;
 
 namespace WorkflowDiagram.UI.Win {
     public partial class ConnectionsEditor : XtraUserControl {

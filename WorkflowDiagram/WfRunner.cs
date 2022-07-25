@@ -46,6 +46,12 @@ namespace WorkflowDiagram {
         }
 
         protected int VisitIndex { get; set; }
+        
+        public Task<bool> InitializeAsync() {
+            CancellationSource = new CancellationTokenSource();
+            return Task.Run(() => { return Initialize(); }, CancellationSource.Token);
+        }
+
         public virtual bool Initialize() {
             Reset();
             
@@ -142,6 +148,8 @@ namespace WorkflowDiagram {
         }
 
         protected virtual void VisitNode(WfNode node, int visitIndex) {
+            if(node.IsVisited(visitIndex))
+                return;
             node.OnVisit(this);
             node.VisitIndex = visitIndex;
         }

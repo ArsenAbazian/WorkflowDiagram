@@ -1,4 +1,5 @@
 ﻿using DevExpress.LookAndFeel;
+using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using WorkflowDiagram.UI.Win;
 using WorkflowDiagramApp.StrategyDocument;
 
 namespace WorkflowDiagramApp {
-    public partial class MainForm : DirectXForm {
+    public partial class MainForm : RibbonForm {
         public MainForm() {
             InitializeComponent();
 
@@ -77,18 +78,19 @@ namespace WorkflowDiagramApp {
             
         }
 
+        protected WfDocumentControl ActiveDocumentControl { 
+            get {
+                return (WfDocumentControl)this.tabbedView1.ActiveDocument?.Control;
+            } 
+        }
         protected virtual void AddDoumentControl(WfDocument document) {
-            Document = document;
-            WfDiagramControl c = new WfDiagramControl(document);
-            c.Dock = DockStyle.Fill;
-            Controls.Add(c);
-            c.BringToFront();
-            c.FitToDrawing();
-            this.ribbonControl1.MergeRibbon(c.Ribbon);
+            this.tabbedView1.AddDocument(new WfDocumentControl(document) { Text = document.Name });
         }
 
-        protected WfDocument Document {
-            get; private set;
+        protected WfDocument ActiveDocument {
+            get {
+                return ActiveDocumentControl?.Document;
+            }
         }
 
         private void bbiOpen_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
@@ -122,12 +124,12 @@ namespace WorkflowDiagramApp {
         protected WfRunner ActiveRunner { get; set; }
 
         private void bbiTestInit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            if(Document == null) {
+            if(ActiveDocument == null) {
                 XtraMessageBox.Show("No Document loaded", "Run");
                 return;
             }
 
-            WfRunner runner = new WfRunner(Document);
+            WfRunner runner = new WfRunner(ActiveDocument);
             ActiveRunner = runner;
             bool res = runner.Initialize();
             if(res)
@@ -137,43 +139,55 @@ namespace WorkflowDiagramApp {
         }
 
         private void bbiRun_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            if(Document == null) {
+            if(ActiveDocument == null) {
                 XtraMessageBox.Show("No Document loaded", "Run");
                 return;
             }
-            WfRunner runner = new WfRunner(Document);
+            WfRunner runner = new WfRunner(ActiveDocument);
             ActiveRunner = runner;
             bool res = runner.Initialize();
             if(!res) {
+                ActiveDocumentControl.AnimationEnabled = false;
                 XtraMessageBox.Show("Test initialization failed!", "Initialization");
                 return;
             }
+            ActiveDocumentControl.AnimationEnabled = true;
             runner.RunAsync().ContinueWith(t => {
-                if(t.Result == false)
-                    XtraMessageBox.Show("Execution failed!", "Execution");
-                else
-                    XtraMessageBox.Show("Executed succesfully!", "Execution");
+                BeginInvoke(new Action<bool>(tr => {
+                    if(ActiveDocumentControl != null)
+                        ActiveDocumentControl.AnimationEnabled = false;
+                    if(tr == false)
+                        XtraMessageBox.Show("Execution failed!", "Execution");
+                    else
+                        XtraMessageBox.Show("Executed succesfully!", "Execution");
+                }), t.Result);
             });
         }
 
         private void biRunOnce_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            if(Document == null) {
+            if(ActiveDocument == null) {
                 XtraMessageBox.Show("No Document loaded", "Run");
                 return;
             }
 
-            WfRunner runner = new WfRunner(Document);
+            WfRunner runner = new WfRunner(ActiveDocument);
             ActiveRunner = runner;
             bool res = runner.Initialize();
             if(!res) {
+                ActiveDocumentControl.AnimationEnabled = false;
                 XtraMessageBox.Show("Test initialization failed!", "Initialization");
                 return;
             }
+            ActiveDocumentControl.AnimationEnabled = true;
             runner.RunOnceAsync().ContinueWith(t => {
-                if(t.Result == false)
-                    XtraMessageBox.Show("Execution failed!", "Execution");
-                else
-                    XtraMessageBox.Show("Executed succesfully!", "Execution");
+                BeginInvoke(new Action<bool>(tr => {
+                    if(ActiveDocumentControl != null)
+                        ActiveDocumentControl.AnimationEnabled = false;
+                    if(tr == false)
+                        XtraMessageBox.Show("Execution failed!", "Execution");
+                    else
+                        XtraMessageBox.Show("Executed succesfully!", "Execution");
+                }), t.Result);
             });
         }
 
@@ -181,7 +195,16 @@ namespace WorkflowDiagramApp {
             if(ActiveRunner != null) {
                 ActiveRunner.Cancel();
                 ActiveRunner = null;
+                if(ActiveDocumentControl != null)
+                    ActiveDocumentControl.AnimationEnabled = false;
             }
+        }
+
+        private void documentManager1_DocumentActivate(object sender, DevExpress.XtraBars.Docking2010.Views.DocumentEventArgs e) {
+            if(e.Document == null || e.Document.IsFloating)
+                return;
+            WfDocumentControl c = (WfDocumentControl)e.Document.Control;
+            this.ribbonControl1.MergeRibbon(c.Ribbon);
         }
     }
 }

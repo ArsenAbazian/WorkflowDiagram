@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -64,7 +65,8 @@ namespace WorkflowDiagram {
                 return null;
             if(!File.Exists(fileName))
                 return null;
-            XmlSerializer formatter = new XmlSerializer(t);
+            var extra = GetExtraTypes(t);
+            XmlSerializer formatter = new XmlSerializer(t, extra);
             try {
                 ISupportSerialization obj = null;
                 using(FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate)) {
@@ -79,6 +81,35 @@ namespace WorkflowDiagram {
             }
         }
 
+        public static Type[] GetExtraTypes(Type t) {
+            var allow = t.GetCustomAttribute<AllowDynamicTypesAttribute>();
+            if(allow == null || !allow.Allow)
+                return new Type[0];
+            var attr = t.GetCustomAttributes<XmlIncludeAttribute>().ToList();
+            if(attr.Count == 0)
+                return new Type[0];
+            var asms = Assembly.GetEntryAssembly().GetReferencedAssemblies().ToList(); // AppDomain.CurrentDomain.GetAssemblies();
+            asms.Add(Assembly.GetEntryAssembly().GetName());
+            List<Type> extra = new List<Type>();
+            foreach(var aname in asms) {
+                try {
+                    if(aname.Name.StartsWith("DevExpress"))
+                        continue;
+                    Assembly assembly = Assembly.Load(aname);
+                    foreach(Type tp in assembly.GetTypes()) {
+                        if(!tp.IsClass && tp.IsAbstract)
+                            continue;
+                        foreach(var a in attr) {
+                            if(a.Type.IsAssignableFrom(tp))
+                                extra.Add(tp);
+                        }
+                    }
+                }
+                catch(Exception) { }
+            }
+            return extra.ToArray();
+        }
+
         public static bool Save(ISupportSerialization obj, Type t, string fullName) {
             string path = Path.GetDirectoryName(fullName);
             string file = Path.GetFileName(fullName);
@@ -89,7 +120,7 @@ namespace WorkflowDiagram {
             if(string.IsNullOrEmpty(file))
                 return false;
             try {
-                XmlSerializer formatter = new XmlSerializer(t);
+                XmlSerializer formatter = new XmlSerializer(t, GetExtraTypes(t));
                 using(FileStream fs = new FileStream(tmpFile, FileMode.Create)) {
                     formatter.Serialize(fs, obj);
                 }
@@ -109,5 +140,13 @@ namespace WorkflowDiagram {
         string FileName { get; set; }
         void OnStartDeserialize();
         void OnEndDeserialize();
+    }
+
+    public class AllowDynamicTypesAttribute : Attribute { 
+        public AllowDynamicTypesAttribute() : this(true) { }
+        public AllowDynamicTypesAttribute(bool allow) {
+            Allow = allow;
+        }
+        public bool Allow { get; private set; }
     }
 }

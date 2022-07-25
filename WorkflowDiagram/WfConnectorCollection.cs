@@ -25,11 +25,27 @@ namespace WorkflowDiagram {
             else
                 item.To = Point;
         }
+
+        public void MoveUp(WfConnector sel) {
+            int index = IndexOf(sel);
+            if(index == 0)
+                return;
+            Move(index, index - 1);
+        }
+
         protected override void RemoveItem(int index) {
             WfConnector item = this[index];
             base.RemoveItem(index);
             item.OnRemoved();
         }
+
+        public void MoveDown(WfConnector sel) {
+            int index = IndexOf(sel);
+            if(index == Count - 1)
+                return;
+            Move(index, index + 1);
+        }
+
         protected override void SetItem(int index, WfConnector item) {
             if(Contains(item))
                 return;

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using WfBaseScript.Editors;
+using WorkflowDiagram.Editors;
 using WorkflowDiagram.UI.Win;
 
 namespace WorkflowDiagramApp.Editors {

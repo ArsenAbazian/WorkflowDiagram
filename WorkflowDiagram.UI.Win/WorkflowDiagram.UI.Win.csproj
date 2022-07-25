@@ -120,13 +120,18 @@
     <Compile Include="ConnectionsEditor.Designer.cs">
       <DependentUpon>ConnectionsEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConnectorsEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConnectorsEditor.Designer.cs">
+      <DependentUpon>ConnectorsEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomDiagramControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CustomPropertyGridControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IPropertyEditor.cs" />
     <Compile Include="NodeItem.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -137,14 +142,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RectentItemsList.cs" />
-    <Compile Include="WfDiagramControl.cs">
+    <Compile Include="WfDocumentControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WfDiagramControl.Designer.cs">
-      <DependentUpon>WfDiagramControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WfDocumentControl.cs">
-      <SubType>Component</SubType>
+    <Compile Include="WfDocumentControl.Designer.cs">
+      <DependentUpon>WfDocumentControl.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -157,14 +159,20 @@
     <EmbeddedResource Include="ConnectionsEditor.resx">
       <DependentUpon>ConnectionsEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConnectorsEditor.resx">
+      <DependentUpon>ConnectorsEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="WfDiagramControl.resx">
-      <DependentUpon>WfDiagramControl.cs</DependentUpon>
+    <EmbeddedResource Include="WfDocumentControl.resx">
+      <DependentUpon>WfDocumentControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\WorkflowDiagram.WfConnector.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

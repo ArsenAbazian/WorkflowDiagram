@@ -10,8 +10,11 @@ using System.Xml.Serialization;
 namespace WorkflowDiagram {
     
     [Serializable]
+    [AllowDynamicTypes]
     [XmlInclude(typeof(WfConnectionPoint))]
     [XmlInclude(typeof(WfConnector))]
+    [XmlInclude(typeof(WfNode))]
+    [XmlInclude(typeof(WfDataInfo))]
     public class WfDocument : INotifyPropertyChanged, ISupportSerialization {
         public WfDocument() {
             Id = Guid.NewGuid();
@@ -26,6 +29,10 @@ namespace WorkflowDiagram {
         public Guid Id { get; set; }
         [Browsable(false)]
         public string FileName { get; set; }
+
+        [Browsable(false)]
+        public List<WfDataInfo> Data { get; } = new List<WfDataInfo>();
+        protected Dictionary<Type, WfDataInfo> DataDictionary { get; } = new Dictionary<Type, WfDataInfo>(); 
 
         /// <summary>
         /// Settings, not related to scripts
@@ -112,6 +119,10 @@ namespace WorkflowDiagram {
         }
 
         void ISupportSerialization.OnEndDeserialize() {
+            DataDictionary.Clear();
+            foreach(WfDataInfo info in Data) {
+                DataDictionary.Add(info.GetType(), info);
+            }
             foreach(var node in Nodes) {
                 node.OwnerCollection = Nodes;
                 node.OnEndDeserialize();
@@ -128,6 +139,16 @@ namespace WorkflowDiagram {
 
                 RemoveUnusedConnectors();
             }
+        }
+
+        public T GetData<T>() where T: WfDataInfo, new() {
+            WfDataInfo info = null;
+            if(DataDictionary.TryGetValue(typeof(T), out info))
+                return (T)info;
+
+            info = new T();
+            DataDictionary.Add(typeof(T), info);
+            return (T)info;
         }
 
         public void RemoveUnusedConnectors() {
@@ -199,9 +220,9 @@ namespace WorkflowDiagram {
         }
 
         public List<Type> GetAvailableNodeTypes() {
-            var res = GetType().GetCustomAttributes(typeof(XmlIncludeAttribute), true)
-                .Where(a => ((XmlIncludeAttribute)a).Type.IsSubclassOf(typeof(WfNode)))
-                .Select(a => ((XmlIncludeAttribute)a).Type)
+            Type nodeBase = typeof(WfNode);
+            var res = SerializationHelper.GetExtraTypes(GetType())
+                .Where(t => !t.IsAbstract && nodeBase.IsAssignableFrom(t))
                 .ToList();
             return res;
         }

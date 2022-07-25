@@ -8,15 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using WfBaseScript;
 using WorkflowDiagram;
 using WorkflowDiagramApp.Editors;
 
 namespace WorkflowDiagramApp.StrategyDocument {
-    public class WfTickerInputNode : WfStrategyNodeBase {
+    public class WfTickerInputNode : WfVisualNodeBase {
         public override string Header => Exchange + ": " + Ticker;
         public override string Type => "Ticker Input";
 
         public override string VisualTemplateName => "Input";
+
+        public override string Category => "Data";
 
         ExchangeType exchange = ExchangeType.Poloniex;
         [Category("Ticker")]

@@ -72,7 +72,8 @@ namespace WorkflowDiagram {
                 if(Value == null) {
                     return "";
                 }
-                return Value.ToString();
+                string res = Value.ToString();
+                return res.Length > 16 ? res.Substring(0, 16) : res;
             }
         }
 

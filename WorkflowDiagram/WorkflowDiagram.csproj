@@ -41,12 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Editors\IPropertyEditor.cs" />
     <Compile Include="PropertyEditorAttribute.cs" />
     <Compile Include="SerializationHelper.cs" />
     <Compile Include="WfColor.cs" />
     <Compile Include="WfConnectionPoint.cs" />
     <Compile Include="WfConnectionPointCollection.cs" />
     <Compile Include="WfConnectorCollection.cs" />
+    <Compile Include="WfDataInfo.cs" />
     <Compile Include="WfDiagnosticInfo.cs" />
     <Compile Include="WfDocument.cs" />
     <Compile Include="WfNode.cs" />

@@ -1,9 +1,7 @@
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\WorkflowDiagram.UI.Win.dll
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\WorkflowDiagram.UI.Win.pdb
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\WorkflowDiagram.dll
-D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\WorkflowDiagram.pdb
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.csproj.AssemblyReference.cache
-D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.WfDiagramControl.resources
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.csproj.GenerateResource.cache
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.csproj.CoreCompileInputs.cache
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.dll
@@ -37,3 +35,6 @@ D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Deb
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.csproj.CopyComplete
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\MetaSharp.dll
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.ConnectionsEditor.resources
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.WfDocumentControl.resources
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.ConnectorsEditor.resources
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\WorkflowDiagram.pdb

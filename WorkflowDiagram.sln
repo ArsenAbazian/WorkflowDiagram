@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagramApp", "Workf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WfBaseScript", "WfBaseScript\WfBaseScript.csproj", "{FDE9EA71-C293-47F5-981A-D56E9505114A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlSerialization", "XmlSerialization\XmlSerialization\XmlSerialization.csproj", "{4AF0943A-DA67-4A85-B594-3DBC3C79217A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FDE9EA71-C293-47F5-981A-D56E9505114A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDE9EA71-C293-47F5-981A-D56E9505114A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDE9EA71-C293-47F5-981A-D56E9505114A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AF0943A-DA67-4A85-B594-3DBC3C79217A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AF0943A-DA67-4A85-B594-3DBC3C79217A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AF0943A-DA67-4A85-B594-3DBC3C79217A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AF0943A-DA67-4A85-B594-3DBC3C79217A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

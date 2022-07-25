@@ -1,0 +1,4 @@
+[submodule "XmlSerialization"]
+	path = XmlSerialization
+	url = C:/Development/My/XmlSerialization
+	branch = main

@@ -4,3 +4,6 @@ D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram\obj\Debug\Work
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram\obj\Debug\WorkflowDiagram.dll
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram\obj\Debug\WorkflowDiagram.pdb
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram\obj\Debug\WorkflowDiagram.csproj.AssemblyReference.cache
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram\bin\Debug\XmlSerialization.dll
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram\bin\Debug\XmlSerialization.pdb
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram\obj\Debug\WorkflowDiagram.csproj.CopyComplete

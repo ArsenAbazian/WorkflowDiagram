@@ -195,6 +195,10 @@
       <Project>{5c2ec487-3e30-4274-8263-dbacfa5319c6}</Project>
       <Name>WorkflowDiagram</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XmlSerialization\XmlSerialization\XmlSerialization.csproj">
+      <Project>{4AF0943A-DA67-4A85-B594-3DBC3C79217A}</Project>
+      <Name>XmlSerialization</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

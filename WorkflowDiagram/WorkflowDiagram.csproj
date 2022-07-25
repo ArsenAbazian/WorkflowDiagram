@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Editors\IPropertyEditor.cs" />
     <Compile Include="PropertyEditorAttribute.cs" />
-    <Compile Include="SerializationHelper.cs" />
     <Compile Include="WfColor.cs" />
     <Compile Include="WfConnectionPoint.cs" />
     <Compile Include="WfConnectionPointCollection.cs" />
@@ -57,6 +56,12 @@
     <Compile Include="WfConnector.cs" />
     <Compile Include="WfNodeEventArgs.cs" />
     <Compile Include="WfRunner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XmlSerialization\XmlSerialization\XmlSerialization.csproj">
+      <Project>{4af0943a-da67-4a85-b594-3dbc3c79217a}</Project>
+      <Name>XmlSerialization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

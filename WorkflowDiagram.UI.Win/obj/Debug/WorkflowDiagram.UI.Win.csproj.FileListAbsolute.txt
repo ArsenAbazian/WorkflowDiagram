@@ -38,3 +38,5 @@ D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Deb
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.WfDocumentControl.resources
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\obj\Debug\WorkflowDiagram.UI.Win.ConnectorsEditor.resources
 D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\WorkflowDiagram.pdb
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\XmlSerialization.dll
+D:\Development\My\WorkflowDiagram\WorkflowDiagram\WorkflowDiagram.UI.Win\bin\Debug\XmlSerialization.pdb

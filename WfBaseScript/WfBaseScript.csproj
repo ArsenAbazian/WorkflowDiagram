@@ -158,6 +158,10 @@
       <Project>{5c2ec487-3e30-4274-8263-dbacfa5319c6}</Project>
       <Name>WorkflowDiagram</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XmlSerialization\XmlSerialization\XmlSerialization.csproj">
+      <Project>{4af0943a-da67-4a85-b594-3dbc3c79217a}</Project>
+      <Name>XmlSerialization</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -119,6 +119,9 @@ namespace WorkflowDiagram {
             Name = string.Empty;
         }
 
+        void ISupportSerialization.OnBeginSerialize() { }
+        void ISupportSerialization.OnEndSerialize() { }
+
         void ISupportSerialization.OnEndDeserialize() {
             DataDictionary.Clear();
             foreach(WfDataInfo info in Data) {
@@ -168,7 +171,7 @@ namespace WorkflowDiagram {
             }
         }
 
-        void ISupportSerialization.OnStartDeserialize() {
+        void ISupportSerialization.OnBeginDeserialize() {
             Clear();
         }
 

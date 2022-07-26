@@ -121,6 +121,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="XmlSerialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XmlSerialization.1.0.0\lib\net472\XmlSerialization.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Editors\CandlestickIntervalEditor.cs">
@@ -194,10 +197,6 @@
     <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.csproj">
       <Project>{5c2ec487-3e30-4274-8263-dbacfa5319c6}</Project>
       <Name>WorkflowDiagram</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XmlSerialization\XmlSerialization\XmlSerialization.csproj">
-      <Project>{4AF0943A-DA67-4A85-B594-3DBC3C79217A}</Project>
-      <Name>XmlSerialization</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

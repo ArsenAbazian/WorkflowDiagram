@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using WorkflowDiagram;
 using WorkflowDiagram.UI.Win;
 using WorkflowDiagramApp.StrategyDocument;
+using XmlSerialization;
 
 namespace WorkflowDiagramApp {
     public partial class MainForm : RibbonForm {

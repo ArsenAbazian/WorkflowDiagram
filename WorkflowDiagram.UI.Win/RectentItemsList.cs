@@ -19,10 +19,11 @@ namespace WorkflowDiagram.UI.Win {
                 return;
             Items.Add(file);
         }
-
+        void ISupportSerialization.OnBeginSerialize() { }
+        void ISupportSerialization.OnEndSerialize() { }
         void ISupportSerialization.OnEndDeserialize() {
         }
-        void ISupportSerialization.OnStartDeserialize() {
+        void ISupportSerialization.OnBeginDeserialize() {
             Items.Clear();
         }
     }

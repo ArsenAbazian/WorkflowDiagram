@@ -142,7 +142,7 @@ namespace WorkflowDiagramApp.Helpers {
             SerializationHelper.Save(this, typeof(PropertyStorage), fullPath);
         }
 
-        void ISupportSerialization.OnStartDeserialize() {
+        void ISupportSerialization.OnBeginDeserialize() {
             this.serializableItems = new List<PropertyStoreBase>();
             this.items.Clear();
         }
@@ -152,6 +152,9 @@ namespace WorkflowDiagramApp.Helpers {
                 this.items.Add(s.Key, s);
             }
         }
+
+        void ISupportSerialization.OnBeginSerialize() { }
+        void ISupportSerialization.OnEndSerialize() { }
 
         internal string FullPath { get; set; }
         [Browsable(false)]

@@ -10,8 +10,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using WfBaseScript;
-using WfBaseScript.Editors;
+using WorkflowDiagram.Nodes.Base;
+using WorkflowDiagram.Nodes.Base.Editors;
 using WorkflowDiagram;
 
 namespace WorkflowDiagramApp.StrategyDocument {

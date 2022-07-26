@@ -121,8 +121,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="XmlSerialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XmlSerialization.1.0.0\lib\net472\XmlSerialization.dll</HintPath>
+    <Reference Include="XmlSerialization, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XmlSerialization.1.0.2\lib\net472\XmlSerialization.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +186,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WfBaseScript\WfBaseScript.csproj">
+    <ProjectReference Include="..\WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.csproj">
       <Project>{FDE9EA71-C293-47F5-981A-D56E9505114A}</Project>
-      <Name>WfBaseScript</Name>
+      <Name>WorkflowDiagram.Nodes.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\WorkflowDiagram.UI.Win\WorkflowDiagram.UI.Win.csproj">
       <Project>{dccf4253-22a8-4f04-be71-13f0da60ce1d}</Project>

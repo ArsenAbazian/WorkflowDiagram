@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using WfBaseScript;
+using WorkflowDiagram.Nodes.Base;
 using WorkflowDiagram;
 using WorkflowDiagramApp.Editors;
 

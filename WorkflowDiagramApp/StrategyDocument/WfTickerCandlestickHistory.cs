@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WfBaseScript;
+using WorkflowDiagram.Nodes.Base;
 using WorkflowDiagram;
 
 namespace WorkflowDiagramApp.StrategyDocument {

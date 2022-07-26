@@ -112,8 +112,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationClient" />
     <Reference Include="WindowsBase" />
-    <Reference Include="XmlSerialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XmlSerialization.1.0.0\lib\net472\XmlSerialization.dll</HintPath>
+    <Reference Include="XmlSerialization, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XmlSerialization.1.0.2\lib\net472\XmlSerialization.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +144,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RectentItemsList.cs" />
     <Compile Include="WfDocumentControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

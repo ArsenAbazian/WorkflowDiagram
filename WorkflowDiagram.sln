@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagram.UI.Win", "W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagramApp", "WorkflowDiagramApp\WorkflowDiagramApp.csproj", "{C554EAAB-100D-433C-ADA4-8EAB001057C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WfBaseScript", "WfBaseScript\WfBaseScript.csproj", "{FDE9EA71-C293-47F5-981A-D56E9505114A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagram.Nodes.Base", "WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.csproj", "{FDE9EA71-C293-47F5-981A-D56E9505114A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

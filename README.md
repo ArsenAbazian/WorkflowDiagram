@@ -63,42 +63,42 @@ your custom script to operate on input values. You can consider this set
 of nodes as source for visual programming. Though this set will be
 constantly expanded, you already can use the following nodes:
 
-WfAbortNode -- immediately stops the execution and returns true or false
+**WfAbortNode** -- immediately stops the execution and returns true or false
 value.
 
-WfChangeNode -- check if input value was changed and pass execution to
+**WfChangeNode** -- check if input value was changed and pass execution to
 one of the outputs: 'yes' or 'no'.
 
-WfCollectionNode -- use it's input item to execute one of the following
+**WfCollectionNode** -- use it's input item to execute one of the following
 operations: add (add item to collection if collection did not hold this
 item), remove (remove value to collection if collection holds item),
 reset (reset collection).
 
-WfConditionNode -- performs one of the logical operations: and, or,
+**WfConditionNode** -- performs one of the logical operations: and, or,
 equal, not equal, less, less or equal, greater, greater or equal on its
 two input values. Then depend on result, pass execution to one of its
 branch output 'true' or false
 
-WfConstantValueNode -- defines constant value of one of following types:
+**WfConstantValueNode** -- defines constant value of one of following types:
 decimal, string or boolean.
 
-WfForEachNode -- receives collection as input value and pass each item
+**WfForEachNode** -- receives collection as input value and pass each item
 in this collection to its subtree, connected to its ForEach output.
 Think of it as foreach statement in c\#.
 
-WfIndexerNode -- get item from collection by index, defined in this node
+**WfIndexerNode** -- get item from collection by index, defined in this node
 and pass it to next nodes. Supports: first, last and item by index.
 
-WfRepeatNode -- repeat subtree execution by N times defined in this
+**WfRepeatNode** -- repeat subtree execution by N times defined in this
 node. Think of it as for statement in c\#.
 
-WfScriptNode -- receives up to 6 input values and pass them through c\#
+**WfScriptNode** -- receives up to 6 input values and pass them through c\#
 script. Used as base for arithmetic operations.
 
-WfStorageValueNode -- allows you to store value in global storage and
+**WfStorageValueNode** -- allows you to store value in global storage and
 get value from it.
 
-WfSwitchNode -- analog of switch statement in c\#. Allows you to define
+**WfSwitchNode** -- analog of switch statement in c\#. Allows you to define
 a set of values and connect subtree to them. Input value will compare to
 the each of defined values and if it equals to the specific value the
 execution will pass to the brunch connected to this value.

@@ -9,6 +9,13 @@ comes with Visual Designer written for Windows Forms.
 
 Simple example:
 ```csharp
+WfDocument doc = new WfDocument(); 
+WfRunner runner = new WfRunner(doc);
+bool result = runner.RunOnce(doc);
+```
+In this example we create empty workflow document and execute it. This example does nothing, as well as most of managers. 
+More complicated example: 
+```csharp
 WfDocument doc = new WfDocument();
 WfConstantValueNode const1 = new WfConstantValueNode(1.0);
 doc.Add(const1);

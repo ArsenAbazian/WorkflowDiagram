@@ -134,6 +134,6 @@ design.
 Here is my example. I created CryptoTradingFramework application which
 supports Strategies. I created a set of nodes which allows my user
 creates their own strategy, test them on historical data and, using only
-visual design (ok, I not finished it yet ). Here is the example:
+visual design (ok, I not finished it yet ). 
 
 ![](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/media/image3.png)

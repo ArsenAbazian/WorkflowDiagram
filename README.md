@@ -5,7 +5,7 @@ connections between them, and then use runner which visits these nodes
 and execute operations, associated to these nodes. Workflow diagram
 comes with Visual Designer written for Windows Forms.
 
-![](help/media/image1.png)
+![](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/media/image1.png)
 
 Simple example:
 

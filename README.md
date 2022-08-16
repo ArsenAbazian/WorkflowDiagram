@@ -10,39 +10,25 @@ comes with Visual Designer written for Windows Forms.
 Simple example:
 ```
 WfDocument doc = new WfDocument();
-
 WfConstantValueNode const1 = new WfConstantValueNode(1.0);
-
 doc.Add(const1);
-
 WfConstantValueNode const2 = new WfConstantValueNode(2.0);
-
 doc.Add(const2);
-
-WfConditionNode cond1 = new
-WfConditionNode(WfConditionalOperation.Equal);
-
+WfConditionNode cond1 = new WfConditionNode(WfConditionalOperation.Equal);
 doc.Add(cond1);
 
 const1.Outputs\[0\].ConnectTo(cond1, \"In1\");
-
 const2.Outputs\[0\].ConnectTo(cond1, \"In2\");
 
 WfStorageValueNode stTrue = new WfStorageValueNode(\"Condition True\");
-
 doc.Add(stTrue);
-
-WfStorageValueNode stFalse = new WfStorageValueNode(\"Condition
-False\");
-
+WfStorageValueNode stFalse = new WfStorageValueNode(\"Condition False\");
 doc.Add(stFalse);
 
 cond1.Connect(\"False\", stFalse, \"Run\");
-
 cond1.Connect(\"True\", stTrue, \"Run\");
 
 WfRunner runner = new WfRunner(doc);
-
 bool result = runner.RunOnce(doc);
 ```
 In this example we create two nodes, containing double constant value 1

@@ -63,7 +63,7 @@ your custom script to operate on input values. You can consider this set
 of nodes as source for visual programming. Though this set will be
 constantly expanded, you already can use the following nodes:
 
-WfAbortNode -- immediately stops the execution and returns true or false
+*WfAbortNode* -- immediately stops the execution and returns true or false
 value.
 
 WfChangeNode -- check if input value was changed and pass execution to

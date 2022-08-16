@@ -8,7 +8,7 @@ comes with Visual Designer written for Windows Forms.
 ![](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/media/image1.png)
 
 Simple example:
-```
+```csharp
 WfDocument doc = new WfDocument();
 WfConstantValueNode const1 = new WfConstantValueNode(1.0);
 doc.Add(const1);

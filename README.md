@@ -53,7 +53,7 @@ result of the operation to the global storage. Here is the visualization
 of this workflow:
 
 ![Graphical user interface Description automatically
-generated](help/media/image2.png)
+generated](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/media/image2.png)
 
 Of course, this is very simple example that has a less logic, but you've
 got the idea.
@@ -136,4 +136,4 @@ supports Strategies. I created a set of nodes which allows my user
 creates their own strategy, test them on historical data and, using only
 visual design (ok, I not finished it yet ). Here is the example:
 
-![](help/media/image3.png)
+![](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/media/image3.png)

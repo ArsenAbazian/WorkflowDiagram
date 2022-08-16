@@ -14,11 +14,26 @@ namespace WorkflowDiagram.Nodes.Base {
         public override string Type => "Constant";
         public override string Header { get => Convert.ToString(GetValue()); }
 
+        public WfConstantValueNode() { }
+        public WfConstantValueNode(double value) {
+            ConstantType = WfValueType.Decimal;
+            Value = value;
+        }
+        public WfConstantValueNode(bool value) {
+            ConstantType = WfValueType.Boolean;
+            Value = value;
+        }
+
+        public WfConstantValueNode(string value) {
+            ConstantType = WfValueType.String;
+            Value = value;
+        }
+
         protected override bool OnInitializeCore(WfRunner runner) {
             return true;
         }
 
-        public override void OnVisit(WfRunner runner) {
+        protected override void OnVisitCore(WfRunner runner) {
             Outputs[0].OnVisit(runner, Value);
         }
 

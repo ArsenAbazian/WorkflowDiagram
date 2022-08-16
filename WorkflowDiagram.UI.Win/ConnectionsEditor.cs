@@ -46,6 +46,10 @@ namespace WorkflowDiagram.UI.Win {
 
         private void gridView1_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e) {
             UpdateButtons();
+            WfConnectionPoint pt = (WfConnectionPoint)this.gridView1.GetFocusedRow();
+            if(pt == null)
+                return;
+                ShowPropertiesForm(pt);
         }
 
         protected virtual void UpdateButtons() {
@@ -96,5 +100,27 @@ namespace WorkflowDiagram.UI.Win {
                 ((IPropertyEditor)e.RepositoryItem).Initialize(pt, nameof(pt.Value), e.CellValue);
             }
         }
+
+        private void repositoryItemButtonEdit1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e) {
+            WfConnectionPoint pt = (WfConnectionPoint)this.gridView1.GetFocusedRow();
+            ShowPropertiesForm(pt);
+        }
+
+        private readonly object showPointProperties = new object();
+        public event ShowPointValueEventHandler ShowPointProperties {
+            add { Events.AddHandler(showPointProperties, value); }
+            remove { Events.RemoveHandler(showPointProperties, value); }
+        }
+        protected virtual void ShowPropertiesForm(WfConnectionPoint pt) {
+            ShowPointValueEventHandler handler = Events[showPointProperties] as ShowPointValueEventHandler;
+            if(handler != null)
+                handler.Invoke(this, new WfPointValueEventArgs() { Point = pt });
+        }
+    }
+
+    public delegate void ShowPointValueEventHandler(object sender, WfPointValueEventArgs e);
+
+    public class WfPointValueEventArgs : EventArgs {
+        public WfConnectionPoint Point { get; set; }
     }
 }

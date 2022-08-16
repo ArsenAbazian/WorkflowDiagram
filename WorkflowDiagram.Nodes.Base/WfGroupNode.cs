@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 using WorkflowDiagram;
 
 namespace WorkflowDiagram.Nodes.Base {
-    public class WfAbortNode : WfVisualNodeBase {
-        public override string VisualTemplateName => "Abort";
+    public class WfGroupNode : WfVisualNodeBase {
+        public override string VisualTemplateName => "Group";
 
-        public override string Type => "Abort";
+        public override string Type => "Group";
 
         public bool Success { get; set; }
 
         protected override void OnVisitCore(WfRunner runner) {
-            Outputs[0].Value = Success;
-            Outputs["Result"].OnVisit(runner, Inputs["In"].Value);
-            runner.Success = Success;
-            runner.Stop();
+            
         }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {
@@ -28,8 +25,7 @@ namespace WorkflowDiagram.Nodes.Base {
 
         protected override List<WfConnectionPoint> GetDefaultOutputs() {
             return new WfConnectionPoint[] {
-                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "ResultCode", Text = "Result Code", Requirement = WfRequirementType.Optional },
-                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Result", Text = "Result", Requirement = WfRequirementType.Optional },
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Group", Text = "Group", Requirement = WfRequirementType.Optional },
             }.ToList();
         }
 

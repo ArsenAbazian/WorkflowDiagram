@@ -14,6 +14,11 @@ namespace WorkflowDiagram.Nodes.Base {
 
         public override string Header => GetOperationDescription();
 
+        public WfConditionNode() : this(WfConditionalOperation.Equal) { }
+        public WfConditionNode(WfConditionalOperation operation) {
+            Operation = operation;
+        }
+
         private string GetOperationDescription() {
             switch(Operation) {
                 case WfConditionalOperation.Equal:
@@ -36,22 +41,22 @@ namespace WorkflowDiagram.Nodes.Base {
             return true;
         }
 
-        public override void OnVisit(WfRunner runner) {
+        protected override void OnVisitCore(WfRunner runner) {
             bool result = CalcOperation();
             DataContext = result;
             if(result) {
                 Outputs["True"].OnVisit(runner, true);
-                Outputs["False"].Value = null;
+                Outputs["False"].OnSkipVisit(runner, null);
             }
             else {
-                Outputs["False"].OnVisit(runner, false);
-                Outputs["True"].Value = null;
+                Outputs["False"].OnVisit(runner, true);
+                Outputs["True"].OnSkipVisit(runner, null);
             }
         }
 
         protected virtual bool CalcOperation() {
-            object value1 = Inputs[0].Value;
-            object value2 = Inputs[1].Value;
+            object value1 = Inputs["In1"].Value;
+            object value2 = Inputs["In2"].Value;
 
             switch(Operation) {
                 case WfConditionalOperation.Equal:

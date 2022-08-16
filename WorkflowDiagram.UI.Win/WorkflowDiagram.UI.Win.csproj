@@ -12,6 +12,9 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +32,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugCopy|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugCopy\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v22.1.Core, Version=22.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
@@ -112,8 +124,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationClient" />
     <Reference Include="WindowsBase" />
-    <Reference Include="XmlSerialization, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\XmlSerialization.1.0.2\lib\net472\XmlSerialization.dll</HintPath>
+    <Reference Include="WorkflowDiagram, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WorkflowDiagram.1.0.7\lib\net472\WorkflowDiagram.dll</HintPath>
+    </Reference>
+    <Reference Include="XmlSerialization, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XmlSerialization.1.0.7\lib\net472\XmlSerialization.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -152,12 +167,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.csproj">
-      <Project>{5c2ec487-3e30-4274-8263-dbacfa5319c6}</Project>
-      <Name>WorkflowDiagram</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="ConnectionsEditor.resx">
       <DependentUpon>ConnectionsEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,4 +187,7 @@
     <None Include="Properties\DataSources\WorkflowDiagram.WfConnector.datasource" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) ==  DebugCopy copy /Y $(TargetPath) d:\Development\My\Bin\$(TargetFileName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -16,9 +16,14 @@ namespace WorkflowDiagram.Nodes.Base {
         public override string Type => "Storage";
         public override string Header { get => ValueName; }
 
+        public WfStorageValueNode() { }
+        public WfStorageValueNode(string valueName) {
+            ValueName = valueName;
+        }
+
         protected override bool OnInitializeCore(WfRunner runner) {
             if(string.IsNullOrEmpty(ValueName)) {
-                Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Error, Text = "Empty name for storage value is not allowed. Please specify unique name" });
+                DiagnosticHelper.Error("Empty name for storage value is not allowed. Please specify unique name");
                 return false;
             }
             if(!HasInputConnections)
@@ -26,7 +31,9 @@ namespace WorkflowDiagram.Nodes.Base {
             return true;
         }
 
-        public override void OnVisit(WfRunner runner) {
+        protected override void OnVisitCore(WfRunner runner) {
+            if(Inputs[0].Connectors.Count != 0)
+                SetValueToStorage(Inputs[0].Value);
             Outputs[0].OnVisit(runner, GetValueFromStorage());
         }
 
@@ -95,7 +102,7 @@ namespace WorkflowDiagram.Nodes.Base {
         [XmlIgnore]
         public Dictionary<string, object> Storage { get { return (Dictionary<string, object>)Data; } }
 
-        internal object GetStorageValue(string valueName) {
+        public object GetStorageValue(string valueName) {
             object res = null;
             if(string.IsNullOrEmpty(valueName))
                 return null;
@@ -104,7 +111,7 @@ namespace WorkflowDiagram.Nodes.Base {
             return null;
         }
 
-        internal void SetStorageValue(string valueName, object value) {
+        public void SetStorageValue(string valueName, object value) {
             Storage[valueName] = value;
         }
     }

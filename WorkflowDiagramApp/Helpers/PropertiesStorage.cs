@@ -139,7 +139,7 @@ namespace WorkflowDiagramApp.Helpers {
             if(string.IsNullOrEmpty(FileName))
                 return;
             string path = Path.GetDirectoryName(fullPath);
-            SerializationHelper.Save(this, typeof(PropertyStorage), fullPath);
+            SerializationHelper.Current.Save(this, typeof(PropertyStorage), fullPath);
         }
 
         void ISupportSerialization.OnBeginDeserialize() {

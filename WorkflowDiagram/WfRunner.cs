@@ -18,6 +18,8 @@ namespace WorkflowDiagram {
             Document.Reset();
             IsStopped = false;
             VisitIndex = 0;
+            if(Document.Owner != null)
+                Document.Owner.OnReset(this);
         }
 
         protected void ResetNode(WfNode node) {
@@ -45,17 +47,40 @@ namespace WorkflowDiagram {
             connector.VisitIndex = -1;
         }
 
-        protected int VisitIndex { get; set; }
+        public int VisitIndex { get; protected set; }
         
         public Task<bool> InitializeAsync() {
             CancellationSource = new CancellationTokenSource();
             return Task.Run(() => { return Initialize(); }, CancellationSource.Token);
         }
 
+        public bool RunOnceSubTree(WfConnectionPoint startPoint, out object operationRes) {
+            WfNode lastVisited = LastVisitedNode;
+            int visitIndex = VisitIndex;
+            bool success = Success;
+            bool result = false;
+            operationRes = null;
+            try {
+                if(VisitIndex <= startPoint.VisitIndex)
+                    VisitIndex = startPoint.VisitIndex + 1;
+                startPoint.OnVisit(this, VisitIndex);
+                result = RunCore(1, false, startPoint.GetNextNodes());
+            }
+            finally {
+                operationRes = LastVisitedNode.DataContext;
+                Success = success;
+                VisitIndex = visitIndex;
+                LastVisitedNode = lastVisited;
+            }
+            return result;
+        }
+
         public virtual bool Initialize() {
             Reset();
             
-            int visitIndex = 0;
+            VisitIndex = 0;
+            if(Document.Owner != null)
+                Document.Owner.BeforeDocumentInitialize(this, Document);
             List<WfNode> currentNodes = Document.GetStartNodes();
             List<WfNode> waitList = new List<WfNode>();
             List<WfNode> nextNodes = new List<WfNode>();
@@ -63,56 +88,73 @@ namespace WorkflowDiagram {
                 nextNodes = new List<WfNode>();
                 bool processed = false;
                 for(int i = 0; i < currentNodes.Count;) {
-                    if(!currentNodes[i].CheckDependency(visitIndex)) {
+                    if(!currentNodes[i].CheckDependency(VisitIndex)) {
                         i++;
                         continue;
                     }
-                    if(currentNodes[i].IsVisited(visitIndex)) {
+                    if(currentNodes[i].IsVisited(VisitIndex)) {
                         currentNodes.RemoveAt(i);
                         continue;
                     }
                     processed = true;
-                    InitializeNode(currentNodes[i], visitIndex);
+                    InitializeNode(currentNodes[i], VisitIndex);
                     if(IsStopped)
                         return false;
                     if(CancellationSource != null && CancellationSource.IsCancellationRequested)
                         return false;
-                    nextNodes.AddRange(currentNodes[i].GetNextNodes().Where(n => !n.IsVisited(visitIndex)).ToList());
+                    nextNodes.AddRange(currentNodes[i].GetNextNodes().Where(n => !n.IsVisited(VisitIndex)).ToList());
                     currentNodes.RemoveAt(i);
                 }   
                 currentNodes.AddRange(nextNodes);
                 if(!processed)
                     return false;
             }
+            if(Document.Owner != null)
+                Document.Owner.AfterDocumentInitialize(this, Document);
             return true;
         }
 
         protected virtual bool RunCore(int maxIterationCount) {
-            Reset();
-
             List<WfNode> startNodes = Document.GetStartNodes();
-            for(int visitIndex = 0; visitIndex < maxIterationCount; visitIndex++) {
-                VisitIndex = visitIndex;
+            VisitIndex = 0;
+            return RunCore(maxIterationCount, true, startNodes);
+        }
+
+        protected WfNode LastVisitedNode { get; set; }
+        protected virtual bool RunCore(int maxIterationCount, bool shouldReset, List<WfNode> startNodes) {
+            if(shouldReset)
+                Reset();
+            
+            for(int iterationIndex = 0; iterationIndex < maxIterationCount; iterationIndex++, VisitIndex++) {
                 List<WfNode> currentNodes = startNodes;
                 List<WfNode> waitList = new List<WfNode>();
                 List<WfNode> nextNodes = new List<WfNode>();
                 while(currentNodes.Count > 0) {
-                    nextNodes = new List<WfNode>();
                     bool processed = false;
+                    nextNodes = new List<WfNode>();
                     for(int i = 0; i < currentNodes.Count;) {
-                        if(!currentNodes[i].CheckDependency(visitIndex)) {
+                        if(!currentNodes[i].CheckDependency(VisitIndex)) {
                             i++;
                             continue;
                         }
+                        if(!currentNodes[i].Enabled) {
+                            currentNodes.RemoveAt(i);
+                            continue;
+                        }
                         processed = true;
-                        VisitNode(currentNodes[i], visitIndex);
-                        if(currentNodes[i].HasErrors)
+                        VisitNode(currentNodes[i]);
+                        if(currentNodes[i].HasErrors) {
+                            Document.DiagnosticHelper.Diagnostics.AddRange(currentNodes[i].Diagnostic);
+                            Document.DiagnosticHelper.Error("One or more nodes has errors.");
                             return false;
+                        }
                         if(IsStopped)
                             return Success;
-                        if(CancellationSource != null && CancellationSource.IsCancellationRequested)
+                        if(CancellationSource != null && CancellationSource.IsCancellationRequested) {
+                            Document.DiagnosticHelper.Warning("Process was canceled.");
                             return false;
-                        var next = currentNodes[i].GetNextNodes();
+                        }
+                        var next = currentNodes[i].GetNodesFromVisitedPoints(VisitIndex);
                         foreach(var n in next) { // Move node to last...
                             nextNodes.Remove(n);
                             nextNodes.Add(n);
@@ -120,8 +162,13 @@ namespace WorkflowDiagram {
                         currentNodes.RemoveAt(i);
                     }
                     currentNodes.AddRange(nextNodes);
-                    if(!processed)
-                        return false;
+                    if(!processed) {
+                        int count = currentNodes.Count(n => n.Enabled);
+                        if(count > 0) {
+                            Document.DiagnosticHelper.Error("No one node was processed, this means that your workflow entered endless loop.");
+                            return false;
+                        }
+                    }
                 }
             }
             Success = true;
@@ -147,16 +194,17 @@ namespace WorkflowDiagram {
             return Task.Run(() => { return RunOnce(); }, CancellationSource.Token);
         }
 
-        protected virtual void VisitNode(WfNode node, int visitIndex) {
-            if(node.IsVisited(visitIndex))
+        protected virtual void VisitNode(WfNode node) {
+            if(node.IsVisited(VisitIndex))
                 return;
             node.OnVisit(this);
-            node.VisitIndex = visitIndex;
+            LastVisitedNode = node;
         }
 
         protected virtual void InitializeNode(WfNode node, int visitIndex) {
+            if(node.IsVisited(VisitIndex))
+                return;
             node.OnInitialize(this);
-            node.VisitIndex = visitIndex;
         }
     }
 

@@ -18,13 +18,14 @@ namespace WorkflowDiagram.Nodes.Base {
         public virtual WfColor Color { get { return WfColor.FromArgb(255, 255, 255, 255); } }
 
         protected override object CreateImage() {
-            Bitmap bmp = new Bitmap(32, 32);
+            int w = DevExpress.Utils.ScaleUtils.ScaleValue(32);
+            Bitmap bmp = new Bitmap(w, w);
             using(Graphics g = Graphics.FromImage(bmp)) {
                 using(GraphicsCache cache = new GraphicsCache(g))
                     GlyphPainter.Default.DrawGlyph(cache, 
                         new StubGlyphOptions() { LetterCount = GlyphTextSymbolCount.Two, CaseMode = GlyphTextCaseMode.SentenceCase, ColorMode = GlyphColorMode.All, CornerRadius = 5, RandomizeColors = true }, 
                         Type,
-                        new Rectangle(0, 0, 32, 32),
+                        new Rectangle(0, 0, w, w),
                         UserLookAndFeel.Default, ObjectState.Normal);
             }
             return bmp;

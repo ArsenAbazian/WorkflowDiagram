@@ -15,4 +15,37 @@ namespace WorkflowDiagram {
         Warning = 1,
         Error = 2
     } 
+
+    public class WfDiagnosticHelper {
+        static WfDiagnosticHelper defaultHelper;
+        public static WfDiagnosticHelper Default {
+            get {
+                if(defaultHelper == null)
+                    defaultHelper = new WfDiagnosticHelper();
+                return defaultHelper;
+            }
+        }
+
+        public List<WfDiagnosticInfo> Diagnostics { get; } = new List<WfDiagnosticInfo>();
+
+        public void Clear() {
+            Diagnostics.Clear();
+        }
+
+        public void Add(WfDiagnosticSeverity type, string text) {
+            Diagnostics.Add(new WfDiagnosticInfo() { Type = type, Text = text });
+        }
+
+        public void Error(string text) {
+            Add(WfDiagnosticSeverity.Error, text);
+        }
+
+        public void Warning(string text) {
+            Add(WfDiagnosticSeverity.Warning, text);
+        }
+
+        public void Info(string text) {
+            Add(WfDiagnosticSeverity.Info, text);
+        }
+    }
 }

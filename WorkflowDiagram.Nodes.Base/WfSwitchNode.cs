@@ -19,7 +19,7 @@ namespace WorkflowDiagram.Nodes.Base {
             return true;
         }
 
-        public override void OnVisit(WfRunner runner) {
+        protected override void OnVisitCore(WfRunner runner) {
             object result = CalcOperation();
             DataContext = result;
             bool foundCase = false;
@@ -31,16 +31,16 @@ namespace WorkflowDiagram.Nodes.Base {
                     foundCase = true;
                 }
                 else
-                    Outputs[i].OnVisit(runner, null);
+                    Outputs[i].OnSkipVisit(runner, null);
             }
             if(!foundCase)
                 Outputs["Default"].OnVisit(runner, result);
             else
-                Outputs["Default"].OnVisit(runner, null);
+                Outputs["Default"].OnSkipVisit(runner, null);
         }
 
         protected virtual object CalcOperation() {
-            return Inputs[0].Value;
+            return Inputs["In"].Value;
         }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {

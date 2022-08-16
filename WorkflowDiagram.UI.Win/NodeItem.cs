@@ -27,12 +27,20 @@ namespace WorkflowDiagram.UI.Win {
             SubscribeEvents();
             DataContext = node;
             Position = new PointFloat(Node.X, Node.Y);
-            Width = Node.Width;
+            if(Node.Width != 0)
+                Width = Node.Width;
             CanRotate = false;
 
             HtmlTemplate = CreateHtmlTemplate();
             TemplateElement = CreateHtmlTemplateElement(CreateHtmlTemplate(HtmlTemplate), this);
             System.Windows.Size sz = CalcHtmlTemplateSize(new System.Windows.Size(Node.Width, Node.Height));
+            if(Node.Width == 0) {
+                System.Windows.Size bsz = new System.Windows.Size(250, 10); //CalcHtmlBestSize(new System.Windows.Size(Node.Width, Node.Height));
+                Node.Width = (float)bsz.Width;
+                Width = (float)bsz.Width;
+                sz = bsz;
+            }
+                
             Height = (float)sz.Height;
             Node.Height = (float)sz.Height;
             ConnectionPoints = GetConnectionPoints();
@@ -278,6 +286,23 @@ namespace WorkflowDiagram.UI.Win {
             return pi == null ? null : pi.GetValue(this);
         }
 
+        internal System.Windows.Size CalcHtmlBestSize(System.Windows.Size sz) {
+            AppearanceObject app = Appearance;
+            CustomDiagramControl d = Diagram;
+            GraphicsCache cache = d.CreateGraphicsCache();
+            System.Drawing.Size res = System.Drawing.Size.Empty;
+            try {
+                System.Drawing.Size gsz = new System.Drawing.Size((int)sz.Width, (int)sz.Height);
+                using(GraphicsCacheDxHtmlWrapper wrapper = new GraphicsCacheDxHtmlWrapper(cache, UserLookAndFeel.Default)) {
+                    res = TemplateElement.ViewInfo.CalcBestSize(wrapper, Point.Empty, gsz, app.GetFont(), app.GetForeColor(), DevExpress.Utils.Html.Base.DxHtmlLayoutChangeActions.None);
+                }
+            }
+            finally {
+                d.ReleaseCache(cache);
+            }
+            return new System.Windows.Size(2 * res.Width, Math.Max(10, res.Height));
+        }
+
         internal System.Windows.Size CalcHtmlTemplateSize(System.Windows.Size sz) {
             AppearanceObject app = Appearance;
             if(TemplateInfoCalculated &&
@@ -293,7 +318,7 @@ namespace WorkflowDiagram.UI.Win {
                 return System.Windows.Size.Empty;
             if(d.IsDisposed)
                 return System.Windows.Size.Empty;
-            
+
             Size res = System.Drawing.Size.Empty;
             GraphicsCache cache = d.CreateGraphicsCache();
             try {

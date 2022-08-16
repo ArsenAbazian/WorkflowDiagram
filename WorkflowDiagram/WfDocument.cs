@@ -26,6 +26,14 @@ namespace WorkflowDiagram {
             InitializeDefaultColors();
         }
 
+        public WfNode Add(WfNode node) {
+            Nodes.Add(node);
+            return node;
+        }
+
+        [XmlIgnore]
+        public IWfDocumentOwner Owner { get; set; }
+
         [Browsable(false)]
         public Guid Id { get; set; }
         [Browsable(false)]
@@ -33,7 +41,12 @@ namespace WorkflowDiagram {
 
         [Browsable(false)]
         public List<WfDataInfo> Data { get; } = new List<WfDataInfo>();
-        protected Dictionary<Type, WfDataInfo> DataDictionary { get; } = new Dictionary<Type, WfDataInfo>(); 
+        protected Dictionary<Type, WfDataInfo> DataDictionary { get; } = new Dictionary<Type, WfDataInfo>();
+
+        [XmlIgnore]
+        public WfDiagnosticHelper DiagnosticHelper { get; } = new WfDiagnosticHelper();
+        [XmlIgnore]
+        public List<WfDiagnosticInfo> Diagnostics { get { return DiagnosticHelper.Diagnostics; } }
 
         /// <summary>
         /// Settings, not related to scripts
@@ -95,7 +108,7 @@ namespace WorkflowDiagram {
                 return;
             string path = Path.GetDirectoryName(fullPath);
             Reset();
-            SerializationHelper.Save(this, GetType(), fullPath);
+            SerializationHelper.Current.Save(this, GetType(), path);
         }
 
         [XmlIgnore, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
@@ -104,7 +117,7 @@ namespace WorkflowDiagram {
         public bool Load(string fileName) {
             Clear();
             FullPath = fileName;
-            if(SerializationHelper.Load(this, GetType(), fileName)) {
+            if(SerializationHelper.Current.Load(this, GetType(), fileName)) {
                 FileName = Path.GetFileName(fileName);
                 if(Loaded != null)
                     Loaded(this, EventArgs.Empty);
@@ -225,7 +238,7 @@ namespace WorkflowDiagram {
 
         public List<Type> GetAvailableNodeTypes() {
             Type nodeBase = typeof(WfNode);
-            var res = SerializationHelper.GetExtraTypes(GetType())
+            var res = SerializationHelper.Current.GetExtraTypes(GetType())
                 .Where(t => !t.IsAbstract && nodeBase.IsAssignableFrom(t))
                 .ToList();
             return res;
@@ -243,11 +256,15 @@ namespace WorkflowDiagram {
         }
 
         public virtual void Reset() {
+            Diagnostics.Clear();
+            DataDictionary.Clear();
             foreach(WfConnector connector in Connectors)
                 connector.Reset();
             foreach(WfNode node in Nodes) {
                 node.Reset();
             }
+            if(Owner != null)
+                Owner.OnReset(this);
         }
 
         public void RemoveNode(WfNode node) {

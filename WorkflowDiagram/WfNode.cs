@@ -42,6 +42,10 @@ namespace WorkflowDiagram {
         }
         protected virtual object CreateImage() { return null; }
 
+        public void Connect(string outputName, WfNode node, string inputName) {
+            Outputs[outputName].ConnectTo(node, inputName);
+        }
+
         event PropertyChangedEventHandler propertyChanged;
         public event PropertyChangedEventHandler PropertyChanged {
             add { this.propertyChanged += value; }
@@ -99,17 +103,47 @@ namespace WorkflowDiagram {
                 if(point.Requirement == WfRequirementType.Mandatory && point.Connectors.Count == 0)
                     return false;
                 for(int j = 0; j < point.Connectors.Count; j++) {
-                    if(point.Connectors[j].From == null || !point.Connectors[j].From.Collection.Node.IsVisited(visitIndex))
+                    if(point.Connectors[j].From == null || !point.Connectors[j].From.IsVisited(visitIndex))
                         return false;
                 }
             }
             return true;
         }
 
+        protected string RunConnectionPointName { get { return "Run"; } }
+
+        public virtual bool Enabled {
+            get {
+                WfConnectionPoint enable = Inputs[RunConnectionPointName];
+                if(enable == null || enable.Connectors.Count == 0)
+                    return true;
+                for(int i = 0; i < enable.Connectors.Count; i++) {
+                    WfConnectionPoint pt = enable.Connectors[i].From;
+                    if(pt.IsSkipped)
+                        return false;
+                    if(pt.Value == null)
+                        return true;
+                    if(Convert.ToBoolean(pt.Value))
+                        return true;
+                }
+                return false;
+            }
+        }
+
         public List<WfNode> GetNextNodes() {
             List<WfNode> nodes = new List<WfNode>();
             foreach(WfConnectionPoint point in Outputs)
                 nodes.AddRange(point.GetNextNodes());
+            return nodes;
+        }
+
+        public List<WfNode> GetNodesFromVisitedPoints(int visitIndex) {
+            List<WfNode> nodes = new List<WfNode>();
+            foreach(WfConnectionPoint point in Outputs) {
+                if(!point.IsVisited(visitIndex) || point.SkipSubTree)
+                    continue;
+                nodes.AddRange(point.GetNextNodes());
+            }
             return nodes;
         }
 
@@ -213,7 +247,8 @@ namespace WorkflowDiagram {
 
         [XmlIgnore]
         [Browsable(false)]
-        public List<WfDiagnosticInfo> Diagnostic { get; } = new List<WfDiagnosticInfo>();
+        protected WfDiagnosticHelper DiagnosticHelper { get; } = new WfDiagnosticHelper();
+        public List<WfDiagnosticInfo> Diagnostic { get { return DiagnosticHelper.Diagnostics; } }
 
         WfConnectionPointCollection inputs, outputs;
         [Browsable(false)]
@@ -280,6 +315,7 @@ namespace WorkflowDiagram {
         protected abstract List<WfConnectionPoint> GetDefaultInputs();
         List<WfConnectionPoint> GetDefaultInputsCore() {
             List<WfConnectionPoint> res = GetDefaultInputs();
+            res.Insert(0, new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = RunConnectionPointName, Text = RunConnectionPointName, Requirement = WfRequirementType.Optional }) ;
             res.ForEach(p => { if(p.Requirement == WfRequirementType.Default) p.Requirement = WfRequirementType.Mandatory; });
             return res;
         }
@@ -336,11 +372,12 @@ namespace WorkflowDiagram {
 
         public virtual bool OnInitialize(WfRunner runner) {
             try {
+                VisitIndex = runner.VisitIndex;
                 IsInitialized = OnInitializeCore(runner);
                 HasErrors = Diagnostic.Count(d => d.Type == WfDiagnosticSeverity.Error) > 0;
             }
             catch(Exception e) {
-                Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Error, Text = "Exception occurs while initialize node. " + e.ToString() });
+                DiagnosticHelper.Error("Exception occurs while initialize node. " + e.ToString());
                 HasErrors = true;
                 return false;
             }
@@ -349,7 +386,14 @@ namespace WorkflowDiagram {
             return IsInitialized;
         }
         protected abstract bool OnInitializeCore(WfRunner runner);
-        public abstract void OnVisit(WfRunner runner);
+        protected abstract void OnVisitCore(WfRunner runner);
+        public void OnVisit(WfRunner runner) {
+            try {
+                OnVisitCore(runner);
+                VisitIndex = runner.VisitIndex;
+            }
+            catch(Exception) { }
+        }
         protected virtual List<WfNode> GetNextNodesToVisit() {
             List<WfNode> list = new List<WfNode>();
             for(int i = 0; i < Outputs.Count; i++) {

@@ -22,11 +22,11 @@ namespace WorkflowDiagram.Nodes.Base {
             if(Script == null)
                 Script = CreateScript();
             if(Script == null)
-                Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Error, Text = "Could not parse expression. Compilation errors." });
+                DiagnosticHelper.Error("Could not parse expression. Compilation errors.");
             return Script != null;
         }
 
-        public override void OnVisit(WfRunner runner) {
+        protected override void OnVisitCore(WfRunner runner) {
             Task<ScriptState<object>> task = null;
             try {
                 task = Script.RunAsync(this);
@@ -34,7 +34,7 @@ namespace WorkflowDiagram.Nodes.Base {
                 Outputs[0].OnVisit(runner, task.Result.ReturnValue);
             }
             catch(Exception e) {
-                Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Error, Text = "Exception occurs while visit node. " + e.ToString() });
+                DiagnosticHelper.Error("Exception occurs while visit node. " + e.ToString());
                 HasErrors = true;
                 Outputs[0].OnVisit(runner, 0);
             }
@@ -52,22 +52,22 @@ namespace WorkflowDiagram.Nodes.Base {
         
         [XmlIgnore]
         [Browsable(false)]
-        public object In0 { get { return Inputs[0].Value; } }
+        public object In0 { get { return Inputs["In0"].Value; } }
         [XmlIgnore]
         [Browsable(false)]
-        public object In1 { get { return Inputs[1].Value; } }
+        public object In1 { get { return Inputs["In1"].Value; } }
         [XmlIgnore]
         [Browsable(false)]
-        public object In2 { get { return Inputs[2].Value; } }
+        public object In2 { get { return Inputs["In2"].Value; } }
         [XmlIgnore]
         [Browsable(false)]
-        public object In3 { get { return Inputs[3].Value; } }
+        public object In3 { get { return Inputs["In3"].Value; } }
         [XmlIgnore]
         [Browsable(false)]
-        public object In4 { get { return Inputs[4].Value; } }
+        public object In4 { get { return Inputs["In4"].Value; } }
         [XmlIgnore]
         [Browsable(false)]
-        public object In5 { get { return Inputs[5].Value; } }
+        public object In5 { get { return Inputs["In5"].Value; } }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {
             return new WfConnectionPoint[] {

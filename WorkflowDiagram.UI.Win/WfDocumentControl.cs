@@ -34,9 +34,22 @@ namespace WorkflowDiagram.UI.Win {
             InitializeComponent();
             InitializeConnectorViewTypes();
 
+            this.connectionsEditor1.ShowPointProperties += OnShowPointProperties;
+            this.connectionsEditor2.ShowPointProperties += OnShowPointProperties;
 
             this.diagramControl1.OptionsBehavior.ActiveTool = diagramControl1.OptionsBehavior.PointerTool;
             this.diagramControl1.PaintEx += OnDiagramPaintX;
+            UserLookAndFeel.Default.StyleChanged += OnLookAndFeelChanged;
+        }
+
+        private void OnLookAndFeelChanged(object sender, EventArgs e) {
+            UpdateControlsBackground();
+            this.diagramDataBindingController1.Refresh();
+        }
+
+        private void OnShowPointProperties(object sender, WfPointValueEventArgs e) {
+            this.cpgValue.SelectedObject = e.Point.Value;
+            this.dpValue.Show();
         }
 
         private void OnDiagramPaintX(object sender, XtraPaintEventArgs e) {
@@ -44,11 +57,15 @@ namespace WorkflowDiagram.UI.Win {
                 Document = DocumentAfterLoad;
         }
 
-        public WfDocumentControl(WfDocument document) : this() {
+        public WfDocumentControl(WfDocument document) : this(document, null) { }
+
+        public WfDocumentControl(WfDocument document, IWfDocumentOwner owner) : this() {
             DocumentAfterLoad = document;
+            DocumentOwner = owner;
             //Document = document;
         }
 
+        public IWfDocumentOwner DocumentOwner { get; private set; }
         private void InitializeConnectorViewTypes() {
             this.repositoryItemImageComboBox1.Items.Add(new ImageComboBoxItem("Curved", ConnectorType.Curved));
             this.repositoryItemImageComboBox1.Items.Add(new ImageComboBoxItem("OrgChart", ConnectorType.OrgChart));
@@ -77,16 +94,21 @@ namespace WorkflowDiagram.UI.Win {
             }
         }
 
+        public void RefreshData() {
+            this.gvDiagnostics.RefreshData();
+        }
+
         protected virtual void OnDocumentChanged() {
             Document.InitializeVisualData();
             this.beFontSize.EditValue = Document.FontSizeDelta;
-            this.propertyGridControl1.SelectedObject = Document;
+            this.pgcProperties.SelectedObject = Document;
             this.gridControl1.DataSource = Document.GetAvailableToolbarItems();
             //this.wfNodeBindingSource.DataSource = Document.GetAvailableToolbarItems();
             this.diagramDataBindingController1.DataSource = Document.Nodes;
             this.diagramDataBindingController1.ConnectorsSource = Document.Connectors;
             this.diagramControl1.OptionsBehavior.ActiveTool = diagramControl1.OptionsBehavior.PointerTool;
             this.diagramControl1.FitToDrawing();
+            this.gcDiagnostics.DataSource = Document.Diagnostics;
         }
 
         private void barButtonItem3_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
@@ -103,12 +125,11 @@ namespace WorkflowDiagram.UI.Win {
                     XtraMessageBox.Show("Cannot save file. Error: " + ee.ToString());
                 }
             }
-            AlertControl c = new AlertControl();
-            c.AutoFormDelay = 2000;
-            c.AppearanceText.FontSizeDelta = 2;
-            c.AppearanceCaption.FontSizeDelta = 2;
-            c.AllowHotTrack = false;
-            c.Show(FindForm(), new AlertInfo("Save", "Document Successfullty Saved...") { AutoCloseFormOnClick = true });
+            this.alertControl1.AutoFormDelay = 2000;
+            this.alertControl1.AppearanceText.FontSizeDelta = 2;
+            this.alertControl1.AppearanceCaption.FontSizeDelta = 2;
+            this.alertControl1.AllowHotTrack = false;
+            this.alertControl1.Show(new AlertInfo("Save", "Document Successfullty Saved...") { SvgImage = this.svgImageCollection2["success"] }, FindForm());
         }
 
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
@@ -174,9 +195,9 @@ namespace WorkflowDiagram.UI.Win {
         bool ISupportXtraAnimation.CanAnimate => true;
 
         public void propertyGridControl1_CustomRecordCellEdit(object sender, GetCustomRowCellEditEventArgs e) {
-            if(this.propertyGridControl1.SelectedObject == null)
+            if(this.pgcProperties.SelectedObject == null)
                 return;
-            object rec = this.propertyGridControl1.GetRecordObject(e.RecordIndex);
+            object rec = this.pgcProperties.GetRecordObject(e.RecordIndex);
             PropertyInfo pi = rec.GetType().GetProperty(e.Row.Properties.FieldName, BindingFlags.Instance | BindingFlags.Public);
             if(pi == null)
                 return;
@@ -206,11 +227,11 @@ namespace WorkflowDiagram.UI.Win {
         }
 
         private void propertyGridControl1_SizeChanged(object sender, EventArgs e) {
-            this.propertyGridControl1.BestFit();
+            this.pgcProperties.BestFit();
         }
 
         private void propertyGridControl1_SelectedChanged(object sender, SelectedChangedEventArgs e) {
-            this.propertyGridControl1.BestFit();
+            this.pgcProperties.BestFit();
         }
 
         private void propertyGridControl1_CellValueChanged(object sender, CellValueChangedEventArgs e) {
@@ -236,15 +257,13 @@ namespace WorkflowDiagram.UI.Win {
 
         private void diagramControl1_DragDrop(object sender, DragEventArgs e) {
             List<WfNode> templateNodes = GetDropNodes(e);
+            Point cp = this.diagramControl1.PointToClient(new Point(e.X, e.Y));
             foreach(WfNode node in templateNodes) {
-                PointF pt = this.diagramControl1.PointToDocument(new PointFloat(e.X, e.Y));
+                PointF pt = this.diagramControl1.PointToDocument(new PointFloat(cp.X, cp.Y));
                 node.X = pt.X;
                 node.Y = pt.Y;
-                node.Width = 100;
-                node.Height = 100;
                 Document.Nodes.Add(node);
             }
-            this.diagramDataBindingController1.Refresh();
         }
 
         protected Font SavedConnectorTemplateFont { get; set; }
@@ -380,8 +399,8 @@ namespace WorkflowDiagram.UI.Win {
             float a = 0.1f;
             return Color.FromArgb((int)(a * c.R + (1 - a) * bg.R), (int)(a * c.G + (1 - a) * bg.G), (int)(a * c.B + (1 - a) * bg.B));
         }
-        void UpdateBackground(Control control) {
-            control.BackColor = GetBackgroundColor();
+        void UpdateControlsBackground() {
+            this.wevToolbar.Appearance.EmptySpace.BackColor = GetBackgroundColor();
         }
         Color GetBackgroundColor() {
             Color bg = LookAndFeelHelper.GetSystemColor(UserLookAndFeel.Default, SystemColors.Window);
@@ -389,7 +408,7 @@ namespace WorkflowDiagram.UI.Win {
             return BlendColor(bg, fg);
         }
         protected override void OnHandleCreated(EventArgs e) {
-            this.wevToolbar.Appearance.EmptySpace.BackColor = GetBackgroundColor();
+            UpdateControlsBackground();
             base.OnHandleCreated(e);
         }
 
@@ -422,9 +441,9 @@ namespace WorkflowDiagram.UI.Win {
             if(item != null) {
                 object[] selItems = GetSelectedItems(items);
                 if(IsSameObjectTypes(selItems))
-                    this.propertyGridControl1.SelectedObjects = selItems;
+                    this.pgcProperties.SelectedObjects = selItems;
                 else
-                    this.propertyGridControl1.SelectedObject = item.DataContext;
+                    this.pgcProperties.SelectedObject = item.DataContext;
                 if(selItems[0] is WfNode) {
                     this.connectionsEditor1.Connections = ((WfNode)selItems[0]).Inputs;
                     this.connectionsEditor2.Connections = ((WfNode)selItems[0]).Outputs;
@@ -437,7 +456,7 @@ namespace WorkflowDiagram.UI.Win {
                 }
             }
             else {
-                this.propertyGridControl1.SelectedObject = null;
+                this.pgcProperties.SelectedObject = null;
                 this.connectionsEditor1.Connections = null;
                 this.connectionsEditor2.Connections = null;
                 this.gcDiagnostics.DataSource = null;
@@ -508,6 +527,8 @@ namespace WorkflowDiagram.UI.Win {
             if(conn != null) {
                 if(!AnimationEnabled)
                     return;
+                if(!conn.From.IsVisitedByRunner)
+                    return;
                 DiagramConnector c = (DiagramConnector)e.Item;
                 e.DefaultDraw(CustomDrawItemMode.Background);
                 int count = (int)(AnimationProgress / 0.2f);
@@ -522,6 +543,14 @@ namespace WorkflowDiagram.UI.Win {
                 e.DefaultDraw(CustomDrawItemMode.Content);
                 return;
             }
+        }
+
+        private void biOwnerProperties_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
+            this.pgcProperties.SelectedObject = Document.Owner;
+        }
+
+        private void gvDiagnostics_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e) {
+            
         }
     }
 }

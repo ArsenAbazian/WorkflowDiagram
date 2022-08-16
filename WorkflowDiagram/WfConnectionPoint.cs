@@ -18,6 +18,7 @@ namespace WorkflowDiagram {
 
         object _value;
         [Category("Value")]
+        [XmlIgnore]
         public virtual object Value {
             get { return _value; }
             set {
@@ -30,6 +31,20 @@ namespace WorkflowDiagram {
         
         public string Name { get; set; }
         public string Text { get; set; }
+
+        public void ConnectTo(WfNode node, string inputName) {
+            ConnectTo(node.Inputs[inputName]);
+        }
+        public void ConnectTo(WfConnectionPoint toPoint) {
+            if(toPoint == null) {
+                throw new ArgumentNullException("toPoint");
+            }
+            WfConnector connector = new WfConnector();
+            Document.Connectors.Add(connector);
+            connector.From = this;
+            connector.To = toPoint;
+        }
+
         public string ColorString { get; set; }
         public WfRequirementType Requirement { get; set; } = WfRequirementType.Default;
 
@@ -57,6 +72,10 @@ namespace WorkflowDiagram {
 
         public virtual bool IsVisited(int visitIndex) {
             return VisitIndex == visitIndex;
+        }
+
+        public bool IsVisitedByRunner {
+            get { return Runner != null && IsVisited(Runner.VisitIndex); }
         }
 
         public WfConnectionPointType Type { get; set; }
@@ -91,9 +110,19 @@ namespace WorkflowDiagram {
         }
 
         protected bool ValueCalculated { get; set; }
+        [XmlIgnore]
+        public bool IsSkipped { get; protected set; }
+        public virtual void OnSkipVisit(WfRunner runner, object value) {
+            Value = value;
+            ValueCalculated = true;
+            IsSkipped = true;
+            VisitIndex = runner.VisitIndex;
+        }
         public virtual void OnVisit(WfRunner runner, object value) {
             Value = value;
             ValueCalculated = true;
+            VisitIndex = runner.VisitIndex;
+            IsSkipped = false;
             if(Type == WfConnectionPointType.In)
                 return;
             foreach(WfConnector c in Connectors)
@@ -121,9 +150,13 @@ namespace WorkflowDiagram {
 
         public virtual void OnInitialize(WfRunner runner) {
             Value = null;
+            VisitIndex = runner.VisitIndex;
+            Runner = runner;
         }
 
         public WfEditOperation AllowedOperations { get; set; } = WfEditOperation.None;
+        public bool SkipSubTree { get; set; }
+        protected WfRunner Runner { get; set; }
     }
 
     public enum WfConnectionPointType {

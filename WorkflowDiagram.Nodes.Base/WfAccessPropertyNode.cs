@@ -27,7 +27,7 @@ namespace WorkflowDiagram.Nodes.Base {
             return true;
         }
 
-        public override void OnVisit(WfRunner runner) {
+        protected override void OnVisitCore(WfRunner runner) {
             Console.WriteLine("GetData: On OnVisit: " + Name);
         }
 

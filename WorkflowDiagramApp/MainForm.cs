@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorkflowDiagram;
 using WorkflowDiagram.UI.Win;
-using WorkflowDiagramApp.StrategyDocument;
 using XmlSerialization;
 
 namespace WorkflowDiagramApp {
@@ -21,7 +20,7 @@ namespace WorkflowDiagramApp {
         public MainForm() {
             InitializeComponent();
 
-            RecentItems = (RecentItemsList)SerializationHelper.FromFile(RecentFileName, typeof(RecentItemsList));
+            RecentItems = (RecentItemsList)SerializationHelper.Current.FromFile(RecentFileName, typeof(RecentItemsList));
             if(RecentItems == null) {
                 RecentItems = new RecentItemsList();
                 RecentItems.FileName = "recent.xml";
@@ -43,7 +42,7 @@ namespace WorkflowDiagramApp {
 
         protected void UpdateRecent(string file) {
             RecentItems.AddFile(file);
-            SerializationHelper.Save(RecentItems, typeof(RecentItemsList), RecentFileName);
+            SerializationHelper.Current.Save(RecentItems, typeof(RecentItemsList), RecentFileName);
             UpdateRecent();
         }
 
@@ -60,7 +59,7 @@ namespace WorkflowDiagramApp {
         }
 
         protected virtual WfDocument CreateDocumentCore(string name) {
-            return new WfStrategyDocument() { Name = name };
+            return new WfDocument() { Name = name };
         }
 
         protected WfDocument CreateDocument(string name) {
@@ -123,6 +122,11 @@ namespace WorkflowDiagramApp {
         }
 
         protected WfRunner ActiveRunner { get; set; }
+        protected virtual WfRunner CreateRunner() {
+            if(ActiveDocumentControl != null)
+                return ActiveDocumentControl.DocumentOwner.CreateRunner(ActiveDocument);
+            return new WfRunner(ActiveDocument);
+        }
 
         private void bbiTestInit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
             if(ActiveDocument == null) {
@@ -130,7 +134,7 @@ namespace WorkflowDiagramApp {
                 return;
             }
 
-            WfRunner runner = new WfRunner(ActiveDocument);
+            WfRunner runner = CreateRunner();
             ActiveRunner = runner;
             bool res = runner.Initialize();
             if(res)
@@ -144,7 +148,7 @@ namespace WorkflowDiagramApp {
                 XtraMessageBox.Show("No Document loaded", "Run");
                 return;
             }
-            WfRunner runner = new WfRunner(ActiveDocument);
+            WfRunner runner = CreateRunner();
             ActiveRunner = runner;
             bool res = runner.Initialize();
             if(!res) {
@@ -171,7 +175,7 @@ namespace WorkflowDiagramApp {
                 return;
             }
 
-            WfRunner runner = new WfRunner(ActiveDocument);
+            WfRunner runner = CreateRunner();
             ActiveRunner = runner;
             bool res = runner.Initialize();
             if(!res) {

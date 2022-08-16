@@ -8,7 +8,7 @@ comes with Visual Designer written for Windows Forms.
 ![](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/media/image1.png)
 
 Simple example:
-
+```
 WfDocument doc = new WfDocument();
 
 WfConstantValueNode const1 = new WfConstantValueNode(1.0);
@@ -44,7 +44,7 @@ cond1.Connect(\"True\", stTrue, \"Run\");
 WfRunner runner = new WfRunner(doc);
 
 bool result = runner.RunOnce(doc);
-
+```
 In this example we create two nodes, containing double constant value 1
 and 2. Then we connect outputs of these nodes to node which has two
 inputs and makes logical operation on values receiving through its

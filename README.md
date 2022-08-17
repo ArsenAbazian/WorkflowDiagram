@@ -139,8 +139,6 @@ Please see this ![video](https://youtu.be/XeFd7waxqw8), demonstrating how to cre
 
 ##How To Connect One Node To Other##
 If one wish to connect nodes, he should select connection mode be clicking Connect Nodes command from the upper diagram toolbar or to press Alt+C shortcut. 
- 
-
 Please see the next ![video](https://youtu.be/UCAVOtsd2d0), demonstrating how to make connection between nodes.
 
 ##How To Set Nodes Parameters##
@@ -148,6 +146,5 @@ Please see the next ![video](https://youtu.be/UCAVOtsd2d0), demonstrating how to
 	The following ![video](https://youtu.be/U2fj98ET_yU) demonstrates, how to set node’s parameters.
 
 ##How To Execute Workflow##
-
 	After creating and configuring nodes, one can execute workflow. To do this, one should click RunOnce or Run command.
 

@@ -134,15 +134,18 @@ visual design (ok, I not finished it yet ).
 Visual Designer is the multi-document application. It supports standard file operations such as create new, open, save, save as. Also, it supports the Initialize, Run, Run Once commands for document. It is very well optimized, supports High DPI monitors and multi-monitors.
 
 ### How To Create Nodes
-On the left side there is Toolbox window, that contains a set of available nodes, that user can create. To create the desired node, drag and drop this node on the Diagram area (Diagram window). 
+On the left side there is Toolbox window, that contains a set of available nodes, that user can create. To create the desired node, drag and drop this node on the Diagram area (Diagram window).
+
 [![video](http://img.youtube.com/vi/XeFd7waxqw8/0.jpg)](https://youtu.be/XeFd7waxqw8/) 
 
 ### How To Connect One Node To Other
 If one wish to connect nodes, he should select connection mode be clicking Connect Nodes command from the upper diagram toolbar or to press Alt+C shortcut.
+
 [![video](http://img.youtube.com/vi/UCAVOtsd2d0/0.jpg)](https://youtu.be/UCAVOtsd2d0/)
 
 ### How To Set Nodes Parameters
 To specify node’s parameters, please select the desired node. After that it’s parameters will be displayed in the Properties window. Use editors in this window to change node’s parameters.
+
 [![video](http://img.youtube.com/vi/U2fj98ET_yU/0.jpg)](https://youtu.be/U2fj98ET_yU/)
 
 ### How To Execute Workflow

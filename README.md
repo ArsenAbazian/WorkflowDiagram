@@ -135,14 +135,15 @@ Visual Designer is the multi-document application. It supports standard file ope
 
 ### How To Create Nodes
 On the left side there is Toolbox window, that contains a set of available nodes, that user can create. To create the desired node, drag and drop this node on the Diagram area (Diagram window). 
-Please see this [![video](http://img.youtube.com/vi/XeFd7waxqw8/0.jpg)](https://youtu.be/XeFd7waxqw8/), demonstrating how to create nodes. 
+[![video](http://img.youtube.com/vi/XeFd7waxqw8/0.jpg)](https://youtu.be/XeFd7waxqw8/) 
 
 ### How To Connect One Node To Other
 If one wish to connect nodes, he should select connection mode be clicking Connect Nodes command from the upper diagram toolbar or to press Alt+C shortcut. 
-Please see the next [![video](http://img.youtube.com/vi/UCAVOtsd2d0/0.jpg)](https://youtu.be/UCAVOtsd2d0/), demonstrating how to make connection between nodes.
+[![video](http://img.youtube.com/vi/UCAVOtsd2d0/0.jpg)](https://youtu.be/UCAVOtsd2d0/)
 
 ### How To Set Nodes Parameters
-To specify node’s parameters, please select the desired node. After that it’s parameters will be displayed in the Properties window. Use editors in this window to change node’s parameters. The following [![video](http://img.youtube.com/vi/U2fj98ET_yU/0.jpg)](https://youtu.be/U2fj98ET_yU/) demonstrates, how to set node’s parameters.
+To specify node’s parameters, please select the desired node. After that it’s parameters will be displayed in the Properties window. Use editors in this window to change node’s parameters. 
+[![video](http://img.youtube.com/vi/U2fj98ET_yU/0.jpg)](https://youtu.be/U2fj98ET_yU/)
 
 ### How To Execute Workflow
 After creating and configuring nodes, one can execute workflow. To do this, one should click RunOnce or Run command.

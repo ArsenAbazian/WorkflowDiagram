@@ -138,11 +138,11 @@ On the left side there is Toolbox window, that contains a set of available nodes
 [![video](http://img.youtube.com/vi/XeFd7waxqw8/0.jpg)](https://youtu.be/XeFd7waxqw8/) 
 
 ### How To Connect One Node To Other
-If one wish to connect nodes, he should select connection mode be clicking Connect Nodes command from the upper diagram toolbar or to press Alt+C shortcut. 
+If one wish to connect nodes, he should select connection mode be clicking Connect Nodes command from the upper diagram toolbar or to press Alt+C shortcut.
 [![video](http://img.youtube.com/vi/UCAVOtsd2d0/0.jpg)](https://youtu.be/UCAVOtsd2d0/)
 
 ### How To Set Nodes Parameters
-To specify node’s parameters, please select the desired node. After that it’s parameters will be displayed in the Properties window. Use editors in this window to change node’s parameters. 
+To specify node’s parameters, please select the desired node. After that it’s parameters will be displayed in the Properties window. Use editors in this window to change node’s parameters.
 [![video](http://img.youtube.com/vi/U2fj98ET_yU/0.jpg)](https://youtu.be/U2fj98ET_yU/)
 
 ### How To Execute Workflow

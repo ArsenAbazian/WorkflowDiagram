@@ -142,9 +142,8 @@ If one wish to connect nodes, he should select connection mode be clicking Conne
 Please see the next ![video](https://youtu.be/UCAVOtsd2d0), demonstrating how to make connection between nodes.
 
 ### How To Set Nodes Parameters
-	To specify node’s parameters, please select the desired node. After that it’s parameters will be displayed in the Properties window. Use editors in this window to change node’s parameters. 
-	The following ![video](https://youtu.be/U2fj98ET_yU) demonstrates, how to set node’s parameters.
+To specify node’s parameters, please select the desired node. After that it’s parameters will be displayed in the Properties window. Use editors in this window to change node’s parameters. The following ![video](https://youtu.be/U2fj98ET_yU) demonstrates, how to set node’s parameters.
 
 ### How To Execute Workflow
-	After creating and configuring nodes, one can execute workflow. To do this, one should click RunOnce or Run command.
+After creating and configuring nodes, one can execute workflow. To do this, one should click RunOnce or Run command.
 

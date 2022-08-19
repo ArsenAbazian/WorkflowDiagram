@@ -152,4 +152,4 @@ To specify node’s parameters, please select the desired node. After that it’
 After creating and configuring nodes, one can execute workflow. To do this, one should click RunOnce or Run command.
 
 ### Related classes
-WfNode(https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfNode.md)
+[WfNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfNode.md)

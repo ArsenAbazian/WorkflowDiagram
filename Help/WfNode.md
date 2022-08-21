@@ -1,6 +1,9 @@
-The WfNode class is the base class for all the nodes you create. The WfNode class has only one input connection point, called "Run". Even there is no other input connections you can connect output from previous node to the "Run" input, and pass execution to it. You can also consider "Run" input connection as Enabled property. 
 
 ![WfNode scheme](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/Node.png)
+
+Every node has input and output connection points. Via connectors node receives data, make operations based on this data and then produce result values and set them to the output connection points. Then this values 'flows' via connectors to the next nodes and so on... Think of node as function, input connection points as function's parameters, and output connection points as return value.
+
+The WfNode class is the base class for all the nodes you create. This base class has only one input connection point, called "Run". Even there is no other input connections you can connect output from previous node to the "Run" input, and pass execution to it. You can also consider "Run" input connection as Enabled property.
 
 ##WfNode Members
 

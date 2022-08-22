@@ -150,4 +150,5 @@ After creating and configuring nodes, one can execute workflow. To do this, one 
 
 ### Related classes
 [WfDocument](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfDocument.md)
+
 [WfNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfNode.md)

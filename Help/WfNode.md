@@ -1,7 +1,10 @@
 
+The WfNode class is a kind of black box that can accept input values, process them and return the result, as well as pass the execution to the next nodes along the selected branches.
+ 
 ![WfNode scheme](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/Node.png)
+The typical node.
 
-Every node has input and output connection points. Via connectors node receives data, make operations based on this data and then produce result values and set them to the output connection points. Then this values 'flows' via connectors to the next nodes and so on... Think of node as function, input connection points as function's parameters, and output connection points as return value.
+Every node has input and output connection points. You can access them via the Inputs and Outputs properties, using connection point's name. Via connectors node receives data, make operations based on this data and then produce result values and set them to the output connection points. Then this values 'flows' via connectors to the next nodes and so on... Think of node as function, input connection points as function's parameters, and output connection points as return value.
 
 The WfNode class is the base class for all the nodes you create. This base class has only one input connection point, called "Run". Even there is no other input connections you can connect output from previous node to the "Run" input, and pass execution to it. You can also consider "Run" input connection as Enabled property.
 

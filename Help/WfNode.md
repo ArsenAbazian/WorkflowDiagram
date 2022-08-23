@@ -10,7 +10,7 @@ Every node has input and output connection points. You can access them via the I
 
 The WfNode class is the base class for all the nodes you create. This base class has only one input connection point, called "Run". Even there is no other input connections you can connect output from previous node to the "Run" input, and pass execution to it. You can also consider "Run" input connection as Enabled property.
 
-##Basic Flow
+## Usage Example
 Basic node should define inputs and outputs. When it is visit by WfRunner the node using data from input connections should perform it's operation and pass operation result to correspoding outputs. Some outputs can be skipped. 
 
 Lets see how basic node works on the example of WfEqualityNode. WfEqualityNode has 2 input connections In1 and In2 and 2 output connections True and False. The WfEqualityNode class gets 2 input values and pass them to the object.Equals method. If object.Equals return true, the WfEqualityNode should pass execution to the True output connection and skip False output connection. Otherwice it should skip True output connecton and should pass execution to the False output connection. 

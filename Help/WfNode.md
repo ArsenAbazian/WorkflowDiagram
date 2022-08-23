@@ -1,4 +1,6 @@
 
+## WfNode class
+
 The WfNode class is a kind of black box that can accept input values, process them and return the result, as well as pass the execution to the next nodes along the selected branches.
  
 ![WfNode scheme](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/Node.png)

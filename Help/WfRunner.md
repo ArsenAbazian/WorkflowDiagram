@@ -1,0 +1,1 @@
+The WfRunner class allows you to initialize and execute your workflow diagram.

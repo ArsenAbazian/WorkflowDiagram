@@ -5,6 +5,94 @@ Every node has input and output connection points. Via connectors node receives 
 
 The WfNode class is the base class for all the nodes you create. This base class has only one input connection point, called "Run". Even there is no other input connections you can connect output from previous node to the "Run" input, and pass execution to it. You can also consider "Run" input connection as Enabled property.
 
+##Basic Flow
+Basic node should define inputs and outputs. When it is visit by WfRunner the node using data from input connections should perform it's operation and pass operation result to correspoding outputs. Some outputs can be skipped. 
+
+Lets see how basic node works on the example of WfEqualityNode. WfEqualityNode has 2 input connections In1 and In2 and 2 output connections True and False. The WfEqualityNode class gets 2 input values and pass them to the object.Equals method. If object.Equals return true, the WfEqualityNode should pass execution to the True output connection and skip False output connection. Otherwice it should skip True output connecton and should pass execution to the False output connection. 
+Here is the simplified code: 
+
+```csharp
+public class WfEqualityNode : WfVisualNodeBase {
+        public override string VisualTemplateName => "Equality";
+        public override string Type => "Equality";
+        public override string Header => "==";
+
+        public WfEqualityNode() { }
+        
+        protected override List<WfConnectionPoint> GetDefaultInputs() {
+            return new WfConnectionPoint[] {
+                new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "In1", Text = "In1", Requirement = WfRequirementType.Mandatory },
+                new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "In2", Text = "In2", Requirement = WfRequirementType.Mandatory }
+            }.ToList();
+        }
+
+        protected override List<WfConnectionPoint> GetDefaultOutputs() {
+            return new WfConnectionPoint[] {
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "True", Text = "True"  },
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "False", Text = "False"  }
+            }.ToList();
+        }
+
+        protected override bool OnInitializeCore(WfRunner runner) {
+            return true;
+        }
+
+        protected override void OnVisitCore(WfRunner runner) {
+            object value1 = Inputs["In1"].Value;
+            object value2 = Inputs["In2"].Value;
+
+            bool result = object.Equals(value1, value2);
+            
+            DataContext = result;
+            if(result) {
+                Outputs["True"].OnVisit(runner, true);
+                Outputs["False"].OnSkipVisit(runner, null);
+            }
+            else {
+                Outputs["False"].OnVisit(runner, true);
+                Outputs["True"].OnSkipVisit(runner, null);
+            }
+        }
+    }
+```
+
+Let's quickly go through the methods and properties of the node.
+
+The type property returns "Equality". The node will be displayed on the Visual Designer toolbox with this name.
+The Header property returns "==". This will be displayed in the node's header in Visual Editor's diagram area.
+The GetDefaultInputs method return two input connection points: "In1" and "In2". This connections are mandatory, which means that there should be at least one connection from other nodes to each of input points of the WfEqualityNode.
+The GetDefaultOutputs method returns two output connection points: "True" and "False". This connections are optional by default, i.e. node can have zero output connections. 
+The OnInitializeCore method returns true, because there is no additional initialization sould be made for this node.
+Now let's look at the OnVisitCore method. If WfRunner calls node's OnVisitCore, this means that it already visited all the nodes and connection points which current node depends on. Now we get values from input connections and check if they are equal: 
+
+```csharp
+    object value1 = Inputs["In1"].Value;
+    object value2 = Inputs["In2"].Value;
+
+    bool result = object.Equals(value1, value2);
+```
+After that we will save result to node's DataContext. 
+
+```csharp
+    DataContext = result;
+```
+We should do this always, because we can then reflect this value visually in diagram area.
+
+```csharp
+    if(result) {
+        Outputs["True"].OnVisit(runner, true);
+        Outputs["False"].OnSkipVisit(runner, null);
+    }
+    else {
+        Outputs["False"].OnVisit(runner, true);
+        Outputs["True"].OnSkipVisit(runner, null);
+    }
+```
+Finally we depend on result value pass execution to one of output connections.
+As we can see, this node acts as a switch and selects one of two branches to execute depending on the input values.
+
+So you can create various nodes that will perform the operations you need.
+
 ##WfNode Members
 
 ### Methods

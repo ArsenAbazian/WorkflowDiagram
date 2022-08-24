@@ -7,9 +7,9 @@ _Please note that according to DevExpress EULA, every person working with DevExp
 
 _Please refer [How To Install DevExpress WinForm Components](https://github.com/ArsenAbazian/CryptoTradingFramework/wiki/How-to-install-DevExpress-components.) article to know how to install this suite on your machine and update the project._ 
 
-![](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/media/image1.png)
-
 ## Overview
+
+![](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/media/image1.png)
 
 Simple example:
 ```csharp

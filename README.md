@@ -1,6 +1,6 @@
 ## Workflow Diagram -- Visual Programming
 
-Workflow Diagram is used to create nodes with operations and connections between them, and then use runner which visits these nodes and execute operations, associated to them. Workflow diagram comes with Visual Designer written for Windows Forms.
+Workflow Diagram is used to create nodes with operations and connections between them, and then use runner which visits these nodes and execute node's operations. Workflow diagram comes with Visual Designer written for Windows Forms and using DevExpress WinForms components.
 
 ![](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/media/image1.png)
 

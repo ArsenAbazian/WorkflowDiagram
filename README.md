@@ -54,6 +54,14 @@ your can create your own descendants is the WfNode class. However, if
 you wish your node support Visual Designer for Windows Forms, please use
 the WfVisualNodeBase class.
 
+### Related classes
+[WfNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfNode.md)
+
+[WfDocument](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfDocument.md)
+
+[WfRunner](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfRunner.md)
+
+### Common Nodes
 There is already exists a set of nodes WorkflowDiagram.Nodes.Base, which
 you can use to make common arithmetic and logical operations and write
 your custom script to operate on input values. You can consider this set
@@ -147,12 +155,5 @@ To specify node’s parameters, please select the desired node. After that it’
 
 ### How To Execute Workflow
 After creating and configuring nodes, one can execute workflow. To do this, one should click RunOnce or Run command.
-
-### Related classes
-[WfNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfNode.md)
-
-[WfDocument](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfDocument.md)
-
-[WfRunner](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfRunner.md)
 
 

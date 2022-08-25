@@ -9,7 +9,7 @@ doc.AddNode(node);
 WfRunner runner = new WfRunner(doc);
 bool result = runner.RunOnce(doc);
 ```
-In this example the WfRunner class visits first and only one node WfAbortNode. When this node is visites it terminates execution and returns true as a result value.
+In this example the WfRunner class visits first and only one node WfAbortNode. When this node is visited it terminates execution and returns true as a result value.
 
 ### WfRunner Working Overview
 Let's now look at the order in which WfRunner bypasses the nodes when we call RunOnce. First, it receives a list of nodes from which to start bypassing. These are nodes that do not depend on other nodes, i.e. do not have input connections. These nodes are immediately added to the list of nodes that WfRunner should visit. These are the current nodes. Then WfRunner constantly performs the following actions:

@@ -23,7 +23,7 @@ namespace WorkflowDiagram.Nodes.Base {
             switch(Operation) {
                 case WfConditionalOperation.Equal:
                     return "In1 == In2";
-                case WfConditionalOperation.NonEqual:
+                case WfConditionalOperation.NotEqual:
                     return "In1 != In2";
                 case WfConditionalOperation.Less:
                     return "In1 < In2";
@@ -61,7 +61,7 @@ namespace WorkflowDiagram.Nodes.Base {
             switch(Operation) {
                 case WfConditionalOperation.Equal:
                     return object.Equals(value1, value2);
-                case WfConditionalOperation.NonEqual:
+                case WfConditionalOperation.NotEqual:
                     return !object.Equals(value1, value2);
                 case WfConditionalOperation.Less:
                     return Convert.ToDouble(value1) < Convert.ToDouble(value2);
@@ -106,7 +106,7 @@ namespace WorkflowDiagram.Nodes.Base {
         [Description("==")]
         Equal,
         [Description("!=")]
-        NonEqual,
+        NotEqual,
         [Description("<")]
         Less,
         [Description("<=")]

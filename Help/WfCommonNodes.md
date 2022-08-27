@@ -3,22 +3,10 @@ There is already a pack of nodes created to implement essential programming. Con
 
 
 
-### WfAbortNode
-The WfAbortNode class used to stops immediately workflow execution and return specified value.
+![WfAbortNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfAbortNode.md)
+![WfConstantNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfConstantNode.md)
+![WfConditionNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfConditionNode.md)
 
-![WfAbortNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/CommonNodes/Abort.png)
-
-#### Input Points
-
-**Run** - Allows WfRunner to visit the node if the value contained in this point = true, otherwise skips nodes execution.
-
-**In** - Input object, the result object from previous node's.
-
-#### Output Points
-
-**ResultCode** - The result value which will be returned from WfRunner.RunOnce or WfRunner.Run method.
-
-**Result** - holds object value from 'In' input point. 
 
 
 

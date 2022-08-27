@@ -1,6 +1,13 @@
 ## Workflow Diagram -- Visual Programming
 
-Workflow Diagram is used to create nodes with operations and connections between them, and then use runner which visits these nodes and execute operations, associated to them. Workflow diagram comes with Visual Designer written for Windows Forms.
+Workflow Diagram is used to create nodes with operations and connections between them, and then use runner which visits these nodes and execute node's operations. Workflow diagram comes with Visual Designer written for Windows Forms and using DevExpress WinForms components.
+
+### **The project actively uses DevExpress WinForms Components.** 
+_Please note that according to DevExpress EULA, every person working with DevExpress components should have a separate license. To properly register their components on your machine, use the DevExpress installer as described in the How to activate my DevExpress license article. Working with DevExpress components using libraries got from NuGet without proper registration may result in licensing violation._
+
+_Please refer [How To Install DevExpress WinForm Components](https://github.com/ArsenAbazian/CryptoTradingFramework/wiki/How-to-install-DevExpress-components.) article to know how to install this suite on your machine and update the project._ 
+
+## Overview
 
 ![](https://user-images.githubusercontent.com/18391055/186918434-a3970be3-173b-47f3-bf8e-d3f96dd09189.png)
 

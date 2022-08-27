@@ -34,7 +34,7 @@ namespace WorkflowDiagram.Nodes.Base {
         }
 
         protected override void OnVisitCore(WfRunner runner) {
-            Outputs[0].OnVisit(runner, Value);
+            Outputs[0].Visit(runner, Value);
         }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {

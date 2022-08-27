@@ -15,7 +15,7 @@ namespace WorkflowDiagram.Nodes.Base {
 
         protected override void OnVisitCore(WfRunner runner) {
             Outputs[0].Value = Success;
-            Outputs["Result"].OnVisit(runner, Inputs["In"].Value);
+            Outputs["Result"].Visit(runner, Inputs["In"].Value);
             runner.Success = Success;
             runner.Stop();
         }

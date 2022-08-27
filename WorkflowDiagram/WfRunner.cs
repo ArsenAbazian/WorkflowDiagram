@@ -63,7 +63,7 @@ namespace WorkflowDiagram {
             try {
                 if(VisitIndex <= startPoint.VisitIndex)
                     VisitIndex = startPoint.VisitIndex + 1;
-                startPoint.OnVisit(this, VisitIndex);
+                startPoint.Visit(this, VisitIndex);
                 result = RunCore(1, false, startPoint.GetNextNodes());
             }
             finally {

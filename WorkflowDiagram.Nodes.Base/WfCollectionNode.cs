@@ -51,11 +51,11 @@ namespace WorkflowDiagram.Nodes.Base {
                     break;
             }
             DataContext = list;
-            Outputs["Collection"].OnVisit(runner, list);
+            Outputs["Collection"].Visit(runner, list);
             if(item != null)
-                Outputs["Item"].OnVisit(runner, item);
+                Outputs["Item"].Visit(runner, item);
             else
-                Outputs["Item"].OnSkipVisit(runner, item);
+                Outputs["Item"].SkipVisit(runner, item);
         }
 
         private List<object> GetActualCollection() {

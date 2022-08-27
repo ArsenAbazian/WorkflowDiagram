@@ -45,12 +45,12 @@ namespace WorkflowDiagram.Nodes.Base {
             bool result = CalcOperation();
             DataContext = result;
             if(result) {
-                Outputs["True"].OnVisit(runner, true);
-                Outputs["False"].OnSkipVisit(runner, null);
+                Outputs["True"].Visit(runner, true);
+                Outputs["False"].SkipVisit(runner, null);
             }
             else {
-                Outputs["False"].OnVisit(runner, true);
-                Outputs["True"].OnSkipVisit(runner, null);
+                Outputs["False"].Visit(runner, true);
+                Outputs["True"].SkipVisit(runner, null);
             }
         }
 
@@ -85,12 +85,6 @@ namespace WorkflowDiagram.Nodes.Base {
                 operation = value;
                 OnPropertyChanged(nameof(Operation));
             }
-        }
-
-        protected override bool AllowProcessOutput(WfConnectionPoint point) {
-            if((bool)DataContext)
-                return point.Name == "True";
-            return point.Name == "False";
         }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {

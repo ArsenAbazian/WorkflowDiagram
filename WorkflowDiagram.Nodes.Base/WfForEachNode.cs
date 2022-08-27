@@ -32,7 +32,7 @@ namespace WorkflowDiagram.Nodes.Base {
             IEnumerable en = Inputs["In"].Value as IEnumerable;
             if(en == null) {
                 DataContext = en;
-                Outputs["Out"].OnVisit(runner, en);
+                Outputs["Out"].Visit(runner, en);
                 return;
             }
             DataContext = en;
@@ -44,7 +44,7 @@ namespace WorkflowDiagram.Nodes.Base {
                     result.Add(resultObject); 
             }
             DataContext = result;
-            Outputs["Out"].OnVisit(runner, result);
+            Outputs["Out"].Visit(runner, result);
         }
     }
 }

@@ -31,12 +31,12 @@ namespace WorkflowDiagram.Nodes.Base {
             try {
                 task = Script.RunAsync(this);
                 task.Wait();
-                Outputs[0].OnVisit(runner, task.Result.ReturnValue);
+                Outputs[0].Visit(runner, task.Result.ReturnValue);
             }
             catch(Exception e) {
                 DiagnosticHelper.Error("Exception occurs while visit node. " + e.ToString());
                 HasErrors = true;
-                Outputs[0].OnVisit(runner, 0);
+                Outputs[0].Visit(runner, 0);
             }
         }
 

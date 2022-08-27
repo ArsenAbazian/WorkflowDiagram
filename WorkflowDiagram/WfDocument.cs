@@ -26,7 +26,7 @@ namespace WorkflowDiagram {
             InitializeDefaultColors();
         }
 
-        public WfNode Add(WfNode node) {
+        public WfNode AddNode(WfNode node) {
             Nodes.Add(node);
             return node;
         }
@@ -250,9 +250,10 @@ namespace WorkflowDiagram {
 
         public event WfNodeEventHandler QueryNodeVisualData;
 
-        public void AddConnector(WfConnector c) {
+        public WfConnector AddConnector(WfConnector c) {
             Connectors.Add(c);
             c.Document = this;
+            return c;
         }
 
         public virtual void Reset() {

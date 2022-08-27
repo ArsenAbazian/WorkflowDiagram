@@ -39,7 +39,7 @@ namespace WorkflowDiagram.Nodes.Base {
                     result.Add(itemRes);
             }
             DataContext = result;
-            Outputs["Out"].OnVisit(runner, result);
+            Outputs["Out"].Visit(runner, result);
         }
     }
 }

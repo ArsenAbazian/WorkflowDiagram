@@ -28,9 +28,27 @@ namespace WorkflowDiagram {
                 OnPropertyChanged(nameof(Value));
             }
         }
-        
-        public string Name { get; set; }
-        public string Text { get; set; }
+
+        string name;
+        public string Name {
+            get { return name; }
+            set {
+                if(Name == value)
+                    return;
+                name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+        string text;
+        public string Text {
+            get { return text; }
+            set {
+                if(Text == value)
+                    return;
+                text = value;
+                OnPropertyChanged(nameof(Text));
+            }
+        }
 
         public void ConnectTo(WfNode node, string inputName) {
             ConnectTo(node.Inputs[inputName]);
@@ -111,22 +129,26 @@ namespace WorkflowDiagram {
 
         protected bool ValueCalculated { get; set; }
         [XmlIgnore]
-        public bool IsSkipped { get; protected set; }
-        public virtual void OnSkipVisit(WfRunner runner, object value) {
+        public bool LastVisited { get; protected set; }
+        public virtual void SkipVisit(WfRunner runner, object value) {
             Value = value;
             ValueCalculated = true;
-            IsSkipped = true;
+            LastVisited = false;
             VisitIndex = runner.VisitIndex;
-        }
-        public virtual void OnVisit(WfRunner runner, object value) {
-            Value = value;
-            ValueCalculated = true;
-            VisitIndex = runner.VisitIndex;
-            IsSkipped = false;
             if(Type == WfConnectionPointType.In)
                 return;
             foreach(WfConnector c in Connectors)
-                c.OnVisit(runner, value);
+                c.SkipVisit(runner, value);
+        }
+        public virtual void Visit(WfRunner runner, object value) {
+            Value = value;
+            ValueCalculated = true;
+            VisitIndex = runner.VisitIndex;
+            LastVisited = true;
+            if(Type == WfConnectionPointType.In)
+                return;
+            foreach(WfConnector c in Connectors)
+                c.Visit(runner, value);
         }
 
         public List<WfNode> GetNextNodes() {

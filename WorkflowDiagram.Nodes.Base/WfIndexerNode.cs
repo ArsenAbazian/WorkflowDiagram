@@ -34,12 +34,12 @@ namespace WorkflowDiagram.Nodes.Base {
             IList list = Inputs["In"].Value as IList;
             if(list == null) {
                 DataContext = null;
-                Outputs["Item"].OnSkipVisit(runner, null);
+                Outputs["Item"].SkipVisit(runner, null);
                 return;
             }
             int index = GetIndex();
             DataContext = list[index];
-            Outputs["Item"].OnVisit(runner, list[index]);
+            Outputs["Item"].Visit(runner, list[index]);
         }
 
         private int GetIndex() {

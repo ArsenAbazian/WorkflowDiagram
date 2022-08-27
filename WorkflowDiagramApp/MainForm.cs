@@ -123,7 +123,7 @@ namespace WorkflowDiagramApp {
 
         protected WfRunner ActiveRunner { get; set; }
         protected virtual WfRunner CreateRunner() {
-            if(ActiveDocumentControl != null)
+            if(ActiveDocumentControl != null && ActiveDocumentControl.DocumentOwner != null)
                 return ActiveDocumentControl.DocumentOwner.CreateRunner(ActiveDocument);
             return new WfRunner(ActiveDocument);
         }

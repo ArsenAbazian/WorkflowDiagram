@@ -9,9 +9,13 @@
     <license type="expression">MIT</license>
     <!-- <icon>icon.png</icon> -->
     <projectUrl>https://github.com/ArsenAbazian/WorkflowDiagram</projectUrl>
-    <description>This is Workflow Diagram library</description>
+    <description>The WorkflowDiagram library is used to create nodes with operations, and connections between them, and then use runner which visits these nodes and execute operations, associated to these nodes.</description>
     <releaseNotes>Under active development.</releaseNotes>
     <copyright>$copyright$</copyright>
-    <tags>Workflow Diagram</tags>
+    <tags>Workflow Diagram Visual Programming</tags>
+    <readme>docs\README.md</readme>
   </metadata>
+  <files>
+    <file src="README.md" target="docs\" />
+  </files>
 </package>

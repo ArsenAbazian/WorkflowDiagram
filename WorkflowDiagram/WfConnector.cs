@@ -171,9 +171,18 @@ namespace WorkflowDiagram {
         public virtual void Reset() {
             VisitIndex = -1;
         }
-        public void OnVisit(WfRunner runner, object value) {
+        [XmlIgnore]
+        public bool LastVisited { get; private set; }
+        public void Visit(WfRunner runner, object value) {
+            VisitIndex = runner.VisitIndex;
+            LastVisited = true;
             if(To != null)
-                To.OnVisit(runner, value);
+                To.Visit(runner, value);
+        }
+
+        public void SkipVisit(WfRunner runner, object value) {
+            VisitIndex = runner.VisitIndex;
+            LastVisited = false;
         }
     }
 }

@@ -70,7 +70,7 @@ namespace WorkflowDiagram {
         }
 
         private void OnPointPropertyChanged(object sender, PropertyChangedEventArgs e) {
-            OnPropertyChanged(e.PropertyName);
+            OnPropertyChanged("Point." + e.PropertyName);
         }
 
         protected internal virtual void OnPointAdded(WfConnectionPoint point) {
@@ -119,7 +119,7 @@ namespace WorkflowDiagram {
                     return true;
                 for(int i = 0; i < enable.Connectors.Count; i++) {
                     WfConnectionPoint pt = enable.Connectors[i].From;
-                    if(pt.IsSkipped)
+                    if(!pt.LastVisited)
                         return false;
                     if(pt.Value == null)
                         return true;
@@ -370,7 +370,7 @@ namespace WorkflowDiagram {
             }
         }
 
-        public virtual bool OnInitialize(WfRunner runner) {
+        public bool OnInitialize(WfRunner runner) {
             try {
                 VisitIndex = runner.VisitIndex;
                 IsInitialized = OnInitializeCore(runner);
@@ -394,24 +394,7 @@ namespace WorkflowDiagram {
             }
             catch(Exception) { }
         }
-        protected virtual List<WfNode> GetNextNodesToVisit() {
-            List<WfNode> list = new List<WfNode>();
-            for(int i = 0; i < Outputs.Count; i++) {
-                var point = Outputs[i];
-                if(!AllowProcessOutput(point))
-                    continue;
-                for(int j = 0; j < point.Connectors.Count; j++) {
-                    WfNode nextNode = point.Connectors[j].ToNode;
-                    if(nextNode != null)
-                        list.Add(nextNode);
-                }
-            }
-            return list;
-        }
-
-        protected virtual bool AllowProcessOutput(WfConnectionPoint point) {
-            return true;
-        }
+               
 
         protected internal virtual void OnEndDeserialize() {
 
@@ -429,12 +412,15 @@ namespace WorkflowDiagram {
             Description = wfNode.Description;
         }
 
-        public virtual void Reset() {
+        public void Reset() {
             VisitIndex = -1;
             HasErrors = false;
+            ResetCore();
             foreach(var point in Points) {
                 point.Reset();
             }
         }
+
+        protected virtual void ResetCore() { }
     }
 }

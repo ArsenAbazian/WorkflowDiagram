@@ -27,16 +27,16 @@ namespace WorkflowDiagram.Nodes.Base {
                 if(Outputs[i].Name == "Default")
                     continue;
                 if(object.Equals(result, Outputs[i].Value)) {
-                    Outputs[i].OnVisit(runner, result);
+                    Outputs[i].Visit(runner, result);
                     foundCase = true;
                 }
                 else
-                    Outputs[i].OnSkipVisit(runner, null);
+                    Outputs[i].SkipVisit(runner, null);
             }
             if(!foundCase)
-                Outputs["Default"].OnVisit(runner, result);
+                Outputs["Default"].Visit(runner, result);
             else
-                Outputs["Default"].OnSkipVisit(runner, null);
+                Outputs["Default"].SkipVisit(runner, null);
         }
 
         protected virtual object CalcOperation() {

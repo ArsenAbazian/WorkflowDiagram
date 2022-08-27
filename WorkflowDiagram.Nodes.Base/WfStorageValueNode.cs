@@ -34,7 +34,7 @@ namespace WorkflowDiagram.Nodes.Base {
         protected override void OnVisitCore(WfRunner runner) {
             if(Inputs[0].Connectors.Count != 0)
                 SetValueToStorage(Inputs[0].Value);
-            Outputs[0].OnVisit(runner, GetValueFromStorage());
+            Outputs[0].Visit(runner, GetValueFromStorage());
         }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {
@@ -87,8 +87,8 @@ namespace WorkflowDiagram.Nodes.Base {
     }
 
     public class WfStorageSetConnectionPoint : WfConnectionPoint {
-        public override void OnVisit(WfRunner runner, object value) {
-            base.OnVisit(runner, value);
+        public override void Visit(WfRunner runner, object value) {
+            base.Visit(runner, value);
             WfStorageValueNode node = (WfStorageValueNode)Node;
             node.SetValueToStorage(Value);
         }

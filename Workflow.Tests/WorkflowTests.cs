@@ -15,22 +15,22 @@ namespace Workflow.Tests {
             WfDocument doc = new WfDocument();
 
             WfConstantValueNode const1 = new WfConstantValueNode(1.0);
-            doc.Add(const1);
+            doc.AddNode(const1);
 
             WfConstantValueNode const2 = new WfConstantValueNode(2.0);
-            doc.Add(const2);
+            doc.AddNode(const2);
 
             WfConditionNode cond1 = new WfConditionNode(WfConditionalOperation.Equal);
-            doc.Add(cond1);
+            doc.AddNode(cond1);
 
             const1.Outputs[0].ConnectTo(cond1, "In1");
             const2.Outputs[0].ConnectTo(cond1, "In2");
 
             WfStorageValueNode stTrue = new WfStorageValueNode("Condition True");
-            doc.Add(stTrue);
+            doc.AddNode(stTrue);
 
             WfStorageValueNode stFalse = new WfStorageValueNode("Condition False");
-            doc.Add(stFalse);
+            doc.AddNode(stFalse);
 
             cond1.Connect("False", stFalse, "Run");
             cond1.Connect("True", stTrue, "Run");
@@ -52,5 +52,12 @@ namespace Workflow.Tests {
             Assert.AreNotEqual(null, stTrue.GetValueFromStorage());
             Assert.AreEqual(null, stFalse.GetValueFromStorage());
         }
+
+        [Test]
+        public void TestExample() {
+            WfDocument doc = new WfDocument();
+            
+        }
     }
+    
 }

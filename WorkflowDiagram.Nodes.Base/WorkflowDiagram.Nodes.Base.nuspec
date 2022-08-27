@@ -13,5 +13,9 @@
     <releaseNotes>Under Active Development</releaseNotes>
     <copyright>$copyright$</copyright>
     <tags>Workflow Diagram Visual Coding</tags>
+    <readme>docs\README.md</readme>
   </metadata>
+  <files>
+    <file src="README.md" target="docs\" />
+  </files>
 </package>

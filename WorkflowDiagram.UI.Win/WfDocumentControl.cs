@@ -277,12 +277,9 @@ namespace WorkflowDiagram.UI.Win {
                 SavedConnectorTemplateFont = e.Connector.Appearance.Font;
             e.Connector.Appearance.FontSizeDelta = Document.FontSizeDelta;
             e.Connector.Appearance.ContentBackground = CommonSkins.GetSkin(this.diagramControl1.LookAndFeel).GetSystemColor(SystemColors.Window);
-
-            e.Connector.Appearance.BorderColor = Color.Orange;
-            e.Connector.Appearance.ForeColor = Color.Orange;
+            UpdateConnectorStyle(c, e.Connector);
             e.Connector.BeginItemPointIndex = c.FromIndex;
             e.Connector.EndItemPointIndex = c.ToIndex;
-            //e.Connector.Type = DevExpress.Diagram.Core.ConnectorType.OrgChart;
             if(this.bciShowConnectorText.Checked)
                 e.Connector.Content = c.From.Connectors.IndexOf(c).ToString();
         }
@@ -495,7 +492,23 @@ namespace WorkflowDiagram.UI.Win {
         }
 
         private void diagramDataBindingController1_UpdateConnector(object sender, DiagramUpdateConnectorEventArgs e) {
+            WfConnector conn = e.Connector.DataContext as WfConnector;
+            UpdateConnectorStyle(conn, e.Connector);
+        }
 
+        protected void UpdateConnectorStyle(WfConnector conn, DiagramConnector dc) {
+            if(conn == null)
+                return;
+            if(conn.LastVisited) {
+                dc.Appearance.BorderColor =
+                dc.Appearance.ForeColor =
+                dc.Appearance.BackColor = DXSkinColors.FillColors.Success;
+            }
+            else {
+                dc.Appearance.BorderColor =
+                dc.Appearance.ForeColor =
+                dc.Appearance.BackColor = DXSkinColors.FillColors.Warning;
+            }
         }
 
         bool deletingInProcess;

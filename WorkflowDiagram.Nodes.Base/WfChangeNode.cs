@@ -25,19 +25,13 @@ namespace WorkflowDiagram.Nodes.Base {
             DataContext = Inputs["In1"].Value;
             bool changed = !object.Equals(DataContext, PreviousValue);
             if(changed) {
-                Outputs["Yes"].OnVisit(runner, DataContext);
-                Outputs["No"].OnSkipVisit(runner, null);
+                Outputs["Yes"].Visit(runner, DataContext);
+                Outputs["No"].SkipVisit(runner, null);
             }
             else {
-                Outputs["No"].OnVisit(runner, DataContext);
-                Outputs["Yes"].OnSkipVisit(runner, null);
+                Outputs["No"].Visit(runner, DataContext);
+                Outputs["Yes"].SkipVisit(runner, null);
             }
-        }
-
-        protected override bool AllowProcessOutput(WfConnectionPoint point) {
-            if((bool)DataContext)
-                return point.Name == "Yes";
-            return point.Name == "No";
         }
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {

@@ -59,6 +59,10 @@ namespace WorkflowDiagram.UI.Win {
         }
 
         private void OnNodePropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if(e.PropertyName == nameof(WfNode.Points) || e.PropertyName.StartsWith("Point.")) {
+                HtmlTemplate = CreateHtmlTemplate();
+                TemplateElement = CreateHtmlTemplateElement(CreateHtmlTemplate(HtmlTemplate), this);
+            }
             TemplateInfoCalculated = false;
             InvalidateVisual();
         }
@@ -100,6 +104,8 @@ namespace WorkflowDiagram.UI.Win {
             List<PointFloat> l = new List<PointFloat>();
             foreach(var point in Node.Points) {
                 var element = TemplateElement.FindElementById(point.Name);
+                if(element == null)
+                    continue;
                 Rectangle r = element.ViewInfo.AbsoluteBounds;
                 PointFloat ptf = new PointFloat((r.X + r.Width / 2.0f) / size.Width, (r.Y + r.Height / 2.0f) / size.Height);
                 l.Add(ptf);
@@ -190,15 +196,13 @@ namespace WorkflowDiagram.UI.Win {
 
 
             using(GraphicsCacheDxHtmlWrapper wrapper = new GraphicsCacheDxHtmlWrapper(cache, UserLookAndFeel.Default)) {
-                var elemVisit = TemplateElement.FindElementById("key_visit");
                 var elemInit = TemplateElement.FindElementById("key_init");
                 var root = TemplateElement.FindElementById("key_item");
 
                 elemInit.Style.SetBackgroundColor(Node.IsInitialized ? Color.FromArgb(255, Color.Green) : Color.FromArgb(40, Color.Green));
-                elemVisit.Style.SetBackgroundColor(Color.FromArgb(40, Color.OrangeRed));
 
                 if(Node.HasErrors)
-                    root.Style.SetBackgroundColor(Color.FromArgb(40, Color.Red));
+                    root.Style.SetBackgroundColor(Color.FromArgb(40, DXSkinColors.FillColors.Danger));
                 else
                     root.Style.SetBackgroundColor(CommonSkins.GetSkin(UserLookAndFeel.Default).GetSystemColor(SystemColors.Window));
 

@@ -30,4 +30,5 @@ return spredToOpen;
 
 User can create and edit expression in special script editor, in Visual Designer. 
 
-![WfScriptNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/VisualDesigner/ScriptEditor.png)
+![Script Editor](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/VisualDesigner/ScritpEditor.png)
+

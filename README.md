@@ -1,4 +1,4 @@
-## Workflow Diagram -- Visual Programming
+## Workflow Diagram -- Low Code, Visual Programming
 
 Workflow Diagram is used to create nodes with operations and connections between them, and then use runner which visits these nodes and execute node's operations. Workflow diagram comes with Visual Designer written for Windows Forms and using DevExpress WinForms components.
 

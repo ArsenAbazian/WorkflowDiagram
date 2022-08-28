@@ -13,6 +13,8 @@ There is already a pack of nodes created to implement essential programming. Con
 
 [WfStorageValueNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfStorageValueNode.md)
 
+[WfScriptNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfExpressionNode.md)
+
 
 
 

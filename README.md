@@ -61,8 +61,6 @@ your can create your own descendants is the WfNode class. However, if
 you wish your node support Visual Designer for Windows Forms, please use
 the WfVisualNodeBase class.
 
-WorkflowDiagram состоит из нескольких частей. Само ядро
-
 ### Related classes
 [WfNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/WfNode.md)
 

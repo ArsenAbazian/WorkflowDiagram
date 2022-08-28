@@ -77,6 +77,10 @@ There is already a pack of nodes created to implement essential programming. Con
 
 [WfConditionNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfConditionNode.md)
 
+[WfSwitchNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfSwitchNode.md)
+
+[WfWhenChangedNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfWhenChangedNode.md)
+
 Each of these nodes can be created and designed in Workflow Diagram's Visual Designer.
 
 ## Visual Designer

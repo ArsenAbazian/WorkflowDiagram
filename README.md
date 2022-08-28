@@ -85,6 +85,14 @@ There is already a pack of nodes created to implement essential programming. Con
 
 [WfScriptNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfExpressionNode.md)
 
+[WfCollectionNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfCollectionNode.md)
+
+[WfIndexerNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfIndexerNode.md)
+
+[WfRepeatNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfRepeatNode.md)
+
+[WfForEachNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfForEachNode.md)
+
 Each of these nodes can be created and designed in Workflow Diagram's Visual Designer.
 
 ## Visual Designer

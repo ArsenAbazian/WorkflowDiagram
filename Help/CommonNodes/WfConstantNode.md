@@ -1,5 +1,5 @@
 ### WfConstantValueNode
-The WfConstantValueNode class used to stops immediately workflow execution and return specified value.
+The WfConstantValueNode class used to specify constant value of one of the following types: Decimal, Boolean, String.
 
 ![WfConstantValueNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/CommonNodes/Constant.png)
 

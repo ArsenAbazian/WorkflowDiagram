@@ -81,6 +81,8 @@ There is already a pack of nodes created to implement essential programming. Con
 
 [WfWhenChangedNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfWhenChangedNode.md)
 
+[WfStorageValueNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/CommonNodes/WfStorageValueNode.md)
+
 Each of these nodes can be created and designed in Workflow Diagram's Visual Designer.
 
 ## Visual Designer

@@ -392,7 +392,9 @@ namespace WorkflowDiagram {
                 OnVisitCore(runner);
                 VisitIndex = runner.VisitIndex;
             }
-            catch(Exception) { }
+            catch(Exception e) {
+                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, e.ToString());
+            }
         }
                
 

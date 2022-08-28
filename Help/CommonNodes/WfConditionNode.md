@@ -1,5 +1,5 @@
 ### WfConditionNode
-The WfConditionNode class used make conditional operation on two input values and pass execution to the one of the branches: 'True' if condition passed or 'False' if not.
+The WfConditionNode class used to make conditional operation on two input values and pass execution to the one of the branches: 'True' if condition passed or 'False' if not.
 
 ![WfConditionNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/CommonNodes/Conditional.png)
 

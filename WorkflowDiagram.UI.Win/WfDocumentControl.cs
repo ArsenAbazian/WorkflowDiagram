@@ -9,6 +9,7 @@ using DevExpress.Utils.Drawing.Animation;
 using DevExpress.XtraBars.Alerter;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraDiagram;
+using DevExpress.XtraDiagram.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
@@ -492,8 +493,16 @@ namespace WorkflowDiagram.UI.Win {
         }
 
         private void diagramDataBindingController1_UpdateConnector(object sender, DiagramUpdateConnectorEventArgs e) {
-            WfConnector conn = e.Connector.DataContext as WfConnector;
-            UpdateConnectorStyle(conn, e.Connector);
+            if(InvokeRequired) {
+                BeginInvoke(new MethodInvoker(() => {
+                    WfConnector conn = e.Connector.DataContext as WfConnector;
+                    UpdateConnectorStyle(conn, e.Connector);
+                }));
+            }
+            else {
+                WfConnector conn = e.Connector.DataContext as WfConnector;
+                UpdateConnectorStyle(conn, e.Connector);
+            }
         }
 
         protected void UpdateConnectorStyle(WfConnector conn, DiagramConnector dc) {
@@ -537,10 +546,10 @@ namespace WorkflowDiagram.UI.Win {
 
         private void diagramControl1_CustomDrawItem(object sender, CustomDrawItemEventArgs e) {
             WfConnector conn = e.Item.DataContext as WfConnector;
-            if(conn != null) {
+            if(conn != null && !IsItemDisposed(e)) {
                 if(!AnimationEnabled)
                     return;
-                if(!conn.From.IsVisitedByRunner)
+                if(!conn.From.IsVisitedByRunner && !this.bciAnimateFlow.Checked)
                     return;
                 DiagramConnector c = (DiagramConnector)e.Item;
                 e.DefaultDraw(CustomDrawItemMode.Background);
@@ -555,6 +564,27 @@ namespace WorkflowDiagram.UI.Win {
 
                 e.DefaultDraw(CustomDrawItemMode.Content);
                 return;
+            }
+        }
+        protected bool IsItemDisposed(CustomDrawItemEventArgs e) {
+            DiagramItemInfo info = (DiagramItemInfo)ItemInfoProperty.GetValue(e);
+            bool isDisposed = (bool)DisposedInfo.GetValue(info.View);
+            return isDisposed;
+        }
+        PropertyInfo pInfo;
+        protected PropertyInfo ItemInfoProperty { 
+            get {
+                if(pInfo == null)
+                    pInfo = typeof(CustomDrawItemEventArgs).GetProperty("ItemInfo", BindingFlags.Instance | BindingFlags.NonPublic);
+                return pInfo;
+            } 
+        }
+        FieldInfo pDisposed;
+        protected FieldInfo DisposedInfo {
+            get {
+                if(pDisposed == null)
+                    pDisposed = typeof(DiagramItemViewBase).GetField("isDisposed", BindingFlags.Instance | BindingFlags.NonPublic);
+                return pDisposed;
             }
         }
 

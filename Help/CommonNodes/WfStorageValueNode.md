@@ -1,17 +1,17 @@
-### WfStorageValueNode
+## WfStorageValueNode
 The WfStorageValueNode class used to save value with specified name in global storage and load when needed.
 
 ![WfStorageValueNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/CommonNodes/Storage.png)
 
-#### Input Points
+### Input Points
 
 **Set** - The input value from this point will be saved to storage.
 
-#### Output Points
+### Output Points
 
 **Get** - This point will return value from storage.
 
-#### Properties
+### Properties
 
 **string ValueName** - indicates specified value type: Decimal, Boolean, String.
 

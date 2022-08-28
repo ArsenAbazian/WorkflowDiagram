@@ -1,23 +1,23 @@
-### WfScriptNode
+## WfScriptNode
 The WfScriptNode class used to receive up to 6 input values and execute script on them.
 
 ![WfScriptNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/CommonNodes/Expression.png)
 
-#### Input Points
+### Input Points
 
 **Run** - Allows WfRunner to visit the node if the value contained in this point = true, otherwise skips nodes execution.
 
 **In0** - **In5** - input values for expression. 
 
-#### Output Points
+### Output Points
 
 **Result** - The expression result.
 
-#### Properties
+### Properties
 
 **string Expression** - indicates specified value type: Decimal, Boolean, String.
 
-#### Script Example
+### Script Example
 Here is the script example which makes substration operation on two input values;
 
 ```csharp

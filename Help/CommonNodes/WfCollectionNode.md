@@ -1,9 +1,9 @@
-### WfCollectionNode
+## WfCollectionNode
 The WfCollectionNode class used make standard operations on collection and collection item, such as: add, remove, insert, clear.
 
 ![WfCollectionNode](https://github.com/ArsenAbazian/WorkflowDiagram/blob/main/Help/Images/CommonNodes/Collection.png)
 
-#### Input Points
+### Input Points
 
 **Run** - Allows WfRunner to visit the node if the value contained in this point = true, otherwise skips nodes execution.
 
@@ -11,13 +11,13 @@ The WfCollectionNode class used make standard operations on collection and colle
 
 **Collection** - input collection object. This object will be passed to the 'Collection' output connection point.
 
-#### Output Points
+### Output Points
 
 **Item** - The same input object
 
 **Collection** - The same input collection object
 
-#### Properties
+### Properties
 
 **WfCollectionOperation Operation** - specify operation: 
 

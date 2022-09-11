@@ -78,7 +78,7 @@ namespace WorkflowDiagram.UI.Win {
         private void gridView1_ShowingEditor(object sender, CancelEventArgs e) {
             WfConnectionPoint pt = (WfConnectionPoint)this.gridView1.GetFocusedRow();
             if(!pt.AllowedOperations.HasFlag(WfEditOperation.Edit)) {
-                if(this.gridView1.FocusedColumn != this.colText)
+                if(this.gridView1.FocusedColumn != this.colText || this.gridView1.FocusedColumn != this.colName)
                     e.Cancel = true;
             }
         }

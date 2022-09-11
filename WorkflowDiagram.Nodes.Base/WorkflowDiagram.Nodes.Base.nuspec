@@ -9,10 +9,10 @@
     <license type="expression">MIT</license>
     <!-- <icon>icon.png</icon> -->
     <projectUrl>https://github.com/ArsenAbazian/WorkflowDiagram</projectUrl>
-    <description>Base nodes for visual coding</description>
+    <description>Base nodes for low code platform</description>
     <releaseNotes>Under Active Development</releaseNotes>
     <copyright>$copyright$</copyright>
-    <tags>Workflow Diagram Visual Coding</tags>
+    <tags>Workflow Diagram Visual Coding LowCode NoCode</tags>
     <readme>docs\README.md</readme>
   </metadata>
   <files>

@@ -185,14 +185,18 @@ namespace WorkflowDiagramApp {
             }
             ActiveDocumentControl.AnimationEnabled = true;
             runner.RunOnceAsync().ContinueWith(t => {
-                BeginInvoke(new Action<bool>(tr => {
+                IProgress<bool> progress = new Progress<bool>(tr => {
                     if(ActiveDocumentControl != null)
                         ActiveDocumentControl.AnimationEnabled = false;
                     if(tr == false)
                         XtraMessageBox.Show("Execution failed!", "Execution");
                     else
                         XtraMessageBox.Show("Executed succesfully!", "Execution");
-                }), t.Result);
+                });
+                progress.Report(t.Result);
+                //BeginInvoke(new Action<bool>(tr => {
+                    
+                //}), t.Result);
             });
         }
 

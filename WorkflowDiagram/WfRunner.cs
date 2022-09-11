@@ -55,19 +55,38 @@ namespace WorkflowDiagram {
         }
 
         public bool RunOnceSubTree(WfConnectionPoint startPoint, out object operationRes) {
+            return RunOnceSubTree(new WfConnectionPoint[] { startPoint }, startPoint, out operationRes);
+        }
+
+        public bool RunOnceSubTree(WfConnectionPoint[] startPoints, WfConnectionPoint branchPoint, out object operationRes) {
             WfNode lastVisited = LastVisitedNode;
             int visitIndex = VisitIndex;
             bool success = Success;
             bool result = false;
             operationRes = null;
             try {
-                if(VisitIndex <= startPoint.VisitIndex)
-                    VisitIndex = startPoint.VisitIndex + 1;
-                startPoint.Visit(this, VisitIndex);
-                result = RunCore(1, false, startPoint.GetNextNodes());
+                int startVisitIndex = VisitIndex;
+                for(int i = 0; i < startPoints.Length; i++) {
+                    WfConnectionPoint startPoint = startPoints[i];
+                    startVisitIndex = Math.Max(startVisitIndex, startPoints[i].VisitIndex + 1);
+                }
+                startVisitIndex = Math.Max(startVisitIndex, branchPoint.VisitIndex + 1);
+                VisitIndex = startVisitIndex;
+                for(int i = 0; i < startPoints.Length; i++) {
+                    WfConnectionPoint startPoint = startPoints[i];
+                    startPoint.Visit(this, startPoint.Value);
+                }
+                branchPoint.Visit(this, branchPoint.Value);
+
+                List<WfNode> startNodes = new List<WfNode>();
+                for(int i = 0; i < startPoints.Length; i++)
+                    startNodes.AddRange(startPoints[i].GetNextNodes());
+                startNodes.AddRange(branchPoint.GetNextNodes());
+                
+                result = RunCore(1, false, startNodes);
             }
             finally {
-                operationRes = LastVisitedNode.DataContext;
+                operationRes = LastVisitedNode.DataContext; 
                 Success = success;
                 VisitIndex = visitIndex;
                 LastVisitedNode = lastVisited;
@@ -93,6 +112,7 @@ namespace WorkflowDiagram {
                         continue;
                     }
                     if(currentNodes[i].IsVisited(VisitIndex)) {
+                        processed = true;
                         currentNodes.RemoveAt(i);
                         continue;
                     }

@@ -61,6 +61,7 @@
     <Compile Include="IDiagramOwner.cs" />
     <Compile Include="PropertyEditorAttribute.cs" />
     <Compile Include="WfColor.cs" />
+    <Compile Include="WfCommandsProvider.cs" />
     <Compile Include="WfConnectionPoint.cs" />
     <Compile Include="WfConnectionPointCollection.cs" />
     <Compile Include="WfConnectorCollection.cs" />

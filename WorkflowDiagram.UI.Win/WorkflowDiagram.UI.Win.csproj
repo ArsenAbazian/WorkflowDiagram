@@ -125,8 +125,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationClient" />
     <Reference Include="WindowsBase" />
-    <Reference Include="WorkflowDiagram, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WorkflowDiagram.1.0.12\lib\net472\WorkflowDiagram.dll</HintPath>
+    <Reference Include="WorkflowDiagram, Version=1.0.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WorkflowDiagram.1.0.13\lib\net472\WorkflowDiagram.dll</HintPath>
     </Reference>
     <Reference Include="XmlSerialization, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\XmlSerialization.1.0.7\lib\net472\XmlSerialization.dll</HintPath>

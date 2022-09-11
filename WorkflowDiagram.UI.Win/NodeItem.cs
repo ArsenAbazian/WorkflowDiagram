@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WorkflowDiagram.UI.Win {
     public class NodeItem : DiagramItem, IDxHtmlClient {
@@ -194,7 +195,7 @@ namespace WorkflowDiagram.UI.Win {
                 return TemplateElement.RootElement.Size;
             }
 
-
+            Size resSize = TemplateElement.RootElement.ViewInfo.Size;
             using(GraphicsCacheDxHtmlWrapper wrapper = new GraphicsCacheDxHtmlWrapper(cache, UserLookAndFeel.Default)) {
                 var elemInit = TemplateElement.FindElementById("key_init");
                 var root = TemplateElement.FindElementById("key_item");
@@ -206,24 +207,31 @@ namespace WorkflowDiagram.UI.Win {
                 else
                     root.Style.SetBackgroundColor(CommonSkins.GetSkin(UserLookAndFeel.Default).GetSystemColor(SystemColors.Window));
 
-                TemplateElement.Calc(wrapper, rect, app.GetFont(), app.GetForeColor());
+                resSize = TemplateElement.Calc(wrapper, rect, app.GetFont(), app.GetForeColor());
             }
             TemplateInfoCalculated = true;
-            if(TemplateElement.RootElement.Size.Height != Height) {
-
-            }
-            return TemplateElement.RootElement.Size;
+            return resSize;
         }
-
+        protected bool InCheckUpdateHtmlTemplate { get; set; }
         internal void CheckUpdateHtmlTemplate(GraphicsCache cache, Rectangle r) {
+            CheckUpdateHtmlTemplate(cache, r, true);
+        }
+        internal void CheckUpdateHtmlTemplate(GraphicsCache cache, Rectangle r, bool updateSize) {
+            if(InCheckUpdateHtmlTemplate)
+                return;
+            InCheckUpdateHtmlTemplate = true;
             ScaleHelper prev = cache.ScaleDPI;
             cache.ScaleDPI = ScaleHelper.NoScale;
             try {
                 if(!TemplateInfoCalculated || TemplateElement.ViewInfo.Bounds.Size != r.Size) {
                     Size sz = CalculateHtmlTemplate(cache, r);
-                    if(sz.Width != Width || sz.Height != Height) {
-                        Width = sz.Width;
-                        Height = sz.Height;
+                    if(sz.Width == 0 || sz.Height == 0)
+                        return;
+                    if(updateSize && (sz.Width != Width || sz.Height != Height)) {
+                        Diagram.BeginInvoke(new MethodInvoker(() => {
+                            Width = sz.Width;
+                            Height = sz.Height;
+                        }));
                     }
                 }
                 else
@@ -231,6 +239,7 @@ namespace WorkflowDiagram.UI.Win {
             }
             finally {
                 cache.ScaleDPI = prev;
+                InCheckUpdateHtmlTemplate = false;
             }
         }
 

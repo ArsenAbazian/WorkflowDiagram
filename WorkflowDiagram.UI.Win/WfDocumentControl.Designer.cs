@@ -30,7 +30,7 @@ namespace WorkflowDiagram.UI.Win {
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WfDocumentControl));
-            DevExpress.Utils.Animation.PushTransition pushTransition1 = new DevExpress.Utils.Animation.PushTransition();
+            DevExpress.Utils.Animation.PushTransition pushTransition2 = new DevExpress.Utils.Animation.PushTransition();
             this.bbiOpen = new DevExpress.XtraBars.BarButtonItem();
             this.bbiNew = new DevExpress.XtraBars.BarButtonItem();
             this.bbiSave = new DevExpress.XtraBars.BarButtonItem();
@@ -60,9 +60,13 @@ namespace WorkflowDiagram.UI.Win {
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
+            this.panelContainer4 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dpProperties = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.pgcProperties = new WorkflowDiagram.UI.Win.CustomPropertyGrid();
+            this.dpValue = new DevExpress.XtraBars.Docking.DockPanel();
+            this.controlContainer5 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.cpgValue = new WorkflowDiagram.UI.Win.CustomPropertyGrid();
             this.panelContainer2 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dpOutputs = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
@@ -89,7 +93,6 @@ namespace WorkflowDiagram.UI.Win {
             this.Default = new DevExpress.Utils.Html.HtmlTemplate();
             this.InRow = new DevExpress.Utils.Html.HtmlTemplate();
             this.OutRow = new DevExpress.Utils.Html.HtmlTemplate();
-            this.panelContainer4 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dpDiagnostics = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.gcDiagnostics = new DevExpress.XtraGrid.GridControl();
@@ -97,9 +100,6 @@ namespace WorkflowDiagram.UI.Win {
             this.gvDiagnostics = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colType1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colText1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dpValue = new DevExpress.XtraBars.Docking.DockPanel();
-            this.controlContainer5 = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.cpgValue = new WorkflowDiagram.UI.Win.CustomPropertyGrid();
             this.xtraSaveFileDialog1 = new DevExpress.XtraEditors.XtraSaveFileDialog(this.components);
             this.diagramDataBindingController1 = new DevExpress.XtraDiagram.DiagramDataBindingController(this.components);
             this.diagramConnector1 = new DevExpress.XtraDiagram.DiagramConnector();
@@ -127,6 +127,7 @@ namespace WorkflowDiagram.UI.Win {
             this.alertControl1 = new DevExpress.XtraBars.Alerter.AlertControl(this.components);
             this.svgImageCollection2 = new DevExpress.Utils.SvgImageCollection(this.components);
             this.customPropertyGrid1 = new WorkflowDiagram.UI.Win.CustomPropertyGrid();
+            this.pmContextMenu = new DevExpress.XtraBars.PopupMenu(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -134,9 +135,13 @@ namespace WorkflowDiagram.UI.Win {
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             this.panelContainer1.SuspendLayout();
+            this.panelContainer4.SuspendLayout();
             this.dpProperties.SuspendLayout();
             this.controlContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pgcProperties)).BeginInit();
+            this.dpValue.SuspendLayout();
+            this.controlContainer5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cpgValue)).BeginInit();
             this.panelContainer2.SuspendLayout();
             this.dpOutputs.SuspendLayout();
             this.dockPanel2_Container.SuspendLayout();
@@ -152,15 +157,11 @@ namespace WorkflowDiagram.UI.Win {
             this.dpDiagram.SuspendLayout();
             this.controlContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.diagramControl1)).BeginInit();
-            this.panelContainer4.SuspendLayout();
             this.dpDiagnostics.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcDiagnostics)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wfDiagnosticInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDiagnostics)).BeginInit();
-            this.dpValue.SuspendLayout();
-            this.controlContainer5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cpgValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramDataBindingController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramDataBindingController1.TemplateDiagram)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
@@ -175,6 +176,7 @@ namespace WorkflowDiagram.UI.Win {
             ((System.ComponentModel.ISupportInitialize)(this.SendToBackPopupMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.svgImageCollection2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customPropertyGrid1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pmContextMenu)).BeginInit();
             this.SuspendLayout();
             // 
             // bbiOpen
@@ -363,11 +365,11 @@ namespace WorkflowDiagram.UI.Win {
             this.standaloneBarDockControl1.AutoSize = true;
             this.standaloneBarDockControl1.CausesValidation = false;
             this.standaloneBarDockControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.standaloneBarDockControl1.Location = new System.Drawing.Point(0, 337);
+            this.standaloneBarDockControl1.Location = new System.Drawing.Point(0, 432);
             this.standaloneBarDockControl1.Manager = this.barManager1;
             this.standaloneBarDockControl1.Margin = new System.Windows.Forms.Padding(6);
             this.standaloneBarDockControl1.Name = "standaloneBarDockControl1";
-            this.standaloneBarDockControl1.Size = new System.Drawing.Size(1737, 62);
+            this.standaloneBarDockControl1.Size = new System.Drawing.Size(1521, 62);
             this.standaloneBarDockControl1.Text = "standaloneBarDockControl1";
             // 
             // bar4
@@ -433,7 +435,7 @@ namespace WorkflowDiagram.UI.Win {
             this.standaloneBarDockControl2.Manager = this.barManager1;
             this.standaloneBarDockControl2.Margin = new System.Windows.Forms.Padding(6);
             this.standaloneBarDockControl2.Name = "standaloneBarDockControl2";
-            this.standaloneBarDockControl2.Size = new System.Drawing.Size(1737, 62);
+            this.standaloneBarDockControl2.Size = new System.Drawing.Size(1521, 62);
             this.standaloneBarDockControl2.Text = "standaloneBarDockControl2";
             // 
             // barDockControlTop
@@ -479,40 +481,50 @@ namespace WorkflowDiagram.UI.Win {
             // 
             // panelContainer1
             // 
-            this.panelContainer1.Controls.Add(this.dpProperties);
+            this.panelContainer1.Controls.Add(this.panelContainer4);
             this.panelContainer1.Controls.Add(this.panelContainer2);
             this.panelContainer1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
             this.panelContainer1.ID = new System.Guid("ff37c224-8fb9-4ce9-b433-77c72f7a5415");
-            this.panelContainer1.Location = new System.Drawing.Point(2104, 76);
+            this.panelContainer1.Location = new System.Drawing.Point(1958, 76);
             this.panelContainer1.Margin = new System.Windows.Forms.Padding(6);
             this.panelContainer1.Name = "panelContainer1";
-            this.panelContainer1.OriginalSize = new System.Drawing.Size(350, 200);
-            this.panelContainer1.Size = new System.Drawing.Size(350, 899);
+            this.panelContainer1.OriginalSize = new System.Drawing.Size(496, 200);
+            this.panelContainer1.Size = new System.Drawing.Size(496, 899);
             this.panelContainer1.Text = "panelContainer1";
+            // 
+            // panelContainer4
+            // 
+            this.panelContainer4.ActiveChild = this.dpProperties;
+            this.panelContainer4.Controls.Add(this.dpProperties);
+            this.panelContainer4.Controls.Add(this.dpValue);
+            this.panelContainer4.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.panelContainer4.ID = new System.Guid("fa335202-d893-4c28-8dbd-8c527ff95c91");
+            this.panelContainer4.Location = new System.Drawing.Point(0, 0);
+            this.panelContainer4.Name = "panelContainer4";
+            this.panelContainer4.OriginalSize = new System.Drawing.Size(350, 450);
+            this.panelContainer4.Size = new System.Drawing.Size(496, 450);
+            this.panelContainer4.Tabbed = true;
+            this.panelContainer4.Text = "panelContainer4";
             // 
             // dpProperties
             // 
             this.dpProperties.Controls.Add(this.controlContainer1);
             this.dpProperties.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dpProperties.ID = new System.Guid("2e7a5007-edf4-47b5-a997-3b43f78d87bc");
-            this.dpProperties.Location = new System.Drawing.Point(0, 0);
+            this.dpProperties.Location = new System.Drawing.Point(11, 52);
             this.dpProperties.Margin = new System.Windows.Forms.Padding(4);
             this.dpProperties.Name = "dpProperties";
             this.dpProperties.OriginalSize = new System.Drawing.Size(350, 450);
-            this.dpProperties.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
-            this.dpProperties.SavedIndex = 0;
-            this.dpProperties.SavedParent = this.panelContainer1;
-            this.dpProperties.SavedSizeFactor = 1.00111D;
-            this.dpProperties.Size = new System.Drawing.Size(350, 450);
+            this.dpProperties.Size = new System.Drawing.Size(479, 342);
             this.dpProperties.Text = "Properties";
             // 
             // controlContainer1
             // 
             this.controlContainer1.Controls.Add(this.pgcProperties);
-            this.controlContainer1.Location = new System.Drawing.Point(11, 52);
+            this.controlContainer1.Location = new System.Drawing.Point(0, 0);
             this.controlContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.controlContainer1.Name = "controlContainer1";
-            this.controlContainer1.Size = new System.Drawing.Size(333, 387);
+            this.controlContainer1.Size = new System.Drawing.Size(479, 342);
             this.controlContainer1.TabIndex = 0;
             // 
             // pgcProperties
@@ -530,7 +542,7 @@ namespace WorkflowDiagram.UI.Win {
             this.pgcProperties.OptionsView.LevelIndent = 8;
             this.pgcProperties.OptionsView.MinRowAutoHeight = 40;
             this.pgcProperties.OptionsView.ShowRootLevelIndent = false;
-            this.pgcProperties.Size = new System.Drawing.Size(333, 387);
+            this.pgcProperties.Size = new System.Drawing.Size(479, 342);
             this.pgcProperties.TabIndex = 0;
             this.pgcProperties.CustomRecordCellEdit += new DevExpress.XtraVerticalGrid.Events.GetCustomRowCellEditEventHandler(this.propertyGridControl1_CustomRecordCellEdit);
             this.pgcProperties.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.propertyGridControl1_ShowingEditor);
@@ -538,6 +550,45 @@ namespace WorkflowDiagram.UI.Win {
             this.pgcProperties.SelectedChanged += new DevExpress.XtraVerticalGrid.Events.SelectedChangedHandler(this.propertyGridControl1_SelectedChanged);
             this.pgcProperties.SizeChanged += new System.EventHandler(this.propertyGridControl1_SizeChanged);
             this.pgcProperties.Resize += new System.EventHandler(this.propertyGridControl1_Resize);
+            // 
+            // dpValue
+            // 
+            this.dpValue.Controls.Add(this.controlContainer5);
+            this.dpValue.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.dpValue.FloatSize = new System.Drawing.Size(726, 668);
+            this.dpValue.ID = new System.Guid("0d72315f-14fc-4691-8b7e-55d3b869866f");
+            this.dpValue.Location = new System.Drawing.Point(11, 52);
+            this.dpValue.Name = "dpValue";
+            this.dpValue.OriginalSize = new System.Drawing.Size(514, 437);
+            this.dpValue.Size = new System.Drawing.Size(479, 342);
+            this.dpValue.Text = "Connection Point Value";
+            // 
+            // controlContainer5
+            // 
+            this.controlContainer5.Controls.Add(this.cpgValue);
+            this.controlContainer5.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer5.Name = "controlContainer5";
+            this.controlContainer5.Size = new System.Drawing.Size(479, 342);
+            this.controlContainer5.TabIndex = 0;
+            // 
+            // cpgValue
+            // 
+            this.cpgValue.ActiveViewType = DevExpress.XtraVerticalGrid.PropertyGridView.Office;
+            this.cpgValue.BandsInterval = 4;
+            this.cpgValue.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.cpgValue.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cpgValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cpgValue.Location = new System.Drawing.Point(0, 0);
+            this.cpgValue.Margin = new System.Windows.Forms.Padding(8, 4, 8, 4);
+            this.cpgValue.Name = "cpgValue";
+            this.cpgValue.OptionsBehavior.Editable = false;
+            this.cpgValue.OptionsView.AllowReadOnlyRowAppearance = DevExpress.Utils.DefaultBoolean.True;
+            this.cpgValue.OptionsView.FixedLineWidth = 4;
+            this.cpgValue.OptionsView.LevelIndent = 8;
+            this.cpgValue.OptionsView.MinRowAutoHeight = 40;
+            this.cpgValue.OptionsView.ShowRootLevelIndent = false;
+            this.cpgValue.Size = new System.Drawing.Size(479, 342);
+            this.cpgValue.TabIndex = 1;
             // 
             // panelContainer2
             // 
@@ -549,8 +600,8 @@ namespace WorkflowDiagram.UI.Win {
             this.panelContainer2.Location = new System.Drawing.Point(0, 450);
             this.panelContainer2.Margin = new System.Windows.Forms.Padding(6);
             this.panelContainer2.Name = "panelContainer2";
-            this.panelContainer2.OriginalSize = new System.Drawing.Size(700, 449);
-            this.panelContainer2.Size = new System.Drawing.Size(350, 449);
+            this.panelContainer2.OriginalSize = new System.Drawing.Size(350, 449);
+            this.panelContainer2.Size = new System.Drawing.Size(496, 449);
             this.panelContainer2.Tabbed = true;
             this.panelContainer2.Text = "panelContainer2";
             // 
@@ -562,8 +613,8 @@ namespace WorkflowDiagram.UI.Win {
             this.dpOutputs.Location = new System.Drawing.Point(11, 52);
             this.dpOutputs.Margin = new System.Windows.Forms.Padding(6);
             this.dpOutputs.Name = "dpOutputs";
-            this.dpOutputs.OriginalSize = new System.Drawing.Size(683, 346);
-            this.dpOutputs.Size = new System.Drawing.Size(333, 346);
+            this.dpOutputs.OriginalSize = new System.Drawing.Size(333, 346);
+            this.dpOutputs.Size = new System.Drawing.Size(479, 346);
             this.dpOutputs.Text = "Outputs";
             // 
             // dockPanel2_Container
@@ -572,7 +623,7 @@ namespace WorkflowDiagram.UI.Win {
             this.dockPanel2_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel2_Container.Margin = new System.Windows.Forms.Padding(6);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(333, 346);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(479, 346);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // connectionsEditor2
@@ -582,7 +633,7 @@ namespace WorkflowDiagram.UI.Win {
             this.connectionsEditor2.Location = new System.Drawing.Point(0, 0);
             this.connectionsEditor2.Margin = new System.Windows.Forms.Padding(2);
             this.connectionsEditor2.Name = "connectionsEditor2";
-            this.connectionsEditor2.Size = new System.Drawing.Size(333, 346);
+            this.connectionsEditor2.Size = new System.Drawing.Size(479, 346);
             this.connectionsEditor2.TabIndex = 0;
             // 
             // dpInputs
@@ -593,8 +644,8 @@ namespace WorkflowDiagram.UI.Win {
             this.dpInputs.Location = new System.Drawing.Point(11, 52);
             this.dpInputs.Margin = new System.Windows.Forms.Padding(6);
             this.dpInputs.Name = "dpInputs";
-            this.dpInputs.OriginalSize = new System.Drawing.Size(683, 346);
-            this.dpInputs.Size = new System.Drawing.Size(333, 346);
+            this.dpInputs.OriginalSize = new System.Drawing.Size(333, 346);
+            this.dpInputs.Size = new System.Drawing.Size(479, 346);
             this.dpInputs.Text = "Inputs";
             // 
             // controlContainer4
@@ -603,7 +654,7 @@ namespace WorkflowDiagram.UI.Win {
             this.controlContainer4.Location = new System.Drawing.Point(0, 0);
             this.controlContainer4.Margin = new System.Windows.Forms.Padding(6);
             this.controlContainer4.Name = "controlContainer4";
-            this.controlContainer4.Size = new System.Drawing.Size(333, 346);
+            this.controlContainer4.Size = new System.Drawing.Size(479, 346);
             this.controlContainer4.TabIndex = 0;
             // 
             // connectionsEditor1
@@ -613,7 +664,7 @@ namespace WorkflowDiagram.UI.Win {
             this.connectionsEditor1.Location = new System.Drawing.Point(0, 0);
             this.connectionsEditor1.Margin = new System.Windows.Forms.Padding(2);
             this.connectionsEditor1.Name = "connectionsEditor1";
-            this.connectionsEditor1.Size = new System.Drawing.Size(333, 346);
+            this.connectionsEditor1.Size = new System.Drawing.Size(479, 346);
             this.connectionsEditor1.TabIndex = 0;
             // 
             // dpToolbox
@@ -624,8 +675,8 @@ namespace WorkflowDiagram.UI.Win {
             this.dpToolbox.Location = new System.Drawing.Point(0, 76);
             this.dpToolbox.Margin = new System.Windows.Forms.Padding(4);
             this.dpToolbox.Name = "dpToolbox";
-            this.dpToolbox.OriginalSize = new System.Drawing.Size(355, 200);
-            this.dpToolbox.Size = new System.Drawing.Size(355, 899);
+            this.dpToolbox.OriginalSize = new System.Drawing.Size(425, 200);
+            this.dpToolbox.Size = new System.Drawing.Size(425, 899);
             this.dpToolbox.Text = "Toolbox";
             // 
             // controlContainer2
@@ -634,7 +685,7 @@ namespace WorkflowDiagram.UI.Win {
             this.controlContainer2.Location = new System.Drawing.Point(6, 52);
             this.controlContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.controlContainer2.Name = "controlContainer2";
-            this.controlContainer2.Size = new System.Drawing.Size(338, 841);
+            this.controlContainer2.Size = new System.Drawing.Size(408, 841);
             this.controlContainer2.TabIndex = 0;
             // 
             // gridControl1
@@ -646,7 +697,7 @@ namespace WorkflowDiagram.UI.Win {
             this.gridControl1.MainView = this.wevToolbar;
             this.gridControl1.Margin = new System.Windows.Forms.Padding(6);
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(338, 841);
+            this.gridControl1.Size = new System.Drawing.Size(408, 841);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.wevToolbar});
@@ -677,7 +728,7 @@ namespace WorkflowDiagram.UI.Win {
             this.wevToolbar.OptionsViewStyles.Content.HtmlTemplate.Styles = resources.GetString("wevToolbar.OptionsViewStyles.Content.HtmlTemplate.Styles");
             this.wevToolbar.OptionsViewStyles.Content.HtmlTemplate.Template = "<div class=\"button\">\r\n\t<img src=\"${Image}\" class=\"image\">\r\n\t<div class=\"text\">${D" +
     "isplayText}</div>\r\n</div>";
-            this.wevToolbar.OptionsViewStyles.Content.ItemWidth = 338;
+            this.wevToolbar.OptionsViewStyles.Content.ItemWidth = 408;
             this.wevToolbar.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCategory, DevExpress.Data.ColumnSortOrder.Ascending)});
             this.wevToolbar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.wevToolbar_MouseDown);
@@ -749,15 +800,15 @@ namespace WorkflowDiagram.UI.Win {
             // 
             this.panelContainer3.ChildPanelOrientation = DevExpress.XtraBars.Docking.LayoutOrientation.Vertical;
             this.panelContainer3.Controls.Add(this.dpDiagram);
-            this.panelContainer3.Controls.Add(this.panelContainer4);
+            this.panelContainer3.Controls.Add(this.dpDiagnostics);
             this.panelContainer3.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.panelContainer3.FloatSize = new System.Drawing.Size(361, 301);
             this.panelContainer3.ID = new System.Guid("745e5740-3b82-4e2d-9596-cdfbc63e1fdc");
-            this.panelContainer3.Location = new System.Drawing.Point(355, 76);
+            this.panelContainer3.Location = new System.Drawing.Point(425, 76);
             this.panelContainer3.Margin = new System.Windows.Forms.Padding(6);
             this.panelContainer3.Name = "panelContainer3";
             this.panelContainer3.OriginalSize = new System.Drawing.Size(200, 899);
-            this.panelContainer3.Size = new System.Drawing.Size(1749, 899);
+            this.panelContainer3.Size = new System.Drawing.Size(1533, 899);
             this.panelContainer3.Text = "panelContainer3";
             // 
             // dpDiagram
@@ -769,8 +820,8 @@ namespace WorkflowDiagram.UI.Win {
             this.dpDiagram.Location = new System.Drawing.Point(0, 0);
             this.dpDiagram.Margin = new System.Windows.Forms.Padding(4);
             this.dpDiagram.Name = "dpDiagram";
-            this.dpDiagram.OriginalSize = new System.Drawing.Size(1749, 453);
-            this.dpDiagram.Size = new System.Drawing.Size(1749, 462);
+            this.dpDiagram.OriginalSize = new System.Drawing.Size(1749, 462);
+            this.dpDiagram.Size = new System.Drawing.Size(1533, 557);
             this.dpDiagram.Text = "Diagram";
             // 
             // controlContainer3
@@ -781,7 +832,7 @@ namespace WorkflowDiagram.UI.Win {
             this.controlContainer3.Location = new System.Drawing.Point(6, 52);
             this.controlContainer3.Margin = new System.Windows.Forms.Padding(4);
             this.controlContainer3.Name = "controlContainer3";
-            this.controlContainer3.Size = new System.Drawing.Size(1737, 399);
+            this.controlContainer3.Size = new System.Drawing.Size(1521, 494);
             this.controlContainer3.TabIndex = 0;
             // 
             // diagramControl1
@@ -807,7 +858,7 @@ namespace WorkflowDiagram.UI.Win {
             this.diagramControl1.OptionsView.ShowPageBreaks = false;
             this.diagramControl1.OptionsView.ShowRulers = false;
             this.diagramControl1.OptionsView.ToolboxVisibility = DevExpress.Diagram.Core.ToolboxVisibility.Closed;
-            this.diagramControl1.Size = new System.Drawing.Size(1737, 275);
+            this.diagramControl1.Size = new System.Drawing.Size(1521, 370);
             this.diagramControl1.TabIndex = 0;
             this.diagramControl1.Text = "diagramControl1";
             this.diagramControl1.SelectionChanged += new System.EventHandler<DevExpress.XtraDiagram.DiagramSelectionChangedEventArgs>(this.diagramControl1_SelectionChanged);
@@ -819,6 +870,7 @@ namespace WorkflowDiagram.UI.Win {
             this.diagramControl1.DragDrop += new System.Windows.Forms.DragEventHandler(this.diagramControl1_DragDrop);
             this.diagramControl1.DragEnter += new System.Windows.Forms.DragEventHandler(this.diagramControl1_DragEnter);
             this.diagramControl1.DragOver += new System.Windows.Forms.DragEventHandler(this.diagramControl1_DragOver);
+            this.diagramControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.diagramControl1_MouseDown);
             // 
             // Default
             // 
@@ -840,30 +892,21 @@ namespace WorkflowDiagram.UI.Win {
             this.OutRow.Template = "<div class=\"out-item\">\r\n\t<div class=\"value\">${{{0}}}</div>\r\n\t<div class=\"name\">{1" +
     "}</div>\r\n\t<div class=\"out-point\" id=\"{0}\"></div>\r\n</div>";
             // 
-            // panelContainer4
-            // 
-            this.panelContainer4.Controls.Add(this.dpDiagnostics);
-            this.panelContainer4.Controls.Add(this.dpValue);
-            this.panelContainer4.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
-            this.panelContainer4.FloatVertical = true;
-            this.panelContainer4.ID = new System.Guid("9295e381-a2c6-4ec0-a916-c041b242c3d2");
-            this.panelContainer4.Location = new System.Drawing.Point(0, 462);
-            this.panelContainer4.Name = "panelContainer4";
-            this.panelContainer4.OriginalSize = new System.Drawing.Size(1749, 446);
-            this.panelContainer4.Size = new System.Drawing.Size(1749, 437);
-            this.panelContainer4.Text = "panelContainer4";
-            // 
             // dpDiagnostics
             // 
             this.dpDiagnostics.Controls.Add(this.dockPanel1_Container);
             this.dpDiagnostics.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
             this.dpDiagnostics.FloatVertical = true;
             this.dpDiagnostics.ID = new System.Guid("cd6b2811-9b4c-4fd1-9722-d82a4ee5f460");
-            this.dpDiagnostics.Location = new System.Drawing.Point(0, 0);
+            this.dpDiagnostics.Location = new System.Drawing.Point(0, 557);
             this.dpDiagnostics.Margin = new System.Windows.Forms.Padding(4);
             this.dpDiagnostics.Name = "dpDiagnostics";
-            this.dpDiagnostics.OriginalSize = new System.Drawing.Size(1235, 446);
-            this.dpDiagnostics.Size = new System.Drawing.Size(1235, 437);
+            this.dpDiagnostics.OriginalSize = new System.Drawing.Size(1749, 437);
+            this.dpDiagnostics.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
+            this.dpDiagnostics.SavedIndex = 1;
+            this.dpDiagnostics.SavedParent = this.panelContainer3;
+            this.dpDiagnostics.SavedSizeFactor = 1.29727D;
+            this.dpDiagnostics.Size = new System.Drawing.Size(1533, 342);
             this.dpDiagnostics.Text = "Diagnostics";
             // 
             // dockPanel1_Container
@@ -872,7 +915,7 @@ namespace WorkflowDiagram.UI.Win {
             this.dockPanel1_Container.Location = new System.Drawing.Point(6, 52);
             this.dockPanel1_Container.Margin = new System.Windows.Forms.Padding(4);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(1218, 379);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(1521, 284);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // gcDiagnostics
@@ -885,7 +928,7 @@ namespace WorkflowDiagram.UI.Win {
             this.gcDiagnostics.Margin = new System.Windows.Forms.Padding(4);
             this.gcDiagnostics.MenuManager = this.barManager1;
             this.gcDiagnostics.Name = "gcDiagnostics";
-            this.gcDiagnostics.Size = new System.Drawing.Size(1218, 379);
+            this.gcDiagnostics.Size = new System.Drawing.Size(1521, 284);
             this.gcDiagnostics.TabIndex = 0;
             this.gcDiagnostics.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvDiagnostics});
@@ -928,45 +971,6 @@ namespace WorkflowDiagram.UI.Win {
             this.colText1.Visible = true;
             this.colText1.VisibleIndex = 1;
             this.colText1.Width = 150;
-            // 
-            // dpValue
-            // 
-            this.dpValue.Controls.Add(this.controlContainer5);
-            this.dpValue.Dock = DevExpress.XtraBars.Docking.DockingStyle.Fill;
-            this.dpValue.FloatSize = new System.Drawing.Size(726, 668);
-            this.dpValue.ID = new System.Guid("0d72315f-14fc-4691-8b7e-55d3b869866f");
-            this.dpValue.Location = new System.Drawing.Point(1235, 0);
-            this.dpValue.Name = "dpValue";
-            this.dpValue.OriginalSize = new System.Drawing.Size(514, 446);
-            this.dpValue.Size = new System.Drawing.Size(514, 437);
-            this.dpValue.Text = "Connection Point Value";
-            // 
-            // controlContainer5
-            // 
-            this.controlContainer5.Controls.Add(this.cpgValue);
-            this.controlContainer5.Location = new System.Drawing.Point(6, 52);
-            this.controlContainer5.Name = "controlContainer5";
-            this.controlContainer5.Size = new System.Drawing.Size(502, 379);
-            this.controlContainer5.TabIndex = 0;
-            // 
-            // cpgValue
-            // 
-            this.cpgValue.ActiveViewType = DevExpress.XtraVerticalGrid.PropertyGridView.Office;
-            this.cpgValue.BandsInterval = 4;
-            this.cpgValue.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.cpgValue.Cursor = System.Windows.Forms.Cursors.Default;
-            this.cpgValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cpgValue.Location = new System.Drawing.Point(0, 0);
-            this.cpgValue.Margin = new System.Windows.Forms.Padding(8, 4, 8, 4);
-            this.cpgValue.Name = "cpgValue";
-            this.cpgValue.OptionsBehavior.Editable = false;
-            this.cpgValue.OptionsView.AllowReadOnlyRowAppearance = DevExpress.Utils.DefaultBoolean.True;
-            this.cpgValue.OptionsView.FixedLineWidth = 4;
-            this.cpgValue.OptionsView.LevelIndent = 8;
-            this.cpgValue.OptionsView.MinRowAutoHeight = 40;
-            this.cpgValue.OptionsView.ShowRootLevelIndent = false;
-            this.cpgValue.Size = new System.Drawing.Size(502, 379);
-            this.cpgValue.TabIndex = 1;
             // 
             // xtraSaveFileDialog1
             // 
@@ -1101,7 +1105,7 @@ namespace WorkflowDiagram.UI.Win {
             // workspaceManager1
             // 
             this.workspaceManager1.TargetControl = this;
-            this.workspaceManager1.TransitionType = pushTransition1;
+            this.workspaceManager1.TransitionType = pushTransition2;
             // 
             // biOwnerProperties
             // 
@@ -1229,6 +1233,11 @@ namespace WorkflowDiagram.UI.Win {
             this.customPropertyGrid1.Size = new System.Drawing.Size(333, 387);
             this.customPropertyGrid1.TabIndex = 0;
             // 
+            // pmContextMenu
+            // 
+            this.pmContextMenu.Name = "pmContextMenu";
+            this.pmContextMenu.Ribbon = this.ribbonControl1;
+            // 
             // WfDocumentControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -1251,9 +1260,13 @@ namespace WorkflowDiagram.UI.Win {
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemImageComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             this.panelContainer1.ResumeLayout(false);
+            this.panelContainer4.ResumeLayout(false);
             this.dpProperties.ResumeLayout(false);
             this.controlContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pgcProperties)).EndInit();
+            this.dpValue.ResumeLayout(false);
+            this.controlContainer5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cpgValue)).EndInit();
             this.panelContainer2.ResumeLayout(false);
             this.dpOutputs.ResumeLayout(false);
             this.dockPanel2_Container.ResumeLayout(false);
@@ -1270,15 +1283,11 @@ namespace WorkflowDiagram.UI.Win {
             this.controlContainer3.ResumeLayout(false);
             this.controlContainer3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.diagramControl1)).EndInit();
-            this.panelContainer4.ResumeLayout(false);
             this.dpDiagnostics.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcDiagnostics)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.wfDiagnosticInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDiagnostics)).EndInit();
-            this.dpValue.ResumeLayout(false);
-            this.controlContainer5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cpgValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramDataBindingController1.TemplateDiagram)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramDataBindingController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
@@ -1293,6 +1302,7 @@ namespace WorkflowDiagram.UI.Win {
             ((System.ComponentModel.ISupportInitialize)(this.SendToBackPopupMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.svgImageCollection2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customPropertyGrid1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pmContextMenu)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1395,5 +1405,6 @@ namespace WorkflowDiagram.UI.Win {
         private CustomPropertyGrid cpgValue;
         private CustomPropertyGrid customPropertyGrid1;
         private DevExpress.XtraBars.Docking.DockPanel panelContainer4;
+        private DevExpress.XtraBars.PopupMenu pmContextMenu;
     }
 }

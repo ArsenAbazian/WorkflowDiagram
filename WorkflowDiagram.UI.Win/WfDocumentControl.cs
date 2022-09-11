@@ -6,6 +6,7 @@ using DevExpress.Utils;
 using DevExpress.Utils.DirectXPaint;
 using DevExpress.Utils.Drawing;
 using DevExpress.Utils.Drawing.Animation;
+using DevExpress.XtraBars;
 using DevExpress.XtraBars.Alerter;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraDiagram;
@@ -50,7 +51,8 @@ namespace WorkflowDiagram.UI.Win {
 
         private void OnShowPointProperties(object sender, WfPointValueEventArgs e) {
             this.cpgValue.SelectedObject = e.Point.Value;
-            this.dpValue.Show();
+            //if(dpValue.Visibility != DevExpress.XtraBars.Docking.DockVisibility.Visible)
+            //    this.dpValue.Show();
         }
 
         private void OnDiagramPaintX(object sender, XtraPaintEventArgs e) {
@@ -178,6 +180,8 @@ namespace WorkflowDiagram.UI.Win {
             }
             else {
                 CustomAnimationInfo info = new CustomAnimationInfo(this, AnimationId, (int)(TimeSpan.TicksPerMillisecond * 15), int.MaxValue, (ee) => {
+                    if(AnimationInfo == null)
+                        return;
                     float routeSeconds = 2.0f;
                     float elapsedSeconds = AnimationInfo.ElapsedTicks / (float)TimeSpan.TicksPerSecond;
                     FpsCount++;
@@ -189,7 +193,6 @@ namespace WorkflowDiagram.UI.Win {
                 XtraAnimator.Current.AddAnimation(info);
             }
         }
-
 
         Control ISupportXtraAnimation.OwnerControl => this.diagramControl1;
 
@@ -442,18 +445,21 @@ namespace WorkflowDiagram.UI.Win {
                     this.pgcProperties.SelectedObjects = selItems;
                 else
                     this.pgcProperties.SelectedObject = item.DataContext;
-                if(selItems[0] is WfNode) {
+                if(selItems.Length > 0 && selItems[0] is WfNode) {
+                    this.dpProperties.Text = "Properties " + ((WfNode)selItems[0]).Type;
                     this.connectionsEditor1.Connections = ((WfNode)selItems[0]).Inputs;
                     this.connectionsEditor2.Connections = ((WfNode)selItems[0]).Outputs;
                     this.gcDiagnostics.DataSource = ((WfNode)selItems[0]).Diagnostic;
                 }
                 else {
+                    this.dpProperties.Text = "Properties";
                     this.connectionsEditor1.Connections = null;
                     this.connectionsEditor2.Connections = null;
                     this.gcDiagnostics.DataSource = null;
                 }
             }
             else {
+                this.dpProperties.Text = "Properties";
                 this.pgcProperties.SelectedObject = null;
                 this.connectionsEditor1.Connections = null;
                 this.connectionsEditor2.Connections = null;
@@ -594,6 +600,44 @@ namespace WorkflowDiagram.UI.Win {
 
         private void gvDiagnostics_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e) {
             
+        }
+
+        private void diagramControl1_MouseDown(object sender, MouseEventArgs e) {
+            if(e.Button != MouseButtons.Right)
+                return;
+            WfNode node = this.pgcProperties.SelectedObject as WfNode;
+            if(node == null)
+                return;
+            var attr = node.GetType().GetCustomAttribute<WfCommandsProviderAttribute>();
+            if(attr == null || attr.Provider == null)
+                return;
+            var commands = attr.Provider.Commands;
+            List<BarItem> items = this.pmContextMenu.ItemLinks.Select(l => l.Item).ToList();
+            this.pmContextMenu.ItemLinks.Clear();
+            items.ForEach(i => {
+                i.ItemClick -= OnCommandItemClick;
+                i.Dispose();
+            });
+
+            commands.ForEach(c => {
+                BarButtonItem item = new BarButtonItem(this.ribbonControl1.Manager, c.Caption);
+                item.Tag = c;
+                item.ImageOptions.AllowStubGlyph = DefaultBoolean.True;
+                item.ItemClick += OnCommandItemClick;
+                this.pmContextMenu.ItemLinks.Add(item);
+            });
+            this.pmContextMenu.ShowPopup(this.diagramControl1.PointToScreen(e.Location));
+        }
+
+        private void OnCommandItemClick(object sender, ItemClickEventArgs e) {
+            WfNode node = this.pgcProperties.SelectedObject as WfNode;
+            if(node == null)
+                return;
+            WfCommand command = (WfCommand)e.Item.Tag;
+            if(!command.Execute(node)) {
+                XtraMessageBox.Show("Error: cannot execute command " + command.Caption + " on node " + node.Type);
+                return;
+            }
         }
     }
 }

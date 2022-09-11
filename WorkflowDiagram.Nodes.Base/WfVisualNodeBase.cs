@@ -15,7 +15,7 @@ namespace WorkflowDiagram.Nodes.Base {
     public abstract class WfVisualNodeBase : WfNode {
         [XmlIgnore]
         [Browsable(false)]
-        public virtual WfColor Color { get { return WfColor.FromArgb(255, 255, 255, 255); } }
+        public virtual WfColor NodeColor { get { return WfColor.FromArgb(255, 255, 255, 255); } }
 
         protected override object CreateImage() {
             int w = DevExpress.Utils.ScaleUtils.ScaleValue(32);

@@ -123,8 +123,13 @@ namespace WorkflowDiagram {
                         return false;
                     if(pt.Value == null)
                         return true;
-                    if(Convert.ToBoolean(pt.Value))
-                        return true;
+                    try {
+                        if(Convert.ToBoolean(pt.Value))
+                            return true;
+                    }
+                    catch(Exception) {
+                        return pt.Value != null;
+                    }
                 }
                 return false;
             }
@@ -134,6 +139,13 @@ namespace WorkflowDiagram {
             List<WfNode> nodes = new List<WfNode>();
             foreach(WfConnectionPoint point in Outputs)
                 nodes.AddRange(point.GetNextNodes());
+            return nodes;
+        }
+
+        public List<WfNode> GetPrevNodes() {
+            List<WfNode> nodes = new List<WfNode>();
+            foreach(WfConnectionPoint point in Inputs)
+                nodes.AddRange(point.GetPrevNodes());
             return nodes;
         }
 
@@ -394,6 +406,7 @@ namespace WorkflowDiagram {
             }
             catch(Exception e) {
                 DiagnosticHelper.Add(WfDiagnosticSeverity.Error, e.ToString());
+                HasErrors = true;
             }
         }
                

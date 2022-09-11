@@ -19,7 +19,8 @@ namespace WorkflowDiagram.Nodes.Base {
         protected override List<WfConnectionPoint> GetDefaultOutputs() {
             return new WfConnectionPoint[] {
                 new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Out", Text = "Out" },
-                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Repeat", Text = "Repeat", SkipSubTree = true }
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Repeat", Text = "Repeat", SkipSubTree = true },
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Index", Text = "Index", SkipSubTree = true },
             }.ToList();
         }
 
@@ -28,18 +29,28 @@ namespace WorkflowDiagram.Nodes.Base {
         }
 
         public int Count { get; set; }
+        public int Start { get; set; } = 0;
 
         protected override void OnVisitCore(WfRunner runner) {
             object item = Inputs["In"].Value;
-            List<object> result = new List<object>();
-            for(int i = 0; i < Count; i++) {
+            WfObjectList result = new WfObjectList();
+            int end = Start + Count;
+            for(int i = Start; i < end; i++) {
+                Outputs["Index"].Value = i; 
                 Outputs["Repeat"].Value = item;
                 object itemRes = null;
-                if(runner.RunOnceSubTree(Outputs["Repeat"], out itemRes))
+                
+                if(runner.RunOnceSubTree(new WfConnectionPoint[] { Outputs["Index"] }, Outputs["Repeat"], out itemRes))
                     result.Add(itemRes);
             }
             DataContext = result;
             Outputs["Out"].Visit(runner, result);
+        }
+    }
+
+    public class WfObjectList : List<object> {
+        public override string ToString() {
+            return "Items " + Count.ToString();
         }
     }
 }

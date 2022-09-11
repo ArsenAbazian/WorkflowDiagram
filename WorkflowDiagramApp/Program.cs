@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WokflowDiagram.Nodes.Visualization;
+
 using WorkflowDiagram.Nodes.Base;
 
 namespace WorkflowDiagramApp {
@@ -18,7 +20,8 @@ namespace WorkflowDiagramApp {
             Application.SetCompatibleTextRenderingDefault(false);
 
             WfConstantValueNode wfConstantValueNode = new WfConstantValueNode(1.0);
-
+            WfTableFormNode form = new WfTableFormNode();
+            
             Application.Run(new MainForm());
         }
     }

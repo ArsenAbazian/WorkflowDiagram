@@ -145,7 +145,9 @@ namespace WorkflowDiagram {
                 node.OnEndDeserialize();
                 RaiseQueryVisualData(node);
             }
-            foreach(var conn in Connectors) {
+            for(int i = 0; i < Connectors.Count; i++) {
+                WfConnector conn = Connectors[i];
+
                 conn.Document = this;
                 conn.To = FindConnectionPoint(conn.ToId);
                 if(conn.To != null)
@@ -153,9 +155,8 @@ namespace WorkflowDiagram {
                 conn.From = FindConnectionPoint(conn.FromId);
                 if(conn.From != null)
                     conn.From.Connectors.Add(conn);
-
-                RemoveUnusedConnectors();
             }
+            RemoveUnusedConnectors();
         }
 
         public T GetData<T>() where T: WfDataInfo, new() {
@@ -244,8 +245,16 @@ namespace WorkflowDiagram {
             return res;
         }
         public List<WfNode> GetAvailableToolbarItems() {
-            var res = GetAvailableNodeTypes().Select(t => (WfNode)t.GetConstructor(new Type[] { }).Invoke(new object[] { })).ToList();
+            var types = GetAvailableNodeTypes().Where(t => IsToolboxVisible(t)).ToList();
+            var res = types.Select(t => (WfNode)t.GetConstructor(new Type[] { }).Invoke(new object[] { })).ToList();
             return res;
+        }
+
+        private bool IsToolboxVisible(Type t) {
+            var attr = t.GetCustomAttributes(typeof(WfToolboxVisibleAttribute), true);
+            if(attr == null || attr.Length == 0)
+                return true;
+            return ((WfToolboxVisibleAttribute)attr[0]).Visible;
         }
 
         public event WfNodeEventHandler QueryNodeVisualData;
@@ -275,5 +284,13 @@ namespace WorkflowDiagram {
             input.ForEach(i => i.Detach());
             output.ForEach(o => o.Detach());
         }
+    }
+
+    public class WfToolboxVisibleAttribute : Attribute {
+        public WfToolboxVisibleAttribute(bool visible) {
+            Visible = visible;
+        }
+        public bool Visible { get; private set; }
+
     }
 }

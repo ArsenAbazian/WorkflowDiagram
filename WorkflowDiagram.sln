@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagram.Nodes.Base"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workflow.Tests", "Workflow.Tests\Workflow.Tests.csproj", "{BCB80B85-E0E0-47FE-91C1-09351918F8AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagram.Nodes.Visualization.Win", "WorkflowDiagram.Nodes.Visualization\WorkflowDiagram.Nodes.Visualization.Win.csproj", "{B17D2EF7-5C40-4A49-BEEC-750763C6281D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,12 @@ Global
 		{BCB80B85-E0E0-47FE-91C1-09351918F8AD}.DebugCopy|Any CPU.Build.0 = Debug|Any CPU
 		{BCB80B85-E0E0-47FE-91C1-09351918F8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCB80B85-E0E0-47FE-91C1-09351918F8AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B17D2EF7-5C40-4A49-BEEC-750763C6281D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17D2EF7-5C40-4A49-BEEC-750763C6281D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17D2EF7-5C40-4A49-BEEC-750763C6281D}.DebugCopy|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17D2EF7-5C40-4A49-BEEC-750763C6281D}.DebugCopy|Any CPU.Build.0 = Debug|Any CPU
+		{B17D2EF7-5C40-4A49-BEEC-750763C6281D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17D2EF7-5C40-4A49-BEEC-750763C6281D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

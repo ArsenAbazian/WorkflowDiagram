@@ -72,11 +72,11 @@ namespace WorkflowDiagram.Nodes.Base {
         protected override List<WfConnectionPoint> GetDefaultInputs() {
             return new WfConnectionPoint[] {
                 new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In0", Text = "In0", Requirement = WfRequirementType.Optional },
-                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In1", Text = "In1", Requirement = WfRequirementType.Optional },
-                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In2", Text = "In2", Requirement = WfRequirementType.Optional },
-                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In3", Text = "In3", Requirement = WfRequirementType.Optional },
-                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In4", Text = "In4", Requirement = WfRequirementType.Optional },
-                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In5", Text = "In5", Requirement = WfRequirementType.Optional }
+                //new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In1", Text = "In1", Requirement = WfRequirementType.Optional },
+                //new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In2", Text = "In2", Requirement = WfRequirementType.Optional },
+                //new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In3", Text = "In3", Requirement = WfRequirementType.Optional },
+                //new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In4", Text = "In4", Requirement = WfRequirementType.Optional },
+                //new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In5", Text = "In5", Requirement = WfRequirementType.Optional }
             }.ToList();
         }
 
@@ -84,6 +84,18 @@ namespace WorkflowDiagram.Nodes.Base {
             return new WfConnectionPoint[] {
                 new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Result", Text = "Result",  }
             }.ToList();
+        }
+
+        protected override WfConnectionPointCollection CreateInputCollection() {
+            WfConnectionPointCollection res = base.CreateInputCollection();
+            res.AllowedOperations |= WfEditOperation.Add | WfEditOperation.Edit | WfEditOperation.Remove;
+            return res;
+        }
+
+        public override WfConnectionPoint CreateConnectionPoint(WfConnectionPointType type) {
+            if(type != WfConnectionPointType.In)
+                return base.CreateConnectionPoint(type);
+            return new WfConnectionPoint() { Name = "In" + Inputs.Count, Text = "In" + Inputs.Count, Requirement = WfRequirementType.Optional };
         }
 
         string expression = "0";

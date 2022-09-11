@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace WorkflowDiagram.Nodes.Base {
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {
             return new WfConnectionPoint[] {
-                new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "Item", Text = "Item", Requirement = WfRequirementType.Optional },
+                new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "ItemIn", Text = "Item", Requirement = WfRequirementType.Optional },
                 new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "Collection", Text = "Collection", Requirement = WfRequirementType.Optional },
             }.ToList();
         }
@@ -20,7 +21,7 @@ namespace WorkflowDiagram.Nodes.Base {
         protected override List<WfConnectionPoint> GetDefaultOutputs() {
             return new WfConnectionPoint[] {
                 new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Collection", Text = "Collection", Requirement = WfRequirementType.Optional },
-                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Item", Text = "Item", Requirement = WfRequirementType.Optional },
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "ItemOut", Text = "Item", Requirement = WfRequirementType.Optional },
             }.ToList();
         }
 
@@ -30,7 +31,7 @@ namespace WorkflowDiagram.Nodes.Base {
         }
 
         protected override void OnVisitCore(WfRunner runner) {
-            object item = Inputs["Item"].Value;
+            object item = Inputs["ItemIn"].Value;
             List<object> list = GetActualCollection();
             
             switch(Operation) {
@@ -53,9 +54,9 @@ namespace WorkflowDiagram.Nodes.Base {
             DataContext = list;
             Outputs["Collection"].Visit(runner, list);
             if(item != null)
-                Outputs["Item"].Visit(runner, item);
+                Outputs["ItemOut"].Visit(runner, item);
             else
-                Outputs["Item"].SkipVisit(runner, item);
+                Outputs["ItemOut"].SkipVisit(runner, item);
         }
 
         private List<object> GetActualCollection() {
@@ -72,4 +73,42 @@ namespace WorkflowDiagram.Nodes.Base {
         Remove,
         Clear
     }
+
+    //public class TableList : List<object>, ITypedList {
+    //    PropertyDescriptorCollection ITypedList.GetItemProperties(PropertyDescriptor[] listAccessors) {
+    //        PropertyDescriptorCollection pdc = new PropertyDescriptorCollection();
+    //    }
+
+    //    string ITypedList.GetListName(PropertyDescriptor[] listAccessors) {
+    //        return typeof(TableList).Name;
+    //    }
+    //}
+
+    //internal class SmartPropertyDescriptor : PropertyDescriptor {
+    //    public override Type ComponentType => typeof(Dictionary<string, object>);
+
+    //    public override bool IsReadOnly => throw new NotImplementedException();
+
+    //    public override Type PropertyType => throw new NotImplementedException();
+
+    //    public override bool CanResetValue(object component) {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    public override object GetValue(object component) {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    public override void ResetValue(object component) {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    public override void SetValue(object component, object value) {
+    //        throw new NotImplementedException();
+    //    }
+
+    //    public override bool ShouldSerializeValue(object component) {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

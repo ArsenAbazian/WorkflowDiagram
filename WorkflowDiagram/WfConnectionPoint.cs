@@ -106,10 +106,11 @@ namespace WorkflowDiagram {
         [Browsable(false)]
         public string DisplayText {
             get {
-                if(Value == null) {
+                if(Value == null)
                     return "";
-                }
                 string res = Value.ToString();
+                if(res == null)
+                    return string.Empty;
                 return res.Length > 16 ? res.Substring(0, 16) : res;
             }
         }
@@ -155,6 +156,13 @@ namespace WorkflowDiagram {
             List<WfNode> nodes = new List<WfNode>();
             foreach(WfConnector connector in Connectors)
                 nodes.Add(connector.ToNode);
+            return nodes;
+        }
+
+        public List<WfNode> GetPrevNodes() {
+            List<WfNode> nodes = new List<WfNode>();
+            foreach(WfConnector connector in Connectors)
+                nodes.Add(connector.FromNode);
             return nodes;
         }
 

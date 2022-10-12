@@ -20,7 +20,7 @@ namespace WokflowDiagram.Nodes.Visualization {
         protected override ViewType GetViewType() {
             return (DevExpress.XtraCharts.ViewType)ViewType;
         }
-        protected override Series CreateSeries() {
+        protected internal override Series CreateSeries() {
             Series s = base.CreateSeries();
             s.ArgumentScaleType = ScaleType.Auto;
             BarSeriesView view = (BarSeriesView)s.View;

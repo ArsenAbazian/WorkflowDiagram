@@ -1,0 +1,6 @@
+﻿<DxDateEdit @bind-Date="@Item.Value.Value" ReadOnly="@Item.Value.Readonly"></DxDateEdit>
+
+@code {
+    [Parameter]
+    public PgValueItem Item{ get; set; }
+}

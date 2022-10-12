@@ -1,0 +1,12 @@
+﻿<div class="pg-value-row">
+    <div class="pg-value-text" style="@Row.CellTextStyle">@Row.Row.Name</div>
+    <div class="pg-value-cell">
+        <PgValueItem @key="Value" Value="@Value"></PgValueItem>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public PgRowItem Row { get; set; }
+
+    public PropertyGridValueInfo Value { get { return ((PropertyGridValueRow)Row.Row).Values[0]; } }
+}

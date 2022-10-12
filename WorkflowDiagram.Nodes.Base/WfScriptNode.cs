@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using WorkflowDiagram;
-using WorkflowDiagram.Nodes.Base.Editors;
 
 namespace WorkflowDiagram.Nodes.Base {
     public class WfScriptNode : WfVisualNodeBase {
@@ -71,7 +70,7 @@ namespace WorkflowDiagram.Nodes.Base {
 
         protected override List<WfConnectionPoint> GetDefaultInputs() {
             return new WfConnectionPoint[] {
-                new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In0", Text = "In0", Requirement = WfRequirementType.Optional },
+                new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "In0", Text = "In0", Requirement = WfRequirementType.Optional },
                 //new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In1", Text = "In1", Requirement = WfRequirementType.Optional },
                 //new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In2", Text = "In2", Requirement = WfRequirementType.Optional },
                 //new WfExpressionInputPoint() { Type = WfConnectionPointType.In, Name = "In3", Text = "In3", Requirement = WfRequirementType.Optional },
@@ -95,11 +94,12 @@ namespace WorkflowDiagram.Nodes.Base {
         public override WfConnectionPoint CreateConnectionPoint(WfConnectionPointType type) {
             if(type != WfConnectionPointType.In)
                 return base.CreateConnectionPoint(type);
-            return new WfConnectionPoint() { Name = "In" + Inputs.Count, Text = "In" + Inputs.Count, Requirement = WfRequirementType.Optional };
+            int index = Inputs.Count - 1;
+            return new WfConnectionPoint() { Name = "In" + index, Text = "In" + index, Requirement = WfRequirementType.Optional };
         }
 
         string expression = "0";
-        [Category("Expression"), PropertyEditor(typeof(RepositoryItemExpressionEditor))]
+        [Category("Expression"), PropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemExpressionEditor")]
         public string Expression {
             get { return expression; }
             set {

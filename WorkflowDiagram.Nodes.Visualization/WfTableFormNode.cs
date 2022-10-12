@@ -15,7 +15,7 @@ using WorkflowDiagram.Nodes.Base;
 
 namespace WokflowDiagram.Nodes.Visualization {
     [WfCommandsProvider("WokflowDiagram.Nodes.Visualisation.Commands.WfTableFormNodeCommandsProvider")]
-    public class WfTableFormNode : WfVisualNodeBase {
+    public class WfTableFormNode : WfVisualNodeBase, ITableNode {
         public override string VisualTemplateName => "TableForm";
 
         public override string Type => "TableForm";
@@ -55,10 +55,14 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         [Browsable(false)]
         public string XmlConfigurationText { get; set; }
+        [Browsable(false)]
+        [XmlIgnore]
+        public object DataSource { get; set; }
 
         protected IProgress<object> Progress { get; set; }
         protected override void OnVisitCore(WfRunner runner) {
             object dataSource = Inputs["DataSource"].Value;
+            DataSource = dataSource;
             Progress.Report(dataSource);
         }
     }
@@ -145,6 +149,10 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         [DefaultValue(true)]
         public virtual bool ShowIndicator { get { return Options.ShowIndicator; } set { Options.ShowIndicator = value; } }
+    }
 
+    public interface ITableNode {
+        string XmlConfigurationText { get; set; }
+        object DataSource { get; set; }
     }
 }

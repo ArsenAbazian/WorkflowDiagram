@@ -1,0 +1,12 @@
+﻿<div class="pg-category">
+    <span class="pg-expand-button @Row.ExpandButtonStyle" @onclick="OnExpandButtonClick"></span>
+    <div class="pg-category-text">@Row.Row.Name</div>
+</div>
+@code {
+    [Parameter]
+    public PgRowItem Row { get; set; }
+
+    void OnExpandButtonClick() {
+        Row.Row.Expanded = !Row.Row.Expanded;
+    }
+}

@@ -1,0 +1,79 @@
+﻿@page "/documenteditor"
+@using DevExpress.Blazor;
+
+<PageTitle>Edit Document</PageTitle>
+
+<div class="document-editor">
+    <div class="toolbar-area">
+        <DxToolbar ItemClick="@OnItemClick" ItemRenderStyleMode="ToolbarRenderStyleMode.Plain" ItemSizeMode="SizeMode.Small">
+        <Items>
+            <DxToolbarItem Name="biLoad" Text="Load..." Tooltip="Load document from storage." />
+            <DxToolbarItem Name="biSave" Text="Save..." Tooltip="Download a copy." />
+            <DxToolbarItem Name="biLoad" Text="Upload..." Tooltip="Upload document from file." />
+            <DxToolbarItem Name="biDownload" Text="Download..." Tooltip="Download a copy." />
+            <DxToolbarItem Name="biOrigin" Text="Move (0,0)" Tooltip="Move to O,0" />
+        </Items>
+    </DxToolbar>
+    </div>
+    <div class="content-area">
+        <div class="panel toolbox-area">
+            <div class="panel-header">Toolbox</div>
+            <div class="panel-content">
+                <CascadingValue Value="diagramComponent">
+                    <div class="nodes-list">
+                        @foreach(var item in diagramComponent.ToolboxItems) {
+                            <ToolboxItem @key="item" Item="item"/>
+                        }
+                    </div>
+                </CascadingValue>
+            </div>
+        </div>
+        <div class="panel diagram-area">
+            <div class="panel-header">Diagram</div>
+            <CascadingValue Value="diagramComponent">
+                <WfDiagramView></WfDiagramView>
+            </CascadingValue>
+        </div>
+        <div class="properties-area">
+            <div class="panel properties">
+                <div class="panel-header">Properties</div>
+                <CascadingValue Value="propertyGridComponent">
+                    <PropertyGridView></PropertyGridView>
+                </CascadingValue>
+            </div>
+            <div class="panel connections">
+                <div class="panel-header">Inputs/Outputs</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private WfDocument document;
+    private WfDiagramComponent diagramComponent;
+
+    private PropertyGridComponent propertyGridComponent;
+
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        document = new WfDocument();
+
+        diagramComponent = new WfDiagramComponent();
+        diagramComponent.Document = document;
+        diagramComponent.SelectionChanged += (d, e) => {
+            propertyGridComponent.SelectedObjects = e.Selection.Select(s => (object)s.DataItem).ToArray();
+        };
+
+        propertyGridComponent = new PropertyGridComponent();
+    }
+
+    void OnItemClick(ToolbarItemClickEventArgs e) {
+        if(e.ItemName == "biOrigin")
+            OnOriginClick();
+    }
+
+    void OnOriginClick() {
+        diagramComponent.Origin = new System.Drawing.PointF(0.0f, 0.0f);
+    }
+}

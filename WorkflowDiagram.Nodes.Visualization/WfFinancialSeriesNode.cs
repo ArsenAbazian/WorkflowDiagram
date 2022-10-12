@@ -57,7 +57,7 @@ namespace WokflowDiagram.Nodes.Visualization {
             s.ValueDataMembers.AddRange(LowDataMember, HighDataMember, OpenDataMember, CloseDataMember);
         }
 
-        protected override Series CreateSeries() {
+        protected internal override Series CreateSeries() {
             Series s = base.CreateSeries();
             s.ArgumentScaleType = ScaleType.DateTime;
             s.CrosshairLabelPattern = "O={OV}\nH={HV}\nL={LV}\nC={CV}";

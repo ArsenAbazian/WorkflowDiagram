@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-WorkflowDiagram.UI.Blazor-6EEA2777-0757-4727-9542-85ED6242ED3B</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Blazor" Version="22.1.5" />
+    <PackageReference Include="DevExpress.Blazor.Themes" Version="22.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="22.1.5" />
+    <PackageReference Include="MailKit" Version="3.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5" />
+    <PackageReference Include="MimeKit" Version="3.4.1" />
+    <PackageReference Include="Npgsql" Version="6.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.Core.Develop.csproj" />
+    <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.Core.Develop.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ServiceModel\Controllers\" />
+  </ItemGroup>
+
+</Project>

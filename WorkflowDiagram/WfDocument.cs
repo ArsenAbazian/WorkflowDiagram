@@ -21,15 +21,31 @@ namespace WorkflowDiagram {
             Id = Guid.NewGuid();
 
             Nodes = new WfNodeCollection(this);
-            Connectors = new List<WfConnector>();
+            Connectors = new WfDocumentConnectorCollection(this);
+            CreationTime = DateTime.Now;
 
             InitializeDefaultColors();
+        }
+
+        protected internal virtual void OnNodesCollectionChanged() {
+            OnPropertyChanged(nameof(Nodes));
+        }
+
+        protected internal virtual void OnConnectorsCollectionChanged() {
+            OnPropertyChanged(nameof(Connectors));
         }
 
         public WfNode AddNode(WfNode node) {
             Nodes.Add(node);
             return node;
         }
+
+        [XmlIgnore]
+        [Browsable(false)]
+        public WfDocumentCollection Documents { get; internal set; }
+        [XmlIgnore]
+        [Browsable(false)]
+        public WfProject Project { get { return Documents?.Project; } }
 
         [XmlIgnore]
         public IWfDocumentOwner Owner { get; set; }
@@ -72,6 +88,9 @@ namespace WorkflowDiagram {
                 OnPropertyChanged(nameof(Name));
             }
         }
+
+        public string Description { get; set; }
+        public DateTime CreationTime { get; set; }
 
         string ISupportSerialization.FileName { get => FileName; set => FileName = value; }
         public event EventHandler Saved;
@@ -119,6 +138,16 @@ namespace WorkflowDiagram {
             FullPath = fileName;
             if(SerializationHelper.Current.Load(this, GetType(), fileName)) {
                 FileName = Path.GetFileName(fileName);
+                if(Loaded != null)
+                    Loaded(this, EventArgs.Empty);
+                return true;
+            }
+            return false;
+        }
+
+        public bool LoadFromString(string text) {
+            Clear();
+            if(SerializationHelper.Current.LoadFromString(this, GetType(), text)) {
                 if(Loaded != null)
                     Loaded(this, EventArgs.Empty);
                 return true;
@@ -193,11 +222,12 @@ namespace WorkflowDiagram {
         public WfNodeCollection Nodes { get; private set; }
 
         [Browsable(false)]
-        public List<WfConnector> Connectors { get; private set; }
+        public WfDocumentConnectorCollection Connectors { get; private set; }
 
         protected void OnPropertyChanged(string name) {
             if(this.propertyChanged != null)
                 this.propertyChanged(this, new PropertyChangedEventArgs(name));
+            RaiseChanged();
         }
 
         event PropertyChangedEventHandler propertyChanged;
@@ -284,6 +314,16 @@ namespace WorkflowDiagram {
             input.ForEach(i => i.Detach());
             output.ForEach(o => o.Detach());
         }
+
+        [XmlIgnore]
+        public IWfDocumentResourcesProvider ResourcesProvider { get; set; }
+
+        public event EventHandler Changed;
+        
+        protected internal virtual void RaiseChanged() {
+            if(Changed != null)
+                Changed(this, EventArgs.Empty);
+        }
     }
 
     public class WfToolboxVisibleAttribute : Attribute {
@@ -292,5 +332,9 @@ namespace WorkflowDiagram {
         }
         public bool Visible { get; private set; }
 
+    }
+
+    public interface IWfDocumentResourcesProvider {
+        public object GetNodeImage(WfNode node);
     }
 }

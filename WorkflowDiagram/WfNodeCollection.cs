@@ -15,17 +15,20 @@ namespace WorkflowDiagram {
         protected override void InsertItem(int index, WfNode item) {
             base.InsertItem(index, item);
             item.OwnerCollection = this;
+            Document.OnNodesCollectionChanged();
         }
         protected override void RemoveItem(int index) {
             WfNode node = this[index];
             this[index].OwnerCollection = null;
             base.RemoveItem(index);
             node.OnRemoved();
+            Document.OnNodesCollectionChanged();
         }
         protected override void SetItem(int index, WfNode item) {
             this[index].OwnerCollection = null;
             item.OwnerCollection = this;
             base.SetItem(index, item);
+            Document.OnNodesCollectionChanged();
         }
     }
 }

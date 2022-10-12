@@ -1,0 +1,33 @@
+﻿@if(Item.Value.IsDecimal) {
+    <DxSpinEdit @bind-Value="@Item.Value.DecimalValue" ReadOnly="@Item.Value.Readonly"></DxSpinEdit>
+}
+else if(Item.Value.IsDouble) {
+    <DxSpinEdit @bind-Value="@Item.Value.DoubleValue" ReadOnly="@Item.Value.Readonly"></DxSpinEdit>
+}
+else if(Item.Value.IsInteger) {
+    <DxSpinEdit @bind-Value="@Item.Value.IntValue" ReadOnly="@Item.Value.Readonly"></DxSpinEdit>
+}
+else if(Item.Value.IsFloat) {
+    <DxSpinEdit @bind-Value="@Item.Value.FloatValue" ReadOnly="@Item.Value.Readonly"></DxSpinEdit>
+}
+
+@code {
+    [Parameter]
+    public PgValueItem Item { get; set; }
+ 
+    void OnDecimalValueChanged(decimal value) {
+        Item.Value.DecimalValue = value;
+    }
+
+    void OnDoubleValueChanged(double value) {
+        Item.Value.DoubleValue = value;
+    }
+
+    void OnIntValueChanged(int value) {
+        Item.Value.IntValue = value;
+    }
+
+    void OnFloatValueChanged(float value) {
+        Item.Value.FloatValue = value;
+    }
+}

@@ -1,181 +1,33 @@
 ﻿using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Columns;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WokflowDiagram.Nodes.Visualization.Managers;
 
 namespace WokflowDiagram.Nodes.Visualization.Forms {
-    public partial class TableForm : DevExpress.XtraBars.Ribbon.RibbonForm {
+    public partial class TableForm : XtraForm {
         public TableForm() {
             InitializeComponent();
-            this.xtraSaveFileDialog1.Filter = 
-                "Csv files|*.csv|Docx files|*.docx|Html files|*.html|Mht files|*.mht|Pdf files|*.pdf|Xls files|*.xls|Xlsx files|*.xlsx|All files|*.*";
         }
 
-        public object DataSource { get { return this.gridControl1.DataSource; } set { this.gridControl1.DataSource = value; } }
+        public ITableNode Node { get => this.tableUserControl1.Node; set => tableUserControl1.Node = value; }
+        public object DataSource { get => this.tableUserControl1.DataSource; set => tableUserControl1.DataSource = value; }
+
+        protected override void OnLoad(EventArgs e) {
+            base.OnLoad(e);
+            TableVisualizationManager.Default.InitializeTable(Node, this.tableUserControl1);
+        }
 
         protected override void OnShown(EventArgs e) {
             base.OnShown(e);
-            if(Node != null)
-                RestoreLayout(Node.XmlConfigurationText);
-            this.propertyGridControl1.SelectedObject = new FilteredGridViewProperties(this.gridView1);
-        }
-
-        void SaveCsv() {
-            this.xtraSaveFileDialog1.Filter = "Csv files *.csv|*.csv|All files *.*|*.*";
-            this.xtraSaveFileDialog1.FilterIndex = 0;
-            if(this.xtraSaveFileDialog1.ShowDialog() != DialogResult.OK)
-                return;
-            this.gridControl1.ExportToCsv(this.xtraSaveFileDialog1.FileName);
-        }
-
-        void SaveDocX() {
-            this.xtraSaveFileDialog1.Filter = "Docx files *.docx|*.docx|All files *.*|*.*";
-            this.xtraSaveFileDialog1.FilterIndex = 0;
-            if(this.xtraSaveFileDialog1.ShowDialog() != DialogResult.OK)
-                return;
-            this.gridControl1.ExportToDocx(this.xtraSaveFileDialog1.FileName);
-        }
-
-        void SaveHtml() {
-            this.xtraSaveFileDialog1.Filter = "Html files *.html|*.html|All files *.*|*.*";
-            this.xtraSaveFileDialog1.FilterIndex = 0;
-            if(this.xtraSaveFileDialog1.ShowDialog() != DialogResult.OK)
-                return;
-            this.gridControl1.ExportToHtml(this.xtraSaveFileDialog1.FileName);
-        }
-
-        protected internal void RestoreLayout(string xmlConfigurationText) {
-            if(string.IsNullOrEmpty(xmlConfigurationText))
-                return;
-            
-            MemoryStream m = new MemoryStream(xmlConfigurationText.Length);
-            StreamWriter w = new StreamWriter(m);
-            w.Write(xmlConfigurationText);
-            w.Flush();
-            m.Seek(0, SeekOrigin.Begin);
-
-            this.gridView1.RestoreLayoutFromStream(m);
-            this.gridView1.OptionsBehavior.Editable = false;
-        }
-
-        void SaveMht() {
-            this.xtraSaveFileDialog1.Filter = "Mht files *.mht|*.mht|All files *.*|*.*";
-            this.xtraSaveFileDialog1.FilterIndex = 0;
-            if(this.xtraSaveFileDialog1.ShowDialog() != DialogResult.OK)
-                return;
-            this.gridControl1.ExportToMht(this.xtraSaveFileDialog1.FileName);
-        }
-
-        void SavePdf() {
-            this.xtraSaveFileDialog1.Filter = "Pdf files *.pdf|*.pdf|All files *.*|*.*";
-            this.xtraSaveFileDialog1.FilterIndex = 0;
-            if(this.xtraSaveFileDialog1.ShowDialog() != DialogResult.OK)
-                return;
-            this.gridControl1.ExportToPdf(this.xtraSaveFileDialog1.FileName);
-        }
-
-        void SaveXls() {
-            this.xtraSaveFileDialog1.Filter = "Xls files *.xls|*.xls|All files *.*|*.*";
-            this.xtraSaveFileDialog1.FilterIndex = 0;
-            if(this.xtraSaveFileDialog1.ShowDialog() != DialogResult.OK)
-                return;
-            this.gridControl1.ExportToXls(this.xtraSaveFileDialog1.FileName);
-        }
-
-        void SaveXlsx() {
-            this.xtraSaveFileDialog1.Filter = "Xlsx files *.xlsx|*.xlsx|All files *.*|*.*";
-            this.xtraSaveFileDialog1.FilterIndex = 0;
-            if(this.xtraSaveFileDialog1.ShowDialog() != DialogResult.OK)
-                return;
-            this.gridControl1.ExportToXlsx(this.xtraSaveFileDialog1.FileName);
-        }
-
-        private void aiExportCsv_Click(object sender, EventArgs e) {
-            SaveCsv();
-        }
-
-        private void aiExportDocx_Click(object sender, EventArgs e) {
-            SaveDocX();
-        }
-
-        private void aiExportHtml_Click(object sender, EventArgs e) {
-            SaveHtml();
-        }
-
-        private void aiExportMht_Click(object sender, EventArgs e) {
-            SaveMht();
-        }
-
-        private void aiExportPdf_Click(object sender, EventArgs e) {
-            SavePdf();
-        }
-
-        private void aiExportXls_Click(object sender, EventArgs e) {
-            SaveXls();
-        }
-
-        private void aiExportXlsx_Click(object sender, EventArgs e) {
-            SaveXlsx();
-        }
-
-        private void biCsvExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            SaveCsv();
-        }
-
-        private void biDocxExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            SaveDocX();
-        }
-
-        private void biHtmlExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            SaveHtml();
-        }
-
-        private void biMhtExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            SaveMht();
-        }
-
-        private void biPdfExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            SavePdf();
-        }
-
-        private void biXlsExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            SaveXls();
-        }
-
-        private void biXlsxExport_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            SaveXlsx();
-        }
-
-        private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            this.splitContainerControl1.PanelVisibility = DevExpress.XtraEditors.SplitPanelVisibility.Both;
-        }
-
-        private void biSaveCustomization_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            //this.splitContainerControl1.PanelVisibility = DevExpress.XtraEditors.SplitPanelVisibility.Panel1;
-            if(Node == null) {
-                XtraMessageBox.Show("Node not specified. Skip layout save");
-                return;
-            }
-
-            MemoryStream m = new MemoryStream();
-            this.gridView1.SaveLayoutToStream(m);
-            m.Seek(0, SeekOrigin.Begin);
-            StreamReader r = new StreamReader(m);
-            Node.XmlConfigurationText = r.ReadToEnd();
-            XtraMessageBox.Show("Layout Saved To The Node");
-        }
-
-        public WfTableFormNode Node { get; set; }
-
-        private void biShowProperties_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
-            this.splitContainerControl1.PanelVisibility = this.biShowProperties.Checked ? SplitPanelVisibility.Both : SplitPanelVisibility.Panel1;
+            this.tableUserControl1.OnFormShown(this);
         }
     }
 }

@@ -1,0 +1,13 @@
+﻿<div class="property-grid-view">
+    @if(PropertyGrid.Rows == null) {
+        <div class="pg-empty-area">There is no selected objects.</div>
+    }
+    else {
+        foreach(var row in PropertyGrid.Rows) {
+            <PgRowItem @key="row" Row="row" View="this"></PgRowItem>
+        }
+    }
+</div>
+@code {
+
+}

@@ -1,0 +1,40 @@
+﻿<div class="diagram-viewport @Class"
+    @ref="refElement"
+    @ondragend="OnDragEnd"
+    @ondragover:preventDefault
+    @ondragenter="OnDragEnter"
+    @ondragover="OnDragOver"
+    @onmousedown="OnMouseDown"
+    @onmousemove="OnMouseMove"
+    @onmousemove:preventDefault
+    @onmouseup="OnMouseUp"
+    @onkeydown="OnKeyDown"
+    @onwheel="OnWheel"
+    @onwheel:preventDefault
+    @onwheel:stopPropagation
+    @ontouchstart="OnTouchStart"
+    @ontouchmove="OnTouchMove"
+    @ontouchend="OnTouchEnd"
+    @ontouchend:preventDefault>
+
+    <svg class="connections-layer" style="@ViewportInfoString">
+        @foreach (var connector in Diagram.Document.Connectors)
+        {
+            <ConnectorItem @key="connector" Connector="connector" />
+        }
+    </svg>
+    <div class="nodes-layer" style="@ViewportInfoString">
+        @foreach (var node in Diagram.Document.Nodes)
+        {
+            <NodeItem @key="node" Node="node" />
+        }
+    </div>
+    <div class="diagram-info-panel">
+        <div class="diagram-info">@Diagram.Origin</div>
+        <div class="diagram-info">@Diagram.ZoomFactorPercent</div>
+    </div>
+</div>
+
+@code {
+
+}

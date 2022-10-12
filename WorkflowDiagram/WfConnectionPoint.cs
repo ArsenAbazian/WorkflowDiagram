@@ -50,6 +50,10 @@ namespace WorkflowDiagram {
             }
         }
 
+        [XmlIgnore]
+        [Browsable(false)]
+        public object Tag { get; set; }
+
         public void ConnectTo(WfNode node, string inputName) {
             ConnectTo(node.Inputs[inputName]);
         }
@@ -172,10 +176,8 @@ namespace WorkflowDiagram {
 
         public virtual void Reset() {
             VisitIndex = -1;
-            if(ValueCalculated) {
-                Value = null;
-                ValueCalculated = false;
-            }
+            Value = null;
+            ValueCalculated = false;
         }
 
         public virtual void OnInitialize(WfRunner runner) {

@@ -200,7 +200,8 @@ namespace WorkflowDiagram.UI.Win {
                 var elemInit = TemplateElement.FindElementById("key_init");
                 var root = TemplateElement.FindElementById("key_item");
 
-                elemInit.Style.SetBackgroundColor(Node.IsInitialized ? Color.FromArgb(255, Color.Green) : Color.FromArgb(40, Color.Green));
+                if(elemInit != null)
+                    elemInit.Style.SetBackgroundColor(Node.IsInitialized ? Color.FromArgb(255, Color.Green) : Color.FromArgb(40, Color.Green));
 
                 if(Node.HasErrors)
                     root.Style.SetBackgroundColor(Color.FromArgb(40, DXSkinColors.FillColors.Danger));

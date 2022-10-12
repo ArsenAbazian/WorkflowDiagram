@@ -1,0 +1,5 @@
+﻿<DxCheckBox @bind-Checked="@Item.Value.BooleanValue" ReadOnly="@Item.Value.Readonly"></DxCheckBox>
+@code {
+    [Parameter]
+    public PgValueItem Item{ get; set; }
+}

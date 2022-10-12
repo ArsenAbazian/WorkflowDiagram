@@ -1,0 +1,14 @@
+﻿<div id="@Item.Node.Id" @key="@Item.Node" data-id="@Item.Node.Id" class="toolbox-item" draggable="true" 
+@ondragstart="OnDragStart"
+@ondragend="OnDragEnd"
+@onmousedown="OnMouseDown">
+    <div class="toolbox-item-icon-placeholder">
+        <div class="toolbox-item-icon-text">@Item.Node.IconText</div>
+    </div>
+	<div class="toolbox-item-text">@Item.Node.DisplayText</div>
+</div>
+
+@code {
+    [Parameter]
+    public ToolboxItem Item { get; set; }
+}

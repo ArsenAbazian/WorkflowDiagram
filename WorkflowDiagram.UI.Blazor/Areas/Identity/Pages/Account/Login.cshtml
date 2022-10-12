@@ -1,0 +1,28 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@using DevExpress.Blazor;
+@using WorkflowDiagram.UI.Blazor.Pages
+@using WorkflowDiagram.UI.Blazor.ServiceModel;
+@using WorkflowDiagram.UI.Blazor.Shared
+@model WorkflowDiagram.UI.Blazor.Areas.Identity.Pages.Account.LoginModel
+@inject SignInManager<UserInfo> SignInManager
+@inject UserManager<UserInfo> UserManager
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="_content/DevExpress.Blazor.Themes/blazing-berry.bs5.min.css" rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="WorkflowDiagram.UI.Blazor.styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <component type="typeof(Login)" render-mode="ServerPrerendered"></component>
+    <script src="_framework/blazor.server.js"></script>
+</body>
+
+@{
+}

@@ -1,5 +1,4 @@
-﻿using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraCharts;
+﻿using DevExpress.XtraCharts;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
@@ -12,12 +11,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WokflowDiagram.Nodes.Visualization.Forms {
-    public partial class ChartForm : RibbonForm {
+    public partial class ChartForm : XtraForm {
         public ChartForm() {
             InitializeComponent();
         }
 
-        public ChartControl ChartControl { get { return this.chartControl1; } }
-        public WfChartFormNode Node { get; set; }
+        public IChartNode Node { get => this.chartUserControl1.Node; set => this.chartUserControl1.Node = value; }
+        public ChartControl ChartControl { get => this.chartUserControl1.ChartControl; }
+
+        protected override void OnShown(EventArgs e) {
+            base.OnShown(e);
+            this.chartUserControl1.OnFormShown(this);
+        }
     }
 }

@@ -31,30 +31,39 @@ namespace WorkflowDiagram.Nodes.Base {
             return true;
         }
 
-        protected virtual void TryAddRowsToTable(IEnumerable en) {
-            foreach(var obj in en) {
-                Dictionary<string, object> drow = obj as Dictionary<string, object>;
-                DataRow trow = obj as DataRow;
-                if(drow != null) {
-                    object[] values = drow.Values.ToArray();
-                    Table.Rows.Add(values);
-                }
-                else {
-                    Table.Rows.Add(trow.ItemArray);
-                }
+        protected virtual void AddRow(object obj) {
+            Dictionary<string, object> drow = obj as Dictionary<string, object>;
+            DataRow trow = obj as DataRow;
+            if(drow != null) {
+                object[] values = drow.Values.ToArray();
+                Table.Rows.Add(values);
+            }
+            else {
+                Table.Rows.Add(trow.ItemArray);
             }
         }
 
+        protected virtual void TryAddRowsToTable(IEnumerable en) {
+            foreach(var obj in en) {
+                AddRow(obj);
+            }
+        }
+
+        protected virtual void CheckAddColumns(object obj) {
+            if(Table.Columns.Count > 0)
+                return;
+            Dictionary<string, object> drow = obj as Dictionary<string, object>;
+            DataRow trow = obj as DataRow;
+            if(drow != null)
+                CheckAddColumns(drow);
+            else
+                CheckAddColumns(trow);
+        }
         protected virtual void CheckAddColumns(IEnumerable en) {
             if(Table.Columns.Count > 0)
                 return;
             foreach(var obj in en) {
-                Dictionary<string, object> drow = obj as Dictionary<string, object>;
-                DataRow trow = obj as DataRow;
-                if(drow != null)
-                    CheckAddColumns(drow);
-                else
-                    CheckAddColumns(trow);
+                CheckAddColumns(obj);
                 break;
             }
         }
@@ -73,12 +82,17 @@ namespace WorkflowDiagram.Nodes.Base {
 
         protected override void OnVisitCore(WfRunner runner) {
             DataContext = Table;
-            IEnumerable en = Inputs["Rows"].Value as IEnumerable;
+            object value = Inputs["Rows"].Value;
+            IEnumerable en = value as IEnumerable;
             if(Inputs["Rows"].Value != null && en == null)
                 Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Warning, Text = "Value in Rows Input cannot be used as a source for table" });
             if(en != null) {
                 CheckAddColumns(en);
                 TryAddRowsToTable(en);
+            }
+            else { 
+                CheckAddColumns(value);
+                AddRow(value);
             }
             Outputs["Table"].Visit(runner, Table);
         }

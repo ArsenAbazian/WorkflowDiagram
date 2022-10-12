@@ -1,0 +1,29 @@
+﻿@page "/login"
+@using WorkflowDiagram.UI.Blazor.ServiceModel;
+@inject DatabaseManager DatabaseManager;
+@inject NavigationManager NavManager;
+@inject SignInManager<UserInfo> SignInManager;
+
+<div class="form">
+    <ServiceLogo></ServiceLogo>
+    <div class="form-content">
+        <div class="form-header-text">Please Login</div>
+        <div class="form-row-errors">
+            @foreach(string error in Errors) {
+                <div class="form-error">@error</div>
+            }
+        </div>
+        <div class="form-label">Email</div>
+        <div class="form-editor"><input class="form-input" @bind="Email"></input></div>
+        <div class="form-label">Password</div>
+        <div class="form-editor"><input class="form-input" type="password" @bind="Password"></input></div>
+        <div class="form-row align-right">
+            <button onclick="@OnForgotPasswordClick" class="form-button green-outline right-margin">I Forgot My Password</button>
+            <button onclick="@OnLoginClick" class="form-button green-outline">Login</button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+}

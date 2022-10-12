@@ -25,12 +25,19 @@ namespace WorkflowDiagramApp {
                 RecentItems = new RecentItemsList();
                 RecentItems.FileName = "recent.xml";
             }
+            UserLookAndFeel.Default.StyleChanged += Default_StyleChanged;
             UpdateSettings();
             UpdateRecent();
         }
 
+        private void Default_StyleChanged(object sender, EventArgs e) {
+            RecentItems.ThemeName = UserLookAndFeel.Default.ActiveSkinName;
+            RecentItems.PalletteName = UserLookAndFeel.Default.ActiveSvgPaletteName;
+        }
+
         protected virtual void UpdateSettings() {
             UserLookAndFeel.Default.SetSkinStyle(RecentItems.ThemeName, RecentItems.PalletteName);
+            SerializationHelper.Current.Save(RecentItems, typeof(RecentItemsList), RecentFileName);
         }
 
         protected string RecentFileName { get { return Path.GetDirectoryName(Application.ExecutablePath) + "\\recent.xml"; } }
@@ -59,7 +66,7 @@ namespace WorkflowDiagramApp {
         }
 
         protected virtual WfDocument CreateDocumentCore(string name) {
-            return new WfDocument() { Name = name };
+            return new WfDocument() { Name = name, ResourcesProvider = new WfWinFormResourceProvider() };
         }
 
         protected WfDocument CreateDocument(string name) {
@@ -163,8 +170,8 @@ namespace WorkflowDiagramApp {
                         ActiveDocumentControl.AnimationEnabled = false;
                     if(tr == false)
                         XtraMessageBox.Show("Execution failed!", "Execution");
-                    else
-                        XtraMessageBox.Show("Executed succesfully!", "Execution");
+                    //else
+                    //    XtraMessageBox.Show("Executed succesfully!", "Execution");
                 }), t.Result);
             });
         }
@@ -190,8 +197,8 @@ namespace WorkflowDiagramApp {
                         ActiveDocumentControl.AnimationEnabled = false;
                     if(tr == false)
                         XtraMessageBox.Show("Execution failed!", "Execution");
-                    else
-                        XtraMessageBox.Show("Executed succesfully!", "Execution");
+                    //else
+                    //    XtraMessageBox.Show("Executed succesfully!", "Execution");
                 });
                 progress.Report(t.Result);
                 //BeginInvoke(new Action<bool>(tr => {
@@ -210,10 +217,7 @@ namespace WorkflowDiagramApp {
         }
 
         private void documentManager1_DocumentActivate(object sender, DevExpress.XtraBars.Docking2010.Views.DocumentEventArgs e) {
-            if(e.Document == null || e.Document.IsFloating)
-                return;
-            WfDocumentControl c = (WfDocumentControl)e.Document.Control;
-            this.ribbonControl1.MergeRibbon(c.Ribbon);
+            
         }
     }
 }

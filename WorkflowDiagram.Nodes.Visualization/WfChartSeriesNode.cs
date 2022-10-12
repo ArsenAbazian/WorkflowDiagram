@@ -17,6 +17,16 @@ namespace WokflowDiagram.Nodes.Visualization {
         public override string Type => "Chart Series";
         public override string Category => "Visualization";
 
+        static int SeriesIndex = 0;
+        public WfChartSeriesNode() {
+            SeriesName = "Series" + GetNextSeriesIndex(); 
+        }
+
+        private static int GetNextSeriesIndex() {
+            SeriesIndex++;
+            return SeriesIndex;
+        }
+
         protected override List<WfConnectionPoint> GetDefaultInputs() {
             return new WfConnectionPoint[] {
                 new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "In", Text = "Data In", Requirement = WfRequirementType.Optional  }
@@ -46,12 +56,17 @@ namespace WokflowDiagram.Nodes.Visualization {
             return true;
         }
 
-        protected virtual Series CreateSeries() {
+        protected internal virtual Series CreateSeries() {
+            if(Series != null)
+                return Series;
             ViewType viewType = GetViewType();
             Series s = CreateSeriesCore(SeriesName, viewType);
+            s.Name = SeriesName;
             s.Tag = this;
             s.ArgumentDataMember = ArgumentDataMember;
             InitializeValueDataMembers(s);
+            s.DataSource = DataSource;
+            Series = s;
             return s;
         }
 
@@ -76,13 +91,16 @@ namespace WokflowDiagram.Nodes.Visualization {
         }
 
         protected virtual Series Series { get; set; }
+        protected internal object DataSource { get; set; }
         protected override void OnVisitCore(WfRunner runner) {
             object dataSource = Inputs["In"].Value;
-            if(Series == null)
-                Series = CreateSeries();
-            Series.DataSource = dataSource;
-            DataContext = Series;
-            Outputs["Series"].Visit(runner, Series);
+            DataSource = dataSource;
+            //if(Series == null)
+            //    Series = CreateSeries();
+            //Series.DataSource = dataSource;
+            //DataContext = Series;
+            DataContext = this;
+            Outputs["Series"].Visit(runner, this);
         }
         
         [Category("Data Members")]
@@ -94,6 +112,10 @@ namespace WokflowDiagram.Nodes.Visualization {
         public string SeriesName { get; set; }
         [Category("Series Options")]
         public string PaneName { get; set; }
+
+        public override string ToString() {
+            return SeriesName + " Series";
+        }
     }
     
     [TypeConverter(typeof(ExpandableObjectConverter))]

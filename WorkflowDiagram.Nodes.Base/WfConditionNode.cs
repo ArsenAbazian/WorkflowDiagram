@@ -103,17 +103,17 @@ namespace WorkflowDiagram.Nodes.Base {
     }
 
     public enum WfConditionalOperation {
-        [Description("==")]
+        [Description("Equal")]
         Equal,
-        [Description("!=")]
+        [Description("Not Equal")]
         NotEqual,
-        [Description("<")]
+        [Description("Less")]
         Less,
-        [Description("<=")]
+        [Description("Less Or Equal")]
         LessOrEqual,
-        [Description(">")]
+        [Description("Greater")]
         Greater,
-        [Description(">=")]
+        [Description("Greater Or Equal")]
         GreaterOrEqual
     }
 }

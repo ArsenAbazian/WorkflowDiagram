@@ -181,10 +181,17 @@
     <Compile Include="WfAreaSeriesNode.cs" />
     <Compile Include="WfBarSeriesNode.cs" />
     <Compile Include="WfChartFormNode.cs" />
+    <Compile Include="WfChartPanelNode.cs" />
     <Compile Include="WfChartSeriesNode.cs" />
+    <Compile Include="WfCombinedGaugeNode.cs" />
+    <Compile Include="WfDashboardFormNode.cs" />
+    <Compile Include="WfDashboardPanelNode.cs" />
     <Compile Include="WfFinancialSeriesNode.cs" />
+    <Compile Include="WfGaugeNode.cs" />
+    <Compile Include="WfGaugePanelNode.cs" />
     <Compile Include="WfLineSeriesNode.cs" />
     <Compile Include="WfTableFormNode.cs" />
+    <Compile Include="WfTablePanelNode.cs" />
     <EmbeddedResource Include="Forms\ChartForm.resx">
       <DependentUpon>ChartForm.cs</DependentUpon>
     </EmbeddedResource>

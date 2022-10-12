@@ -83,7 +83,7 @@ namespace WorkflowDiagram {
                     startNodes.AddRange(startPoints[i].GetNextNodes());
                 startNodes.AddRange(branchPoint.GetNextNodes());
                 
-                result = RunCore(1, false, startNodes);
+                result = RunCore(1, false, startNodes, null);
             }
             finally {
                 operationRes = LastVisitedNode.DataContext; 
@@ -135,18 +135,23 @@ namespace WorkflowDiagram {
         }
 
         protected virtual bool RunCore(int maxIterationCount) {
+            return RunCore(maxIterationCount, null);
+        }
+
+        protected virtual bool RunCore(int maxIterationCount, Func<List<WfNode>, bool> initStart) {
             List<WfNode> startNodes = Document.GetStartNodes();
             VisitIndex = 0;
-            return RunCore(maxIterationCount, true, startNodes);
+            return RunCore(maxIterationCount, true, startNodes, initStart);
         }
 
         protected WfNode LastVisitedNode { get; set; }
-        protected virtual bool RunCore(int maxIterationCount, bool shouldReset, List<WfNode> startNodes) {
+        protected virtual bool RunCore(int maxIterationCount, bool shouldReset, List<WfNode> startNodes, Func<List<WfNode>, bool> initStart) {
             if(shouldReset)
                 Reset();
-            
+            if(initStart != null)
+                initStart(startNodes);
             for(int iterationIndex = 0; iterationIndex < maxIterationCount; iterationIndex++, VisitIndex++) {
-                List<WfNode> currentNodes = startNodes;
+                List<WfNode> currentNodes = new List<WfNode>(startNodes);
                 List<WfNode> waitList = new List<WfNode>();
                 List<WfNode> nextNodes = new List<WfNode>();
                 while(currentNodes.Count > 0) {
@@ -197,6 +202,10 @@ namespace WorkflowDiagram {
 
         public bool RunOnce() {
             return RunCore(1);
+        }
+
+        public bool RunOnce(Func<List<WfNode>, bool> initStart) {
+            return RunCore(1, initStart);
         }
 
         public bool Run() {

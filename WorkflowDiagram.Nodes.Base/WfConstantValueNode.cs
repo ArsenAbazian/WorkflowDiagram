@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WorkflowDiagram.Nodes.Base.Editors;
 using WorkflowDiagram;
 
 namespace WorkflowDiagram.Nodes.Base {
@@ -51,7 +50,7 @@ namespace WorkflowDiagram.Nodes.Base {
         [Browsable(false)]
         public WfValueType ConstantType { get; set; }
         object _value;
-        [Category("Value"), PropertyEditor(typeof(RepositoryItemObjectValueEditor))]
+        [Category("Value"), PropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemObjectValueEditor")]
         public object Value {
             get { return _value; }
             set {

@@ -1,0 +1,54 @@
+﻿<div class="node-container"
+@onmousedown="OnMouseDown"
+@onmousedown:stopPropagation
+>
+    
+    <div class="node-item @Node.SelectionClass">
+        <div class="node-item-content">
+                <div class="node-header">@Node.Node.Type</div>
+		        <div class="node-header">@Node.Node.Name @Node.Node.Header</div>
+		        <div class="node-separator"></div>
+                <div class="node-content">
+                    <div class="node-content-left-part">
+                        @foreach(var point in Node.Node.Inputs) {
+                            <div class="node-left-item">
+                                <div class="node-left-point" id="@point.Name">
+                                    <ConnectionPointItem @key="point" Point="point"></ConnectionPointItem>
+                                </div>
+                                <div class="node-point-name">@point.Text</div>
+                                <div class="node-point-value">@point.Value</div>
+                            </div>
+                        }
+                    </div>
+                    <div class="node-content-right-part">
+                        @foreach(var point in Node.Node.Outputs) {
+                            <div class="node-right-item">
+                                <div class="node-point-value">@point.Value</div>
+                                <div class="node-point-name">@point.Text</div>
+                                <div class="node-right-point" id="@point.Name">
+                                    <ConnectionPointItem @key="point" Point="point"></ConnectionPointItem>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="node-indicator-panel">
+		            <div class="node-indicator green"></div>
+                </div>
+        </div>  
+        @*<div class="node-resizing-borders">
+            <div class="resizing-border"
+                @onmousedown="OnLeftResizingAreaMouseDown"
+                @onmousedown:stopPropagation
+                @onmouseup="OnResizingAreaMouseUp"></div>
+            <div class="resizing-border"
+                @onmousedown="OnRightResizingAreaMouseDown"
+                @onmousedown:stopPropagation
+                @onmouseup="OnResizingAreaMouseUp"></div>
+        </div>*@
+    </div>
+</div>
+
+@code {
+   
+}

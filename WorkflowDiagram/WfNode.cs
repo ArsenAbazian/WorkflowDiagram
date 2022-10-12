@@ -9,14 +9,30 @@ using System.Xml.Serialization;
 namespace WorkflowDiagram {
     [Serializable]
     public abstract class WfNode : INotifyPropertyChanged {
+        static Dictionary<Type, int> indices = new Dictionary<Type, int>();
+        static int GetNextIndex(Type type) {
+            if(!indices.ContainsKey(type))
+                indices.Add(type, 0);
+            
+            indices[type]++;
+            return indices[type];
+        }
+        
         public WfNode() {
             Id = Guid.NewGuid();
             UpdatePoints();
+            Name = Type.Replace(" ", "") + GetNextIndex(GetType());
+        }
+
+        public string GetText() {
+            return string.IsNullOrEmpty(Text) ? Name : Text;
         }
 
         protected internal void OnPropertyChanged(string name) {
             if(this.propertyChanged != null)
                 this.propertyChanged(this, new PropertyChangedEventArgs(name));
+            if(Document != null)
+                Document.RaiseChanged();
         }
 
         public virtual WfConnectionPoint CreateConnectionPoint(WfConnectionPointType type) {
@@ -40,7 +56,7 @@ namespace WorkflowDiagram {
                 return image;
             }
         }
-        protected virtual object CreateImage() { return null; }
+        protected virtual object CreateImage() { return Document?.ResourcesProvider?.GetNodeImage(this); }
 
         public void Connect(string outputName, WfNode node, string inputName) {
             Outputs[outputName].ConnectTo(node, inputName);
@@ -209,6 +225,9 @@ namespace WorkflowDiagram {
         public string DisplayText { get { return Type; } }
         [Browsable(false)]
         [XmlIgnore]
+        public string IconText { get { return DisplayText.Substring(0, 2).ToUpper(); } }
+        [Browsable(false)]
+        [XmlIgnore]
         public virtual string Header { get; }
         [XmlIgnore]
         [Browsable(false)]
@@ -260,6 +279,8 @@ namespace WorkflowDiagram {
         [XmlIgnore]
         [Browsable(false)]
         protected WfDiagnosticHelper DiagnosticHelper { get; } = new WfDiagnosticHelper();
+        [XmlIgnore]
+        [Browsable(false)]
         public List<WfDiagnosticInfo> Diagnostic { get { return DiagnosticHelper.Diagnostics; } }
 
         WfConnectionPointCollection inputs, outputs;
@@ -279,6 +300,7 @@ namespace WorkflowDiagram {
                 return inputs;
             }
         }
+        protected WfConnectionPointCollection InputsCore { get { return inputs; } }
         [Browsable(false)]
         public WfConnectionPointCollection Outputs {
             get {
@@ -294,6 +316,12 @@ namespace WorkflowDiagram {
                 }
                 return outputs;
             }
+        }
+        protected WfConnectionPointCollection OutputsCore { get { return outputs; } }
+
+        public event EventHandler Changed;
+        protected internal void RaiseChanged() {
+            Changed?.Invoke(this, EventArgs.Empty);
         }
 
         [XmlIgnore]
@@ -324,10 +352,12 @@ namespace WorkflowDiagram {
             }
         }
 
+        protected virtual bool AllowAddRunPoint { get { return true; } }
         protected abstract List<WfConnectionPoint> GetDefaultInputs();
         List<WfConnectionPoint> GetDefaultInputsCore() {
             List<WfConnectionPoint> res = GetDefaultInputs();
-            res.Insert(0, new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = RunConnectionPointName, Text = RunConnectionPointName, Requirement = WfRequirementType.Optional }) ;
+            if(AllowAddRunPoint)
+                res.Insert(0, new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = RunConnectionPointName, Text = RunConnectionPointName, Requirement = WfRequirementType.Optional }) ;
             res.ForEach(p => { if(p.Requirement == WfRequirementType.Default) p.Requirement = WfRequirementType.Mandatory; });
             return res;
         }

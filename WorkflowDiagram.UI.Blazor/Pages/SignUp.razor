@@ -1,0 +1,37 @@
+﻿@page "/signup"
+@using WorkflowDiagram.UI.Blazor.ServiceModel;
+@using Microsoft.AspNetCore.Identity.UI.Services;
+@using Microsoft.AspNetCore.Http;
+@inject DatabaseManager DatabaseManager;
+@inject NavigationManager NavManager;
+@inject UserManager<UserInfo> UserManager;
+@inject SignInManager<UserInfo> SignInManager;
+@inject IHttpContextAccessor httpContextAccessor;
+@inject IEmailSender emailSender;
+
+<div class="form">
+    <ServiceLogo></ServiceLogo>
+    <div class="form-content">
+        <div class="form-header-text">Sign up for your account</div>
+        <div class="form-row-errors">
+            @foreach(string error in Errors) {
+                <div class="form-error">@error</div>
+            }
+        </div>
+        <div class="form-label">Login</div>
+        <div class="form-editor"><input class="form-input" type="text" @bind="Login"></input></div>
+        <div class="form-label">Email</div>
+        <div class="form-editor"><input class="form-input" type="text" @bind="Email"></input></div>
+        <div class="form-label">Password</div>
+        <div class="form-editor"><input class="form-input" type="password" @bind="Password"></input></div>
+        <div class="form-label">Confirm Password</div>
+        <div class="form-editor"><input class="form-input" type="password" @bind="ConfirmPassword"></input></div>
+        <div class="form-row align-right">
+            <button onclick="@OnRegisterClick" class="form-button green-outline" >Register</button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+}

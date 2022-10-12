@@ -161,6 +161,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WfCollectionNode.cs" />
+    <Compile Include="WfCommentNode.cs" />
+    <Compile Include="WfCounterNode.cs" />
+    <Compile Include="WfDateTimeNode.cs" />
     <Compile Include="WfForEachNode.cs" />
     <Compile Include="WfGroupNode.cs" />
     <Compile Include="WfAbortNode.cs" />
@@ -170,11 +173,16 @@
     <Compile Include="WfConstantValueNode.cs" />
     <Compile Include="WfExpressionInputPoint.cs" />
     <Compile Include="WfIndexerNode.cs" />
+    <Compile Include="WfInputNode.cs" />
+    <Compile Include="WfOutputNode.cs" />
+    <Compile Include="WfProgrammNode.cs" />
+    <Compile Include="WfRandomNode.cs" />
     <Compile Include="WfRepeatNode.cs" />
     <Compile Include="WfScriptNode.cs" />
     <Compile Include="WfStorageValueNode.cs" />
     <Compile Include="WfSwitchNode.cs" />
     <Compile Include="WfTableNode.cs" />
+    <Compile Include="WfTimerNode.cs" />
     <Compile Include="WfVisualNodeBase.cs" />
   </ItemGroup>
   <ItemGroup>

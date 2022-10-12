@@ -1,0 +1,5 @@
+﻿@using WorkflowDiagram.UI.Blazor.Helpers
+<DxTagBox Data="@Items" Values="@Items" TextFieldName="@nameof(EnumInfo.Text)" ValueFieldName="@nameof(EnumInfo.Value)" @bind-Value="Item.Value.Value" @TData="typeof(EnumInfo)" @TValue="typeof(object)" ReadOnly="@Item.Value.Readonly"></DxTagBox>
+
+@code {
+}

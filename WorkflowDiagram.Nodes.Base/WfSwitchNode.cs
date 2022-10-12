@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorkflowDiagram;
-using WorkflowDiagram.Nodes.Base.Editors;
 
 namespace WorkflowDiagram.Nodes.Base {
     public class WfSwitchNode : WfVisualNodeBase {
@@ -71,7 +70,7 @@ namespace WorkflowDiagram.Nodes.Base {
     }
 
     public class WfSwitchOutputConnectionPoint : WfConnectionPoint {
-        [PropertyEditor(typeof(RepositoryItemObjectValueEditor))]
+        [PropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemObjectValueEditor")]
         public override object Value { get => base.Value; set => base.Value = value; }
     }
 }

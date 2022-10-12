@@ -11,5 +11,6 @@ namespace WorkflowDiagram {
         void OnReset(WfDocument document);
         void OnReset(WfRunner runner);
         WfRunner CreateRunner(WfDocument document);
+        WfDocument LoadDocumentById(Guid id);
     }
 }

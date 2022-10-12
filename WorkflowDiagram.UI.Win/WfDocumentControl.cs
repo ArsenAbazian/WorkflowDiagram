@@ -31,7 +31,7 @@ using System.Windows.Forms;
 using WorkflowDiagram.Editors;
 
 namespace WorkflowDiagram.UI.Win {
-    public partial class WfDocumentControl : XtraUserControl, ISupportXtraAnimation {
+    public partial class WfDocumentControl : XtraUserControl, ISupportXtraAnimation, IBarManagerProvider {
         public WfDocumentControl() {
             InitializeComponent();
             InitializeConnectorViewTypes();
@@ -152,14 +152,21 @@ namespace WorkflowDiagram.UI.Win {
         }
 
         private void bciAnimateFlow_CheckedChanged(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
+            bool prev = AllowAnimation;
+            AllowAnimation = true;
             AnimationEnabled = this.bciAnimateFlow.Checked;
+            AllowAnimation = prev;
         }
+
+        public bool AllowAnimation { get; set; }
 
         private object AnimationId = new object();
         bool animationEnabled = false;
         public bool AnimationEnabled {
             get { return animationEnabled; }
             set {
+                if(!AllowAnimation)
+                    value = false;
                 if(AnimationEnabled == value)
                     return;
                 animationEnabled = value;
@@ -638,6 +645,20 @@ namespace WorkflowDiagram.UI.Win {
                 XtraMessageBox.Show("Error: cannot execute command " + command.Caption + " on node " + node.Type);
                 return;
             }
+        }
+
+        private void bbiSaveAs_ItemClick(object sender, ItemClickEventArgs e) {
+            if(xtraSaveFileDialog1.ShowDialog() == DialogResult.OK) {
+                Document.Save(xtraSaveFileDialog1.FileName);
+            }
+        }
+
+        private void biAllowAnimationWhileRun_CheckedChanged(object sender, ItemClickEventArgs e) {
+            AllowAnimation = this.biAllowAnimationWhileRun.Checked;
+        }
+
+        BarManager IBarManagerProvider.GetMainManager() {
+            return this.ribbonControl1.Manager;
         }
     }
 }

@@ -15,7 +15,7 @@ using WorkflowDiagram;
 using WorkflowDiagram.Nodes.Base;
 
 namespace WokflowDiagram.Nodes.Visualization {
-    public class WfChartFormNode : WfVisualNodeBase {
+    public class WfChartFormNode : WfVisualNodeBase, IChartNode {
         public override string VisualTemplateName => "ChartForm";
 
         public override string Type => "ChartForm";
@@ -23,7 +23,7 @@ namespace WokflowDiagram.Nodes.Visualization {
         public override string Category => "Visualization";
 
         public WfChartFormNode() {
-            
+
         }
 
         protected override void OnVisitCore(WfRunner runner) {
@@ -45,7 +45,7 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         //        ChartForm form = new ChartForm();
         //        ChartControl c = form.ChartControl;
-                
+
         //        c.BeginInit();
         //        XYDiagram diagram = new XYDiagram();
         //        diagram.EnableAxisXZooming = diagram.EnableAxisYZooming = true;
@@ -186,15 +186,11 @@ namespace WokflowDiagram.Nodes.Visualization {
         [XmlIgnore]
         public ChartForm Form {
             get {
-                if(form == null || form.IsDisposed) {
+                if(form == null || form.IsDisposed)
                     form = new ChartForm();
-                    //form.RestoreLayout(XmlConfigurationText);
-                }
                 return form;
             }
-            set {
-                form = value;
-            }
+            set { form = value; }
         }
         protected override bool OnInitializeCore(WfRunner runner) {
             foreach(var pane in Panes) {
@@ -211,94 +207,9 @@ namespace WokflowDiagram.Nodes.Visualization {
             }
             Progress = new Progress<object>(dataSource => {
                 Form.Node = this;
-                InitializeChart();
                 Form.Show();
             });
             return true;
-        }
-
-        protected virtual void InitializeChart() {
-            if(Form.ChartControl.Series.Count > 0)
-                Form.ChartControl.Series.Clear();
-            
-            object seriesSource = Inputs["In"].Value;
-            if(seriesSource is Series) {
-                Form.ChartControl.Series.Add((Series)DataContext);
-
-                WfChartSeriesNode owner = (WfChartSeriesNode)((Series)DataContext).Tag;
-                if(owner is WfFinancialSeriesNode) {
-                    XYDiagram d = ((XYDiagram)Form.ChartControl.Diagram);
-                    d.AxisX.DateTimeScaleOptions.MeasureUnit = ((WfFinancialSeriesNode)owner).ArgumentMeauseUnit;
-                    d.AxisX.DateTimeScaleOptions.MeasureUnitMultiplier = ((WfFinancialSeriesNode)owner).MeasureUnitMultiplier;
-                    d.AxisY.WholeRange.AlwaysShowZeroLevel = false;
-                    d.EnableAxisXZooming = d.EnableAxisYScrolling = true;
-                    d.EnableAxisXScrolling = d.EnableAxisYScrolling = true;
-                }
-                return;
-            }
-            IEnumerable en = null;
-            if(seriesSource is Dictionary<string, object>)
-                en = ((Dictionary<string, object>)seriesSource).Values;
-            else 
-                en = seriesSource as IEnumerable;
-            if(en == null)
-                return;
-            ChartControl c = Form.ChartControl;
-            c.BeginInit();
-            XYDiagram diagram = c.Diagram as XYDiagram;
-            if(c.Diagram == null) {
-                diagram = new XYDiagram();
-                diagram.EnableAxisXZooming = diagram.EnableAxisYZooming = true;
-                diagram.EnableAxisYScrolling = diagram.EnableAxisXScrolling = true;
-                diagram.Rotated = Rotated;
-                diagram.PaneLayout.Direction = PaneLayoutDirection;
-                diagram.PaneLayout.AutoLayoutMode = PaneAutoLayoutMode.Linear;
-
-                foreach(WfDiagramPane pane in Panes) {
-                    var xy = new XYDiagramPane(pane.Name);
-                    diagram.Panes.Add(xy);
-                }
-
-                c.Diagram = diagram;
-            }
-
-            foreach(var item in en) {
-                Series s = item as Series;
-                if(s == null)
-                    continue;
-                WfChartSeriesNode owner = (WfChartSeriesNode)s.Tag;
-                if(!string.IsNullOrEmpty(owner.PaneName) && owner.PaneName != "Default") {
-                    XYDiagramPaneBase pane = diagram.FindPaneByName(owner.PaneName);
-                    if(pane == null) {
-                        diagram.Panes.Add(new XYDiagramPane(owner.PaneName));
-                    }
-                    ((XYDiagramSeriesViewBase)s.View).Pane = diagram.FindPaneByName(owner.PaneName);
-                }
-                else {
-                    ((XYDiagramSeriesViewBase)s.View).Pane = diagram.DefaultPane;
-                }
-
-                try {
-                    c.Series.Add(s);
-                }
-                catch(Exception e) {
-                    DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Exception while add series. " + e.ToString());
-                }
-
-                if(owner is WfFinancialSeriesNode) {
-                    diagram.AxisX.DateTimeScaleOptions.MeasureUnit = ((WfFinancialSeriesNode)owner).ArgumentMeauseUnit;
-                    diagram.AxisY.WholeRange.AlwaysShowZeroLevel = false;
-                    var view = ((XYDiagramSeriesViewBase)s.View);
-
-                    if(view.AxisY == null) {
-                        var axis = new SecondaryAxisY(s.Name);
-                        diagram.SecondaryAxesY.Add(axis);
-                        view.AxisY = (SecondaryAxisY)diagram.FindAxisYByName(s.Name);
-                        view.AxisY.WholeRange.AlwaysShowZeroLevel = false;
-                    }
-                }
-            }
-            c.EndInit();
         }
 
         public bool Rotated { get; set; } = false;
@@ -308,10 +219,20 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         public int PaneDistance { get; set; } = 10;
         public PaneLayoutDirection PaneLayoutDirection { get; set; } = PaneLayoutDirection.Vertical;
+        object IChartNode.SeriesSource { get => Inputs["In"].Value; }
     }
 
     public class WfDiagramPane {
         public string Name { get; set; }
         public double SpaceAllocation { get; set; } = 1.0;
+    }
+
+    public interface IChartNode {
+        bool Rotated { get; set; }
+        List<WfDiagramPane> Panes { get; set; }
+        int PaneDistance { get; set; }
+        PaneLayoutDirection PaneLayoutDirection { get; set; }
+        object SeriesSource { get; }
+        List<WfDiagnosticInfo> Diagnostic { get; }
     }
 }

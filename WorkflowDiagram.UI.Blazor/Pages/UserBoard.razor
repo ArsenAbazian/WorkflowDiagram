@@ -1,0 +1,49 @@
+﻿@page "/userboard"
+@using DevExpress.Blazor
+@using Microsoft.AspNetCore.Identity;
+@using WorkflowDiagram.UI.Blazor.ServiceModel;
+@inject UserManager<UserInfo> UserManager;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+<div class="document-editor">
+    <div class="toolbar-area">
+        <DxToolbar ItemClick="@OnItemClick" ItemRenderStyleMode="ToolbarRenderStyleMode.Plain" ItemSizeMode="SizeMode.Medium">
+        <Items>
+            <DxToolbarItem Name="biWorkspaces" Text="Workspaces" >
+                <Items>
+                    @*@foreach(var )*@
+                </Items>
+            </DxToolbarItem>
+            <DxToolbarItem Name="biUpload" Text="Upload" Tooltip="Upload project from computer." />
+            <DxToolbarItem Name="biDownload" Text="Download" Tooltip="Download a copy." />
+        </Items>
+    </DxToolbar>
+    </div>
+    <div class="content-area">
+        @*<div class="gallery">
+            @foreach(var project in Projects) {
+                <div class="gallery-item orange">
+                    <div class="gallery-item-header">@project.Name</div>
+                    <div class="gallery-item-row">
+                        <div class="gallery-item-field">Created:</div>
+                        <div class="gallery-item-value">@project.CreationTime</div>
+                    </div>
+                    <div class="gallery-item-row">
+                        <div class="gallery-item-field">Documents:</div>
+                        <div class="gallery-item-value">@project.Documents.Count</div>
+                    </div>
+                    <div class="gallery-item-description">@project.Description</div>
+                    <div class="gallery-item-row align-right"> 
+                        <DxButton CssClass="orange-button" Click="@(e => OnOpenProjectClick(project.Id))" SizeMode="SizeMode.Medium" RenderStyleMode="ButtonRenderStyleMode.Outline">Open</DxButton>
+                    </div>
+                </div>
+            }
+        </div>*@
+    </div>
+</div>
+
+@{
+    void OnItemClick(ToolbarItemClickEventArgs e) {
+
+    }
+}

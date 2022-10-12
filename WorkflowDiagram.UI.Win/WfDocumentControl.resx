@@ -289,10 +289,10 @@
 </value>
   </data>
   <metadata name="barAndDockingController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 56</value>
+    <value>2309, 17</value>
   </metadata>
   <metadata name="dockManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>192, 17</value>
+    <value>320, 17</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>191</value>
@@ -458,8 +458,189 @@
 	color: @WindowText;
 }</value>
   </data>
+  <data name="Input.Styles" xml:space="preserve">
+    <value>body {
+	display: inline-block;
+}
+
+.container{
+	display: flex;
+	padding: 4px;
+}
+
+.item {
+	background-color: @Window;
+	border-color: @Green/0.6;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 3px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);	
+	padding: 8px 0;
+}
+
+.vertical-right {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-around;
+	align-content: flex-end;
+}
+
+.horizontal {
+	display: flex;
+}
+
+.text {
+	display: flex;
+	color: @WindowText;
+	font-size: 10px;
+	margin: 0 4px;
+	flex-grow: 1;
+	align-items: center;
+}
+</value>
+  </data>
+  <data name="Input.Template" xml:space="preserve">
+    <value>&lt;div class="container"&gt;
+	&lt;div class="item" id="key_item"&gt;
+		&lt;div class="horizontal"&gt;
+			&lt;div class="text"&gt;
+				${Name}
+			&lt;/div&gt;
+			&lt;div class="vertical-right" id="out"&gt;
+				OutRows
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</value>
+  </data>
+  <data name="Output.Styles" xml:space="preserve">
+    <value>body {
+	display: inline-block;
+}
+
+.container{
+	display: flex;
+	padding: 4px;
+}
+
+.item {
+	background-color: @Window;
+	border-color: @Red/0.7;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 3px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);	
+	padding: 8px 0;
+}
+
+.vertical-left {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-around;
+	align-content: flex-end;
+}
+
+.horizontal {
+	display: flex;
+}
+.text {
+	display: flex;
+	color: @WindowText;
+	font-size: 10px;
+	margin: 0 4px;
+	flex-grow: 1;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+</value>
+  </data>
+  <data name="Output.Template" xml:space="preserve">
+    <value>&lt;div class="container"&gt;
+	&lt;div class="item" id="key_item"&gt;
+		&lt;div class="horizontal"&gt;
+			&lt;div class="vertical-left" id="out"&gt;
+				InRows
+			&lt;/div&gt;
+			&lt;div class="text"&gt;
+				${Name}
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</value>
+  </data>
+  <data name="Comment.Styles" xml:space="preserve">
+    <value>body {
+	display: inline-block;
+}
+
+.container{
+	display: flex;
+	padding: 4px;
+}
+
+.item {
+	background-color: @Window;
+	border-color: @WindowText/0.15;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 3px;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);	
+	padding: 8px 0;
+}
+
+.text {
+	display: flex;
+	color: @WindowText;
+	font-size: 10px;
+	margin: 0 4px;
+	flex-grow: 1;
+}
+
+.horizontal {
+	display: flex;
+	align-items: center;
+}
+
+.vertical-left {
+	width: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.vertical-right {
+	width: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	align-content: flex-end;
+	justify-content: space-between;
+}
+
+</value>
+  </data>
+  <data name="Comment.Template" xml:space="preserve">
+    <value>&lt;div class="container"&gt;
+	&lt;div class="item" id="key_item"&gt;
+		&lt;div class="horizontal"&gt;
+			&lt;div class="vertical-left" id="in"&gt;
+				InRows
+			&lt;/div&gt;
+			&lt;div class="text" id="out"&gt;
+				${Text}
+			&lt;/div&gt;
+			&lt;div class="vertical-right" id="out"&gt;
+				OutRows
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</value>
+  </data>
   <metadata name="barManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>723, 17</value>
+    <value>1288, 17</value>
   </metadata>
   <data name="bciShowConnectorText.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.1" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -491,6 +672,31 @@
         NywyMWMtMC4zLDAuMi0wLjYsMC41LTAuOCwwLjdjLTAuMiwwLjMtMC40LDAuNi0wLjUsMC45ICBjLTAu
         MSwwLjMtMC4yLDAuNy0wLjIsMS4yVjI0SDZ6IE0xMCwxMEg4djJoMlYxMHogTTEwLDIwSDh2MmgyVjIw
         eiIgY2xhc3M9IlJlZCIgLz4NCjwvc3ZnPgs=
+</value>
+  </data>
+  <data name="biAllowAnimationWhileRun.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.1" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFlEZXZFeHByZXNzLkRhdGEudjIyLjEsIFZlcnNpb249MjIuMS4w
+        LjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Nzk4NjhiODE0N2I1ZWFlNAUBAAAAHURl
+        dkV4cHJlc3MuVXRpbHMuU3ZnLlN2Z0ltYWdlAQAAAAREYXRhBwICAAAACQMAAAAPAwAAABoEAAAC77u/
+        PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnPz4NCjxzdmcgeD0iMHB4IiB5PSIwcHgi
+        IHZpZXdCb3g9IjAgMCAzMiAzMiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+        MjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3Bh
+        Y2U9InByZXNlcnZlIiBpZD0iTGF5ZXJfMSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAg
+        MzIgMzIiPg0KICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLkJsdWV7ZmlsbDojMTE3N0Q3O30KCS5Z
+        ZWxsb3d7ZmlsbDojRkZCMTE1O30KCS5SZWR7ZmlsbDojRDExQzFDO30KCS5HcmVlbntmaWxsOiMwMzlD
+        MjM7fQoJLkJsYWNre2ZpbGw6IzcyNzI3Mjt9CgkuV2hpdGV7ZmlsbDojRkZGRkZGO30KCS5zdDB7b3Bh
+        Y2l0eTowLjU7fQoJLnN0MXtvcGFjaXR5OjAuNzU7fQoJLnN0MntkaXNwbGF5Om5vbmU7fQoJLnN0M3tk
+        aXNwbGF5OmlubGluZTtmaWxsOiNGRkIxMTU7fQoJLnN0NHtkaXNwbGF5OmlubGluZTt9Cgkuc3Q1e2Rp
+        c3BsYXk6aW5saW5lO29wYWNpdHk6MC43NTt9Cgkuc3Q2e2Rpc3BsYXk6aW5saW5lO29wYWNpdHk6MC41
+        O30KCS5zdDd7ZGlzcGxheTppbmxpbmU7ZmlsbDojMDM5QzIzO30KCS5zdDh7ZGlzcGxheTppbmxpbmU7
+        ZmlsbDojRDExQzFDO30KCS5zdDl7ZGlzcGxheTppbmxpbmU7ZmlsbDojMTE3N0Q3O30KCS5zdDEwe2Rp
+        c3BsYXk6aW5saW5lO2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+DQogIDxnIGlkPSJTY2hlZHVsZXIiPg0K
+        ICAgIDxwb2x5Z29uIHBvaW50cz0iMTYsMTYgMTYsOCAxNCw4IDE0LDE4IDI0LDE4IDI0LDE2ICAiIGNs
+        YXNzPSJCbGFjayIgLz4NCiAgICA8cGF0aCBkPSJNMTYsMkM4LjMsMiwyLDguMywyLDE2czYuMywxNCwx
+        NCwxNHMxNC02LjMsMTQtMTRTMjMuNywyLDE2LDJ6IE0xNiwyNmMtNS41LDAtMTAtNC41LTEwLTEwICAg
+        YzAtNS41LDQuNS0xMCwxMC0xMHMxMCw0LjUsMTAsMTBDMjYsMjEuNSwyMS41LDI2LDE2LDI2eiIgY2xh
+        c3M9IlJlZCIgLz4NCiAgPC9nPg0KPC9zdmc+Cw==
 </value>
   </data>
   <data name="bciSelectionMode.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.1" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -541,7 +747,7 @@
 </value>
   </data>
   <metadata name="workspaceManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>980, 95</value>
+    <value>1002, 129</value>
   </metadata>
   <data name="biOwnerProperties.ImageOptions.SvgImage" type="DevExpress.Utils.Svg.SvgImage, DevExpress.Data.v22.1" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -574,10 +780,10 @@
 </value>
   </data>
   <metadata name="wfNodeBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>550, 17</value>
+    <value>973, 17</value>
   </metadata>
   <metadata name="svgImageCollection1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>815, 95</value>
+    <value>703, 129</value>
   </metadata>
   <data name="wevToolbar.OptionsViewStyles.Content.HtmlTemplate.Styles" xml:space="preserve">
     <value>.button {
@@ -615,46 +821,46 @@
 }</value>
   </data>
   <metadata name="wfDiagnosticInfoBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 95</value>
+    <value>1755, 73</value>
   </metadata>
   <metadata name="xtraSaveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>382, 56</value>
+    <value>319, 73</value>
   </metadata>
   <metadata name="diagramDataBindingController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>325, 17</value>
+    <value>555, 17</value>
   </metadata>
   <metadata name="applicationMenu1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>848, 17</value>
+    <value>1506, 17</value>
   </metadata>
   <metadata name="diagramBarController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
   <metadata name="PrintMenuPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>998, 17</value>
+    <value>1774, 17</value>
   </metadata>
   <metadata name="ExportAsPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>215, 56</value>
+    <value>17, 73</value>
   </metadata>
   <metadata name="ImageToolsBringToFrontContainerPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>540, 56</value>
+    <value>603, 73</value>
   </metadata>
   <metadata name="ImageToolsSendToBackContainerPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>846, 56</value>
+    <value>1184, 73</value>
   </metadata>
   <metadata name="ToolsContainerPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>239, 95</value>
+    <value>2168, 73</value>
   </metadata>
   <metadata name="BringToFrontPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>625, 95</value>
+    <value>355, 129</value>
   </metadata>
   <metadata name="SendToBackPopupMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>440, 95</value>
+    <value>17, 129</value>
   </metadata>
   <metadata name="alertControl1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1431, 35</value>
+    <value>2094, 17</value>
   </metadata>
   <metadata name="svgImageCollection2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1381, 100</value>
+    <value>1299, 129</value>
   </metadata>
   <data name="alertControl1.HtmlTemplate.Styles" xml:space="preserve">
     <value>.container{
@@ -747,6 +953,6 @@
 &lt;/div&gt;</value>
   </data>
   <metadata name="pmContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1680, 100</value>
+    <value>1598, 129</value>
   </metadata>
 </root>

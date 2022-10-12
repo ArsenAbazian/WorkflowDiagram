@@ -7,7 +7,7 @@ using MimeKit;
 namespace WorkflowDiagram.UI.Blazor.Helpers {
     public class EmailHelper {
         static string SenderEmail = "lowcoderobot@acodelow.com";
-        static string SenderPassword = "vY9cS4eX1x";
+        static string SenderPassword = "";
         static string SmtpAddress = "mail.hosting.reg.ru";
         static int SmptPort = 25;
 

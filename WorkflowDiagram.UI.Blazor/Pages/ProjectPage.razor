@@ -1,5 +1,106 @@
-﻿<h3>ProjectPage</h3>
+﻿@page "/project/{projectId}"
+@using DevExpress.Xpo
+@using WorkflowDiagram.UI.Blazor.ServiceModel
+@inject NavigationManager NavManager;
+
+<div class="project-page">
+    <div class="project-toolbar-area">
+        <DxToolbar ItemClick="@OnItemClick" ItemRenderStyleMode="ToolbarRenderStyleMode.Plain" ItemSizeMode="SizeMode.Medium">
+            <Items>
+                <DxToolbarItem Name="tiAdd" Text="Add Document" CssClass="filled-toolbar-item"></DxToolbarItem>
+                <DxToolbarItem Name="tiUpload" Text="Upload Document" CssClass="filled-toolbar-item"></DxToolbarItem>
+            </Items>
+        </DxToolbar>
+    </div>
+    <div class="documents-area">
+        <div class="gallery">
+            @foreach(var doc in Documents) {
+                <div class="gallery-item green w300" @onclick="(e) => OnDocumentItemClick(doc)">
+                    <div class="gallery-item-row">
+                        <div class="gallery-item-field">@doc.Name</div>
+                        <div class="gallery-item-field">@doc.CreationDateString</div>
+                    </div>
+                    <div class="gallery-item-description">@doc.Description</div>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
+<CascadingValue Value="popupComponent">
+    <PopupView>
+        <div class="form-label">Document name</div>
+        <div class="form-editor"><input class="form-input" style="width: 600px;" type="text" @bind-value="CreateInfo.Name"></input></div>
+        <div class="form-label">Description</div>
+        <div class="form-editor"><textarea class="form-input form-memo" style="height: 300px;" type="text" @oninput="HandleOnDocumentDescriptionChange">@CreateInfo.Description</textarea></div>
+    </PopupView>     
+</CascadingValue>
 
 @code {
+    [Parameter]
+    public string ProjectId{ get; set; }
 
+    internal List<DocumentPresenter> Documents { get; set; }
+    internal DocumentPresenter CreateInfo { get; set; }
+    internal PopupComponent popupComponent;
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        Documents = new List<DocumentPresenter>();
+        CreateInfo = new ();
+        this.popupComponent = new PopupComponent() { ShowCancelButton = true, ShowOkButton = true, ShowCloseButton = true, Title = "Add New Document" };
+        this.popupComponent.OnOk += (d, e) => {
+            AddDocumentAsync(CreateInfo);
+        };
+    }
+    protected override Task OnInitializedAsync() {
+        return base.OnInitializedAsync().ContinueWith(t => UpdateDocuments());
+    }
+
+    void UpdateDocuments() {
+        using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
+            ProjectInfo p = DatabaseManager.Current.Get<ProjectInfo>(session, Convert.ToInt32(ProjectId));
+            Documents = p.Documents.Select(d => new DocumentPresenter() {
+                    Oid = d.Oid,
+                    Name = d.Name,
+                    Description = d.Description,
+                    CreationDateString = d.CreationDateString
+                }).ToList();
+        }
+        InvokeAsync(StateHasChanged);
+    }
+
+    void HandleOnDocumentDescriptionChange(ChangeEventArgs args) {
+        CreateInfo.Description = args.Value.ToString();
+    }
+
+    void OnDocumentItemClick(DocumentPresenter doc) {
+        NavManager.NavigateTo(string.Format("/documenteditor/{0}", doc.Oid));
+    }
+
+    void OnItemClick(ToolbarItemClickEventArgs e) {
+        if(e.ItemName == "tiAdd")
+            AddNewDocument();
+        else if(e.ItemName == "tiUpload") {
+
+        }
+    }
+
+    void AddNewDocument() {
+        CreateInfo = new DocumentPresenter();
+        this.popupComponent.ShowPopup();
+    }
+
+    Task AddDocumentAsync(DocumentPresenter info) {
+        return Task.Run(() => {
+            using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
+                ProjectInfo p = DatabaseManager.Current.Get<ProjectInfo>(session, Convert.ToInt32(ProjectId));
+                DocumentInfo doc = new DocumentInfo(session);
+                doc.Name = info.Name;
+                doc.Description = info.Description;
+                p.Documents.Add(doc);
+                session.CommitChanges();
+            }
+            UpdateDocuments();
+            InvokeAsync(StateHasChanged);
+        });
+    }
 }

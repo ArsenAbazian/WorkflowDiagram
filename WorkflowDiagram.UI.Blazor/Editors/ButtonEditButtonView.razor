@@ -1,0 +1,8 @@
+﻿<div class="be-button @Button.BorderClass" @onclick="Button.OnClick">
+    <img class="be-glyph @Button.GlyphClass" src="@Button.Glyph">
+    <div class="be-text @Button.TextClass">@Button.Text</div>
+</div>
+@code {
+    [Parameter]
+    public ButtonEditButton Button { get; set; }
+}

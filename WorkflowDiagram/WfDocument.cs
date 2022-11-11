@@ -104,6 +104,10 @@ namespace WorkflowDiagram {
                 Saved(this, EventArgs.Empty);
         }
 
+        public void Save(StringBuilder b) {
+            XmlSerialization.SerializationHelper.Current.Save(this, GetType(), b);
+        }
+
         internal WfConnector FindConnector(Guid connectorId) {
             return Connectors.FirstOrDefault(c => c.Id == connectorId);
         }
@@ -147,6 +151,8 @@ namespace WorkflowDiagram {
 
         public bool LoadFromString(string text) {
             Clear();
+            if(text == null)
+                return true;
             if(SerializationHelper.Current.LoadFromString(this, GetType(), text)) {
                 if(Loaded != null)
                     Loaded(this, EventArgs.Empty);

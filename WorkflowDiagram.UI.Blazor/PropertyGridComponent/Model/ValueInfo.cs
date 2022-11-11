@@ -9,6 +9,10 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
             SubscribeEvents();
         }
 
+        public Type GetCustomEditorType() {
+            return Row.GetAttribute<BlazorPropertyEditorAttribute>()?.EditorType;
+        }
+
         public bool Readonly { get { return Property.IsReadOnly; } }
 
         public bool IsDecimal {
@@ -53,6 +57,7 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
         public PropertyDescriptor Property { get { return Row.Property; } }
         public object Owner { get; set; }
         public object Value { get { return Property.GetValue(Owner); } set { Property.SetValue(Owner, value); } }
+        public string DisplayValue { get { return Value == null ? "" : Value.ToString(); } set { Value = Convert.ChangeType(value, Property.PropertyType); } }
 
         public void Clear() {
             UnsubscribeEvents();

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
 namespace WorkflowDiagram.UI.Blazor.ServiceModel {
-    public class AutenticationUserStore : IUserStore<UserInfo>, IUserEmailStore<UserInfo>, IUserPasswordStore<UserInfo> {
+    public class AutenticationUserStore : IUserStore<UserInfo>, IUserEmailStore<UserInfo>, IUserPasswordStore<UserInfo>, IUserPhoneNumberStore<UserInfo> {
         Task<IdentityResult> IUserStore<UserInfo>.CreateAsync(UserInfo user, CancellationToken cancellationToken) {
+            DatabaseManager.Current.Add<UserInfo>(user);
             return Task.FromResult(IdentityResult.Success);
         }
 
@@ -43,10 +44,17 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel {
         }
 
         Task<string> IUserPasswordStore<UserInfo>.GetPasswordHashAsync(UserInfo user, CancellationToken cancellationToken) {
-            if(string.IsNullOrEmpty(user.PasswordHash)) {
-                return Task.FromResult(DatabaseManager.Current.UpdateUserPasswordHash(user.Oid));
-            }
+            if(string.IsNullOrEmpty(user.PasswordHash))
+                return Task.FromResult(new PasswordHasher<UserInfo>().HashPassword(user, user.Password));
             return Task.FromResult(user.PasswordHash);
+        }
+
+        Task<string> IUserPhoneNumberStore<UserInfo>.GetPhoneNumberAsync(UserInfo user, CancellationToken cancellationToken) {
+            return Task.FromResult(user.Phone);
+        }
+
+        Task<bool> IUserPhoneNumberStore<UserInfo>.GetPhoneNumberConfirmedAsync(UserInfo user, CancellationToken cancellationToken) {
+            return Task.FromResult(user.PhoneConfirmed);
         }
 
         Task<string> IUserStore<UserInfo>.GetUserIdAsync(UserInfo user, CancellationToken cancellationToken) {
@@ -62,30 +70,51 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel {
         }
 
         Task IUserEmailStore<UserInfo>.SetEmailAsync(UserInfo user, string email, CancellationToken cancellationToken) {
-            throw new NotImplementedException();
+            DatabaseManager.Current.UpdateProperty<UserInfo>(user.Oid, nameof(UserInfo.Email), email);
+            user.Email = email;
+            return Task.CompletedTask;
         }
 
         Task IUserEmailStore<UserInfo>.SetEmailConfirmedAsync(UserInfo user, bool confirmed, CancellationToken cancellationToken) {
             DatabaseManager.Current.UpdateEmailConfirmed(user.Oid, confirmed);
+            user.EmailConfirmed = confirmed;
             return Task.CompletedTask;
         }
 
         Task IUserEmailStore<UserInfo>.SetNormalizedEmailAsync(UserInfo user, string normalizedEmail, CancellationToken cancellationToken) {
             DatabaseManager.Current.UpdateUserNormalizedEmail(user.Oid, normalizedEmail);
+            user.EmailNormalized = normalizedEmail;
             return Task.CompletedTask;
         }
 
         Task IUserStore<UserInfo>.SetNormalizedUserNameAsync(UserInfo user, string normalizedName, CancellationToken cancellationToken) {
             DatabaseManager.Current.UpdateUserNormalizedLogin(user.Oid, normalizedName);
+            user.LoginNormalized = normalizedName;
             return Task.CompletedTask;
         }
 
         Task IUserPasswordStore<UserInfo>.SetPasswordHashAsync(UserInfo user, string passwordHash, CancellationToken cancellationToken) {
-            throw new NotImplementedException();
+            user.PasswordHash = passwordHash;
+            return Task.CompletedTask;
+        }
+
+        Task IUserPhoneNumberStore<UserInfo>.SetPhoneNumberAsync(UserInfo user, string phoneNumber, CancellationToken cancellationToken) {
+            user.Phone = phoneNumber;
+            user.PhoneConfirmed = false;
+            DatabaseManager.Current.Update<UserInfo>(user.Oid, item => { item.Phone = phoneNumber; item.PhoneConfirmed = false; });
+            return Task.CompletedTask;
+        }
+
+        Task IUserPhoneNumberStore<UserInfo>.SetPhoneNumberConfirmedAsync(UserInfo user, bool confirmed, CancellationToken cancellationToken) {
+            user.PhoneConfirmed = confirmed;
+            DatabaseManager.Current.Update<UserInfo>(user.Oid, item => { item.PhoneConfirmed = confirmed; });
+            return Task.CompletedTask;
         }
 
         Task IUserStore<UserInfo>.SetUserNameAsync(UserInfo user, string userName, CancellationToken cancellationToken) {
-            throw new NotImplementedException();
+            DatabaseManager.Current.UpdateUserLogin(user.Oid, userName);
+            user.Login = userName;
+            return Task.CompletedTask;
         }
 
         Task<IdentityResult> IUserStore<UserInfo>.UpdateAsync(UserInfo user, CancellationToken cancellationToken) {

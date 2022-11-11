@@ -45,10 +45,7 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
         }
 
         public void Dispose() {
-            if(this.element.Id != null)
-                _ = JsRuntimeHelper.SubscribeResizes(JsRuntime, this.refThis, this.element);
-
-            this.refThis?.Dispose();
+           this.refThis?.Dispose();
         }
 
         protected override void OnInitialized() {

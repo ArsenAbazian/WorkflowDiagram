@@ -50,15 +50,33 @@ namespace WorkflowDiagram.Nodes.Base {
         [Browsable(false)]
         public WfValueType ConstantType { get; set; }
         object _value;
-        [Category("Value"), PropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemObjectValueEditor")]
+        [Category("Value"), 
+            WinPropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemObjectValueEditor"),
+            BlazorPropertyEditor("WorkflowDiagram.UI.Blazor", "WorkflowDiagram.UI.Blazor.NodeEditors.ObjectValueEditor")]
         public object Value {
             get { return _value; }
             set {
                 if(object.Equals(Value, value))
                     return;
                 _value = value;
-                OnPropertyChanged(nameof(Value));
+                OnValueChanged();
             }
+        }
+
+        protected virtual void OnValueChanged() {
+            UpdateConstantType();
+            OnPropertyChanged(nameof(Value));
+        }
+
+        protected virtual void UpdateConstantType() {
+            if(Value == null)
+                ConstantType = WfValueType.Decimal;
+            else if(Value is double || Value is float || Value is int)
+                ConstantType = WfValueType.Decimal;
+            else if(Value is string)
+                ConstantType = WfValueType.String;
+            else if(Value is DateTime)
+                ConstantType = WfValueType.DateTime;
         }
 
         public object GetValue() {
@@ -69,6 +87,7 @@ namespace WorkflowDiagram.Nodes.Base {
     public enum WfValueType {
         Decimal,
         Boolean,
-        String
+        String,
+        DateTime
     }
 }

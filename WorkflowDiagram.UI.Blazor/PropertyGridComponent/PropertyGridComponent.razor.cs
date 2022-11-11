@@ -57,10 +57,8 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
         }
 
         protected internal virtual Type CreateViewTypeFor(PgValueItem pgValueItem) {
-            BlazorPropertyEditorAttribute a = pgValueItem.Value.Row.GetAttribute<BlazorPropertyEditorAttribute>();
-            if(a != null)
-                return a.EditorType;
-
+            if(pgValueItem.Value.GetCustomEditorType() != null)
+                return typeof(PgCustomValueView);
             Type propType = pgValueItem.Value.Row.Property.PropertyType;
             if(propType == typeof(bool))
                 return typeof(PgBooleanValueView);
@@ -118,8 +116,12 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
         public List<PropertyGridRowBase> Rows { get; protected set; }
 
         protected internal virtual Type CreateViewTypeFor(PgRowItem item) {
-            if(item.Row is PropertyGridObjectValueRow)
+            if(item.Row is PropertyGridObjectValueRow) {
+                PropertyGridObjectValueRow row = (PropertyGridObjectValueRow)item.Row;
+                if(row.GetCustomEditorType() != null)
+                    return typeof(PgValueRowView);
                 return typeof(PgObjectRowView);
+            }
             else if(item.Row is PropertyGridValueRow)
                 return typeof(PgValueRowView);
             else if(item.Row is PropertyGridCategoryRow)

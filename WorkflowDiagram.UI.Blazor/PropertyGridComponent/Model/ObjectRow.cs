@@ -6,5 +6,10 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
             object[] values = objects.Select(o => prop.GetValue(o)).ToArray();
             Children = Owner.GetRowsFor(values);
         }
+
+        public Type GetCustomEditorType() {
+            var a = GetAttribute<BlazorPropertyEditorAttribute>();
+            return a == null? null: a.EditorType;
+        }
     }
 }

@@ -1,12 +1,41 @@
-﻿<AuthorizeView>
+﻿@using System.Security.Claims
+@using WorkflowDiagram.UI.Blazor.ServiceModel
+@using WorkflowDiagram.UI.Blazor.Components
+@inject SignInManager<UserInfo> SignInManager;
+@inject UserManager<UserInfo> UserManager;
+
+<AuthorizeView>
     <Authorized>
-        <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
-        <form method="post" action="Identity/Account/LogOut">
-            <button type="submit" class="nav-link btn btn-link">Log out</button>
-        </form>
+        <div class="user-toolbar">
+            <div class="toolbar-client-left">
+                @*<DxToolbar ItemClick="@OnItemClick" ItemRenderStyleMode="ToolbarRenderStyleMode.Plain" ItemSizeMode="SizeMode.Medium">
+                    <Items>
+                        <DxToolbarItem Name="tiWorkspaces" Text="Workspaces">
+                            <Items>
+                                <DxToolbarItem Name="tiAdd" Text="Add Workspace"></DxToolbarItem>
+                            </Items>
+                        </DxToolbarItem>
+                    </Items>
+                </DxToolbar>*@
+            </div>
+            <div class="toolbar-client">
+                <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
+                <form method="post" action="Identity/Account/LogOut">
+                    <button type="submit" class="nav-link btn btn-link">Log out</button>
+                </form>
+            </div>
+        </div>
     </Authorized>
     <NotAuthorized>
         <a href="Identity/Account/Register">Sign Up</a>
         <a href="Identity/Account/Login">Log in</a>
     </NotAuthorized>
 </AuthorizeView>
+
+@code {
+
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        
+    }
+}

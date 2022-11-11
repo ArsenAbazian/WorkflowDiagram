@@ -28,5 +28,9 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
             }
             return null;
         }
+
+        public void SetValue(object value) {
+            Values.ForEach(v => v.Value = value);
+        }
     }
 }

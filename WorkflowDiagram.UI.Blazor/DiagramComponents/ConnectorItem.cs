@@ -62,8 +62,8 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         }
 
         public void Dispose() {
-            if(this.element.Id != null)
-                _ = JsRuntimeHelper.SubscribeResizes(JsRuntime, this.refThis, this.element);
+            //if(this.element.Id != null)
+            //    _ = JsRuntimeHelper.UnsubscribeResizes(JsRuntime, this.element);
 
             this.refThis?.Dispose();
         }
@@ -73,16 +73,38 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             this.refThis = DotNetObjectReference.Create(this);
             Diagram.ConnectorItems[Connector] = this;
 
+            UpdatePointCore();
+        }
+
+        protected internal void InitializePointCore(ConnectionPointItem pi) {
+            if(pi == null)
+                return;
+            if(pi.Point.Type == WfConnectionPointType.In && End == Point.Empty) {
+                Point newEnd = pi.Bounds.GetCenter();
+                if(newEnd == End)
+                    return;
+                End = newEnd;
+                InvokeAsync(Refresh);
+            }
+            else if(Start == Point.Empty){
+                Point newStart = pi.Bounds.GetCenter();
+                if(newStart == Start)
+                    return;
+                Start = pi.Bounds.GetCenter();
+                InvokeAsync(Refresh);
+            }
+        }
+
+        protected internal void UpdatePointCore() {
             ConnectionPointItem startPoint = Diagram.GetConnectionPointItem(Connector.From);
             ConnectionPointItem endPoint = Diagram.GetConnectionPointItem(Connector.To);
 
             if(startPoint == null && endPoint == null)
                 return;
 
-            Start = startPoint == null? endPoint.Bounds.GetCenter(): startPoint.Bounds.GetCenter();
+            Start = startPoint == null ? endPoint.Bounds.GetCenter() : startPoint.Bounds.GetCenter();
             End = endPoint == null ? startPoint.Bounds.GetCenter() : endPoint.Bounds.GetCenter();
         }
-
 
         public void MoveStart(float dx, float dy) {
             var p = Start;
@@ -117,13 +139,15 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             builder.AddAttribute(1, "class", "connector");
             builder.AddAttribute(2, "connector-id", Connector.Id);
 
+            UpdatePointCore();
+
             int length = Math.Max(50, (int)(Strength * (End.X - Start.X)));
 
             Point c1 = new Point(Start.X + length, Start.Y);
             if(c1.X == Start.X) c1.X++;
             Point c2 = new Point(End.X - length, End.Y);
             if(c2.X == End.X) c2.X--;
-
+            
             string pathString = string.Format("M{0},{1} C{2},{3} {4},{5} {6},{7}", Start.X, Start.Y, c1.X, c1.Y, c2.X, c2.Y, End.X, End.Y);
             builder.AddAttribute(3, "d", pathString);
 

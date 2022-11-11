@@ -40,8 +40,8 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             if(Node != null)
                 Node.PropertyChanged -= OnNodeChanged;
 
-            if(this.element.Id != null)
-                _ = JsRuntimeHelper.SubscribeResizes(JsRuntime, this.refThis, this.element);
+            //if(this.element.Id != null)
+            //    _ = JsRuntimeHelper.UnsubscribeResizes(JsRuntime, this.element);
 
             this.refThis?.Dispose();
         }

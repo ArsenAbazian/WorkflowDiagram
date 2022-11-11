@@ -1,6 +1,7 @@
 ﻿using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Microsoft.AspNetCore.Identity;
+using System.Reflection;
 using WorkflowDiagram.UI.Blazor.Helpers;
 
 namespace WorkflowDiagram.UI.Blazor.ServiceModel {
@@ -37,25 +38,36 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel {
             }
         }
 
-        public UserInfo FindUserByGuidString(string userId) {
-            using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
-                var users = new XPCollection<UserInfo>(session);
-                return users.FirstOrDefault(u => u.GuidString == userId);
+        public T Get<T>(UnitOfWork session, int oid) where T : XPObject {
+            var items = new XPCollection<T>(session);
+            return items.FirstOrDefault(i => i.Oid == oid);
+        }
+
+        public void Add<T>(T item) where T: XPObject {
+            if(item.Session != null) {
+                ((UnitOfWork)item.Session).CommitChanges();
+                return;
             }
+            using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
+                var items = new XPCollection<T>(session);
+                items.Add(item);
+                session.CommitChanges();
+            }
+        }
+
+        public UserInfo FindUserByGuidString(string userId) {
+            var users = new XPCollection<UserInfo>(XpoDefault.Session);
+            return users.FirstOrDefault(u => u.GuidString == userId);
         }
 
         public UserInfo FindUserByLogin(string normalizedUserName) {
-            using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
-                var users = new XPCollection<UserInfo>(session);
-                return users.FirstOrDefault(u => u.LoginNormalized == normalizedUserName);
-            }
+            var users = new XPCollection<UserInfo>(XpoDefault.Session);
+            return users.FirstOrDefault(u => u.LoginNormalized == normalizedUserName);
         }
 
         public UserInfo FindUserByEmail(string normalizedEmail) {
-            using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
-                var users = new XPCollection<UserInfo>(session);
-                return users.FirstOrDefault(u => u.EmailNormalized == normalizedEmail);
-            }
+            var users = new XPCollection<UserInfo>(XpoDefault.Session); 
+            return users.FirstOrDefault(u => u.EmailNormalized == normalizedEmail);
         }
 
         public bool CompleteRegistrationFor(string guidString) {
@@ -67,7 +79,7 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel {
                 info.NeedCompleteRegistration = false;
                 info.EmailConfirmed = true;
                 info.PasswordHash = new PasswordHasher<UserInfo>().HashPassword(info, info.Password);
-                session.CommitTransaction();
+                session.CommitChanges();
                 return true;
             }
         }
@@ -83,14 +95,7 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel {
         }
 
         public void UpdateEmailConfirmed(int oid, bool confirmed) {
-            using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
-                var users = new XPCollection<UserInfo>(session);
-                UserInfo info = users.FirstOrDefault(u => u.Oid == oid);
-                if(info == null)
-                    return ;
-                info.EmailConfirmed = confirmed;
-                session.CommitTransaction();
-            }
+            UpdateProperty<UserInfo>(oid, nameof(UserInfo.EmailConfirmed), confirmed);
         }
 
         public string UpdateUserPasswordHash(int oid) {
@@ -100,31 +105,43 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel {
                 if(info == null)
                     return string.Empty;
                 info.PasswordHash = new PasswordHasher<UserInfo>().HashPassword(info, info.Password);
-                session.CommitTransaction();
+                session.CommitChanges();
                 return info.PasswordHash;
             }
         }
 
-        internal void UpdateUserNormalizedLogin(int oid, string normalizedName) {
-            using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
-                var users = new XPCollection<UserInfo>(session);
-                UserInfo info = users.FirstOrDefault(u => u.Oid == oid);
-                if(info == null)
-                    return;
-                info.LoginNormalized = normalizedName;
-                session.CommitTransaction();
-            }
+        public void UpdateUserNormalizedLogin(int oid, string normalizedName) {
+            UpdateProperty<UserInfo>(oid, nameof(UserInfo.LoginNormalized), normalizedName);
         }
 
-        internal void UpdateUserNormalizedEmail(int oid, string normalizedEmail) {
+        public void UpdateUserLogin(int oid, string login) {
+            UpdateProperty<UserInfo>(oid, nameof(UserInfo.Login), login);
+        }
+
+        public void Update<T>(int oid, Action<T> updateAction) {
             using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
-                var users = new XPCollection<UserInfo>(session);
-                UserInfo info = users.FirstOrDefault(u => u.Oid == oid);
+                var coll = new XPCollection<T>(session);
+                T info = coll.FirstOrDefault(item => ((ISupportId)item).Oid == oid);
                 if(info == null)
                     return;
-                info.EmailNormalized = normalizedEmail;
-                session.CommitTransaction();
+                updateAction(info);
+                session.CommitChanges();
             }
+        }
+        public void UpdateProperty<T>(int oid, string property, object value) {
+            using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
+                var coll = new XPCollection<T>(session);
+                object info = coll.FirstOrDefault(item => ((ISupportId)item).Oid == oid);
+                if(info == null)
+                    return;
+                PropertyInfo pi = info.GetType().GetProperty(property);
+                if(pi != null)
+                    pi.SetValue(info, value);
+                session.CommitChanges();
+            }
+        }
+        internal void UpdateUserNormalizedEmail(int oid, string normalizedEmail) {
+            UpdateProperty<UserInfo>(oid, nameof(UserInfo.EmailNormalized), normalizedEmail);
         }
 
         private void InitializeDefaultSystemUsers(UnitOfWork session) {
@@ -172,12 +189,8 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel {
                 info.NeedCompleteRegistration = true;
                 if(addNewUser)
                     users.Add(info);
-                session.CommitTransaction();
+                session.CommitChanges();
                 return info;
-                //await new EmailHelper().SendEmailAsync(
-                //    info.Email, 
-                //    "Complete Registration", 
-                //    string.Format("Dear user!\n\n Please complete registration by clicking the following link: localhost:7156/completeregistration={0}.\n\nThanks,\nLowCode Team.", info.GuidString));
             }
         }
     }

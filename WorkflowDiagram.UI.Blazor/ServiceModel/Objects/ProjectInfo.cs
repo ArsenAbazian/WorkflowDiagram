@@ -1,4 +1,5 @@
 ﻿using DevExpress.Xpo;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkflowDiagram.UI.Blazor.ServiceModel {
     public class ProjectInfo : XPObject {
@@ -37,5 +38,8 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel {
 		public XPCollection<DocumentInfo> Documents {
 			get { return GetCollection<DocumentInfo>(nameof(Documents)); }
 		}
+
+		[NotMapped]
+		public string CreationDateString { get { return CreationTime.ToShortDateString(); } }
 	}
 }

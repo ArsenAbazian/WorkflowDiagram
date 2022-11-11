@@ -1,19 +1,27 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 :root {
-    --red: hsl(0, 78%, 62%);
-    --cyan: hsl(180, 62%, 55%);
     --orange: hsl(34, 97%, 64%);
     --blue: hsl(212, 86%, 64%);
+    --green: forestgreen;
     --varyDarkBlue: hsl(234, 12%, 34%);
     --grayishBlue: hsl(229, 6%, 66%);
     --veryLightGray: hsl(0, 0%, 98%);
     --weight1: 200;
     --weight2: 400;
     --weight3: 600;
+    --form-label: rgba(72, 70, 68, 1);
+    --window-text-01: rgba(72, 70, 68, 0.1);
+    --window-text-005: rgba(72, 70, 68, 0.05);
+    --window-text: rgba(72, 70, 68, 1);
+    --window-background: rgba(237,237,237, 1);
+    --window-background-light: rgba(252,252,252, 1);
+    --panel-separator: rgba(72, 70, 68, 0.2);
+    --panel-background: rgba(72, 70, 68, 0.05);
 }
 
 html, body {
+    height: 100%;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow-y: hidden;
     background-color: var(--veryLightGray);
@@ -34,7 +42,7 @@ a, .btn-link {
 }
 
 .content {
-    padding-top: 1.1rem;
+    /*padding-top: 1.1rem;*/
     height: 100%;
 }
 
@@ -81,59 +89,56 @@ a, .btn-link {
 
 .gallery {
     width: 100%;
-    overflow: scroll;
     font-size: 15px;
     font-family: 'Poppins', sans-serif;
-    background-color: var(--veryLightGray);
     display: flex;
     flex-wrap: wrap;
-    height: 100%;
+    align-items: flex-start;
+    align-content: flex-start;
 }
 
 .gallery-item {
+    background-color: var(--window-background);
     width: 30%;
-    height: auto;
     border-radius: 5px;
-    box-shadow: 0px 30px 40px -20px var(--grayishBlue);
+    border-width: 1px;
+    border-color: transparent;
+    border-style: solid;
+    box-shadow: 2px 2px 2px -2px var(--grayishBlue);
     padding: 30px;
     margin: 20px;
-}
-
-@media (max-width: 450px) {
-    .gallery-item {
-        height: 200px;
-    }
-}
-
-@media (max-width: 950px) and (min-width: 450px) {
-    .gallery-item {
-        text-align: center;
-        height: 180px;
-    }
-}
-
-.cyan {
-    border-top: 2px solid var(--cyan);
-}
-
-.red {
-    border-top: 2px solid var(--red);
+    cursor: pointer;
 }
 
 .blue {
-    border-top: 2px solid var(--blue);
+    /*border-top: 2px solid var(--blue);*/
+}
+
+.blue:hover {
+    border-color: var(--blue);
 }
 
 .orange {
-    border-top: 2px solid var(--orange);
+    /*border-top: 2px solid var(--orange);*/
 }
+
+.orange:hover {
+    border-color: var(--orange);
+}
+
+.green {
+
+}
+
+    .green:hover {
+        border-color: var(--green);
+    }
 
 .gallery-item-header {
     color: var(--varyDarkBlue);
     font-weight: var(--weight3);
     margin-bottom: 20px;
 }
-
 
 @media (min-width: 950px) {
     .gallery-item {
@@ -191,6 +196,24 @@ a, .btn-link {
         box-shadow: none;
     }
 
+.green-button {
+    border-color: forestgreen;
+    color: forestgreen;
+    padding: 5px 30px;
+    box-shadow: none;
+}
+
+.green-button:hover {
+    background-color: forestgreen;
+    border-color: forestgreen;
+    color: white;
+}
+
+.green-button:active {
+    border-width: 1px;
+    box-shadow: none;
+}
+
 .form-header-text {
     font-size: 14px;
     font-weight: bold;
@@ -212,7 +235,7 @@ a, .btn-link {
     margin: 16px 8px 0px 8px;
     font-size: 12px;
     font-weight: bold;
-    color: var(--grayishBlue);
+    color: var(--form-label);
 }
 
 .form-editor {
@@ -230,9 +253,9 @@ a, .btn-link {
 }
 
     .form-input:focus {
-        outline:none;
+        outline: none;
         border-width: 1px;
-        border-color: forestgreen;
+        border-color: var(--green);
     }
 
 .form-button {
@@ -248,18 +271,18 @@ a, .btn-link {
 }
 
 .green-outline {
-    border-color: forestgreen;
-    color: forestgreen;
+    border-color: var(--green);
+    color: var(--green);
 }
 
     .green-outline:hover {
         background-color: rgba(0, 255, 0, 0.1);
-        color: forestgreen;
+        color: var(--green);
     }
 
     .green-outline:active {
         background-color: rgba(0, 255, 0, 0.4);
-        color: forestgreen;
+        color: var(--green);
     }
 
 .simple {
@@ -276,6 +299,10 @@ a, .btn-link {
 
 .right-margin {
     margin-right: 16px;
+}
+
+.small-link {
+    font-size: 10px;
 }
 
 .form-row-errors {
@@ -311,7 +338,7 @@ a, .btn-link {
 .logo {
     width: 64px;
     height: 64px;
-    fill: forestgreen;
+    fill: var(--green);
     margin: 8px;
 }
 
@@ -333,3 +360,31 @@ a, .btn-link {
     margin-left: 8px;
 }
 
+.normal-page {
+    max-width: 1200px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    flex-grow: 1;
+}
+
+.sidebar-area {
+    width: 300px;
+    position: sticky;
+    padding-top: 20px;
+}
+
+.sidebar-item-text {
+    color: var(--window-text);
+    font-size: 12px;
+}
+
+.ove-memo {
+    width: 350px;
+    height: 200px;
+}
+
+.ee-memo-textarea {
+    height: 350px;
+}

@@ -66,7 +66,7 @@
 }
 
 .node-item-selected {
-    border-color: forestgreen;
+    border-color: var(--green);
 }
 
 .resizing-border {
@@ -130,8 +130,8 @@
     display: flex;
 }
 
-.green {
-    background-color: forestgreen;
+.i-green {
+    background-color: var(--green);
 }
 
 .node-indicator {
@@ -163,9 +163,9 @@
     border-radius: 3px;
 }
 
-.point-inner:hover {
-    background-color: forestgreen;
-}
+    .point-inner:hover {
+        background-color: var(--green);
+    }
 
 .node-left-point {
     margin: 1px 4px 0 -4px;
@@ -217,13 +217,13 @@
 }
 
     .toolbox-item:hover {
-        border-color: forestgreen;
+        border-color: var(--green);
         background-color: rgba(0, 255, 0, 0.05);
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .toolbox-item:active {
-        border-color: forestgreen;
+        border-color: var(--green);
         background-color: rgba(0, 255, 0, 0.05);
         box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     }
@@ -233,7 +233,7 @@
     height: 26px;
     border-radius: 3px;
     padding: 4px;
-    background-color: forestgreen;
+    background-color: var(--green);
     margin-right: 8px;
 }
 
@@ -254,6 +254,7 @@
     display: flex;
     flex-direction: column;
     height: calc(100% - 52px);
+    /*background-color: var(--window-background);*/
 }
 
 .content-area {
@@ -261,24 +262,29 @@
     flex-grow: 1;
 }
 
+.panel-outer {
+    padding: 4px;
+}
+
 .panel {
-    margin: 4px;
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     border-style: solid;
     border-width: 1px;
     border-color: #D3D3D3;
-    background-color: #E4E4E7;
+    background-color: var(--window-background);
 }
 
 .panel-content {
     padding: 4px;
+    flex-grow: 1;
 }
 
 .toolbox-area {
     width: 200px;
     height: 100%;
-    overflow: scroll;
-    scroll-behavior: auto;
-    /*margin: 4px;*/
 }
 
 .diagram-area {
@@ -332,10 +338,10 @@
 .toolbar-area {
     width: 100%;
     height: auto;
-    margin: 8px 4px;
+    /*margin: 8px 4px;*/
     font-size: 14px;
-    background-color: var(--veryLightGray);
-    padding: 8px;
+    /*background-color: var(--veryLightGray);*/
+    padding: 8px 16px;
 }
 
 .hidden {
@@ -371,11 +377,9 @@
 
 .pg-category {
     margin: 1px;
-    padding: 4px;
-    
+    padding: 2px;
     display: flex;
     align-items: center;
-
     background-color: #DCDCDC;
     border-style: solid;
     border-width: 1px;
@@ -390,35 +394,19 @@
 
 .pg-expand-button {
     margin-right: 8px;
-    height: auto;
-    width: auto;
-    min-height: 16px;
-    min-width: 16px;
-    font-size: 16px;
-    text-align: center;
-    font-weight: bold;
+    height: 16px;
+    width: 16px;
     color: black;
-    /*border-color: #D3D3D3;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 2px;*/
+    background-size: 16px;
 }
 
 .pg-expanded {
-    color: black;
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 512 512' style='enable-background:new 0 0 512 512;' xml:space='preserve'%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Cpath d='M117.333,266.667H384c5.891,0,10.667-4.776,10.667-10.667c0-5.891-4.776-10.667-10.667-10.667H117.333 c-5.891,0-10.667,4.776-10.667,10.667C106.667,261.891,111.442,266.667,117.333,266.667z'/%3E%3Cpath d='M501.333,0H10.667C4.776,0,0,4.776,0,10.667v490.667C0,507.224,4.776,512,10.667,512h490.667 c5.891,0,10.667-4.776,10.667-10.667V10.667C512,4.776,507.224,0,501.333,0z M490.667,490.667H21.333V21.333h469.333V490.667z'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
-
-    .pg-expanded::before {
-        content: "-";
-    }
 
 .pg-collapsed {
-    color: black;
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 60 60' style='enable-background:new 0 0 60 60;' xml:space='preserve'%3E%3Cg%3E%3Cpath d='M0,0v60h60V0H0z M58,58H2V2h56V58z'/%3E%3Cpolygon points='29,51 31,51 31,31 51,31 51,29 31,29 31,9 29,9 29,29 9,29 9,31 29,31 '/%3E%3C/g%3E%3C/svg%3E");
 }
-
-    .pg-collapsed::before {
-        content: "+";
-    }
 
 .pg-object-row {
     display: flex;

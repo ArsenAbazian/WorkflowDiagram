@@ -31,5 +31,14 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel {
             get { return project; }
             set { SetPropertyValue<ProjectInfo>(nameof(Project), ref project, value); }
         }
+
+        string code;
+        [DisplayName("Code"), Size(SizeAttribute.Unlimited)]
+        public string Code {
+            get { return code; }
+            set { SetPropertyValue<string>(nameof(Code), ref code, value); }
+        }
+
+        public string CreationDateString { get { return CreationTime.ToShortDateString(); } }
     }
 }

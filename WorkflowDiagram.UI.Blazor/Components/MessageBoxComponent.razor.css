@@ -1,0 +1,5 @@
+﻿.message-text {
+    margin: 32px;
+    font-size: 12px;
+    color: var(--form-label);
+}

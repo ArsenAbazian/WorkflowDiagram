@@ -29,7 +29,7 @@ namespace WorkflowDiagram {
             }
         }
 
-        string name;
+        string name = "";
         public string Name {
             get { return name; }
             set {
@@ -39,7 +39,7 @@ namespace WorkflowDiagram {
                 OnPropertyChanged(nameof(Name));
             }
         }
-        string text;
+        string text = "";
         public string Text {
             get { return text; }
             set {
@@ -189,6 +189,8 @@ namespace WorkflowDiagram {
         public WfEditOperation AllowedOperations { get; set; } = WfEditOperation.None;
         public bool SkipSubTree { get; set; }
         protected WfRunner Runner { get; set; }
+        [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+        public bool AllowEditName { get; set; } = false;
     }
 
     public enum WfConnectionPointType {

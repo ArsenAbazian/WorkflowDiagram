@@ -26,7 +26,7 @@ namespace WorkflowDiagram.UI.Blazor.ServiceModel.Controllers {
                     values: new { area = "Identity", userId = info.UserId, code = code },
                     protocol: HttpContext.Request.Scheme);
             
-                    await new EmailHelper().SendEmailAsync3(info.Email, "Confirm your email",
+                    await new EmailHelper().SendEmailAsync(info.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
             }
             catch(Exception) { 

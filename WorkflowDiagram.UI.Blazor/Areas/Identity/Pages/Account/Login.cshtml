@@ -1,12 +1,11 @@
 ﻿@page
 @using Microsoft.AspNetCore.Identity
 @using DevExpress.Blazor;
+@using WorkflowDiagram.UI.Blazor.Helpers
 @using WorkflowDiagram.UI.Blazor.Pages
 @using WorkflowDiagram.UI.Blazor.ServiceModel;
 @using WorkflowDiagram.UI.Blazor.Shared
 @model WorkflowDiagram.UI.Blazor.Areas.Identity.Pages.Account.LoginModel
-@inject SignInManager<UserInfo> SignInManager
-@inject UserManager<UserInfo> UserManager
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <head>
@@ -20,9 +19,36 @@
 </head>
 
 <body>
-    <component type="typeof(Login)" render-mode="ServerPrerendered"></component>
+    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+        <div class="form">
+            <component type="typeof(ServiceLogo)" render-mode="ServerPrerendered" />
+            <div class="form-content">
+                <div class="form-header-text">Please Sign In</div>
+                <div class="form-row-errors">
+                    @foreach(string error in Model.Input.Errors) {
+                        <div class="form-error">@error</div>
+                    }
+                </div>
+                <div class="form-label">Email</div>
+                <div class="form-editor"><input class="form-input" asp-for="Input.Email"></div>
+                <div class="form-label">Password</div>
+                <div class="form-editor"><input class="form-input" type="password" asp-for="Input.Password"></div>
+                <div class="form-row align-right"><div class="right-margin">Remember Me</div><input type="checkbox" asp-for="Input.RememberMe"/></div>
+                <div class="form-row align-right">
+                    <button type="submit" class="form-button green-outline">Login</button>
+                </div>
+                <div class="form-row align-right">
+                    <a asp-action="OnForgotPasswordClick" class="small-link">I Forgot My Password</a>
+                </div>
+                <div class="form-row align-right">
+                    <a asp-action="OnRegisterClick" class="small-link">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </form>
     <script src="_framework/blazor.server.js"></script>
 </body>
 
 @{
+        
 }

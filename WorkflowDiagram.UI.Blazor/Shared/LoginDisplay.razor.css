@@ -1,0 +1,17 @@
+﻿.user-toolbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toolbar-client {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-client-left {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}

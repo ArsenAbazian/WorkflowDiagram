@@ -1,0 +1,26 @@
+﻿<CascadingValue Value="popupComponent">
+    <PopupView>
+        <div class="message-text">@Text</div>
+    </PopupView>
+</CascadingValue>
+
+@code {
+    PopupComponent popupComponent;
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        this.popupComponent = new PopupComponent() { Title = Title, ShowOkButton = true, ShowCloseButton = true };
+        this.popupComponent.OnOk += OnOkClick;
+        Current = this;
+    }
+
+    private void OnOkClick(object sender, EventArgs e) {
+        if(OkAction != null)
+            OkAction.Invoke();
+        this.popupComponent.HidePopup();
+    }
+
+    public void ShowPopup() {
+        this.popupComponent.Title = Title;
+        this.popupComponent.ShowPopup();
+    }
+}

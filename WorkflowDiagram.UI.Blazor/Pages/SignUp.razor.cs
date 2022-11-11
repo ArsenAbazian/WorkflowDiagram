@@ -25,7 +25,7 @@ namespace WorkflowDiagram.UI.Blazor.Pages {
             if(CheckForErorrs())
                 return;
 
-            UserInfo info = DatabaseManager.SignUpUser(Login, Email, Password);
+            UserInfo info = new UserInfo(); //DatabaseManager.SignUpUser(Login, Email, Password);
             
             IdentityResult res = await UserManager.CreateAsync(info);
             if(!res.Succeeded) {

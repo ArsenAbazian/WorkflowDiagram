@@ -36,7 +36,7 @@ namespace WorkflowDiagram {
         }
 
         public virtual WfConnectionPoint CreateConnectionPoint(WfConnectionPointType type) {
-            return new WfConnectionPoint() { Type = type };
+            return new WfConnectionPoint() { Type = type, AllowedOperations = WfEditOperation.Edit | WfEditOperation.Remove };
         }
 
         protected string ConstrainStringValue(string value) {

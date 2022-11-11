@@ -95,11 +95,14 @@ namespace WorkflowDiagram.Nodes.Base {
             if(type != WfConnectionPointType.In)
                 return base.CreateConnectionPoint(type);
             int index = Inputs.Count - 1;
-            return new WfConnectionPoint() { Name = "In" + index, Text = "In" + index, Requirement = WfRequirementType.Optional };
+            return new WfConnectionPoint() { Name = "In" + index, Text = "In" + index, Requirement = WfRequirementType.Optional, AllowedOperations = WfEditOperation.Remove | WfEditOperation.Edit };
         }
 
         string expression = "0";
-        [Category("Expression"), PropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemExpressionEditor")]
+        [Category("Expression"), 
+            WinPropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemExpressionEditor"),
+            BlazorPropertyEditor("WorkflowDiagram.UI.Blazor", "WorkflowDiagram.UI.Blazor.NodeEditors.ExpressionEditor")
+            ]
         public string Expression {
             get { return expression; }
             set {

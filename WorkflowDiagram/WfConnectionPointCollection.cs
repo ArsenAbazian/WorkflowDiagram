@@ -49,5 +49,9 @@ namespace WorkflowDiagram {
                 Add(point);
             }
         }
+
+        public WfConnectionPoint CreatePoint() {
+            return Node?.CreateConnectionPoint(Type);
+        }
     }
 }

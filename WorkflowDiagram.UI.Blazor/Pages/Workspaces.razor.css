@@ -1,0 +1,96 @@
+﻿.form-memo {
+    height: 100px;
+}
+
+.w250 {
+    width: 250px;
+}
+
+.group-header {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--window-text);
+    margin: 20px;
+}
+
+.workspaces-area {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.workspace-header-area {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-header-area {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.workspace-header-area-client {
+    display: flex;
+    margin: 20px;
+    align-items: center;
+}
+
+.workspace-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--window-text);
+}
+
+.workspace-header-button {
+    height: auto;
+    border-radius: 4px;
+    padding: 6px 18px;
+    font-size: 14px;
+    color: var(--window-text);
+    text-align: center;
+    margin: 4px 4px;
+    text-decoration: none;
+    cursor: default;
+}
+
+.sidebar-item {
+    height: auto;
+    border-radius: 4px;
+    padding: 6px 18px;
+    font-size: 14px;
+    color: var(--window-text);
+    text-align: start;
+    margin: 4px 4px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.small-button {
+    padding: 3px 3px;
+    line-height: 16px;
+}
+
+.small-button-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.simple {
+    background-color: var(--panel-background);
+}
+
+    .simple:hover {
+        background-color: #f5f5f5;
+    }
+
+    .simple:active {
+        background-color: #c2c2c2;
+    }
+
+.stretch {
+    width: 100%;
+}

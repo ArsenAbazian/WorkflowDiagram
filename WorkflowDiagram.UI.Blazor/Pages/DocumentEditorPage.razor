@@ -1,5 +1,9 @@
-﻿@page "/documenteditor"
+﻿@page "/documenteditor/{documentId}"
 @using DevExpress.Blazor;
+@using DevExpress.Xpo
+@using System.Text
+@using WorkflowDiagram.UI.Blazor.ServiceModel
+@inject IJSRuntime JS
 
 <PageTitle>Edit Document</PageTitle>
 
@@ -7,73 +11,212 @@
     <div class="toolbar-area">
         <DxToolbar ItemClick="@OnItemClick" ItemRenderStyleMode="ToolbarRenderStyleMode.Plain" ItemSizeMode="SizeMode.Small">
         <Items>
-            <DxToolbarItem Name="biLoad" Text="Load..." Tooltip="Load document from storage." />
-            <DxToolbarItem Name="biSave" Text="Save..." Tooltip="Download a copy." />
-            <DxToolbarItem Name="biLoad" Text="Upload..." Tooltip="Upload document from file." />
+            <DxToolbarItem Name="biSave" Text="Save..." Tooltip="Save document." />
+            <DxToolbarItem Name="biUpload" Text="Upload..." Tooltip="Upload document from file."/>
             <DxToolbarItem Name="biDownload" Text="Download..." Tooltip="Download a copy." />
+            <DxToolbarItem Name="biRunOnce" Text="Run Once" Tooltip="Run your code one time." />
             <DxToolbarItem Name="biOrigin" Text="Move (0,0)" Tooltip="Move to O,0" />
         </Items>
     </DxToolbar>
     </div>
     <div class="content-area">
-        <div class="panel toolbox-area">
-            <div class="panel-header">Toolbox</div>
-            <div class="panel-content">
-                <CascadingValue Value="diagramComponent">
-                    <div class="nodes-list">
-                        @foreach(var item in diagramComponent.ToolboxItems) {
-                            <ToolboxItem @key="item" Item="item"/>
-                        }
-                    </div>
-                </CascadingValue>
+        <div class="panel-outer toolbox-area">
+            <div class="panel">
+                <div class="panel-header">Toolbox</div>
+                <div class="panel-content">
+                    <CascadingValue Value="diagramComponent">
+                        <div class="nodes-list">
+                            @foreach(var item in diagramComponent.ToolboxItems) {
+                                <ToolboxItem @key="item" Item="item"/>
+                            }
+                        </div>
+                    </CascadingValue>
+                </div>
             </div>
         </div>
-        <div class="panel diagram-area">
-            <div class="panel-header">Diagram</div>
-            <CascadingValue Value="diagramComponent">
-                <WfDiagramView></WfDiagramView>
-            </CascadingValue>
+        <div class="panel-outer diagram-area">
+            <div class="panel">
+                <div class="panel-header">Diagram</div>
+                <CascadingValue Value="diagramComponent">
+                    <WfDiagramView></WfDiagramView>
+                </CascadingValue>
+            </div>
         </div>
         <div class="properties-area">
-            <div class="panel properties">
-                <div class="panel-header">Properties</div>
-                <CascadingValue Value="propertyGridComponent">
-                    <PropertyGridView></PropertyGridView>
-                </CascadingValue>
+            <div class="panel-outer properties">
+                <div class="panel">
+                    <div class="panel-header">Properties</div>
+                    <CascadingValue Value="propertyGridComponent">
+                        <PropertyGridView></PropertyGridView>
+                    </CascadingValue>
+                </div>
             </div>
-            <div class="panel connections">
-                <div class="panel-header">Inputs/Outputs</div>
+            <div class="panel-outer connections">
+                <div class="panel">
+                    <div class="panel-header">Inputs/Outputs</div>
+                    <DxTabs>
+                        <DxTabPage Text="Inputs">
+                            <ConnectionPointsControl Points="@SelectedInputs"></ConnectionPointsControl>
+                        </DxTabPage>
+                        <DxTabPage Text="Outputs">
+                            <ConnectionPointsControl Points="@SelectedOutputs"></ConnectionPointsControl>
+                        </DxTabPage>
+                    </DxTabs>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+<CascadingValue Value="popupComponent">
+    <PopupView>
+        <div class="form-label">Uploading file. Please wait...</div>
+    </PopupView>     
+</CascadingValue>
+<InputFile class="e-file-select-wrap" OnChange="@UploadFile" />
+<MessageBoxComponent></MessageBoxComponent>
 
 @code {
     private WfDocument document;
     private WfDiagramComponent diagramComponent;
 
     private PropertyGridComponent propertyGridComponent;
+    private PopupComponent popupComponent;
+
+    [Parameter]
+    public string DocumentId { get; set; }
+
+    private WfConnectionPointCollection SelectedInputs { get; set; }
+    private WfConnectionPointCollection SelectedOutputs { get; set; }
 
     protected override void OnInitialized() {
         base.OnInitialized();
-        document = new WfDocument();
+        this.document = new WfDocument();
 
+        popupComponent = new PopupComponent() { Title = "Upload" };
         diagramComponent = new WfDiagramComponent();
-        diagramComponent.Document = document;
         diagramComponent.SelectionChanged += (d, e) => {
             propertyGridComponent.SelectedObjects = e.Selection.Select(s => (object)s.DataItem).ToArray();
-        };
 
+            WfNode node = (WfNode)(e.Selection.FirstOrDefault(s => s.DataItem is WfNode)?.DataItem);
+            SelectedInputs = node == null ? null : node.Inputs;
+            SelectedOutputs = node == null ? null : node.Outputs;
+            StateHasChanged();
+        };
+        diagramComponent.Document = document;
         propertyGridComponent = new PropertyGridComponent();
+    }
+
+    protected override Task OnInitializedAsync() {
+        return base.OnInitializedAsync().ContinueWith((t) => LoadDocument());
+    }
+
+    void UploadFile(InputFileChangeEventArgs e) {
+        this.popupComponent.ShowPopup();
+        Task.Run(async () => {
+            using(MemoryStream m = new MemoryStream(1024 * 1024)) {
+                await e.File.OpenReadStream(maxAllowedSize: 20 * 1024 * 1024).CopyToAsync(m);
+                WfDocument wfdoc = new();
+                try {
+                    wfdoc.LoadFromString(Encoding.Default.GetString(m.GetBuffer()));
+                }
+                catch(Exception) {
+                    return;
+                }
+                InvokeAsync(() => {
+                    this.diagramComponent.Document = wfdoc;
+                    this.diagramComponent.ZoomFactor = 1;
+                    this.diagramComponent.Origin = new System.Drawing.PointF(0, 0);
+
+                    this.popupComponent.HidePopup();
+                    this.diagramComponent.Refresh();
+                    StateHasChanged();
+                });
+            }
+        });
+    }
+
+    void LoadDocument() {
+        using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
+            DocumentInfo doc = DatabaseManager.Current.Get<DocumentInfo>(session, Convert.ToInt32(DocumentId));
+            WfDocument wfdoc = new WfDocument();
+            wfdoc.LoadFromString(doc.Code);
+            this.diagramComponent.Document = wfdoc;
+            InvokeAsync(() => {
+                this.diagramComponent.ZoomFactor = 1;
+                this.diagramComponent.Origin = new System.Drawing.PointF(0, 0);
+                this.diagramComponent.Refresh();
+            });
+        }
+        InvokeAsync(StateHasChanged);
     }
 
     void OnItemClick(ToolbarItemClickEventArgs e) {
         if(e.ItemName == "biOrigin")
             OnOriginClick();
+        else if(e.ItemName == "biSave")
+            OnSaveClickAsync();
+        else if(e.ItemName == "biDownload")
+            OnDownloadClick();
+        else if(e.ItemName == "biUpload")
+            OnUploadClick();
+        else if(e.ItemName == "biRunOnce")
+            OnRunOnceClick();
+    }
+
+    void OnRunOnceClick() {
+        WfRunner runner = new WfRunner(this.diagramComponent.Document);
+        if(!runner.Initialize()) {
+            this.diagramComponent.Refresh();
+            MessageBoxComponent.Show("Initialization", "Initialization failed.");
+            return;
+        }
+        if(!runner.RunOnce()) { 
+            this.diagramComponent.Refresh();
+            MessageBoxComponent.Show("Run", "Run once failed.");
+            return;
+        }
+        MessageBoxComponent.Show("Run", "Successfully completed.");
+        this.diagramComponent.Refresh();
+    }
+
+    Task OnDownloadClick() {
+        return DownloadFileFromStream(this.diagramComponent.Document);
+    }
+
+    void OnUploadClick() {
+        JS.InvokeVoidAsync("uploadFile");
+    }
+
+    Task OnSaveClickAsync() {
+        return Task.Run(() => {
+            using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
+                DocumentInfo doc = DatabaseManager.Current.Get<DocumentInfo>(session, Convert.ToInt32(DocumentId));
+                StringBuilder b = new StringBuilder(1024 * 1024);
+                using(MemoryStream m = new MemoryStream()) {
+                    this.diagramComponent.Document.Save(b);
+                    doc.Code = b.ToString();
+                    session.CommitChanges();
+                }
+            }
+        });
     }
 
     void OnOriginClick() {
         diagramComponent.Origin = new System.Drawing.PointF(0.0f, 0.0f);
+    }
+
+    Stream GetTextStream(string text) {
+        byte[] bytes = Encoding.UTF8.GetBytes(text);
+        MemoryStream m = new MemoryStream(bytes);
+        return m;
+    }
+
+    private async Task DownloadFileFromStream(WfDocument doc) {
+        StringBuilder b = new StringBuilder();
+        string fileName = "document-" + doc.Id.ToString() + ".xml";
+        doc.Save(b);
+        var fileStream = GetTextStream(b.ToString());
+        using var streamRef = new DotNetStreamReference(stream: fileStream);
+        await JS.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
     }
 }

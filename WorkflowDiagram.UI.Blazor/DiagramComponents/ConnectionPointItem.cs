@@ -43,8 +43,8 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             if(Point != null)
                 Point.PropertyChanged -= OnPointChanged;
 
-            if(this.element.Id != null)
-                _ = JsRuntimeHelper.SubscribeResizes(JsRuntime, this.refThis, this.element);
+            //if(this.element.Id != null)
+            //    _ = JsRuntimeHelper.UnsubscribeResizes(JsRuntime, this.element);
 
             this.refThis?.Dispose();
         }
@@ -98,10 +98,11 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         }
 
         private void UpdateConnectorsPositions() {
-            //foreach(WfConnector c in Point.Connectors) {
-            //    ConnectorItem c Diagram.GetConnector(c)
-            //        if(Point.Type == WfConnectionPointType.In)
-            //}
+            foreach(WfConnector c in Point.Connectors) {
+                ConnectorItem ci = Diagram.GetConnectorItem(c);
+                if(Point.Type == WfConnectionPointType.In && ci.End.IsEmpty)
+                    ci.InitializePointCore(this);
+            }
         }
 
         internal Task UpdateBoundsAsync() {

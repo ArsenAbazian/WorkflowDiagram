@@ -1,0 +1,13 @@
+﻿@using WorkflowDiagram.UI.Blazor.Components
+
+<div class="si-content"
+@onmousedown="Item.OnMouseDown">
+    <div class="si-bullet-border">
+        <div class="si-bullet @Item.SelectionClass"></div>
+    </div>
+    <div class="si-text">@Item.Text</div>
+</div>
+
+@code {
+    
+}

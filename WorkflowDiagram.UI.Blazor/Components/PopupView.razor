@@ -1,0 +1,53 @@
+﻿<div class="popup-container @PopupComponent.PopupVisible">
+    <div class="popup-form">
+        <div class="popup-form-content">
+            <div class="popup-form-title-bar">
+                <div class="popup-form-header">@PopupComponent.Title</div>
+			    @if(PopupComponent.ShowCloseButton) {
+                    <div @onclick="CloseButtonClick" class="popup-form-close-button">
+                        <img class="popup-form-close-button-img" src="data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 22 22' style='enable-background:new 0 0 22 22;' xml:space='preserve'%3E%3Cpolygon points='21.9,2.9 21.1,2.1 12,11.3 2.9,2.1 2.1,2.9 11.3,12 2.1,21.1 2.9,21.9 12,12.7 21.1,21.9 21.9,21.1 12.7,12 '/%3E%3C/svg%3E">
+			        </div>
+                }
+            </div>
+            <div class="popup-form-client">@ChildContent</div>
+            <div class="popup-form-button-panel">
+            @foreach(PopupButton button in PopupComponent.Buttons) {
+                <input type="button" class="form-button simple" @onclick="button.ButtonClick" value="@button.Text">
+            }
+            @if(PopupComponent.ShowOkButton) {
+                <input type="button" class="form-button simple" @onclick="PopupComponent.OkButton.ButtonClick" value="@PopupComponent.OkButton.Text">
+            }
+            @if(PopupComponent.ShowCancelButton) {
+                <input type="button" class="form-button simple" @onclick="PopupComponent.CancelButton.ButtonClick" value="@PopupComponent.CancelButton.Text">
+            }
+        </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    PopupComponent popupComponent;
+    [CascadingParameter]
+    public PopupComponent PopupComponent {
+        get { return popupComponent; }
+        set {
+            popupComponent = value;
+            if(PopupComponent != null)
+                PopupComponent.View = this;
+        }
+    }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    void CloseButtonClick(MouseEventArgs e) {
+        PopupComponent.CloseButtonClick(e);
+    }
+
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        if(PopupComponent == null) {
+
+        }
+    }
+}

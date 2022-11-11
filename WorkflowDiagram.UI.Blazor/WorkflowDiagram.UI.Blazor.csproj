@@ -8,9 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DevExpress.Blazor" Version="22.1.5" />
-    <PackageReference Include="DevExpress.Blazor.Themes" Version="22.1.5" />
-    <PackageReference Include="DevExpress.Xpo" Version="22.1.5" />
+    <Compile Remove="ServiceModel\Controllers\EmailConfirmationController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Blazor" Version="22.1.6" />
+    <PackageReference Include="DevExpress.Blazor.Themes" Version="22.1.6" />
+    <PackageReference Include="DevExpress.Data" Version="22.1.6" />
+    <PackageReference Include="DevExpress.Xpo" Version="22.1.6" />
     <PackageReference Include="MailKit" Version="3.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
@@ -28,6 +33,18 @@
 
   <ItemGroup>
     <Folder Include="ServiceModel\Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\download.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\SelectorItemView.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Components\SelectorItemView.razor" />
   </ItemGroup>
 
 </Project>

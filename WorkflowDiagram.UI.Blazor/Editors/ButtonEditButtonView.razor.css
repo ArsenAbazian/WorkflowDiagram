@@ -1,0 +1,39 @@
+﻿.be-button {
+    border-style: solid;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-color: #ced4da;
+    padding: 4px;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+}
+
+    .be-button:hover {
+        background-color: #e6e6e6;
+    }
+
+.be-button-middle {
+
+}
+
+.be-button-left {
+    border-left-width: 0;
+}
+
+.be-button-right {
+    border-right-width: 0;
+}
+
+.be-first {
+    border-radius: 3px 0 0 3px;
+}
+
+.be-last {
+    border-radius:  0 3px 3px 0;
+}
+
+.be-glyph {
+    width: 16px;
+    height: 16px;
+}

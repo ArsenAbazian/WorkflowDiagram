@@ -114,5 +114,13 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         public string ViewportInfoString {
             get => string.Format($"transform: translate({-Diagram.Origin.X}px, {-Diagram.Origin.Y}px) scale({Diagram.ZoomFactor});");
         }
+
+        public string OriginString {
+            get { return string.Format("{0:0.0}, {1:0.0}", Diagram.Origin.X, Diagram.Origin.Y); }
+        }
+
+        public string ZoomFactorPercentString {
+            get { return string.Format("{0:.##}", Diagram.ZoomFactorPercent); }
+        }
     }
 }

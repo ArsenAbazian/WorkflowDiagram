@@ -1,0 +1,194 @@
+﻿@page "/workspaces"
+@using DevExpress.Blazor;
+@using DevExpress.Xpo
+@using WorkflowDiagram.UI.Blazor.ServiceModel;
+@using WorkflowDiagram.UI.Blazor.Components;
+@inject SignInManager<UserInfo> SignInManager;
+@inject UserManager<UserInfo> UserManager;
+@inject NavigationManager NavManager;
+
+<PageTitle>Workspaces</PageTitle>
+
+<div class="normal-page">
+    <div class="sidebar-area">
+        <div type="button" class="workspace-header-button simple" @onclick="(e) => OnShowAllWorkspacesClick()">Projects</div>
+        <div class="sidebar-header-area">
+            <div class="sidebar-item-text">Workspaces</div>
+            <div type="button" class="workspace-header-button small-button simple" @onclick="OnAddWorkspaceClick"><img class="small-button-icon" src="data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 23 23' style='enable-background:new 0 0 23 23;' xml:space='preserve'%3E%3Cpolygon points='21,11 12,11 12,2 11,2 11,11 2,11 2,12 11,12 11,21 12,21 12,12 21,12 ' class='White'/%3E%3C/svg%3E"></div>
+        </div>
+        @foreach(var space in UserWorkspaces) {
+            <div class="sidebar-header-area">
+                <div class="sidebar-item simple stretch" @onclick="(e) => OnWorkspaceItemClick(space)">
+                    <div class="sidebar-item-text">@space.Name</div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="workspaces-area">
+        <div class="group-header">YOUR WORKSPACES</div>
+        @foreach(var space in UserWorkspaces) {
+            <div class="workspace-header-area">
+                <div class="workspace-header-area-client">
+                    <div class="workspace-name">@space.Name</div>
+                </div>
+                <div class="workspace-header-area-client">
+                    <div class="workspace-header-button simple">Projects</div>
+                    <div class="workspace-header-button simple" @onclick="(e) => OnAddProjectClick(space)">Add Proj</div>
+                </div>
+            </div>    
+            <div class="gallery">
+                @foreach(var proj in space.Projects.ToList()) {
+                    <div class="gallery-item green w250" @onclick="(e) => OnProjectItemClick(proj)">
+                        <div class="gallery-item-row">
+                            <div class="gallery-item-field">@proj.Name</div>
+                            <div class="gallery-item-field">@proj.CreationDateString</div>
+                        </div>
+                        <div class="gallery-item-description">@proj.Description</div>
+                    </div>
+                }
+            </div>
+        }
+        
+    </div>
+</div>
+    <CascadingValue Value="popupComponent">
+        <PopupView>
+            <div class="form-label">Workspace name</div>
+            <div class="form-editor"><input class="form-input" type="text" @bind-value="WorkspaceCreateInfo.Name"></input></div>
+            <div class="form-label">Description</div>
+            <div class="form-editor"><textarea class="form-input form-memo" type="text" @oninput="HandleOnWorkspaceDescriptionChange">@WorkspaceCreateInfo.Description</textarea></div>
+        </PopupView>     
+    </CascadingValue>
+
+    <CascadingValue Value="projectPopupComponent">
+        <PopupView>
+            <div class="form-label">Project name</div>
+            <div class="form-editor"><input class="form-input" type="text" @bind-value="ProjectCreateInfo.Name"></input></div>
+            <div class="form-label">Description</div>
+            <div class="form-editor"><textarea class="form-input form-memo" type="text" @oninput="HandleOnProjectDescriptionChange">@ProjectCreateInfo.Description</textarea></div>
+        </PopupView>     
+    </CascadingValue>
+
+@code {
+
+    internal List<WorkspacePresenter> UserWorkspaces{ get; set; }
+    PopupComponent popupComponent;
+    PopupComponent projectPopupComponent;
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        WorkspaceCreateInfo = new WorkspacePresenter();
+        ProjectCreateInfo = new ProjectPresenter();
+        this.popupComponent = new PopupComponent() { ShowCancelButton = true, ShowCloseButton = true, ShowOkButton = true };
+        this.popupComponent.Title = "Add New Workspace";
+        this.popupComponent.OnOk += OnCreateWorkspaceOk;
+
+        this.projectPopupComponent = new PopupComponent() { ShowCancelButton = true, ShowCloseButton = true, ShowOkButton = true };
+        this.projectPopupComponent.Title = "Add New Project";
+        this.projectPopupComponent.OnOk += OnAddProjectOk;
+
+        UserWorkspaces = new List<WorkspacePresenter>();
+    }
+
+    protected override async Task OnInitializedAsync() {
+        base.OnInitializedAsync();
+        await UpdateWorkspaces();
+    }
+
+    List<WorkspacePresenter> GetUserWorkspaces(UserInfo user) {
+        return user.Workspaces.ToList().Select(w => new WorkspacePresenter() {
+                Oid = w.Oid,
+                Name = w.Name,
+                Description = w.Description,
+                Projects = w.Projects.Select(p => new ProjectPresenter() {
+                    Oid = p.Oid,
+                    Name = p.Name,
+                    Description = p.Description,
+                    CreationDateString = p.CreationDateString
+                }).ToList()
+            })
+            .Where(ww => FilteredWorkspace == -1 || ww.Oid == FilteredWorkspace)
+            .ToList();
+    }
+
+    async Task UpdateWorkspaces() {
+        UserInfo user = await UserManager.GetUserAsync(SignInManager.Context.User);
+        using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
+            UserInfo current = DatabaseManager.Current.Get<UserInfo>(session, user.Oid);
+            UserWorkspaces = GetUserWorkspaces(current);
+        }
+    }
+
+    internal WorkspacePresenter WorkspaceCreateInfo { get; set; }
+    internal ProjectPresenter ProjectCreateInfo{ get; set; }
+
+    void OnAddWorkspaceClick(MouseEventArgs e) {
+        WorkspaceCreateInfo = new WorkspacePresenter();
+        this.popupComponent.ShowPopup();
+    }
+
+    void OnAddProjectClick(WorkspacePresenter space) {
+        ProjectCreateInfo = new ProjectPresenter();
+        ProjectCreateInfo.OwnerId = space.Oid;
+        this.projectPopupComponent.ShowPopup();
+    }
+
+    void HandleOnWorkspaceDescriptionChange(ChangeEventArgs args) {
+        WorkspaceCreateInfo.Description = args.Value.ToString();
+    }
+
+    void HandleOnProjectDescriptionChange(ChangeEventArgs args) {
+        ProjectCreateInfo.Description = args.Value.ToString();
+    }
+
+    void OnCreateWorkspaceOk(object sender, EventArgs e) {
+        Task.Run(OnCreateWorkspaceAsync);
+    }
+
+    void OnAddProjectOk(object sender, EventArgs e) {
+        Task.Run(OnAddProjectAsync);
+    }
+
+    async Task OnCreateWorkspaceAsync() {
+        UserInfo user = await UserManager.GetUserAsync(SignInManager.Context.User);
+        using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
+            UserInfo current = DatabaseManager.Current.Get<UserInfo>(session, user.Oid);
+            WorkspaceInfo info = new WorkspaceInfo(session);
+            info.Name = WorkspaceCreateInfo.Name;
+            info.CreationTime = DateTime.UtcNow;
+            info.Description = WorkspaceCreateInfo.Description;
+            current.Workspaces.Add(info);
+            session.CommitChanges();
+        }
+        await UpdateWorkspaces();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    async Task OnAddProjectAsync() {
+        using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
+            WorkspaceInfo current = DatabaseManager.Current.Get<WorkspaceInfo>(session, ProjectCreateInfo.OwnerId);
+            ProjectInfo info = new ProjectInfo(session);
+            info.Name = ProjectCreateInfo.Name;
+            info.CreationTime = DateTime.UtcNow;
+            info.Description = ProjectCreateInfo.Description;
+            current.Projects.Add(info);
+            session.CommitChanges();
+        }
+        await UpdateWorkspaces();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    void OnProjectItemClick(ProjectPresenter project) {
+        NavManager.NavigateTo(string.Format("/project/{0}", project.Oid));
+    }
+
+    async Task OnWorkspaceItemClick(WorkspacePresenter workspace) {
+        FilteredWorkspace = workspace.Oid;
+        await UpdateWorkspaces();
+    }
+
+    protected int FilteredWorkspace { get; set; } = -1;
+    async Task OnShowAllWorkspacesClick() {
+        FilteredWorkspace = -1;
+        await UpdateWorkspaces();
+    }
+}

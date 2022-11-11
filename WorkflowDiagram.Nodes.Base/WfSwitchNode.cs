@@ -70,7 +70,8 @@ namespace WorkflowDiagram.Nodes.Base {
     }
 
     public class WfSwitchOutputConnectionPoint : WfConnectionPoint {
-        [PropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemObjectValueEditor")]
+        [WinPropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemObjectValueEditor"),
+            BlazorPropertyEditor("WorkflowDiagram.UI.Blazor", "WorkflowDiagram.UI.Blazor.NodeEditors.ObjectValueEditor")]
         public override object Value { get => base.Value; set => base.Value = value; }
     }
 }

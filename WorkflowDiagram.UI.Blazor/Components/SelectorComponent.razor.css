@@ -1,0 +1,13 @@
+﻿.selector {
+    display: flex;
+}
+
+.sc-horizontal {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.sc-vertical {
+    flex-direction: column;
+}

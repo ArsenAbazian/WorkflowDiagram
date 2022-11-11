@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using WorkflowDiagram.Nodes.Base;
 using WorkflowDiagram.UI.Blazor.Areas.Identity;
-using WorkflowDiagram.UI.Blazor.Data;
 using WorkflowDiagram.UI.Blazor.Helpers;
 using WorkflowDiagram.UI.Blazor.ServiceModel;
 
@@ -46,13 +46,14 @@ builder.Services.Configure<AppSettings>(appSettingsSection);
 var appSettings = appSettingsSection.Get<AppSettings>();
 var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 
+builder.Services.AddTransient<IEmailSender, EmailHelper>();
+//builder.Services.AddTransient<ISignInManager, SignInManager<UserInfo>>();
 builder.Services.AddScoped<ILocalStorage, LocalStorage>();
 builder.Services.AddSingleton(new DatabaseManager(connectionString));
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddDevExpressBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<UserInfo>>();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 var node = new WfConstantValueNode();
 

@@ -1,7 +1,8 @@
 ﻿@page
 @using Microsoft.AspNetCore.Identity
+@using WorkflowDiagram.UI.Blazor.ServiceModel
 @attribute [IgnoreAntiforgeryToken]
-@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<UserInfo> SignInManager
 @functions {
     public async Task<IActionResult> OnPost()
     {

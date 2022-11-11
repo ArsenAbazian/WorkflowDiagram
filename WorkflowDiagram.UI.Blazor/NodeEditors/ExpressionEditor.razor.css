@@ -1,0 +1,78 @@
+﻿.ee-memo {
+    margin: 8px 0;
+    height: 350px;
+}
+
+.ee-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ee-errors-panel {
+    margin: 8px 0;
+    flex-grow: 1;
+    height: 250px;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 1px;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #CED4DA;
+}
+
+.error-row {
+    display:flex;
+    font-size: 10px;
+    padding: 2px;
+}
+
+.ee-toolbar {
+    display: flex;
+    padding: 8px 0;
+}
+
+.even {
+
+}
+
+.odd {
+    background-color: #F5F5F5;
+}
+
+.err-cell {
+    padding: 2px 12px;
+}
+
+.err-type {
+    border-radius: 2px;
+    padding: 1px 12px;
+}
+
+.Hidden {
+    
+}
+
+.Info {
+    background-color: #C8E6CA;
+    color: #4C8E51;
+}
+
+.Warning {
+    background-color: #FFF0C5;
+    color: #948327;
+}
+
+.Error {
+    background-color: #FFCED2;
+    color: #94352F;
+}
+
+.error-table {
+    width: 100%;
+}
+
+.message-box {
+    min-width: 300px;
+    padding: 24px;
+}

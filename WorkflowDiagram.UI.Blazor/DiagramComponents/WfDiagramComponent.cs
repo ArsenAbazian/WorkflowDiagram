@@ -99,9 +99,10 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
                 prev.Changed -= OnDocumentPropertyChanged;
             if(Document != null)
                 Document.Changed += OnDocumentPropertyChanged;
-            ToolboxItems = null;
             if(Document != null)
                 ToolboxItems = GetToolboxItems();
+            else
+                ToolboxItems = new List<WfNode>();
         }
 
         protected virtual List<WfNode> GetToolboxItems() {
@@ -318,7 +319,7 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             item.Refresh();
         }
 
-        protected virtual ConnectorItem GetConnectorItem(WfConnector connector) {
+        public virtual ConnectorItem GetConnectorItem(WfConnector connector) {
             if(connector == null)
                 return null;
             ConnectorItem item = null;

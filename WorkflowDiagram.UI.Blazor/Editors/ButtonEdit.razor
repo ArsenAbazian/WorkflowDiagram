@@ -1,0 +1,24 @@
+﻿<CascadingValue Value="@this">
+    <div class="be-border">
+        <div class="be-content">
+            <div class="be-left-button-area">
+                @foreach(var button in LeftButtons) {
+                    <ButtonEditButtonView Button="@button"></ButtonEditButtonView>
+                }
+            </div>
+            <div class="be-text-area">
+                <input class="borderless-text-box" type="text" @bind-value="@Text" />
+            </div>
+            <div class="be-right-button-area">
+                @foreach(var button in RightButtons) {
+                    <ButtonEditButtonView Button="@button"></ButtonEditButtonView>
+                }
+            </div>
+        </div>
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@code {
+    
+}

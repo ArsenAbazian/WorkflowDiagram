@@ -1,0 +1,27 @@
+﻿.documents-area {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.w300 {
+    width: 300px;
+}
+
+.project-toolbar-area {
+    width: 100%;
+    height: auto;
+    font-size: 14px;
+    /*background-color: var(--veryLightGray);*/
+    padding: 4px 20px;
+}
+
+.filled-toolbar-item {
+    background-color: var(--window-text-005);
+}
+
+.project-page {
+    display: block;
+    height: 100%;
+    flex-grow: 1;
+}

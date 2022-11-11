@@ -1,0 +1,115 @@
+﻿<table>
+    <tr>
+        <th>Name</th>
+        <th>Text</th>
+        <th>Requirement</th>
+        <th></th>
+    </tr>
+    @if(Points != null && Points.AllowedOperations.HasFlag(WfEditOperation.Add)) {
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                <a href="" @onclick="(e) => OnAddButtonClick()" 
+                    @onclick:preventDefault='true'
+                @onclick:stopPropagation='true'>Add</a>
+            </td>
+        </tr>
+    }
+    @if(Points != null) {
+        foreach(var point in Points) {
+            <tr>
+                <td>@point.Name</td>
+                <td>@point.Text</td>
+                <td>@point.Requirement</td>
+                <td>
+                    <div class="command-cell">
+                        @if(point.AllowedOperations.HasFlag(WfEditOperation.Edit)) {
+                            <a href="" class="button-link" data-Id="@point.Id" 
+                            @onclick="(e) => OnEditButtonClick(point)"
+                            @onclick:preventDefault='true'
+                            @onclick:stopPropagation='true'>Edit</a>
+                        }
+                        @if(point.AllowedOperations.HasFlag(WfEditOperation.Remove)) {
+                            <a href="" class="button-link" data-Id="@point.Id"
+                            @onclick="(e) => OnRemoveButtonClick(point)"
+                            @onclick:preventDefault='true'
+                            @onclick:stopPropagation='true'>Remove</a>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<CascadingValue Value="editItemComponent">
+    <PopupView>
+        <div class="form-label">Name</div>
+        <div class="form-editor"><input class="form-input" style="width: 300px;" type="text" @bind-value="EditPoint.Name"></input></div>
+        <div class="form-label">Text</div>
+        <div class="form-editor"><input class="form-input" style="width: 300px;" type="text" @bind-value="EditPoint.Text"></input></div>
+        <div class="form-label">Requirement</div>
+        <div class="form-editor">
+            <EditForm Model="@EditPoint">
+                <InputSelect class="form-input" @bind-Value="EditPoint.Requirement">
+                    <option value="@WfRequirementType.Optional">Optional</option>
+                    <option value="@WfRequirementType.Mandatory">Mandatory</option>
+                </InputSelect>
+            </EditForm>
+        </div>
+    </PopupView>
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public WfConnectionPointCollection Points { get; set; }
+    internal PopupComponent editItemComponent;
+
+    private WfConnectionPoint EditPoint { get; set; }
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        EditPoint = new WfConnectionPoint();
+        this.editItemComponent = new PopupComponent() { ShowOkButton = true, ShowCancelButton = true, ShowCloseButton = true, Title = "Edit Item" };
+        this.editItemComponent.OnOk += OnAdd;
+    }
+
+    void OnAdd(object sender, EventArgs e) {
+        this.editItemComponent.HidePopup();
+
+        EditPoint.Name = EditPoint.Name.Trim();
+        EditPoint.Text = EditPoint.Text.Trim();
+        if(string.IsNullOrEmpty(EditPoint.Name)) {
+            MessageBoxComponent.Show("Validation", "Error: Name should not be empty");
+            return;
+        }
+        if(EditPoint.Name.Contains(' ')) {
+            MessageBoxComponent.Show("Validation", "Error: Name should not contain any whitespace symbol");
+            return;
+        }
+        Points.Add(EditPoint);
+        StateHasChanged();
+    }
+
+    void OnAddButtonClick() {
+        EditPoint = Points.CreatePoint();
+        this.editItemComponent.Title = "Add New Item";
+        this.editItemComponent.ShowPopup();
+    }
+
+    void OnEditButtonClick(WfConnectionPoint point) {
+        EditPoint = point;
+        this.editItemComponent.Title = "Edit Item";
+        this.editItemComponent.ShowPopup();
+    }
+
+    void OnRemoveButtonClick(WfConnectionPoint point) {
+        MessageBoxComponent.Show("Remove", "Are you want to remove this connection point?", () => {
+            Points.Remove(point);
+            StateHasChanged();
+        });
+    }
+}

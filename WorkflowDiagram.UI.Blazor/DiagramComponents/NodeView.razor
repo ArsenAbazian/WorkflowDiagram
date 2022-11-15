@@ -1,7 +1,9 @@
 ﻿<div class="node-container"
 @onmousedown="OnMouseDown"
+@onkeydown="OnKeyDown"
+@onkeydown:stopPropagation
 @onmousedown:stopPropagation
->
+tabindex="@Node.Index">
     
     <div class="node-item @Node.SelectionClass">
         <div class="node-item-content">

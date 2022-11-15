@@ -94,6 +94,7 @@
             using(UnitOfWork session = new UnitOfWork(XpoDefault.DataLayer)) {
                 ProjectInfo p = DatabaseManager.Current.Get<ProjectInfo>(session, Convert.ToInt32(ProjectId));
                 DocumentInfo doc = new DocumentInfo(session);
+                doc.CreationTime = DateTime.UtcNow;
                 doc.Name = info.Name;
                 doc.Description = info.Description;
                 p.Documents.Add(doc);

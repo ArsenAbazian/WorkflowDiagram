@@ -92,19 +92,21 @@ namespace WorkflowDiagram.UI.Blazor.Components {
             Selected = true;
         }
 
-        protected override Task OnInitializedAsync() {
-            return base.OnInitializedAsync().ContinueWith(t => {
-                if(SelectorComponent.SelectedItem == null) {
-                    SelectorComponent.SuppressEvents = true;
-                    try {
-                        SelectorComponent.SelectedItem = this;
-                    }
-                    finally {
-                        SelectorComponent.SuppressEvents = false;
-                    }
-                }
-            });
-        }
+        //protected override Task OnInitializedAsync() {
+        //    return base.OnInitializedAsync().ContinueWith(t => {
+        //        if(SelectorComponent.SelectedItem != null)
+        //            return;
+        //        InvokeAsync(() => {
+        //            SelectorComponent.SuppressEvents = true;
+        //            try {
+        //                SelectorComponent.SelectedItem = this;
+        //            }
+        //            finally {
+        //                SelectorComponent.SuppressEvents = false;
+        //            }
+        //        });
+        //    });
+        //}
 
         [Parameter]
         public string Text { get; set; }

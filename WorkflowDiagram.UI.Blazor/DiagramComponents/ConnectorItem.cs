@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System.Drawing;
 using WorkflowDiagram.UI.Blazor.Helpers;
 
 namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
-    public class ConnectorItem : ComponentBase, IDiagramItem {
+    public class ConnectorItem : ComponentBase, IDiagramItem, IHandleEvent {
         [Parameter]
         public WfConnector Connector { get; set; }
 
@@ -72,27 +73,38 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             base.OnInitialized();
             this.refThis = DotNetObjectReference.Create(this);
             Diagram.ConnectorItems[Connector] = this;
-
+            InitializeCoordinates();
             UpdatePointCore();
         }
 
-        protected internal void InitializePointCore(ConnectionPointItem pi) {
+        protected internal void UpdateByConnectionPointCore(ConnectionPointItem pi) {
             if(pi == null)
                 return;
-            if(pi.Point.Type == WfConnectionPointType.In && End == Point.Empty) {
+            if(pi.Point.Type == WfConnectionPointType.In) {
                 Point newEnd = pi.Bounds.GetCenter();
                 if(newEnd == End)
                     return;
                 End = newEnd;
                 InvokeAsync(Refresh);
             }
-            else if(Start == Point.Empty){
+            else {
                 Point newStart = pi.Bounds.GetCenter();
                 if(newStart == Start)
                     return;
                 Start = pi.Bounds.GetCenter();
                 InvokeAsync(Refresh);
             }
+        }
+
+        protected virtual void InitializeCoordinates() {
+            ConnectionPointItem startPoint = Diagram.GetConnectionPointItem(Connector.From);
+            ConnectionPointItem endPoint = Diagram.GetConnectionPointItem(Connector.To);
+
+            if(startPoint == null && endPoint == null)
+                return;
+
+            Start = startPoint != null ? startPoint.Bounds.GetCenter(): endPoint.Bounds.GetCenter();
+            End = endPoint != null ? endPoint.Bounds.GetCenter() : startPoint.Bounds.GetCenter();
         }
 
         protected internal void UpdatePointCore() {
@@ -102,8 +114,10 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             if(startPoint == null && endPoint == null)
                 return;
 
-            Start = startPoint == null ? endPoint.Bounds.GetCenter() : startPoint.Bounds.GetCenter();
-            End = endPoint == null ? startPoint.Bounds.GetCenter() : endPoint.Bounds.GetCenter();
+            if(startPoint != null)
+                Start = startPoint.Bounds.GetCenter(); //startPoint == null ? endPoint.Bounds.GetCenter() : startPoint.Bounds.GetCenter();
+            if(endPoint != null)
+                End = endPoint.Bounds.GetCenter(); //endPoint == null ? startPoint.Bounds.GetCenter() : endPoint.Bounds.GetCenter();
         }
 
         public void MoveStart(float dx, float dy) {
@@ -133,11 +147,18 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
 
         public float Strength { get { return 0.5f; } }
 
+        protected virtual void OnMouseDown(MouseEventArgs e) {
+            Diagram.OnConnectorMouseDown(this, e);
+        }
+
         protected override void BuildRenderTree(RenderTreeBuilder builder) {
             var viewType = Diagram.CreateViewTypeFor(this);
-            builder.OpenElement(0, "path");
-            builder.AddAttribute(1, "class", "connector");
-            builder.AddAttribute(2, "connector-id", Connector.Id);
+            int i = 0;
+            builder.OpenElement(i++, "path");
+            builder.AddAttribute(i++, "class", "connector-item " + SelectionClass);
+            builder.AddAttribute(i++, "connector-id", Connector.Id);
+            builder.AddAttribute(i++, "onmousedown", new EventCallback(this, OnMouseDown));
+            builder.AddEventStopPropagationAttribute(i++, "onmousedown", true);
 
             UpdatePointCore();
 
@@ -149,12 +170,12 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             if(c2.X == End.X) c2.X--;
             
             string pathString = string.Format("M{0},{1} C{2},{3} {4},{5} {6},{7}", Start.X, Start.Y, c1.X, c1.Y, c2.X, c2.Y, End.X, End.Y);
-            builder.AddAttribute(3, "d", pathString);
-
-            builder.AddElementReferenceCapture(13, value => this.element = value);
-            builder.OpenComponent(4, viewType);
-            builder.AddAttribute(5, "Connector", this);
+            builder.AddAttribute(i++, "d", pathString);
+            
+            builder.OpenComponent(i++, viewType);
+            builder.AddAttribute(i++, "Connector", this);
             builder.CloseComponent();
+            builder.AddElementReferenceCapture(i++, value => this.element = value);
             builder.CloseElement();
         }
 

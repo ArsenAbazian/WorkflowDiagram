@@ -196,6 +196,7 @@
                     this.diagramComponent.Document.Save(b);
                     doc.Code = b.ToString();
                     session.CommitChanges();
+                    MessageBoxComponent.Show("Save", "Document successfully saved.");
                 }
             }
         });

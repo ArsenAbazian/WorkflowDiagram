@@ -172,6 +172,7 @@ namespace WorkflowDiagram {
             VisitIndex = -1;
         }
         [XmlIgnore]
+        [Browsable(false)]
         public bool LastVisited { get; private set; }
         public void Visit(WfRunner runner, object value) {
             VisitIndex = runner.VisitIndex;

@@ -330,6 +330,10 @@ namespace WorkflowDiagram {
             if(Changed != null)
                 Changed(this, EventArgs.Empty);
         }
+
+        public void RemoveConnector(WfConnector conn) {
+            conn.Detach();
+        }
     }
 
     public class WfToolboxVisibleAttribute : Attribute {

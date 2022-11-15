@@ -7,7 +7,7 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         public ConnectorItem Connector { get; set; }
 
         internal void OnMouseDown(MouseEventArgs e) {
-            Connector.Diagram.OnConnectorMouseDown(this, e);
+            Connector.Diagram.OnConnectorMouseDown(Connector, e);
         }
     }
 }

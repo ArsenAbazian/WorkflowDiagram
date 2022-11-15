@@ -88,30 +88,31 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             await UpdateBoundsAsync().ContinueWith(t => {
                 UpdateConnectorsPositions();
             });
-            //RectangleF r = await JsRuntimeHelper.GetBoundingClientRect(JsRuntime, this.element);
-            //r.Offset(-Diagram.Viewport.ViewportBounds.X, -Diagram.Viewport.ViewportBounds.Y);
-            //Bounds = r;
-            //if(firstRender || _becameVisible) {
-            //    _becameVisible = false;
-            //    await JsRuntime.ObserveResizes(_element, _reference);
-            //}
         }
 
         private void UpdateConnectorsPositions() {
             foreach(WfConnector c in Point.Connectors) {
                 ConnectorItem ci = Diagram.GetConnectorItem(c);
-                if(Point.Type == WfConnectionPointType.In && ci.End.IsEmpty)
-                    ci.InitializePointCore(this);
+                //if(Point.Type == WfConnectionPointType.In && ci.End.IsEmpty)
+                if(c != null)
+                    ci.UpdateByConnectionPointCore(this);
             }
         }
 
         internal Task UpdateBoundsAsync() {
             return JsRuntimeHelper.GetBoundingClientRect(JsRuntime, this.element).ContinueWith(t => {
                 RectangleF r = t.Result;
-                //r.Offset(- Diagram.Origin.X, - Diagram.Origin.Y);
-                //r = r.Scale(1 / Diagram.ZoomFactor);
                 r.Offset(-Diagram.Viewport.ViewportBounds.X, -Diagram.Viewport.ViewportBounds.Y);
                 Bounds = r;
+            });
+        }
+
+        internal Task UpdateBoundsAndConnectorsAsync() {
+            return JsRuntimeHelper.GetBoundingClientRect(JsRuntime, this.element).ContinueWith(t => {
+                RectangleF r = t.Result;
+                r.Offset(-Diagram.Viewport.ViewportBounds.X, -Diagram.Viewport.ViewportBounds.Y);
+                Bounds = r;
+                UpdateConnectorsPositions();
             });
         }
     }

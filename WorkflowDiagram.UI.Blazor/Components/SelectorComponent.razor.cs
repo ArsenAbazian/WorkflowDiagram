@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace WorkflowDiagram.UI.Blazor.Components {
     public partial class SelectorComponent {
         [Parameter]
         public RenderFragment ChildContent { get; set; }
-        public List<SelectorItem> ItemsCore { get; } = new List<SelectorItem>();
+        public SelectorItemCollection ItemsCore { get; private set; }
+
+        public SelectorComponent() {
+            ItemsCore = new SelectorItemCollection(this);
+        }
 
         SelectorItem selectedItem;
         public SelectorItem SelectedItem {
@@ -91,5 +97,19 @@ namespace WorkflowDiagram.UI.Blazor.Components {
     public enum SelectorComponentOrientation {
         Horizontal,
         Vertical
+    }
+
+    public class SelectorItemCollection : ObservableCollection<SelectorItem> {
+        public SelectorItemCollection(SelectorComponent owner) {
+            Owner = owner;
+        }
+        public SelectorComponent Owner { get; private set; }
+        protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e) {
+            base.OnCollectionChanged(e);
+            if(Owner.SelectedItem != null && e.OldItems != null && e.OldItems.Contains(Owner.SelectedItem))
+                Owner.SelectedItem = null;
+            if(Owner.SelectedItem == null && Owner.ItemsCore.Count > 0)
+                Owner.SelectedItem = Owner.ItemsCore.FirstOrDefault(i => object.Equals(i.Value, Owner.SelectedValue));
+        }
     }
 }

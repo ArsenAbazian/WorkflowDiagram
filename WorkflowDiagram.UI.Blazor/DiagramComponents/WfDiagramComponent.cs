@@ -99,8 +99,11 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
                 prev.Changed -= OnDocumentPropertyChanged;
             if(Document != null)
                 Document.Changed += OnDocumentPropertyChanged;
-            if(Document != null)
+            if(Document != null) { 
                 ToolboxItems = GetToolboxItems();
+                //while(ToolboxItems.Count > 10)
+                //    ToolboxItems.RemoveAt(0);
+            }
             else
                 ToolboxItems = new List<WfNode>();
         }
@@ -154,7 +157,7 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         public event EventHandler TouchEnd;
 
         protected internal virtual void OnMouseDown(object sender, MouseEventArgs e) {
-            if(sender == Viewport)
+            if(sender == Viewport && !(e.CtrlKey || e.AltKey))
                 SelectedItems.Clear();
             if(sender == Viewport) {
                 PrevPoint = ToViewport(e);
@@ -235,11 +238,11 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
 
         public virtual void Refresh() => Changed?.Invoke(this, EventArgs.Empty);
 
-        protected internal virtual void OnConnectorMouseDown(ConnectorView connectorView, MouseEventArgs e) {
-            if(!e.CtrlKey && !connectorView.Connector.Selected)
+        protected internal virtual void OnConnectorMouseDown(ConnectorItem connector, MouseEventArgs e) {
+            if(!e.CtrlKey && !connector.Selected)
                 SelectedItems.Clear();
 
-            connectorView.Connector.Selected = true;
+            connector.Selected = true;
             PrevPoint = new Point((int)e.PageX, (int)e.PageY);
         }
 
@@ -376,7 +379,27 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             return ZoomFactors.LastOrDefault(zf => zf < zoom);
         }
 
-        protected internal virtual void OnKeyDown(object sender, KeyboardEventArgs e) => KeyDown?.Invoke(sender, e);
+        protected internal virtual void OnKeyDown(object sender, KeyboardEventArgs e) {
+            if(e.Key == "Delete")
+                DeleteSelectedItems();
+            KeyDown?.Invoke(sender, e);
+        }
+
+        protected virtual void DeleteSelectedItems() {
+            List<IDiagramItem> items = SelectedItems.ToList();
+            foreach(IDiagramItem item in items) {
+                WfNode node = item.DataItem as WfNode;
+                WfConnector conn = item.DataItem as WfConnector;
+                if(node != null)
+                    Document.RemoveNode(node);
+                if(conn != null)
+                    Document.RemoveConnector(conn);
+            }
+            Document.RemoveUnusedConnectors();
+            SelectedItems.Clear();
+            Refresh();
+        }
+
         protected internal virtual void OnMouseWheel(object sender, WheelEventArgs e) {
             if(!e.CtrlKey)
                 OnZoom(e);

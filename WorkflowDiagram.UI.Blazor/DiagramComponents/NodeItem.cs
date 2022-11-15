@@ -6,9 +6,16 @@ using WorkflowDiagram.UI.Blazor.Helpers;
 
 namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
     public class NodeItem : ComponentBase, IDiagramItem, IDisposable {
+        static int TabIndex { get; set; }
 
         protected ElementReference element;
         protected DotNetObjectReference<NodeItem> refThis;
+
+        public NodeItem() {
+            Index = TabIndex++;
+        }
+
+        public int Index { get; set; }
 
         [CascadingParameter]
         public WfDiagramComponent Diagram { get; set; }
@@ -65,6 +72,15 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
                     connector.MoveStart(dx, dy);
                 if(connector.Connector.To?.Node == Node)
                     connector.MoveEnd(dx, dy);
+            }
+            UpdatePoints();
+        }
+
+        private void UpdatePoints() {
+            foreach(var point in Diagram.PointItems.Values) {
+                if(point.Point.Node != Node)
+                    continue;
+                point.UpdateBoundsAndConnectorsAsync();
             }
         }
 

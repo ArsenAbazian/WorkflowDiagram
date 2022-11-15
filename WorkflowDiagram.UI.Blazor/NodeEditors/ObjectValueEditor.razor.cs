@@ -127,20 +127,27 @@ namespace WorkflowDiagram.UI.Blazor.NodeEditors {
                 if(Value == value)
                     return;
                 val = value;
-                UpdateValueType();
+                UpdateValueType(false);
                 UpdateValues();
             }
         }
 
-        protected virtual void UpdateValueType() {
-            if(Value == null)
-                ValueType = WfValueType.Decimal;
-            else if(Value is double || Value is float || Value is int)
-                ValueType = WfValueType.Decimal;
-            else if(Value is bool)
-                ValueType = WfValueType.Boolean;
-            else if(Value is string)
-                ValueType = WfValueType.String;
+        protected virtual void UpdateValueType(bool allowUpdate) {
+            if(!allowUpdate)
+                SuppressUpdateValue = true;
+            try {
+                if(Value == null)
+                    ValueType = WfValueType.Decimal;
+                else if(Value is double || Value is float || Value is int)
+                    ValueType = WfValueType.Decimal;
+                else if(Value is bool)
+                    ValueType = WfValueType.Boolean;
+                else if(Value is string)
+                    ValueType = WfValueType.String;
+            }
+            finally {
+                SuppressUpdateValue = false;
+            }
         }
 
         public string NumericVisibilityClass { get { return ValueType == WfValueType.Decimal ? "" : "collapsed"; } }

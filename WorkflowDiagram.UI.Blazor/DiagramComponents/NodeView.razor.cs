@@ -11,6 +11,10 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             Node.Diagram.OnNodeMouseDown(this, e);
         }
 
+        protected internal virtual void OnKeyDown(KeyboardEventArgs e) {
+            Node.Diagram.OnKeyDown(this, e);
+        }
+
         protected internal virtual void OnLeftResizingAreaMouseDown(MouseEventArgs e) {
             Node.Diagram.OnLeftResizingAreaMouseDown(this, e);
         }

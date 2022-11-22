@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,23 @@ namespace WorkflowDiagram {
         static int GetNextIndex(Type type) {
             if(!indices.ContainsKey(type))
                 indices.Add(type, 0);
-            
+
             indices[type]++;
             return indices[type];
         }
-        
+
+        protected bool IsRestoringFromXml() {
+            StackTrace st = new StackTrace(true);
+            int count = Math.Min(10, st.FrameCount);
+            for(int i = 0; i < st.FrameCount; i++) {
+                StackFrame sf = st.GetFrame(i);
+                var m = sf.GetMethod();
+                if(m.DeclaringType.Name.StartsWith("XmlSerializationReader"))
+                    return true;
+            }
+            return false;
+        }
+
         public WfNode() {
             Id = Guid.NewGuid();
             UpdatePoints();
@@ -289,6 +302,8 @@ namespace WorkflowDiagram {
             get {
                 if(inputs == null) {
                     inputs = CreateInputCollection();
+                    if(IsRestoringFromXml())
+                        return inputs;
                     try {
                         SuppressPointsChanged = true;
                         inputs.Add(GetDefaultInputsCore());
@@ -306,6 +321,8 @@ namespace WorkflowDiagram {
             get {
                 if(outputs == null) {
                     outputs = CreateOutputCollection();
+                    if(IsRestoringFromXml())
+                        return inputs;
                     try {
                         SuppressPointsChanged = true;
                         outputs.Add(GetDefaultOutputsCore());

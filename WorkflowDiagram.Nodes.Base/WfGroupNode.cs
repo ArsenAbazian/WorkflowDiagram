@@ -85,7 +85,7 @@ namespace WorkflowDiagram.Nodes.Base {
         public override WfConnectionPoint CreateConnectionPoint(WfConnectionPointType type) {
             if(type == WfConnectionPointType.In) {
                 int index = Inputs.Count - 1;
-                return new WfConnectionPoint() { Name = "Field" + index, Text = "Field" + index, Requirement = WfRequirementType.Optional, Type = type, AllowEditName = true, AllowedOperations = WfEditOperation.Add | WfEditOperation.Edit | WfEditOperation.Remove };
+                return new WfConnectionPoint() { Name = "Field" + index, Text = "Field" + index, Requirement = WfRequirementType.Optional, Type = type, AllowEditName = true, AllowedOperations = WfEditOperation.Edit | WfEditOperation.Remove };
             }
             return base.CreateConnectionPoint(type);
         }
@@ -93,7 +93,7 @@ namespace WorkflowDiagram.Nodes.Base {
         protected override List<WfConnectionPoint> GetDefaultInputs() {
             return new WfConnectionPoint[] {
                 new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "TableIn", Text = "Table", Requirement = WfRequirementType.Optional },
-                new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "Field0", Text = "Field0", Requirement = WfRequirementType.Optional, AllowedOperations = WfEditOperation.Edit },
+                new WfConnectionPoint() { Type = WfConnectionPointType.In, Name = "Field0", Text = "Field0", Requirement = WfRequirementType.Optional, AllowedOperations = WfEditOperation.Edit | WfEditOperation.Remove },
             }.ToList();
         }
 

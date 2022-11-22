@@ -81,9 +81,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.csproj">
+    <ProjectReference Include="..\WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.Develop.csproj">
       <Project>{fde9ea71-c293-47f5-981a-d56e9505114a}</Project>
-      <Name>WorkflowDiagram.Nodes.Base</Name>
+      <Name>WorkflowDiagram.Nodes.Base.Develop</Name>
     </ProjectReference>
     <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.csproj">
       <Project>{5c2ec487-3e30-4274-8263-dbacfa5319c6}</Project>

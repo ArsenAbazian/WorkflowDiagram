@@ -217,7 +217,12 @@ namespace WorkflowDiagramApp {
         }
 
         private void documentManager1_DocumentActivate(object sender, DevExpress.XtraBars.Docking2010.Views.DocumentEventArgs e) {
-            
+            if(e.Document != null) {
+                BeginInvoke(new MethodInvoker(() => {
+                    WfDocumentControl c = (WfDocumentControl)e.Document.Control;
+                    this.ribbonControl1.MergeRibbon(c.Ribbon);
+                }));
+            }
         }
     }
 }

@@ -345,6 +345,6 @@ namespace WorkflowDiagram {
     }
 
     public interface IWfDocumentResourcesProvider {
-        public object GetNodeImage(WfNode node);
+        object GetNodeImage(WfNode node);
     }
 }

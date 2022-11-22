@@ -31,7 +31,7 @@ using System.Windows.Forms;
 using WorkflowDiagram.Editors;
 
 namespace WorkflowDiagram.UI.Win {
-    public partial class WfDocumentControl : XtraUserControl, ISupportXtraAnimation, IBarManagerProvider {
+    public partial class WfDocumentControl : XtraUserControl, ISupportXtraAnimation {
         public WfDocumentControl() {
             InitializeComponent();
             InitializeConnectorViewTypes();
@@ -581,6 +581,8 @@ namespace WorkflowDiagram.UI.Win {
         }
         protected bool IsItemDisposed(CustomDrawItemEventArgs e) {
             DiagramItemInfo info = (DiagramItemInfo)ItemInfoProperty.GetValue(e);
+            if(DisposedInfo == null)
+                return false;
             bool isDisposed = (bool)DisposedInfo.GetValue(info.View);
             return isDisposed;
         }
@@ -657,8 +659,8 @@ namespace WorkflowDiagram.UI.Win {
             AllowAnimation = this.biAllowAnimationWhileRun.Checked;
         }
 
-        BarManager IBarManagerProvider.GetMainManager() {
-            return this.ribbonControl1.Manager;
+        private void ribbonControl1_VisibleChanged(object sender, EventArgs e) {
+
         }
     }
 }

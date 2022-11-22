@@ -1,0 +1,3123 @@
+<?xml version="1.0"?>
+<WfDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>a02d25ab-0e67-4310-9cd3-33a0e76c10fc</Id>
+  <FileName>ClockExample.xml</FileName>
+  <Data />
+  <FontSizeDelta>0</FontSizeDelta>
+  <Name>Test</Name>
+  <CreationTime>2022-11-22T18:09:58.319416+03:00</CreationTime>
+  <Nodes>
+    <WfNode xsi:type="WfTimerNode">
+      <OrderIndex>0</OrderIndex>
+      <X>24</X>
+      <Y>24</Y>
+      <Width>300</Width>
+      <Height>111</Height>
+      <Name>Timer1</Name>
+      <Id>17994fa0-f91d-40fe-bfe4-368e14875f8f</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>53f4c928-552b-4d5b-bafc-39e158cfa644</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>76d861ad-9adf-4934-8d28-6d5fabbc0ef3</Id>
+          <Name>In</Name>
+          <Text>In</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>4aca206b-f94d-4018-9453-19115d88ddd5</Id>
+          <Name>Out</Name>
+          <Text>Out</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+      <SleepNextTime>false</SleepNextTime>
+      <Milliseconds>1000</Milliseconds>
+    </WfNode>
+    <WfNode xsi:type="WfDateTimeNode">
+      <OrderIndex>0</OrderIndex>
+      <X>474</X>
+      <Y>24</Y>
+      <Width>250</Width>
+      <Height>315</Height>
+      <Name>CurrentDate1</Name>
+      <Id>1ba98d49-e532-4d81-8d9a-051d0f0f3f23</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>e10ba5c9-5ad0-4db2-bbf2-15513bad7c3f</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>2b9c1611-793f-47ba-88ea-6850e17b4d7a</Id>
+          <Name>DateTime</Name>
+          <Text>DateTime</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>7b05f462-4766-4eef-a942-ad623daee96c</Id>
+          <Name>Date</Name>
+          <Text>Date</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>d2af01d6-6581-48bf-a9d5-193add695595</Id>
+          <Name>Year</Name>
+          <Text>Year</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>5c2ecd91-7643-462c-9aa3-6a6fbedbf65a</Id>
+          <Name>Month</Name>
+          <Text>Month</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>eecefb33-5422-4ec8-98ee-6ef183481e0e</Id>
+          <Name>Day</Name>
+          <Text>Day</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>7e375840-5b57-4942-aa99-75d06313ff03</Id>
+          <Name>Hour24</Name>
+          <Text>Hour 24</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>b688bcab-6fe9-40e7-8412-40ac572c8b6c</Id>
+          <Name>HourAMPM</Name>
+          <Text>Hour AM/PM</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>05bcf971-b161-4897-95c9-df0578e52b0f</Id>
+          <Name>AMPM</Name>
+          <Text>AM/PM</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>286d00e5-bc04-485b-910f-52168de88987</Id>
+          <Name>Minute</Name>
+          <Text>Minute</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>de32fefb-510d-44b5-b393-9bbde77d6edf</Id>
+          <Name>Second</Name>
+          <Text>Second</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>ae24d628-2433-4bfb-bb6c-84944fade8e4</Id>
+          <Name>Millisecond</Name>
+          <Text>Millisecond</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+      <DateTimeType>Local</DateTimeType>
+    </WfNode>
+    <WfNode xsi:type="WfCircularGaugeNode">
+      <OrderIndex>0</OrderIndex>
+      <X>850</X>
+      <Y>50</Y>
+      <Width>250</Width>
+      <Height>155</Height>
+      <Name>Hours</Name>
+      <Text>Hours</Text>
+      <Id>38fea2ea-156a-4500-9529-55f58cfc3c22</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>9d304de6-731f-4282-a08a-5b4ea9871103</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>87112b71-f076-4d27-b6c6-7d08eee25676</Id>
+          <Name>Value</Name>
+          <Text>Value</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>c00ccab3-4c11-4fce-934b-05764c3326d6</Id>
+          <Name>Minimum</Name>
+          <Text>Minimum</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>0971337f-8d91-4c9b-b941-2d3f7ba8c3b2</Id>
+          <Name>Maximum</Name>
+          <Text>Maximum</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>90755af3-36e0-4685-be58-ad640b857758</Id>
+          <Name>Gauge</Name>
+          <Text>Gauge</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+      <MinValue>0</MinValue>
+      <MaxValue>12</MaxValue>
+      <DisplayFormat>g</DisplayFormat>
+      <MajorTickCount>0</MajorTickCount>
+      <MajorTickmarkFormatString />
+      <MajorTickmarkShapeOffset>0</MajorTickmarkShapeOffset>
+      <MajorTickmarkTextOffset>0</MajorTickmarkTextOffset>
+      <MinorTickCount>0</MinorTickCount>
+      <StartAngle>0</StartAngle>
+      <EndAngle>0</EndAngle>
+    </WfNode>
+    <WfNode xsi:type="WfCircularGaugeNode">
+      <OrderIndex>0</OrderIndex>
+      <X>850</X>
+      <Y>204</Y>
+      <Width>250</Width>
+      <Height>155</Height>
+      <Name>Minutes</Name>
+      <Text>Minutes</Text>
+      <Id>6c5c4742-f3cd-4fa7-9802-ed88804765d2</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>1af367fa-32b6-485a-9b92-d77c7051a8eb</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>65bdb18d-7371-46ee-90c2-90a123947438</Id>
+          <Name>Value</Name>
+          <Text>Value</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>e426a938-f332-4667-a639-abf6b3a52604</Id>
+          <Name>Minimum</Name>
+          <Text>Minimum</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>780a5be9-b06a-48e5-aa1a-6c7ac7e0eeac</Id>
+          <Name>Maximum</Name>
+          <Text>Maximum</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>97e15428-ad17-4e02-b188-958d170a2f67</Id>
+          <Name>Gauge</Name>
+          <Text>Gauge</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+      <MinValue>0</MinValue>
+      <MaxValue>60</MaxValue>
+      <DisplayFormat>g</DisplayFormat>
+      <MajorTickCount>0</MajorTickCount>
+      <MajorTickmarkFormatString />
+      <MajorTickmarkShapeOffset>0</MajorTickmarkShapeOffset>
+      <MajorTickmarkTextOffset>0</MajorTickmarkTextOffset>
+      <MinorTickCount>0</MinorTickCount>
+      <StartAngle>0</StartAngle>
+      <EndAngle>0</EndAngle>
+    </WfNode>
+    <WfNode xsi:type="WfCircularGaugeNode">
+      <OrderIndex>0</OrderIndex>
+      <X>850</X>
+      <Y>376</Y>
+      <Width>250</Width>
+      <Height>155</Height>
+      <Name>Seconds</Name>
+      <Text>Seconds</Text>
+      <Id>8956b007-cec5-439e-ac74-6c4c1d682690</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>8f89317a-2d7d-4d0a-8cf5-63a0a88d92be</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>6d3dfa40-a208-4813-9633-9a749d207b76</Id>
+          <Name>Value</Name>
+          <Text>Value</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>658716dc-b65c-4caa-890e-31dec833e4b2</Id>
+          <Name>Minimum</Name>
+          <Text>Minimum</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>efdf00f6-94c5-4261-b3df-44ccfc9eafa9</Id>
+          <Name>Maximum</Name>
+          <Text>Maximum</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>2e6ba2b0-75d4-4c3e-a971-763bb6f510ff</Id>
+          <Name>Gauge</Name>
+          <Text>Gauge</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+      <MinValue>0</MinValue>
+      <MaxValue>60</MaxValue>
+      <DisplayFormat>g</DisplayFormat>
+      <MajorTickCount>0</MajorTickCount>
+      <MajorTickmarkFormatString />
+      <MajorTickmarkShapeOffset>0</MajorTickmarkShapeOffset>
+      <MajorTickmarkTextOffset>0</MajorTickmarkTextOffset>
+      <MinorTickCount>0</MinorTickCount>
+      <StartAngle>0</StartAngle>
+      <EndAngle>0</EndAngle>
+    </WfNode>
+    <WfNode xsi:type="WfGaugePanelNode">
+      <OrderIndex>0</OrderIndex>
+      <X>1224</X>
+      <Y>48</Y>
+      <Width>250</Width>
+      <Height>155</Height>
+      <Name>GaugesPanel1</Name>
+      <Id>5251f5d1-9816-4f37-874a-0663a6df696a</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>16a1459f-4c68-433d-9b9e-c5c9d2df35d1</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>ad9dc0e7-8bc6-482c-8be4-82c5db7eb899</Id>
+          <Name>In</Name>
+          <Text>In</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>d138c430-a30f-47f7-84e0-c9cd94f8da48</Id>
+          <Name>In2</Name>
+          <Text>In2</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>Remove Edit</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>93b19c75-ec5e-4b4d-bf97-fd27d14fbe03</Id>
+          <Name>In3</Name>
+          <Text>In3</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>Remove Edit</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>a6339df6-957d-4554-b6ab-48e1079c255b</Id>
+          <Name>Panel</Name>
+          <Text>Panel</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+      <Caption>Dashboard Panel</Caption>
+      <PanelOrderIndex>0</PanelOrderIndex>
+      <PanelName>Panel1</PanelName>
+      <Rotated>false</Rotated>
+      <GaugesPerLine>-1</GaugesPerLine>
+      <LayoutMode>Auto</LayoutMode>
+      <AlignMode>Center</AlignMode>
+    </WfNode>
+    <WfNode xsi:type="WfDashboardFormNode">
+      <OrderIndex>0</OrderIndex>
+      <X>1850</X>
+      <Y>300</Y>
+      <Width>250</Width>
+      <Height>133</Height>
+      <Name>DashboardForm1</Name>
+      <Id>e3f78d9e-b67e-40c7-9d5a-ccdf397129ad</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>a52f32ad-dc8b-4b02-b4d9-3ee03a328bc7</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>57f8854c-d082-43a1-bd3e-f3fe71e0d970</Id>
+          <Name>Panel1</Name>
+          <Text>Panel 1</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>Remove Edit</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>2c05ef79-068b-4759-ac6c-400055f88aed</Id>
+          <Name>Panel2</Name>
+          <Text>Panel 2</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>Remove Edit</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs />
+      <Workspaces>
+        <WfWorkspaceInfo>
+          <Name>Default</Name>
+          <XmlSerializationData>﻿&lt;workspace name="Default" version="1.0" application="DashboardContainerControl"&gt;
+  &lt;property name="$BarManager_dashboardContainerControl1_DashboardContainerControl_" iskey="true" value="BarManager_dashboardContainerControl1_DashboardContainerControl_"&gt;
+    &lt;property name="#LayoutVersion" /&gt;
+    &lt;property name="ItemLinkIdCollection" iskey="true" value="5"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;biResetLayout&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item2" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;barWorkspaceMenuItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item3" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;barDockingMenuItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item4" isnull="true" iskey="true"&gt;
+        &lt;property name="Id" /&gt;
+      &lt;/property&gt;
+      &lt;property name="Item5" isnull="true" iskey="true"&gt;
+        &lt;property name="Id" /&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+    &lt;property name="Items" iskey="true" value="0" /&gt;
+    &lt;property name="PopupMenuAlignment"&gt;Default&lt;/property&gt;
+    &lt;property name="CloseButtonAffectAllTabs"&gt;true&lt;/property&gt;
+    &lt;property name="RightToLeft"&gt;Default&lt;/property&gt;
+    &lt;property name="TransparentEditorsMode"&gt;Default&lt;/property&gt;
+    &lt;property name="ShowFullMenus"&gt;false&lt;/property&gt;
+    &lt;property name="ShowFullMenusAfterDelay"&gt;true&lt;/property&gt;
+    &lt;property name="ShowShortcutInScreenTips"&gt;true&lt;/property&gt;
+    &lt;property name="ShowScreenTipsInToolbars"&gt;true&lt;/property&gt;
+    &lt;property name="LargeIcons"&gt;false&lt;/property&gt;
+    &lt;property name="MenuAnimationType"&gt;Default&lt;/property&gt;
+    &lt;property name="Bars" iskey="true" value="1"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="OptionsBar" isnull="true" iskey="true"&gt;
+          &lt;property name="MinHeight"&gt;0&lt;/property&gt;
+          &lt;property name="DistanceBetweenItems"&gt;0&lt;/property&gt;
+          &lt;property name="AutoPopupMode"&gt;Default&lt;/property&gt;
+          &lt;property name="DrawBorder"&gt;true&lt;/property&gt;
+          &lt;property name="AllowCollapse"&gt;false&lt;/property&gt;
+          &lt;property name="BarState"&gt;Expanded&lt;/property&gt;
+          &lt;property name="AllowDelete"&gt;false&lt;/property&gt;
+          &lt;property name="AllowRename"&gt;false&lt;/property&gt;
+          &lt;property name="AllowQuickCustomization"&gt;true&lt;/property&gt;
+          &lt;property name="DisableClose"&gt;false&lt;/property&gt;
+          &lt;property name="DisableCustomization"&gt;false&lt;/property&gt;
+          &lt;property name="DrawDragBorder"&gt;true&lt;/property&gt;
+          &lt;property name="DrawSizeGrip"&gt;false&lt;/property&gt;
+          &lt;property name="Hidden"&gt;false&lt;/property&gt;
+          &lt;property name="MultiLine"&gt;false&lt;/property&gt;
+          &lt;property name="RotateWhenVertical"&gt;true&lt;/property&gt;
+          &lt;property name="UseWholeRow"&gt;true&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="FloatSize"&gt;@1,Width=0@1,Height=0&lt;/property&gt;
+        &lt;property name="FloatLocation"&gt;@1,X=0@1,Y=0&lt;/property&gt;
+        &lt;property name="BarName"&gt;Tools&lt;/property&gt;
+        &lt;property name="Visible"&gt;true&lt;/property&gt;
+        &lt;property name="DockStyle"&gt;Top&lt;/property&gt;
+        &lt;property name="StandaloneBarDockControlName" /&gt;
+        &lt;property name="DockRow"&gt;0&lt;/property&gt;
+        &lt;property name="DockCol"&gt;0&lt;/property&gt;
+        &lt;property name="Offset"&gt;0&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="3"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;1&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;2&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;2&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;0&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item3" isnull="true" iskey="true"&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;3&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;2&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+  &lt;/property&gt;
+  &lt;property name="$Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_" iskey="true" value="Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_"&gt;
+    &lt;property name="#LayoutVersion" /&gt;
+    &lt;property name="#LayoutScaleFactor"&gt;@3,Width=1.5@3,Height=1.5&lt;/property&gt;
+    &lt;property name="LayoutMode"&gt;FreeLayout&lt;/property&gt;
+    &lt;property name="DocumentProperties" isnull="true" iskey="true" /&gt;
+    &lt;property name="StackGroupProperties" isnull="true" iskey="true" /&gt;
+    &lt;property name="DocumentSpacing"&gt;0&lt;/property&gt;
+    &lt;property name="FlowLayoutProperties" isnull="true" iskey="true"&gt;
+      &lt;property name="FlowLayoutItems" iskey="true" value="0" /&gt;
+    &lt;/property&gt;
+    &lt;property name="FreeLayoutProperties" isnull="true" iskey="true"&gt;
+      &lt;property name="ItemDragStyle"&gt;Default&lt;/property&gt;
+      &lt;property name="EnableStickySplitters"&gt;Default&lt;/property&gt;
+      &lt;property name="FreeLayoutItems" iskey="true" value="2"&gt;
+        &lt;property name="Item1" isnull="true" iskey="true"&gt;
+          &lt;property name="AllowCaptionColorBlending"&gt;true&lt;/property&gt;
+          &lt;property name="RowIndex"&gt;0&lt;/property&gt;
+          &lt;property name="ColumnIndex"&gt;0&lt;/property&gt;
+          &lt;property name="RowSpan"&gt;1&lt;/property&gt;
+          &lt;property name="ColumnSpan"&gt;1&lt;/property&gt;
+          &lt;property name="Width"&gt;200&lt;/property&gt;
+          &lt;property name="Height"&gt;200&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Item2" isnull="true" iskey="true"&gt;
+          &lt;property name="AllowCaptionColorBlending"&gt;true&lt;/property&gt;
+          &lt;property name="RowIndex"&gt;0&lt;/property&gt;
+          &lt;property name="ColumnIndex"&gt;0&lt;/property&gt;
+          &lt;property name="RowSpan"&gt;1&lt;/property&gt;
+          &lt;property name="ColumnSpan"&gt;1&lt;/property&gt;
+          &lt;property name="Width"&gt;200&lt;/property&gt;
+          &lt;property name="Height"&gt;200&lt;/property&gt;
+        &lt;/property&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+    &lt;property name="DocumentAnimationProperties" isnull="true" iskey="true" /&gt;
+    &lt;property name="AllowDragDropWobbleAnimation"&gt;Default&lt;/property&gt;
+    &lt;property name="AllowDocumentStateChangeAnimation"&gt;Default&lt;/property&gt;
+    &lt;property name="AllowStartupAnimation"&gt;Default&lt;/property&gt;
+    &lt;property name="AllowResizeAnimation"&gt;Default&lt;/property&gt;
+    &lt;property name="Orientation"&gt;Vertical&lt;/property&gt;
+    &lt;property name="AllowDocumentCaptionColorBlending"&gt;true&lt;/property&gt;
+    &lt;property name="CustomResizeZoneThickness"&gt;0&lt;/property&gt;
+    &lt;property name="Style"&gt;Default&lt;/property&gt;
+    &lt;property name="FloatDocumentsAlwaysOnTop"&gt;Default&lt;/property&gt;
+    &lt;property name="FloatingDocumentContainer"&gt;Default&lt;/property&gt;
+    &lt;property name="LoadingIndicatorProperties" isnull="true" iskey="true" /&gt;
+    &lt;property name="DocumentSelectorProperties" isnull="true" iskey="true" /&gt;
+    &lt;property name="WindowsDialogProperties" isnull="true" iskey="true" /&gt;
+    &lt;property name="Rows" iskey="true" value="0" /&gt;
+    &lt;property name="Columns" iskey="true" value="0" /&gt;
+    &lt;property name="Items" iskey="true" value="5"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="ParentName"&gt;FreeLayoutGroup&lt;/property&gt;
+        &lt;property name="StackGroupName" isnull="true" /&gt;
+        &lt;property name="Index"&gt;0&lt;/property&gt;
+        &lt;property name="WindowState"&gt;Normal&lt;/property&gt;
+        &lt;property name="Width"&gt;200&lt;/property&gt;
+        &lt;property name="Height"&gt;200&lt;/property&gt;
+        &lt;property name="Maximized"&gt;false&lt;/property&gt;
+        &lt;property name="RowIndex"&gt;0&lt;/property&gt;
+        &lt;property name="ColumnIndex"&gt;0&lt;/property&gt;
+        &lt;property name="RowSpan"&gt;1&lt;/property&gt;
+        &lt;property name="ColumnSpan"&gt;1&lt;/property&gt;
+        &lt;property name="Properties" isnull="true" iskey="true" /&gt;
+        &lt;property name="IsFloating"&gt;false&lt;/property&gt;
+        &lt;property name="Location"&gt;@1,X=0@1,Y=0&lt;/property&gt;
+        &lt;property name="Size"&gt;@3,Width=600@3,Height=304&lt;/property&gt;
+        &lt;property name="IsActive"&gt;true&lt;/property&gt;
+        &lt;property name="Name"&gt;Panel1&lt;/property&gt;
+        &lt;property name="TypeName"&gt;Document&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item2" isnull="true" iskey="true"&gt;
+        &lt;property name="ParentName"&gt;FreeLayoutGroup&lt;/property&gt;
+        &lt;property name="StackGroupName" isnull="true" /&gt;
+        &lt;property name="Index"&gt;1&lt;/property&gt;
+        &lt;property name="WindowState"&gt;Normal&lt;/property&gt;
+        &lt;property name="Width"&gt;200&lt;/property&gt;
+        &lt;property name="Height"&gt;200&lt;/property&gt;
+        &lt;property name="Maximized"&gt;false&lt;/property&gt;
+        &lt;property name="RowIndex"&gt;0&lt;/property&gt;
+        &lt;property name="ColumnIndex"&gt;0&lt;/property&gt;
+        &lt;property name="RowSpan"&gt;1&lt;/property&gt;
+        &lt;property name="ColumnSpan"&gt;1&lt;/property&gt;
+        &lt;property name="Properties" isnull="true" iskey="true" /&gt;
+        &lt;property name="IsFloating"&gt;false&lt;/property&gt;
+        &lt;property name="Location"&gt;@1,X=0@1,Y=0&lt;/property&gt;
+        &lt;property name="Size"&gt;@3,Width=600@3,Height=304&lt;/property&gt;
+        &lt;property name="IsActive"&gt;false&lt;/property&gt;
+        &lt;property name="Name"&gt;Panel2&lt;/property&gt;
+        &lt;property name="TypeName"&gt;Document&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item3" isnull="true" iskey="true"&gt;
+        &lt;property name="Width" isnull="true" iskey="true"&gt;
+          &lt;property name="UnitValue"&gt;1&lt;/property&gt;
+          &lt;property name="UnitType"&gt;Star&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Height" isnull="true" iskey="true"&gt;
+          &lt;property name="UnitValue"&gt;1&lt;/property&gt;
+          &lt;property name="UnitType"&gt;Star&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Parent"&gt;Root&lt;/property&gt;
+        &lt;property name="Element" isnull="true" /&gt;
+        &lt;property name="Orientation"&gt;Vertical&lt;/property&gt;
+        &lt;property name="Index"&gt;0&lt;/property&gt;
+        &lt;property name="Length" isnull="true" iskey="true"&gt;
+          &lt;property name="UnitValue"&gt;1&lt;/property&gt;
+          &lt;property name="UnitType"&gt;Star&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Name"&gt;WidgetDockingContainer0&lt;/property&gt;
+        &lt;property name="TypeName"&gt;WidgetDockingContainer&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item4" isnull="true" iskey="true"&gt;
+        &lt;property name="Width" isnull="true" iskey="true"&gt;
+          &lt;property name="UnitValue"&gt;1&lt;/property&gt;
+          &lt;property name="UnitType"&gt;Star&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Height" isnull="true" iskey="true"&gt;
+          &lt;property name="UnitValue"&gt;0.76808905380333958&lt;/property&gt;
+          &lt;property name="UnitType"&gt;Star&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Parent"&gt;WidgetDockingContainer0&lt;/property&gt;
+        &lt;property name="Element"&gt;Panel1&lt;/property&gt;
+        &lt;property name="Orientation"&gt;Horizontal&lt;/property&gt;
+        &lt;property name="Index"&gt;0&lt;/property&gt;
+        &lt;property name="Length" isnull="true" iskey="true"&gt;
+          &lt;property name="UnitValue"&gt;0.76808905380333958&lt;/property&gt;
+          &lt;property name="UnitType"&gt;Star&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Name"&gt;WidgetDockingContainer1&lt;/property&gt;
+        &lt;property name="TypeName"&gt;WidgetDockingContainer&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item5" isnull="true" iskey="true"&gt;
+        &lt;property name="Width" isnull="true" iskey="true"&gt;
+          &lt;property name="UnitValue"&gt;1&lt;/property&gt;
+          &lt;property name="UnitType"&gt;Star&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Height" isnull="true" iskey="true"&gt;
+          &lt;property name="UnitValue"&gt;1.2319109461966604&lt;/property&gt;
+          &lt;property name="UnitType"&gt;Star&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Parent"&gt;WidgetDockingContainer0&lt;/property&gt;
+        &lt;property name="Element"&gt;Panel2&lt;/property&gt;
+        &lt;property name="Orientation"&gt;Horizontal&lt;/property&gt;
+        &lt;property name="Index"&gt;1&lt;/property&gt;
+        &lt;property name="Length" isnull="true" iskey="true"&gt;
+          &lt;property name="UnitValue"&gt;1.2319109461966604&lt;/property&gt;
+          &lt;property name="UnitType"&gt;Star&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Name"&gt;WidgetDockingContainer2&lt;/property&gt;
+        &lt;property name="TypeName"&gt;WidgetDockingContainer&lt;/property&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+  &lt;/property&gt;
+  &lt;property name="$BarManager_Panel1_GaugeUserControl_Panel1_Document_Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_" iskey="true" value="BarManager_Panel1_GaugeUserControl_Panel1_Document_Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_"&gt;
+    &lt;property name="#LayoutVersion" /&gt;
+    &lt;property name="ItemLinkIdCollection" iskey="true" value="8"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;bsMenu&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item2" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;bsDesigner&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item3" isnull="true" iskey="true"&gt;
+        &lt;property name="Id" /&gt;
+      &lt;/property&gt;
+      &lt;property name="Item4" isnull="true" iskey="true"&gt;
+        &lt;property name="Id" /&gt;
+      &lt;/property&gt;
+      &lt;property name="Item5" isnull="true" iskey="true"&gt;
+        &lt;property name="Id" /&gt;
+      &lt;/property&gt;
+      &lt;property name="Item6" isnull="true" iskey="true"&gt;
+        &lt;property name="Id" /&gt;
+      &lt;/property&gt;
+      &lt;property name="Item7" isnull="true" iskey="true"&gt;
+        &lt;property name="Id" /&gt;
+      &lt;/property&gt;
+      &lt;property name="Item8" isnull="true" iskey="true"&gt;
+        &lt;property name="Id" /&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+    &lt;property name="Items" iskey="true" value="2"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="AllowSerializeChildren"&gt;Default&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="3"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;-1&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;0&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;-1&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item3" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;-1&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;2&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Id"&gt;1&lt;/property&gt;
+        &lt;property name="Visibility"&gt;Always&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item2" isnull="true" iskey="true"&gt;
+        &lt;property name="AllowSerializeChildren"&gt;Default&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="3"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;-1&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;0&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;-1&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item3" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;-1&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;2&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Id"&gt;2&lt;/property&gt;
+        &lt;property name="Visibility"&gt;Always&lt;/property&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+    &lt;property name="PopupMenuAlignment"&gt;Default&lt;/property&gt;
+    &lt;property name="CloseButtonAffectAllTabs"&gt;true&lt;/property&gt;
+    &lt;property name="RightToLeft"&gt;Default&lt;/property&gt;
+    &lt;property name="TransparentEditorsMode"&gt;Default&lt;/property&gt;
+    &lt;property name="ShowFullMenus"&gt;false&lt;/property&gt;
+    &lt;property name="ShowFullMenusAfterDelay"&gt;true&lt;/property&gt;
+    &lt;property name="ShowShortcutInScreenTips"&gt;true&lt;/property&gt;
+    &lt;property name="ShowScreenTipsInToolbars"&gt;true&lt;/property&gt;
+    &lt;property name="LargeIcons"&gt;false&lt;/property&gt;
+    &lt;property name="MenuAnimationType"&gt;Default&lt;/property&gt;
+    &lt;property name="Bars" iskey="true" value="1"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="OptionsBar" isnull="true" iskey="true"&gt;
+          &lt;property name="MinHeight"&gt;0&lt;/property&gt;
+          &lt;property name="DistanceBetweenItems"&gt;0&lt;/property&gt;
+          &lt;property name="AutoPopupMode"&gt;Default&lt;/property&gt;
+          &lt;property name="DrawBorder"&gt;false&lt;/property&gt;
+          &lt;property name="AllowCollapse"&gt;false&lt;/property&gt;
+          &lt;property name="BarState"&gt;Expanded&lt;/property&gt;
+          &lt;property name="AllowDelete"&gt;false&lt;/property&gt;
+          &lt;property name="AllowRename"&gt;false&lt;/property&gt;
+          &lt;property name="AllowQuickCustomization"&gt;true&lt;/property&gt;
+          &lt;property name="DisableClose"&gt;false&lt;/property&gt;
+          &lt;property name="DisableCustomization"&gt;false&lt;/property&gt;
+          &lt;property name="DrawDragBorder"&gt;true&lt;/property&gt;
+          &lt;property name="DrawSizeGrip"&gt;false&lt;/property&gt;
+          &lt;property name="Hidden"&gt;false&lt;/property&gt;
+          &lt;property name="MultiLine"&gt;false&lt;/property&gt;
+          &lt;property name="RotateWhenVertical"&gt;true&lt;/property&gt;
+          &lt;property name="UseWholeRow"&gt;true&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="FloatSize"&gt;@1,Width=0@1,Height=0&lt;/property&gt;
+        &lt;property name="FloatLocation"&gt;@1,X=0@1,Y=0&lt;/property&gt;
+        &lt;property name="BarName"&gt;Tools&lt;/property&gt;
+        &lt;property name="Visible"&gt;true&lt;/property&gt;
+        &lt;property name="DockStyle"&gt;Top&lt;/property&gt;
+        &lt;property name="StandaloneBarDockControlName" /&gt;
+        &lt;property name="DockRow"&gt;0&lt;/property&gt;
+        &lt;property name="DockCol"&gt;0&lt;/property&gt;
+        &lt;property name="Offset"&gt;0&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="2"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;1&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;2&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+  &lt;/property&gt;
+  &lt;property name="$gaugeControl1_WfGaugeControl_Panel1_GaugeUserControl_Panel1_Document_Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_" iskey="true" value="gaugeControl1_WfGaugeControl_Panel1_GaugeUserControl_Panel1_Document_Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_"&gt;
+    &lt;property name="OptionsPrint"&gt;~Xtra#NULL&lt;/property&gt;
+    &lt;property name="ColorScheme" isnull="true" iskey="true"&gt;
+      &lt;property name="TargetElements"&gt;RangeBar, Label&lt;/property&gt;
+      &lt;property name="Color" /&gt;
+    &lt;/property&gt;
+    &lt;property name="AutoLayout"&gt;true&lt;/property&gt;
+    &lt;property name="GraphicsProperties"&gt;~Xtra#NULL&lt;/property&gt;
+    &lt;property name="LayoutPadding"&gt;4, 5, 4, 5&lt;/property&gt;
+    &lt;property name="LayoutInterval"&gt;4&lt;/property&gt;
+    &lt;property name="SizeEx"&gt;@4,Width=1260@3,Height=300&lt;/property&gt;
+    &lt;property name="Items" iskey="true" value="15"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="AutoSize"&gt;Default&lt;/property&gt;
+        &lt;property name="OptionsToolTip" isnull="true" iskey="true"&gt;
+          &lt;property name="TooltipFormat"&gt;{1:F2}&lt;/property&gt;
+          &lt;property name="TooltipTitleFormat" /&gt;
+          &lt;property name="Tooltip" /&gt;
+          &lt;property name="TooltipTitle" /&gt;
+          &lt;property name="TooltipIconType"&gt;None&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Name"&gt;Hours&lt;/property&gt;
+        &lt;property name="ParentName" /&gt;
+        &lt;property name="ParentCollectionName"&gt;Gauges&lt;/property&gt;
+        &lt;property name="TypeNameEx"&gt;CircularGauge&lt;/property&gt;
+        &lt;property name="Bounds"&gt;@3,X=195@1,Y=5@3,Width=290@3,Height=290&lt;/property&gt;
+        &lt;property name="ProportionalStretch"&gt;true&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item2" isnull="true" iskey="true"&gt;
+        &lt;property name="UseColorScheme"&gt;true&lt;/property&gt;
+        &lt;property name="Position"&gt;125, 270&lt;/property&gt;
+        &lt;property name="Size"&gt;@3,Width=125@2,Height=25&lt;/property&gt;
+        &lt;property name="AllowHTMLString"&gt;true&lt;/property&gt;
+        &lt;property name="Text"&gt;Hours&lt;/property&gt;
+        &lt;property name="TextOrientation"&gt;Default&lt;/property&gt;
+        &lt;property name="FormatString"&gt;{0}&lt;/property&gt;
+        &lt;property name="AppearanceBackground" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceText" isnull="true" iskey="true"&gt;
+          &lt;property name="Font"&gt;Tahoma, 14pt&lt;/property&gt;
+          &lt;property name="Spacing"&gt;0, 0, 0, 0&lt;/property&gt;
+          &lt;property name="Format" isnull="true" iskey="true"&gt;
+            &lt;property name="Alignment"&gt;Center&lt;/property&gt;
+            &lt;property name="LineAlignment"&gt;Center&lt;/property&gt;
+            &lt;property name="Trimming"&gt;Character&lt;/property&gt;
+            &lt;property name="FormatFlags"&gt;NoClip&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="TextBrush" isnull="true" iskey="true" /&gt;
+        &lt;/property&gt;
+        &lt;property name="Name"&gt;Hours&lt;/property&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;-10000&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Hours&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;Labels&lt;/property&gt;
+        &lt;property name="BoundElementName" isnull="true" /&gt;
+        &lt;property name="TypeNameEx"&gt;LabelComponent&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item3" isnull="true" iskey="true"&gt;
+        &lt;property name="AppearanceScale" isnull="true" iskey="true"&gt;
+          &lt;property name="Brush" isnull="true" iskey="true" /&gt;
+          &lt;property name="Width"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceMinorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceMajorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceTickmarkTextBackground" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceTickmarkText" isnull="true" iskey="true"&gt;
+          &lt;property name="Font"&gt;Tahoma, 11pt&lt;/property&gt;
+          &lt;property name="Spacing"&gt;0, 0, 0, 0&lt;/property&gt;
+          &lt;property name="Format" isnull="true" iskey="true"&gt;
+            &lt;property name="Alignment"&gt;Center&lt;/property&gt;
+            &lt;property name="LineAlignment"&gt;Center&lt;/property&gt;
+            &lt;property name="Trimming"&gt;Character&lt;/property&gt;
+            &lt;property name="FormatFlags"&gt;NoClip&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="TextBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;Black&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="UseColorScheme"&gt;true&lt;/property&gt;
+        &lt;property name="CustomLogarithmicBase"&gt;2&lt;/property&gt;
+        &lt;property name="LogarithmicBase"&gt;Binary&lt;/property&gt;
+        &lt;property name="Appearance" isnull="true" iskey="true"&gt;
+          &lt;property name="Brush" isnull="true" iskey="true" /&gt;
+          &lt;property name="Width"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AutoRescaling"&gt;false&lt;/property&gt;
+        &lt;property name="Center"&gt;125, 125&lt;/property&gt;
+        &lt;property name="RadiusX"&gt;100&lt;/property&gt;
+        &lt;property name="RadiusY"&gt;100&lt;/property&gt;
+        &lt;property name="StartAngle"&gt;-240&lt;/property&gt;
+        &lt;property name="EndAngle"&gt;60&lt;/property&gt;
+        &lt;property name="MinValue"&gt;0&lt;/property&gt;
+        &lt;property name="MaxValue"&gt;12&lt;/property&gt;
+        &lt;property name="RescalingThresholdMin"&gt;0.05&lt;/property&gt;
+        &lt;property name="RescalingThresholdMax"&gt;0.05&lt;/property&gt;
+        &lt;property name="RescalingBestValues"&gt;false&lt;/property&gt;
+        &lt;property name="MinorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="ShowTick"&gt;true&lt;/property&gt;
+          &lt;property name="ShowFirst"&gt;true&lt;/property&gt;
+          &lt;property name="ShowLast"&gt;true&lt;/property&gt;
+          &lt;property name="ShapeScale"&gt;1, 1&lt;/property&gt;
+          &lt;property name="ShapeOffset"&gt;0&lt;/property&gt;
+          &lt;property name="ShapeType"&gt;Circular_Style1_3&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="MinorTickCount"&gt;4&lt;/property&gt;
+        &lt;property name="MajorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="Multiplier"&gt;1&lt;/property&gt;
+          &lt;property name="Addend"&gt;0&lt;/property&gt;
+          &lt;property name="TextOffset"&gt;-15&lt;/property&gt;
+          &lt;property name="ShowText"&gt;true&lt;/property&gt;
+          &lt;property name="AllowTickOverlap"&gt;false&lt;/property&gt;
+          &lt;property name="TextOrientation"&gt;LeftToRight&lt;/property&gt;
+          &lt;property name="FormatString"&gt;{0:F0}&lt;/property&gt;
+          &lt;property name="ShowTick"&gt;true&lt;/property&gt;
+          &lt;property name="ShowFirst"&gt;true&lt;/property&gt;
+          &lt;property name="ShowLast"&gt;true&lt;/property&gt;
+          &lt;property name="ShapeScale"&gt;1, 1&lt;/property&gt;
+          &lt;property name="ShapeOffset"&gt;-3.5&lt;/property&gt;
+          &lt;property name="ShapeType"&gt;Circular_Style1_4&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="MajorTickCount"&gt;11&lt;/property&gt;
+        &lt;property name="Labels" iskey="true" value="0" /&gt;
+        &lt;property name="Ranges" iskey="true" value="0" /&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;0&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Hours&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;Scales&lt;/property&gt;
+        &lt;property name="BoundElementName" isnull="true" /&gt;
+        &lt;property name="TypeNameEx"&gt;ArcScaleComponent&lt;/property&gt;
+        &lt;property name="Name"&gt;Hours_Scale1&lt;/property&gt;
+        &lt;property name="Logarithmic"&gt;false&lt;/property&gt;
+        &lt;property name="Value"&gt;6&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item4" isnull="true" iskey="true"&gt;
+        &lt;property name="ScaleCenterPos"&gt;0.5, 0.5&lt;/property&gt;
+        &lt;property name="Size"&gt;@3,Width=250@3,Height=250&lt;/property&gt;
+        &lt;property name="ShapeType"&gt;CircularFull_Default&lt;/property&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;1000&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Hours&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;BackgroundLayers&lt;/property&gt;
+        &lt;property name="BoundElementName"&gt;Hours_Scale1&lt;/property&gt;
+        &lt;property name="TypeNameEx"&gt;ArcScaleBackgroundLayerComponent&lt;/property&gt;
+        &lt;property name="Name"&gt;Hours_BackgroundLayer1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item5" isnull="true" iskey="true"&gt;
+        &lt;property name="StartOffset"&gt;-4.4&lt;/property&gt;
+        &lt;property name="EndOffset"&gt;0&lt;/property&gt;
+        &lt;property name="ShapeType"&gt;Circular_Default&lt;/property&gt;
+        &lt;property name="Value" isnull="true" /&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;-50&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Hours&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;Needles&lt;/property&gt;
+        &lt;property name="BoundElementName"&gt;Hours_Scale1&lt;/property&gt;
+        &lt;property name="TypeNameEx"&gt;ArcScaleNeedleComponent&lt;/property&gt;
+        &lt;property name="Name"&gt;Hours_Needle1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item6" isnull="true" iskey="true"&gt;
+        &lt;property name="AutoSize"&gt;Default&lt;/property&gt;
+        &lt;property name="OptionsToolTip" isnull="true" iskey="true"&gt;
+          &lt;property name="TooltipFormat"&gt;{1:F2}&lt;/property&gt;
+          &lt;property name="TooltipTitleFormat" /&gt;
+          &lt;property name="Tooltip" /&gt;
+          &lt;property name="TooltipTitle" /&gt;
+          &lt;property name="TooltipIconType"&gt;None&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Name"&gt;Minutes&lt;/property&gt;
+        &lt;property name="ParentName" /&gt;
+        &lt;property name="ParentCollectionName"&gt;Gauges&lt;/property&gt;
+        &lt;property name="TypeNameEx"&gt;CircularGauge&lt;/property&gt;
+        &lt;property name="Bounds"&gt;@3,X=485@1,Y=5@3,Width=290@3,Height=290&lt;/property&gt;
+        &lt;property name="ProportionalStretch"&gt;true&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item7" isnull="true" iskey="true"&gt;
+        &lt;property name="UseColorScheme"&gt;true&lt;/property&gt;
+        &lt;property name="Position"&gt;125, 270&lt;/property&gt;
+        &lt;property name="Size"&gt;@3,Width=125@2,Height=25&lt;/property&gt;
+        &lt;property name="AllowHTMLString"&gt;true&lt;/property&gt;
+        &lt;property name="Text"&gt;Minutes&lt;/property&gt;
+        &lt;property name="TextOrientation"&gt;Default&lt;/property&gt;
+        &lt;property name="FormatString"&gt;{0}&lt;/property&gt;
+        &lt;property name="AppearanceBackground" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceText" isnull="true" iskey="true"&gt;
+          &lt;property name="Font"&gt;Tahoma, 14pt&lt;/property&gt;
+          &lt;property name="Spacing"&gt;0, 0, 0, 0&lt;/property&gt;
+          &lt;property name="Format" isnull="true" iskey="true"&gt;
+            &lt;property name="Alignment"&gt;Center&lt;/property&gt;
+            &lt;property name="LineAlignment"&gt;Center&lt;/property&gt;
+            &lt;property name="Trimming"&gt;Character&lt;/property&gt;
+            &lt;property name="FormatFlags"&gt;NoClip&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="TextBrush" isnull="true" iskey="true" /&gt;
+        &lt;/property&gt;
+        &lt;property name="Name"&gt;Minutes&lt;/property&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;-10000&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Minutes&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;Labels&lt;/property&gt;
+        &lt;property name="BoundElementName" isnull="true" /&gt;
+        &lt;property name="TypeNameEx"&gt;LabelComponent&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item8" isnull="true" iskey="true"&gt;
+        &lt;property name="AppearanceScale" isnull="true" iskey="true"&gt;
+          &lt;property name="Brush" isnull="true" iskey="true" /&gt;
+          &lt;property name="Width"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceMinorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceMajorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceTickmarkTextBackground" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceTickmarkText" isnull="true" iskey="true"&gt;
+          &lt;property name="Font"&gt;Tahoma, 11pt&lt;/property&gt;
+          &lt;property name="Spacing"&gt;0, 0, 0, 0&lt;/property&gt;
+          &lt;property name="Format" isnull="true" iskey="true"&gt;
+            &lt;property name="Alignment"&gt;Center&lt;/property&gt;
+            &lt;property name="LineAlignment"&gt;Center&lt;/property&gt;
+            &lt;property name="Trimming"&gt;Character&lt;/property&gt;
+            &lt;property name="FormatFlags"&gt;NoClip&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="TextBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;Black&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="UseColorScheme"&gt;true&lt;/property&gt;
+        &lt;property name="CustomLogarithmicBase"&gt;2&lt;/property&gt;
+        &lt;property name="LogarithmicBase"&gt;Binary&lt;/property&gt;
+        &lt;property name="Appearance" isnull="true" iskey="true"&gt;
+          &lt;property name="Brush" isnull="true" iskey="true" /&gt;
+          &lt;property name="Width"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AutoRescaling"&gt;false&lt;/property&gt;
+        &lt;property name="Center"&gt;125, 125&lt;/property&gt;
+        &lt;property name="RadiusX"&gt;100&lt;/property&gt;
+        &lt;property name="RadiusY"&gt;100&lt;/property&gt;
+        &lt;property name="StartAngle"&gt;-240&lt;/property&gt;
+        &lt;property name="EndAngle"&gt;60&lt;/property&gt;
+        &lt;property name="MinValue"&gt;0&lt;/property&gt;
+        &lt;property name="MaxValue"&gt;60&lt;/property&gt;
+        &lt;property name="RescalingThresholdMin"&gt;0.05&lt;/property&gt;
+        &lt;property name="RescalingThresholdMax"&gt;0.05&lt;/property&gt;
+        &lt;property name="RescalingBestValues"&gt;false&lt;/property&gt;
+        &lt;property name="MinorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="ShowTick"&gt;true&lt;/property&gt;
+          &lt;property name="ShowFirst"&gt;true&lt;/property&gt;
+          &lt;property name="ShowLast"&gt;true&lt;/property&gt;
+          &lt;property name="ShapeScale"&gt;1, 1&lt;/property&gt;
+          &lt;property name="ShapeOffset"&gt;0&lt;/property&gt;
+          &lt;property name="ShapeType"&gt;Circular_Style1_3&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="MinorTickCount"&gt;4&lt;/property&gt;
+        &lt;property name="MajorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="Multiplier"&gt;1&lt;/property&gt;
+          &lt;property name="Addend"&gt;0&lt;/property&gt;
+          &lt;property name="TextOffset"&gt;-15&lt;/property&gt;
+          &lt;property name="ShowText"&gt;true&lt;/property&gt;
+          &lt;property name="AllowTickOverlap"&gt;false&lt;/property&gt;
+          &lt;property name="TextOrientation"&gt;LeftToRight&lt;/property&gt;
+          &lt;property name="FormatString"&gt;{0:F0}&lt;/property&gt;
+          &lt;property name="ShowTick"&gt;true&lt;/property&gt;
+          &lt;property name="ShowFirst"&gt;true&lt;/property&gt;
+          &lt;property name="ShowLast"&gt;true&lt;/property&gt;
+          &lt;property name="ShapeScale"&gt;1, 1&lt;/property&gt;
+          &lt;property name="ShapeOffset"&gt;-3.5&lt;/property&gt;
+          &lt;property name="ShapeType"&gt;Circular_Style1_4&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="MajorTickCount"&gt;11&lt;/property&gt;
+        &lt;property name="Labels" iskey="true" value="0" /&gt;
+        &lt;property name="Ranges" iskey="true" value="0" /&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;0&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Minutes&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;Scales&lt;/property&gt;
+        &lt;property name="BoundElementName" isnull="true" /&gt;
+        &lt;property name="TypeNameEx"&gt;ArcScaleComponent&lt;/property&gt;
+        &lt;property name="Name"&gt;Minutes_Scale1&lt;/property&gt;
+        &lt;property name="Logarithmic"&gt;false&lt;/property&gt;
+        &lt;property name="Value"&gt;38&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item9" isnull="true" iskey="true"&gt;
+        &lt;property name="ScaleCenterPos"&gt;0.5, 0.5&lt;/property&gt;
+        &lt;property name="Size"&gt;@3,Width=250@3,Height=250&lt;/property&gt;
+        &lt;property name="ShapeType"&gt;CircularFull_Default&lt;/property&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;1000&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Minutes&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;BackgroundLayers&lt;/property&gt;
+        &lt;property name="BoundElementName"&gt;Minutes_Scale1&lt;/property&gt;
+        &lt;property name="TypeNameEx"&gt;ArcScaleBackgroundLayerComponent&lt;/property&gt;
+        &lt;property name="Name"&gt;Minutes_BackgroundLayer1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item10" isnull="true" iskey="true"&gt;
+        &lt;property name="StartOffset"&gt;-4.4&lt;/property&gt;
+        &lt;property name="EndOffset"&gt;0&lt;/property&gt;
+        &lt;property name="ShapeType"&gt;Circular_Default&lt;/property&gt;
+        &lt;property name="Value" isnull="true" /&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;-50&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Minutes&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;Needles&lt;/property&gt;
+        &lt;property name="BoundElementName"&gt;Minutes_Scale1&lt;/property&gt;
+        &lt;property name="TypeNameEx"&gt;ArcScaleNeedleComponent&lt;/property&gt;
+        &lt;property name="Name"&gt;Minutes_Needle1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item11" isnull="true" iskey="true"&gt;
+        &lt;property name="AutoSize"&gt;Default&lt;/property&gt;
+        &lt;property name="OptionsToolTip" isnull="true" iskey="true"&gt;
+          &lt;property name="TooltipFormat"&gt;{1:F2}&lt;/property&gt;
+          &lt;property name="TooltipTitleFormat" /&gt;
+          &lt;property name="Tooltip" /&gt;
+          &lt;property name="TooltipTitle" /&gt;
+          &lt;property name="TooltipIconType"&gt;None&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Name"&gt;Seconds&lt;/property&gt;
+        &lt;property name="ParentName" /&gt;
+        &lt;property name="ParentCollectionName"&gt;Gauges&lt;/property&gt;
+        &lt;property name="TypeNameEx"&gt;CircularGauge&lt;/property&gt;
+        &lt;property name="Bounds"&gt;@3,X=775@1,Y=5@3,Width=290@3,Height=290&lt;/property&gt;
+        &lt;property name="ProportionalStretch"&gt;true&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item12" isnull="true" iskey="true"&gt;
+        &lt;property name="UseColorScheme"&gt;true&lt;/property&gt;
+        &lt;property name="Position"&gt;125, 270&lt;/property&gt;
+        &lt;property name="Size"&gt;@3,Width=125@2,Height=25&lt;/property&gt;
+        &lt;property name="AllowHTMLString"&gt;true&lt;/property&gt;
+        &lt;property name="Text"&gt;Seconds&lt;/property&gt;
+        &lt;property name="TextOrientation"&gt;Default&lt;/property&gt;
+        &lt;property name="FormatString"&gt;{0}&lt;/property&gt;
+        &lt;property name="AppearanceBackground" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceText" isnull="true" iskey="true"&gt;
+          &lt;property name="Font"&gt;Tahoma, 14pt&lt;/property&gt;
+          &lt;property name="Spacing"&gt;0, 0, 0, 0&lt;/property&gt;
+          &lt;property name="Format" isnull="true" iskey="true"&gt;
+            &lt;property name="Alignment"&gt;Center&lt;/property&gt;
+            &lt;property name="LineAlignment"&gt;Center&lt;/property&gt;
+            &lt;property name="Trimming"&gt;Character&lt;/property&gt;
+            &lt;property name="FormatFlags"&gt;NoClip&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="TextBrush" isnull="true" iskey="true" /&gt;
+        &lt;/property&gt;
+        &lt;property name="Name"&gt;Seconds&lt;/property&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;-10000&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Seconds&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;Labels&lt;/property&gt;
+        &lt;property name="BoundElementName" isnull="true" /&gt;
+        &lt;property name="TypeNameEx"&gt;LabelComponent&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item13" isnull="true" iskey="true"&gt;
+        &lt;property name="AppearanceScale" isnull="true" iskey="true"&gt;
+          &lt;property name="Brush" isnull="true" iskey="true" /&gt;
+          &lt;property name="Width"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceMinorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceMajorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;White&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceTickmarkTextBackground" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="ContentBrush" isnull="true" iskey="true" /&gt;
+          &lt;property name="BorderWidth"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AppearanceTickmarkText" isnull="true" iskey="true"&gt;
+          &lt;property name="Font"&gt;Tahoma, 11pt&lt;/property&gt;
+          &lt;property name="Spacing"&gt;0, 0, 0, 0&lt;/property&gt;
+          &lt;property name="Format" isnull="true" iskey="true"&gt;
+            &lt;property name="Alignment"&gt;Center&lt;/property&gt;
+            &lt;property name="LineAlignment"&gt;Center&lt;/property&gt;
+            &lt;property name="Trimming"&gt;Character&lt;/property&gt;
+            &lt;property name="FormatFlags"&gt;NoClip&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="TextBrush" isnull="true" iskey="true"&gt;
+            &lt;property name="Color"&gt;Black&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="UseColorScheme"&gt;true&lt;/property&gt;
+        &lt;property name="CustomLogarithmicBase"&gt;2&lt;/property&gt;
+        &lt;property name="LogarithmicBase"&gt;Binary&lt;/property&gt;
+        &lt;property name="Appearance" isnull="true" iskey="true"&gt;
+          &lt;property name="Brush" isnull="true" iskey="true" /&gt;
+          &lt;property name="Width"&gt;0&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AutoRescaling"&gt;false&lt;/property&gt;
+        &lt;property name="Center"&gt;125, 125&lt;/property&gt;
+        &lt;property name="RadiusX"&gt;100&lt;/property&gt;
+        &lt;property name="RadiusY"&gt;100&lt;/property&gt;
+        &lt;property name="StartAngle"&gt;-240&lt;/property&gt;
+        &lt;property name="EndAngle"&gt;60&lt;/property&gt;
+        &lt;property name="MinValue"&gt;0&lt;/property&gt;
+        &lt;property name="MaxValue"&gt;60&lt;/property&gt;
+        &lt;property name="RescalingThresholdMin"&gt;0.05&lt;/property&gt;
+        &lt;property name="RescalingThresholdMax"&gt;0.05&lt;/property&gt;
+        &lt;property name="RescalingBestValues"&gt;false&lt;/property&gt;
+        &lt;property name="MinorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="ShowTick"&gt;true&lt;/property&gt;
+          &lt;property name="ShowFirst"&gt;true&lt;/property&gt;
+          &lt;property name="ShowLast"&gt;true&lt;/property&gt;
+          &lt;property name="ShapeScale"&gt;1, 1&lt;/property&gt;
+          &lt;property name="ShapeOffset"&gt;0&lt;/property&gt;
+          &lt;property name="ShapeType"&gt;Circular_Style1_3&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="MinorTickCount"&gt;4&lt;/property&gt;
+        &lt;property name="MajorTickmark" isnull="true" iskey="true"&gt;
+          &lt;property name="Multiplier"&gt;1&lt;/property&gt;
+          &lt;property name="Addend"&gt;0&lt;/property&gt;
+          &lt;property name="TextOffset"&gt;-15&lt;/property&gt;
+          &lt;property name="ShowText"&gt;true&lt;/property&gt;
+          &lt;property name="AllowTickOverlap"&gt;false&lt;/property&gt;
+          &lt;property name="TextOrientation"&gt;LeftToRight&lt;/property&gt;
+          &lt;property name="FormatString"&gt;{0:F0}&lt;/property&gt;
+          &lt;property name="ShowTick"&gt;true&lt;/property&gt;
+          &lt;property name="ShowFirst"&gt;true&lt;/property&gt;
+          &lt;property name="ShowLast"&gt;true&lt;/property&gt;
+          &lt;property name="ShapeScale"&gt;1, 1&lt;/property&gt;
+          &lt;property name="ShapeOffset"&gt;-3.5&lt;/property&gt;
+          &lt;property name="ShapeType"&gt;Circular_Style1_4&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="MajorTickCount"&gt;11&lt;/property&gt;
+        &lt;property name="Labels" iskey="true" value="0" /&gt;
+        &lt;property name="Ranges" iskey="true" value="0" /&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;0&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Seconds&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;Scales&lt;/property&gt;
+        &lt;property name="BoundElementName" isnull="true" /&gt;
+        &lt;property name="TypeNameEx"&gt;ArcScaleComponent&lt;/property&gt;
+        &lt;property name="Name"&gt;Seconds_Scale1&lt;/property&gt;
+        &lt;property name="Logarithmic"&gt;false&lt;/property&gt;
+        &lt;property name="Value"&gt;7&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item14" isnull="true" iskey="true"&gt;
+        &lt;property name="ScaleCenterPos"&gt;0.5, 0.5&lt;/property&gt;
+        &lt;property name="Size"&gt;@3,Width=250@3,Height=250&lt;/property&gt;
+        &lt;property name="ShapeType"&gt;CircularFull_Default&lt;/property&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;1000&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Seconds&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;BackgroundLayers&lt;/property&gt;
+        &lt;property name="BoundElementName"&gt;Seconds_Scale1&lt;/property&gt;
+        &lt;property name="TypeNameEx"&gt;ArcScaleBackgroundLayerComponent&lt;/property&gt;
+        &lt;property name="Name"&gt;Seconds_BackgroundLayer1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item15" isnull="true" iskey="true"&gt;
+        &lt;property name="StartOffset"&gt;-4.4&lt;/property&gt;
+        &lt;property name="EndOffset"&gt;0&lt;/property&gt;
+        &lt;property name="ShapeType"&gt;Circular_Default&lt;/property&gt;
+        &lt;property name="Value" isnull="true" /&gt;
+        &lt;property name="Enabled" isnull="true" iskey="true" /&gt;
+        &lt;property name="Shader" isnull="true" iskey="true"&gt;
+          &lt;property name="TypeTag"&gt;Empty&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="ZOrder"&gt;-50&lt;/property&gt;
+        &lt;property name="ParentName"&gt;Seconds&lt;/property&gt;
+        &lt;property name="ParentCollectionName"&gt;Needles&lt;/property&gt;
+        &lt;property name="BoundElementName"&gt;Seconds_Scale1&lt;/property&gt;
+        &lt;property name="TypeNameEx"&gt;ArcScaleNeedleComponent&lt;/property&gt;
+        &lt;property name="Name"&gt;Seconds_Needle1&lt;/property&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+  &lt;/property&gt;
+  &lt;property name="$BarManager_Panel2_ChartUserControl_Panel2_Document_Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_" iskey="true" value="BarManager_Panel2_ChartUserControl_Panel2_Document_Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_"&gt;
+    &lt;property name="#LayoutVersion" /&gt;
+    &lt;property name="ItemLinkIdCollection" iskey="true" value="26"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;createBarBaseItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item2" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;createLineBaseItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item3" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;createPieBaseItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item4" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;createRotatedBarBaseItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item5" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;createAreaBaseItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item6" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;createOtherSeriesTypesBaseItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item7" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;changePaletteGalleryBaseItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item8" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;changeAppearanceGalleryBaseBarManagerItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item9" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;runDesignerChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item10" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;saveAsTemplateChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item11" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;loadTemplateChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item12" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;printPreviewChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item13" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;printChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item14" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;createExportBaseItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item15" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToPDFChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item16" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToHTMLChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item17" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToMHTChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item18" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToXLSChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item19" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToXLSXChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item20" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToRTFChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item21" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToBMPChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item22" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToGIFChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item23" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToJPEGChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item24" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToPNGChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item25" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;exportToTIFFChartItem1&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item26" isnull="true" iskey="true"&gt;
+        &lt;property name="Id"&gt;createExportToImageBaseItem1&lt;/property&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+    &lt;property name="Items" iskey="true" value="2"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="AllowSerializeChildren"&gt;Default&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="7"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;14&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;0&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;15&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item3" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;16&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;2&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item4" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;17&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;3&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item5" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;18&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;4&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item6" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;19&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;5&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item7" isnull="true" iskey="true"&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;20&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;6&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Id"&gt;13&lt;/property&gt;
+        &lt;property name="Visibility"&gt;Always&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item2" isnull="true" iskey="true"&gt;
+        &lt;property name="AllowSerializeChildren"&gt;Default&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="5"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;21&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;0&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;22&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item3" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;23&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;2&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item4" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;24&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;3&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item5" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;25&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;20&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;4&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Id"&gt;20&lt;/property&gt;
+        &lt;property name="Visibility"&gt;Always&lt;/property&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+    &lt;property name="PopupMenuAlignment"&gt;Default&lt;/property&gt;
+    &lt;property name="CloseButtonAffectAllTabs"&gt;true&lt;/property&gt;
+    &lt;property name="RightToLeft"&gt;Default&lt;/property&gt;
+    &lt;property name="TransparentEditorsMode"&gt;Default&lt;/property&gt;
+    &lt;property name="ShowFullMenus"&gt;false&lt;/property&gt;
+    &lt;property name="ShowFullMenusAfterDelay"&gt;true&lt;/property&gt;
+    &lt;property name="ShowShortcutInScreenTips"&gt;true&lt;/property&gt;
+    &lt;property name="ShowScreenTipsInToolbars"&gt;true&lt;/property&gt;
+    &lt;property name="LargeIcons"&gt;false&lt;/property&gt;
+    &lt;property name="MenuAnimationType"&gt;Default&lt;/property&gt;
+    &lt;property name="Bars" iskey="true" value="5"&gt;
+      &lt;property name="Item1" isnull="true" iskey="true"&gt;
+        &lt;property name="OptionsBar" isnull="true" iskey="true"&gt;
+          &lt;property name="MinHeight"&gt;0&lt;/property&gt;
+          &lt;property name="DistanceBetweenItems"&gt;0&lt;/property&gt;
+          &lt;property name="AutoPopupMode"&gt;Default&lt;/property&gt;
+          &lt;property name="DrawBorder"&gt;true&lt;/property&gt;
+          &lt;property name="AllowCollapse"&gt;false&lt;/property&gt;
+          &lt;property name="BarState"&gt;Expanded&lt;/property&gt;
+          &lt;property name="AllowDelete"&gt;false&lt;/property&gt;
+          &lt;property name="AllowRename"&gt;false&lt;/property&gt;
+          &lt;property name="AllowQuickCustomization"&gt;true&lt;/property&gt;
+          &lt;property name="DisableClose"&gt;false&lt;/property&gt;
+          &lt;property name="DisableCustomization"&gt;false&lt;/property&gt;
+          &lt;property name="DrawDragBorder"&gt;true&lt;/property&gt;
+          &lt;property name="DrawSizeGrip"&gt;false&lt;/property&gt;
+          &lt;property name="Hidden"&gt;false&lt;/property&gt;
+          &lt;property name="MultiLine"&gt;false&lt;/property&gt;
+          &lt;property name="RotateWhenVertical"&gt;true&lt;/property&gt;
+          &lt;property name="UseWholeRow"&gt;false&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="FloatSize"&gt;@1,Width=0@1,Height=0&lt;/property&gt;
+        &lt;property name="FloatLocation"&gt;@1,X=0@1,Y=0&lt;/property&gt;
+        &lt;property name="BarName"&gt;Chart Type&lt;/property&gt;
+        &lt;property name="Visible"&gt;true&lt;/property&gt;
+        &lt;property name="DockStyle"&gt;Top&lt;/property&gt;
+        &lt;property name="StandaloneBarDockControlName" /&gt;
+        &lt;property name="DockRow"&gt;0&lt;/property&gt;
+        &lt;property name="DockCol"&gt;2&lt;/property&gt;
+        &lt;property name="Offset"&gt;0&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="6"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;0&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;0&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;1&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item3" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;2&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;2&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item4" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;3&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;3&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item5" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;4&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;4&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item6" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;5&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;5&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item2" isnull="true" iskey="true"&gt;
+        &lt;property name="OptionsBar" isnull="true" iskey="true"&gt;
+          &lt;property name="MinHeight"&gt;0&lt;/property&gt;
+          &lt;property name="DistanceBetweenItems"&gt;0&lt;/property&gt;
+          &lt;property name="AutoPopupMode"&gt;Default&lt;/property&gt;
+          &lt;property name="DrawBorder"&gt;true&lt;/property&gt;
+          &lt;property name="AllowCollapse"&gt;false&lt;/property&gt;
+          &lt;property name="BarState"&gt;Expanded&lt;/property&gt;
+          &lt;property name="AllowDelete"&gt;false&lt;/property&gt;
+          &lt;property name="AllowRename"&gt;false&lt;/property&gt;
+          &lt;property name="AllowQuickCustomization"&gt;true&lt;/property&gt;
+          &lt;property name="DisableClose"&gt;false&lt;/property&gt;
+          &lt;property name="DisableCustomization"&gt;false&lt;/property&gt;
+          &lt;property name="DrawDragBorder"&gt;true&lt;/property&gt;
+          &lt;property name="DrawSizeGrip"&gt;false&lt;/property&gt;
+          &lt;property name="Hidden"&gt;false&lt;/property&gt;
+          &lt;property name="MultiLine"&gt;false&lt;/property&gt;
+          &lt;property name="RotateWhenVertical"&gt;true&lt;/property&gt;
+          &lt;property name="UseWholeRow"&gt;false&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="FloatSize"&gt;@1,Width=0@1,Height=0&lt;/property&gt;
+        &lt;property name="FloatLocation"&gt;@1,X=0@1,Y=0&lt;/property&gt;
+        &lt;property name="BarName"&gt;Appearance&lt;/property&gt;
+        &lt;property name="Visible"&gt;true&lt;/property&gt;
+        &lt;property name="DockStyle"&gt;Top&lt;/property&gt;
+        &lt;property name="StandaloneBarDockControlName" /&gt;
+        &lt;property name="DockRow"&gt;0&lt;/property&gt;
+        &lt;property name="DockCol"&gt;3&lt;/property&gt;
+        &lt;property name="Offset"&gt;0&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="2"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;6&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;0&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;7&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item3" isnull="true" iskey="true"&gt;
+        &lt;property name="OptionsBar" isnull="true" iskey="true"&gt;
+          &lt;property name="MinHeight"&gt;0&lt;/property&gt;
+          &lt;property name="DistanceBetweenItems"&gt;0&lt;/property&gt;
+          &lt;property name="AutoPopupMode"&gt;Default&lt;/property&gt;
+          &lt;property name="DrawBorder"&gt;true&lt;/property&gt;
+          &lt;property name="AllowCollapse"&gt;false&lt;/property&gt;
+          &lt;property name="BarState"&gt;Expanded&lt;/property&gt;
+          &lt;property name="AllowDelete"&gt;false&lt;/property&gt;
+          &lt;property name="AllowRename"&gt;false&lt;/property&gt;
+          &lt;property name="AllowQuickCustomization"&gt;true&lt;/property&gt;
+          &lt;property name="DisableClose"&gt;false&lt;/property&gt;
+          &lt;property name="DisableCustomization"&gt;false&lt;/property&gt;
+          &lt;property name="DrawDragBorder"&gt;true&lt;/property&gt;
+          &lt;property name="DrawSizeGrip"&gt;false&lt;/property&gt;
+          &lt;property name="Hidden"&gt;false&lt;/property&gt;
+          &lt;property name="MultiLine"&gt;false&lt;/property&gt;
+          &lt;property name="RotateWhenVertical"&gt;true&lt;/property&gt;
+          &lt;property name="UseWholeRow"&gt;false&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="FloatSize"&gt;@1,Width=0@1,Height=0&lt;/property&gt;
+        &lt;property name="FloatLocation"&gt;@1,X=0@1,Y=0&lt;/property&gt;
+        &lt;property name="BarName"&gt;Designer&lt;/property&gt;
+        &lt;property name="Visible"&gt;true&lt;/property&gt;
+        &lt;property name="DockStyle"&gt;Top&lt;/property&gt;
+        &lt;property name="StandaloneBarDockControlName" /&gt;
+        &lt;property name="DockRow"&gt;0&lt;/property&gt;
+        &lt;property name="DockCol"&gt;4&lt;/property&gt;
+        &lt;property name="Offset"&gt;0&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="1"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;8&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;3&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;0&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item4" isnull="true" iskey="true"&gt;
+        &lt;property name="OptionsBar" isnull="true" iskey="true"&gt;
+          &lt;property name="MinHeight"&gt;0&lt;/property&gt;
+          &lt;property name="DistanceBetweenItems"&gt;0&lt;/property&gt;
+          &lt;property name="AutoPopupMode"&gt;Default&lt;/property&gt;
+          &lt;property name="DrawBorder"&gt;true&lt;/property&gt;
+          &lt;property name="AllowCollapse"&gt;false&lt;/property&gt;
+          &lt;property name="BarState"&gt;Expanded&lt;/property&gt;
+          &lt;property name="AllowDelete"&gt;false&lt;/property&gt;
+          &lt;property name="AllowRename"&gt;false&lt;/property&gt;
+          &lt;property name="AllowQuickCustomization"&gt;true&lt;/property&gt;
+          &lt;property name="DisableClose"&gt;false&lt;/property&gt;
+          &lt;property name="DisableCustomization"&gt;false&lt;/property&gt;
+          &lt;property name="DrawDragBorder"&gt;true&lt;/property&gt;
+          &lt;property name="DrawSizeGrip"&gt;false&lt;/property&gt;
+          &lt;property name="Hidden"&gt;false&lt;/property&gt;
+          &lt;property name="MultiLine"&gt;false&lt;/property&gt;
+          &lt;property name="RotateWhenVertical"&gt;true&lt;/property&gt;
+          &lt;property name="UseWholeRow"&gt;false&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="FloatSize"&gt;@1,Width=0@1,Height=0&lt;/property&gt;
+        &lt;property name="FloatLocation"&gt;@4,X=1439@3,Y=287&lt;/property&gt;
+        &lt;property name="BarName"&gt;Templates&lt;/property&gt;
+        &lt;property name="Visible"&gt;true&lt;/property&gt;
+        &lt;property name="DockStyle"&gt;Top&lt;/property&gt;
+        &lt;property name="StandaloneBarDockControlName" /&gt;
+        &lt;property name="DockRow"&gt;0&lt;/property&gt;
+        &lt;property name="DockCol"&gt;0&lt;/property&gt;
+        &lt;property name="Offset"&gt;0&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="2"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;9&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;10&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Item5" isnull="true" iskey="true"&gt;
+        &lt;property name="OptionsBar" isnull="true" iskey="true"&gt;
+          &lt;property name="MinHeight"&gt;0&lt;/property&gt;
+          &lt;property name="DistanceBetweenItems"&gt;0&lt;/property&gt;
+          &lt;property name="AutoPopupMode"&gt;Default&lt;/property&gt;
+          &lt;property name="DrawBorder"&gt;true&lt;/property&gt;
+          &lt;property name="AllowCollapse"&gt;false&lt;/property&gt;
+          &lt;property name="BarState"&gt;Expanded&lt;/property&gt;
+          &lt;property name="AllowDelete"&gt;false&lt;/property&gt;
+          &lt;property name="AllowRename"&gt;false&lt;/property&gt;
+          &lt;property name="AllowQuickCustomization"&gt;true&lt;/property&gt;
+          &lt;property name="DisableClose"&gt;false&lt;/property&gt;
+          &lt;property name="DisableCustomization"&gt;false&lt;/property&gt;
+          &lt;property name="DrawDragBorder"&gt;true&lt;/property&gt;
+          &lt;property name="DrawSizeGrip"&gt;false&lt;/property&gt;
+          &lt;property name="Hidden"&gt;false&lt;/property&gt;
+          &lt;property name="MultiLine"&gt;false&lt;/property&gt;
+          &lt;property name="RotateWhenVertical"&gt;true&lt;/property&gt;
+          &lt;property name="UseWholeRow"&gt;false&lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="FloatSize"&gt;@1,Width=0@1,Height=0&lt;/property&gt;
+        &lt;property name="FloatLocation"&gt;@1,X=0@1,Y=0&lt;/property&gt;
+        &lt;property name="BarName"&gt;Print and Export&lt;/property&gt;
+        &lt;property name="Visible"&gt;true&lt;/property&gt;
+        &lt;property name="DockStyle"&gt;Top&lt;/property&gt;
+        &lt;property name="StandaloneBarDockControlName" /&gt;
+        &lt;property name="DockRow"&gt;0&lt;/property&gt;
+        &lt;property name="DockCol"&gt;1&lt;/property&gt;
+        &lt;property name="Offset"&gt;0&lt;/property&gt;
+        &lt;property name="ItemLinks" iskey="true" value="3"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;11&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item2" isnull="true" iskey="true"&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="DropDownKeyTip" /&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;12&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Item3" isnull="true" iskey="true"&gt;
+            &lt;property name="AllowCollapseInSimplifiedRibbon"&gt;true&lt;/property&gt;
+            &lt;property name="IsMerged"&gt;false&lt;/property&gt;
+            &lt;property name="IsPageGroupContentToolbarButtonLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryLinkIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="PageGroupName" /&gt;
+            &lt;property name="IsGalleryToolbarItemLink"&gt;false&lt;/property&gt;
+            &lt;property name="GalleryBarItemName" /&gt;
+            &lt;property name="ItemId"&gt;13&lt;/property&gt;
+            &lt;property name="ClickCount"&gt;0&lt;/property&gt;
+            &lt;property name="UserWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserEditWidth"&gt;0&lt;/property&gt;
+            &lt;property name="UserCaption" /&gt;
+            &lt;property name="UserRibbonStyle"&gt;Default&lt;/property&gt;
+            &lt;property name="UserAlignment"&gt;Default&lt;/property&gt;
+            &lt;property name="UserPaintStyle"&gt;Standard&lt;/property&gt;
+            &lt;property name="Width"&gt;0&lt;/property&gt;
+            &lt;property name="RecentIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="Visible"&gt;true&lt;/property&gt;
+            &lt;property name="MostRecentlyUsed"&gt;true&lt;/property&gt;
+            &lt;property name="ImageIndex"&gt;-1&lt;/property&gt;
+            &lt;property name="BeginGroup"&gt;false&lt;/property&gt;
+            &lt;property name="ActAsButtonGroup"&gt;false&lt;/property&gt;
+            &lt;property name="KeyTip" /&gt;
+            &lt;property name="UserDefine"&gt;None&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+      &lt;/property&gt;
+    &lt;/property&gt;
+  &lt;/property&gt;
+  &lt;property name="$chartControl1_ChartControl_Panel2_ChartUserControl_Panel2_Document_Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_" iskey="true" value="chartControl1_ChartControl_Panel2_ChartUserControl_Panel2_Document_Widget0_WidgetView_DocumentManager_dashboardContainerControl1_DashboardContainerControl_"&gt;
+    &lt;property name="Chart" isnull="true" iskey="true"&gt;
+      &lt;property name="AppearanceNameSerializable"&gt;Default&lt;/property&gt;
+      &lt;property name="AnnotationRepository" iskey="true" value="0" /&gt;
+      &lt;property name="BackColor"&gt;240, 240, 240&lt;/property&gt;
+      &lt;property name="Border" isnull="true" iskey="true"&gt;
+        &lt;property name="Visibility"&gt;False&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="DataContainer" isnull="true" iskey="true"&gt;
+        &lt;property name="BoundSeriesSorting"&gt;None&lt;/property&gt;
+        &lt;property name="CalculatedFields" iskey="true" value="0" /&gt;
+        &lt;property name="PivotGridDataSourceOptions" isnull="true" iskey="true" /&gt;
+        &lt;property name="SeriesDataMember" isnull="true" /&gt;
+        &lt;property name="SeriesNameTemplate" isnull="true" iskey="true" /&gt;
+        &lt;property name="SeriesSerializable" iskey="true" value="1"&gt;
+          &lt;property name="Item1" isnull="true" iskey="true"&gt;
+            &lt;property name="View" isnull="true" iskey="true"&gt;
+              &lt;property name="LineStyle" isnull="true" iskey="true"&gt;
+                &lt;property name="Thickness"&gt;1&lt;/property&gt;
+              &lt;/property&gt;
+              &lt;property name="LineMarkerOptions" isnull="true" iskey="true"&gt;
+                &lt;property name="Color"&gt;0, 0, 0, 0&lt;/property&gt;
+                &lt;property name="Kind"&gt;Square&lt;/property&gt;
+                &lt;property name="FillStyle" isnull="true" iskey="true"&gt;
+                  &lt;property name="FillMode"&gt;Solid&lt;/property&gt;
+                &lt;/property&gt;
+                &lt;property name="BorderVisible"&gt;false&lt;/property&gt;
+                &lt;property name="BorderColor"&gt;0, 0, 0, 0&lt;/property&gt;
+              &lt;/property&gt;
+              &lt;property name="SeriesPointAnimation" isnull="true" iskey="true"&gt;
+                &lt;property name="TypeNameSerializable"&gt;XYMarkerWidenAnimation&lt;/property&gt;
+              &lt;/property&gt;
+              &lt;property name="FirstPoint" isnull="true" iskey="true"&gt;
+                &lt;property name="MarkerDisplayMode"&gt;Default&lt;/property&gt;
+                &lt;property name="Label" isnull="true" iskey="true"&gt;
+                  &lt;property name="Angle"&gt;180&lt;/property&gt;
+                  &lt;property name="TypeNameSerializable"&gt;PointSeriesLabel&lt;/property&gt;
+                  &lt;property name="TextOrientation"&gt;Horizontal&lt;/property&gt;
+                &lt;/property&gt;
+                &lt;property name="LabelDisplayMode"&gt;Default&lt;/property&gt;
+                &lt;property name="TypeNameSerializable"&gt;SidePointMarker&lt;/property&gt;
+              &lt;/property&gt;
+              &lt;property name="LastPoint" isnull="true" iskey="true"&gt;
+                &lt;property name="MarkerDisplayMode"&gt;Default&lt;/property&gt;
+                &lt;property name="Label" isnull="true" iskey="true"&gt;
+                  &lt;property name="Angle"&gt;0&lt;/property&gt;
+                  &lt;property name="TypeNameSerializable"&gt;PointSeriesLabel&lt;/property&gt;
+                  &lt;property name="TextOrientation"&gt;Horizontal&lt;/property&gt;
+                &lt;/property&gt;
+                &lt;property name="LabelDisplayMode"&gt;Default&lt;/property&gt;
+                &lt;property name="TypeNameSerializable"&gt;SidePointMarker&lt;/property&gt;
+              &lt;/property&gt;
+              &lt;property name="AggregateFunction"&gt;Average&lt;/property&gt;
+              &lt;property name="Color"&gt;0, 112, 192&lt;/property&gt;
+              &lt;property name="TypeNameSerializable"&gt;LineSeriesView&lt;/property&gt;
+            &lt;/property&gt;
+            &lt;property name="Name"&gt;Series6&lt;/property&gt;
+            &lt;property name="ArgumentDataMember"&gt;Date&lt;/property&gt;
+            &lt;property name="ColorDataMember" isnull="true" /&gt;
+            &lt;property name="NumericSummaryOptions" isnull="true" iskey="true" /&gt;
+            &lt;property name="DateTimeSummaryOptions" isnull="true" iskey="true" /&gt;
+            &lt;property name="TimeSpanSummaryOptions" isnull="true" iskey="true" /&gt;
+            &lt;property name="QualitativeSummaryOptions" isnull="true" iskey="true" /&gt;
+            &lt;property name="ValueDataMembersSerializable"&gt;Value&lt;/property&gt;
+            &lt;property name="TopNOptions" isnull="true" iskey="true" /&gt;
+            &lt;property name="CrosshairTextOptions" isnull="true" iskey="true" /&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="SeriesTemplate" isnull="true" iskey="true"&gt;
+          &lt;property name="SeriesDataMember" isnull="true" /&gt;
+          &lt;property name="ColorDataMember" isnull="true" /&gt;
+          &lt;property name="NumericSummaryOptions" isnull="true" iskey="true" /&gt;
+          &lt;property name="DateTimeSummaryOptions" isnull="true" iskey="true" /&gt;
+          &lt;property name="TimeSpanSummaryOptions" isnull="true" iskey="true" /&gt;
+          &lt;property name="QualitativeSummaryOptions" isnull="true" iskey="true" /&gt;
+          &lt;property name="TopNOptions" isnull="true" iskey="true" /&gt;
+          &lt;property name="CrosshairTextOptions" isnull="true" iskey="true" /&gt;
+        &lt;/property&gt;
+        &lt;property name="ValidateDataMembers"&gt;true&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Diagram" isnull="true" iskey="true"&gt;
+        &lt;property name="AxisX" isnull="true" iskey="true"&gt;
+          &lt;property name="StickToEnd"&gt;false&lt;/property&gt;
+          &lt;property name="ScaleBreaks" iskey="true" value="0" /&gt;
+          &lt;property name="Strips" iskey="true" value="0" /&gt;
+          &lt;property name="ConstantLines" iskey="true" value="0" /&gt;
+          &lt;property name="CustomLabels" iskey="true" value="0" /&gt;
+          &lt;property name="Label" isnull="true" iskey="true"&gt;
+            &lt;property name="TextColor"&gt;120, 120, 120&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Color"&gt;120, 120, 120&lt;/property&gt;
+          &lt;property name="VisibleInPanesSerializable"&gt;-1&lt;/property&gt;
+          &lt;property name="ShowBehind"&gt;false&lt;/property&gt;
+          &lt;property name="VisualRange" isnull="true" iskey="true" /&gt;
+          &lt;property name="WholeRange" isnull="true" iskey="true"&gt;
+            &lt;property name="StartSideMargin"&gt;2.2&lt;/property&gt;
+            &lt;property name="EndSideMargin"&gt;2.2&lt;/property&gt;
+            &lt;property name="SideMarginSizeUnit"&gt;AxisUnit&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="DateTimeScaleOptions" isnull="true" iskey="true"&gt;
+            &lt;property name="MeasureUnit"&gt;Second&lt;/property&gt;
+            &lt;property name="IntervalOptions" isnull="true" iskey="true"&gt;
+              &lt;property name="UnderflowValue" isnull="true" /&gt;
+              &lt;property name="OverflowValue" isnull="true" /&gt;
+              &lt;property name="Pattern" isnull="true" /&gt;
+              &lt;property name="UnderflowValuePattern" isnull="true" /&gt;
+              &lt;property name="OverflowValuePattern" isnull="true" /&gt;
+            &lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="AxisY" isnull="true" iskey="true"&gt;
+          &lt;property name="ScaleBreaks" iskey="true" value="0" /&gt;
+          &lt;property name="Strips" iskey="true" value="0" /&gt;
+          &lt;property name="ConstantLines" iskey="true" value="0" /&gt;
+          &lt;property name="CustomLabels" iskey="true" value="0" /&gt;
+          &lt;property name="Label" isnull="true" iskey="true"&gt;
+            &lt;property name="TextColor"&gt;120, 120, 120&lt;/property&gt;
+          &lt;/property&gt;
+          &lt;property name="Color"&gt;120, 120, 120&lt;/property&gt;
+          &lt;property name="VisibleInPanesSerializable"&gt;-1&lt;/property&gt;
+          &lt;property name="ShowBehind"&gt;false&lt;/property&gt;
+          &lt;property name="VisualRange" isnull="true" iskey="true" /&gt;
+          &lt;property name="WholeRange" isnull="true" iskey="true"&gt;
+            &lt;property name="StartSideMargin"&gt;9.9259264813391148&lt;/property&gt;
+            &lt;property name="EndSideMargin"&gt;9.9259264813391148&lt;/property&gt;
+            &lt;property name="SideMarginSizeUnit"&gt;AxisUnit&lt;/property&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="SecondaryAxesX" iskey="true" value="0" /&gt;
+        &lt;property name="SecondaryAxesY" iskey="true" value="0" /&gt;
+        &lt;property name="SelectionOptions" isnull="true" iskey="true"&gt;
+          &lt;property name="ExtendedModeMouseAction" isnull="true" iskey="true" /&gt;
+        &lt;/property&gt;
+        &lt;property name="DefaultPane" isnull="true" iskey="true"&gt;
+          &lt;property name="BorderVisible"&gt;false&lt;/property&gt;
+          &lt;property name="BackColor"&gt;240, 240, 240&lt;/property&gt;
+          &lt;property name="StackedBarTotalLabel" isnull="true" iskey="true"&gt;
+            &lt;property name="ConnectorLineStyle" isnull="true" iskey="true" /&gt;
+          &lt;/property&gt;
+        &lt;/property&gt;
+        &lt;property name="Panes" iskey="true" value="0" /&gt;
+        &lt;property name="RuntimePaneCollapse"&gt;true&lt;/property&gt;
+        &lt;property name="RuntimePaneResize"&gt;false&lt;/property&gt;
+        &lt;property name="PaneLayoutDirection"&gt;Vertical&lt;/property&gt;
+        &lt;property name="TypeNameSerializable"&gt;XYDiagram&lt;/property&gt;
+      &lt;/property&gt;
+      &lt;property name="Legend" isnull="true" iskey="true"&gt;
+        &lt;property name="CrosshairContentOffset"&gt;4&lt;/property&gt;
+        &lt;property name="MaxCrosshairContentWidth"&gt;50&lt;/property&gt;
+        &lt;property name="MaxCrosshairContentHeight"&gt;0&lt;/property&gt;
+        &lt;property name="Title" isnull="true" iskey="true" /&gt;
+      &lt;/property&gt;
+      &lt;property name="Legends" iskey="true" value="0" /&gt;
+      &lt;property name="SelectionMode"&gt;None&lt;/property&gt;
+      &lt;property name="SeriesSelectionMode"&gt;Series&lt;/property&gt;
+      &lt;property name="Titles" iskey="true" value="0" /&gt;
+      &lt;property name="XtraIndicatorsPaletteRepository" iskey="true" value="0" /&gt;
+      &lt;property name="XtraPaletteRepository" iskey="true" value="0" /&gt;
+    &lt;/property&gt;
+  &lt;/property&gt;
+&lt;/workspace&gt;</XmlSerializationData>
+        </WfWorkspaceInfo>
+      </Workspaces>
+      <SelectedWorkspaceName>Default</SelectedWorkspaceName>
+    </WfNode>
+    <WfNode xsi:type="WfRandomNode">
+      <OrderIndex>0</OrderIndex>
+      <X>474</X>
+      <Y>600</Y>
+      <Width>250</Width>
+      <Height>89</Height>
+      <Name>Random1</Name>
+      <Id>30d116b5-6350-45b6-b18a-f9e893e2f783</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>64214780-c58e-4e76-a9cb-f2a5e0b9d88e</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>5a9d49d3-ba0d-4921-a011-cc5bc7d2a9c6</Id>
+          <Name>Value</Name>
+          <Text>Value</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+      <From>0</From>
+      <To>100</To>
+    </WfNode>
+    <WfNode xsi:type="WfTableRowNode">
+      <OrderIndex>0</OrderIndex>
+      <X>850</X>
+      <Y>600</Y>
+      <Width>250</Width>
+      <Height>155</Height>
+      <Name>TableRow1</Name>
+      <Id>90b8994c-6990-4161-87aa-708e99089072</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>7f9a3db6-c080-4107-904c-2cedd99b95f8</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>8d5c6ac7-5e0f-4d10-a30b-059bac7d76bf</Id>
+          <Name>TableIn</Name>
+          <Text>Table</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>d53a186d-7ef3-4a04-886f-5d39fd8a2256</Id>
+          <Name>Date</Name>
+          <Text>Date</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>Edit</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>abf7756e-b8cb-4cdf-b8a4-9efe8cd1fdd7</Id>
+          <Name>Value</Name>
+          <Text>Value</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>Add Remove Edit</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>true</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>eb9861e3-c3dd-4699-84cf-0f7519bb8ec9</Id>
+          <Name>Row</Name>
+          <Text>Row</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>4aedb587-6127-4900-b7a1-a7840ca79281</Id>
+          <Name>TableOut</Name>
+          <Text>Table</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+    </WfNode>
+    <WfNode xsi:type="WfLineSeriesNode">
+      <OrderIndex>0</OrderIndex>
+      <X>1200</X>
+      <Y>600</Y>
+      <Width>250</Width>
+      <Height>111</Height>
+      <Name>LineSeries1</Name>
+      <Id>0f90317d-1855-4270-b523-ae4383251454</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>5658b7cd-96b7-472e-a5d1-a3231f5bbeff</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>ecf37ec1-04cf-46cf-8b95-821ecaeaa1b0</Id>
+          <Name>In</Name>
+          <Text>Data In</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>abe4b169-2276-47ba-be11-9cb5c5cc8c17</Id>
+          <Name>Series</Name>
+          <Text>Series</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+      <ArgumentDataMember>Date</ArgumentDataMember>
+      <ValueDataMember>Value</ValueDataMember>
+      <SeriesName>Series6</SeriesName>
+      <ViewType>Spline</ViewType>
+      <LineColorCore>
+        <A>255</A>
+        <R>0</R>
+        <G>112</G>
+        <B>192</B>
+      </LineColorCore>
+      <LineThickness>1</LineThickness>
+      <LineStyle>Solid</LineStyle>
+      <MarkerOptions>
+        <BorderColor>
+          <A>0</A>
+          <R>0</R>
+          <G>0</G>
+          <B>0</B>
+        </BorderColor>
+        <ShowBorder>false</ShowBorder>
+        <ColorCore>
+          <A>0</A>
+          <R>0</R>
+          <G>0</G>
+          <B>0</B>
+        </ColorCore>
+        <Kind>Square</Kind>
+        <Size>10</Size>
+      </MarkerOptions>
+    </WfNode>
+    <WfNode xsi:type="WfChartPanelNode">
+      <OrderIndex>0</OrderIndex>
+      <X>1500</X>
+      <Y>450</Y>
+      <Width>250</Width>
+      <Height>111</Height>
+      <Name>ChartPanel1</Name>
+      <Id>d43e4c2e-56be-4458-b7c0-245ae598251c</Id>
+      <Inputs>
+        <WfConnectionPoint>
+          <Id>4352dc3d-f44d-4309-927c-c6194b9fbae1</Id>
+          <Name>Run</Name>
+          <Text>Run</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+        <WfConnectionPoint>
+          <Id>51ea22f8-8ce9-4393-9224-a1a20e1a75da</Id>
+          <Name>In</Name>
+          <Text>In</Text>
+          <Requirement>Optional</Requirement>
+          <Type>In</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Inputs>
+      <Outputs>
+        <WfConnectionPoint>
+          <Id>b484130b-3c1e-4143-bd8a-1b0f644db2ed</Id>
+          <Name>Panel</Name>
+          <Text>Panel</Text>
+          <Requirement>Optional</Requirement>
+          <Type>Out</Type>
+          <AllowedOperations>None</AllowedOperations>
+          <SkipSubTree>false</SkipSubTree>
+          <AllowEditName>false</AllowEditName>
+        </WfConnectionPoint>
+      </Outputs>
+      <Caption>Dashboard Panel</Caption>
+      <PanelOrderIndex>0</PanelOrderIndex>
+      <PanelName>Panel2</PanelName>
+      <Rotated>false</Rotated>
+      <Panes />
+      <PaneDistance>10</PaneDistance>
+      <PaneLayoutDirection>Vertical</PaneLayoutDirection>
+    </WfNode>
+  </Nodes>
+  <Connectors>
+    <WfConnector>
+      <Id>6e83017d-b6de-4d61-a59b-b30752523bff</Id>
+      <FromId>4aca206b-f94d-4018-9453-19115d88ddd5</FromId>
+      <ToId>e10ba5c9-5ad0-4db2-bbf2-15513bad7c3f</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>79bc1618-02f9-4c7e-939b-c72e7e421596</Id>
+      <FromId>b688bcab-6fe9-40e7-8412-40ac572c8b6c</FromId>
+      <ToId>87112b71-f076-4d27-b6c6-7d08eee25676</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>223fb492-eb20-4eee-a139-d87746bf5502</Id>
+      <FromId>286d00e5-bc04-485b-910f-52168de88987</FromId>
+      <ToId>65bdb18d-7371-46ee-90c2-90a123947438</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>c91b14f0-f2b9-4303-a604-55ccea8f35b8</Id>
+      <FromId>de32fefb-510d-44b5-b393-9bbde77d6edf</FromId>
+      <ToId>6d3dfa40-a208-4813-9633-9a749d207b76</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>2d639b79-a3be-4069-a4d2-5da78031a9a4</Id>
+      <FromId>97e15428-ad17-4e02-b188-958d170a2f67</FromId>
+      <ToId>d138c430-a30f-47f7-84e0-c9cd94f8da48</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>d5774ce4-48c1-4f39-8943-db9c110a1e92</Id>
+      <FromId>90755af3-36e0-4685-be58-ad640b857758</FromId>
+      <ToId>ad9dc0e7-8bc6-482c-8be4-82c5db7eb899</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>0c26a581-9f52-4a50-b5e6-ae9ccb35d342</Id>
+      <FromId>2e6ba2b0-75d4-4c3e-a971-763bb6f510ff</FromId>
+      <ToId>93b19c75-ec5e-4b4d-bf97-fd27d14fbe03</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>7c2faa0b-94db-4ba9-b1b6-75b3847af793</Id>
+      <FromId>a6339df6-957d-4554-b6ab-48e1079c255b</FromId>
+      <ToId>57f8854c-d082-43a1-bd3e-f3fe71e0d970</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>6ae42903-ba38-48fa-8034-e54ed84310c0</Id>
+      <FromId>4aca206b-f94d-4018-9453-19115d88ddd5</FromId>
+      <ToId>64214780-c58e-4e76-a9cb-f2a5e0b9d88e</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>40e2fde7-c02e-4307-ace7-5c9cb8d82644</Id>
+      <FromId>2b9c1611-793f-47ba-88ea-6850e17b4d7a</FromId>
+      <ToId>d53a186d-7ef3-4a04-886f-5d39fd8a2256</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>93568ff7-b6ae-4f3a-b042-730102dd76ab</Id>
+      <FromId>5a9d49d3-ba0d-4921-a011-cc5bc7d2a9c6</FromId>
+      <ToId>abf7756e-b8cb-4cdf-b8a4-9efe8cd1fdd7</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>22955652-44aa-46e6-a191-680bcf2e09da</Id>
+      <FromId>4aedb587-6127-4900-b7a1-a7840ca79281</FromId>
+      <ToId>ecf37ec1-04cf-46cf-8b95-821ecaeaa1b0</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>3bee7123-1af6-4ae8-a197-8d0dd37fa54e</Id>
+      <FromId>abe4b169-2276-47ba-be11-9cb5c5cc8c17</FromId>
+      <ToId>51ea22f8-8ce9-4393-9224-a1a20e1a75da</ToId>
+    </WfConnector>
+    <WfConnector>
+      <Id>42476f34-4eff-4d86-bf07-35a666c1fdee</Id>
+      <FromId>b484130b-3c1e-4143-bd8a-1b0f644db2ed</FromId>
+      <ToId>2c05ef79-068b-4759-ac6c-400055f88aed</ToId>
+    </WfConnector>
+  </Connectors>
+  <ItemColors />
+</WfDocument>

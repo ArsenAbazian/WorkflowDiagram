@@ -22,21 +22,6 @@
     /*background-color: #F9FAFB;*/
 }
 
-.nodes-layer {
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    position: absolute;
-    pointer-events: none;
-    transform-origin: 0px, 0px;
-    -webkit-transform-origin: 0px 0px;
-    -ms-transform-origin: 0px 0px;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-}
-
 .node {
     position: absolute;
     -webkit-user-select: none;
@@ -209,13 +194,13 @@
     padding: 4px;
     background-color: rgba(255, 255, 255, 1.0);
     border-width: 1px;
-    border-color: transparent;
+    border-color: #E5E7EB;
     border-style: solid;
     margin: 4px;
     text-align: center;
     display: flex;
     align-items: center;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.04);
     background-color: white;
 }
 
@@ -316,6 +301,24 @@
     height: 50%;
 }
 
+.grid-layer {
+    background-image: radial-gradient(circle at 1px 1px, #CDCFD3 1px, transparent 0);
+    background-size: 20px 20px;
+    background-position-x: -1px;
+    background-position-y: -1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+    -webkit-transform-origin: 0px 0px;
+    -ms-transform-origin: 0px 0px;
+}
+
 .connections-layer {
     position: absolute;
     top: 0;
@@ -326,13 +329,25 @@
     height: 100%;
     overflow: visible;
     pointer-events: none;
+    -webkit-transform-origin: 0px 0px;
+    -ms-transform-origin: 0px 0px;
+    transition: transform 0.2s;
+}
+
+.nodes-layer {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+    pointer-events: none;
     transform-origin: 0px, 0px;
     -webkit-transform-origin: 0px 0px;
     -ms-transform-origin: 0px 0px;
-    
-    /*background-image: url("../images/diagram-viewport.svg");
-    background-repeat-x: repeat;
-    background-repeat-y: repeat;*/
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    transition: transform 0.2s;
 }
 
 .panel-header {
@@ -350,9 +365,7 @@
 .toolbar-area {
     width: 100%;
     height: auto;
-    /*margin: 8px 4px;*/
     font-size: 14px;
-    /*background-color: var(--veryLightGray);*/
     padding: 8px 16px;
 }
 

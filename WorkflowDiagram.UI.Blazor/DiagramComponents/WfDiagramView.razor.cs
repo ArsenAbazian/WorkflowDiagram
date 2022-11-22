@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using System.Drawing;
+using System.Globalization;
 using WorkflowDiagram.UI.Blazor.Helpers;
 
 namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
@@ -112,11 +113,27 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         public RectangleF ViewportBounds { get; internal set; }
 
         public string ViewportInfoString {
-            get => string.Format($"transform: translate({-Diagram.Origin.X}px, {-Diagram.Origin.Y}px) scale({Diagram.ZoomFactor});");
+            get {
+                string x = (-Diagram.Origin.X).ToString(CultureInfo.InvariantCulture);
+                string y = (-Diagram.Origin.Y).ToString(CultureInfo.InvariantCulture);
+                string zoom = Diagram.ZoomFactor.ToString(CultureInfo.InvariantCulture);
+                string res = string.Format($"transform: translate({x}px, {y}px) scale({zoom});");
+                return res;
+            }
+        }
+
+        public string GridLayerString { 
+            get {
+                string x = (-Diagram.Origin.X).ToString(CultureInfo.InvariantCulture);
+                string y = (-Diagram.Origin.Y).ToString(CultureInfo.InvariantCulture);
+                string zoom = Diagram.ZoomFactor.ToString(CultureInfo.InvariantCulture);
+                string res = string.Format($"transform: translate({x}px, {y}px) scale({zoom});");
+                return res;
+            } 
         }
 
         public string OriginString {
-            get { return string.Format("{0:0.0}, {1:0.0}", Diagram.Origin.X, Diagram.Origin.Y); }
+            get { return string.Format(CultureInfo.InvariantCulture, "{0:0.0}, {1:0.0}", Diagram.Origin.X, Diagram.Origin.Y); }
         }
 
         public string ZoomFactorPercentString {

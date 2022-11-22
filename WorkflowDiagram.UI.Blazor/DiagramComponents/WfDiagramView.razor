@@ -17,6 +17,7 @@
     @ontouchend="OnTouchEnd"
     @ontouchend:preventDefault>
 
+    <div class="grid-layer"></div>
     <svg class="connections-layer" style="@ViewportInfoString">
         @foreach (var connector in Diagram.Document.Connectors)
         {

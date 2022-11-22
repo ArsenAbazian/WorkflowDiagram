@@ -101,8 +101,6 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
                 Document.Changed += OnDocumentPropertyChanged;
             if(Document != null) { 
                 ToolboxItems = GetToolboxItems();
-                //while(ToolboxItems.Count > 10)
-                //    ToolboxItems.RemoveAt(0);
             }
             else
                 ToolboxItems = new List<WfNode>();
@@ -417,13 +415,10 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         public PointF Origin {
             get { return origin; }
             set {
+                if(Origin == value)
+                    return;
                 origin = value;
                 Refresh();
-                //Point newDiscrete = new Point((int)(value.X), (int)(value.Y));
-                //if(IsPointDiffers(newDiscrete, discrete)) {
-                //    discrete = newDiscrete;
-                //    Refresh();
-                //}
             }
         }
 

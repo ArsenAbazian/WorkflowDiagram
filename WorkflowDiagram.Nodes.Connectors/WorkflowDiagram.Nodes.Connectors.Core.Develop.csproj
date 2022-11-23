@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <RootNamespace>WorkflowDiagram.Nodes.Connectors</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\XmlSerialization\XmlSerialization\XmlSerialization.Core.csproj" />
+    <ProjectReference Include="..\WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.Core.Develop.csproj" />
+    <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.Core.Develop.csproj" />
+  </ItemGroup>
+
+</Project>

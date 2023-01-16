@@ -1,0 +1,22 @@
+﻿.lb-item {
+    padding: 3px;
+    background-color: transparent; 
+    text-align: center;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    overflow: clip;
+    cursor: default;
+}
+
+    .lb-item:hover {
+        background-color: rgba(34, 139, 34, 0.25);
+    }
+
+    .lb-item:active {
+        background-color: rgba(34, 139, 34, 0.4);
+    }
+
+.lb-item-selected {
+    background-color: rgba(34, 139, 34, 0.25);
+}

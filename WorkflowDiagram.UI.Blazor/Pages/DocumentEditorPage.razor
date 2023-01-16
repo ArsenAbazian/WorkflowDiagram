@@ -3,6 +3,7 @@
 @using DevExpress.Xpo
 @using System.Text
 @using WorkflowDiagram.UI.Blazor.ServiceModel
+@using WorkflowDiagram.UI.Blazor.NodeEditors;
 @inject IJSRuntime JS
 
 <PageTitle>Edit Document</PageTitle>
@@ -16,10 +17,13 @@
             <DxToolbarItem Name="biDownload" Text="Download..." Tooltip="Download a copy." />
             <DxToolbarItem Name="biRunOnce" Text="Run Once" Tooltip="Run your code one time." />
             <DxToolbarItem Name="biOrigin" Text="Move (0,0)" Tooltip="Move to O,0" />
+            <DxToolbarItem Name="biRemoveSelected" Text="Remove Selected" Tooltip="Remove Selected Items" />
         </Items>
     </DxToolbar>
     </div>
-    <div class="content-area">
+    <CollectionEditorDialog @ref="collectionEditDialog"></CollectionEditorDialog>
+    <CascadingValue Value="collectionEditDialog">
+        <div class="content-area">
         <div class="panel-outer toolbox-area">
             <div class="panel">
                 <div class="panel-header">Toolbox</div>
@@ -34,12 +38,37 @@
                 </div>
             </div>
         </div>
-        <div class="panel-outer diagram-area">
-            <div class="panel">
-                <div class="panel-header">Diagram</div>
-                <CascadingValue Value="diagramComponent">
-                    <WfDiagramView></WfDiagramView>
-                </CascadingValue>
+        <div class="vertical-panel">
+            <div class="panel-outer diagram-area">
+                <div class="panel">
+                    <div class="panel-header">Diagram</div>
+                    <CascadingValue Value="diagramComponent">
+                        <WfDiagramView></WfDiagramView>
+                    </CascadingValue>
+                </div>
+            </div>
+            <div class="panel-outer errors-area">
+                <div class="panel">
+                    <div class="panel-header">Diagnostics</div>
+                    <div class="ee-errors-panel">
+                        <table class="error-table">
+                            @for(int i = 0; i < Errors.Count; i++) {
+                                if(i % 2 == 0) {
+                                    <tr class="error-row even">
+                                        <td class="err-cell"><div class="err-type @Errors[i].Type">@Errors[i].Type</div></td>
+                                        <td class="err-cell">@Errors[i].Text</td>
+                                    </tr>
+                                }
+                                else {
+                                    <tr class="error-row odd">
+                                        <td class="err-cell"><div class="err-type @Errors[i].Type">@Errors[i].Type</div></td>
+                                        <td class="err-cell">@Errors[i].Text</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="properties-area">
@@ -66,6 +95,7 @@
             </div>
         </div>
     </div>
+    </CascadingValue>
 </div>
 <CascadingValue Value="popupComponent">
     <PopupView>
@@ -82,6 +112,12 @@
     private PropertyGridComponent propertyGridComponent;
     private PopupComponent popupComponent;
 
+    private CollectionEditorDialog collectionEditDialog;
+
+    public DocumentEditorPage() {
+        Errors = new List<WfDiagnosticInfo>();
+    }
+
     [Parameter]
     public string DocumentId { get; set; }
 
@@ -92,6 +128,7 @@
         base.OnInitialized();
         this.document = new WfDocument();
 
+        //collectionEditDialog = new CollectionEditorDialog();
         popupComponent = new PopupComponent() { Title = "Upload" };
         diagramComponent = new WfDiagramComponent();
         diagramComponent.SelectionChanged += (d, e) => {
@@ -151,32 +188,41 @@
     }
 
     void OnItemClick(ToolbarItemClickEventArgs e) {
-        if(e.ItemName == "biOrigin")
+        if (e.ItemName == "biOrigin")
             OnOriginClick();
-        else if(e.ItemName == "biSave")
+        else if (e.ItemName == "biSave")
             OnSaveClickAsync();
-        else if(e.ItemName == "biDownload")
+        else if (e.ItemName == "biDownload")
             OnDownloadClick();
-        else if(e.ItemName == "biUpload")
+        else if (e.ItemName == "biUpload")
             OnUploadClick();
-        else if(e.ItemName == "biRunOnce")
+        else if (e.ItemName == "biRunOnce")
             OnRunOnceClick();
+        else if (e.ItemName == "biRemoveSelected")
+            OnRemoveSelected();
     }
 
     void OnRunOnceClick() {
+        Errors = new List<WfDiagnosticInfo>();
         WfRunner runner = new WfRunner(this.diagramComponent.Document);
         if(!runner.Initialize()) {
             this.diagramComponent.Refresh();
             MessageBoxComponent.Show("Initialization", "Initialization failed.");
+            Errors = this.diagramComponent.Document.DiagnosticHelper.Diagnostics;
             return;
         }
         if(!runner.RunOnce()) { 
             this.diagramComponent.Refresh();
             MessageBoxComponent.Show("Run", "Run once failed.");
+            Errors = this.diagramComponent.Document.DiagnosticHelper.Diagnostics;
             return;
         }
         MessageBoxComponent.Show("Run", "Successfully completed.");
         this.diagramComponent.Refresh();
+    }
+
+    void OnRemoveSelected() {
+        this.diagramComponent.DeleteSelectedItems();
     }
 
     Task OnDownloadClick() {
@@ -220,4 +266,6 @@
         using var streamRef = new DotNetStreamReference(stream: fileStream);
         await JS.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
     }
+
+    internal List<WfDiagnosticInfo> Errors { get; set; }
 }

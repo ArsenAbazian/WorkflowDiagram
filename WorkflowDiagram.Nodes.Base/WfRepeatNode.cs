@@ -25,6 +25,7 @@ namespace WorkflowDiagram.Nodes.Base {
         }
 
         protected override bool OnInitializeCore(WfRunner runner) {
+            runner.WalkTree(this, n => n.ScopeRoot = this);
             return true;
         }
 

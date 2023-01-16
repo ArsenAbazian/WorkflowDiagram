@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.JSInterop;
 using System.Drawing;
 using System.Globalization;
@@ -110,6 +111,10 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         private void OnDragEnter(DragEventArgs e) => Diagram.OnDragEnter(this, e);
         private void OnDragOver(DragEventArgs e) => Diagram.OnDragOver(this, e);
 
+        protected internal void OnDocumentCursorChanged() {
+            OnDiagramChanged();
+        }
+
         public RectangleF ViewportBounds { get; internal set; }
 
         public string ViewportInfoString {
@@ -117,7 +122,8 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
                 string x = (-Diagram.Origin.X).ToString(CultureInfo.InvariantCulture);
                 string y = (-Diagram.Origin.Y).ToString(CultureInfo.InvariantCulture);
                 string zoom = Diagram.ZoomFactor.ToString(CultureInfo.InvariantCulture);
-                string res = string.Format($"transform: translate({x}px, {y}px) scale({zoom});");
+                //string transition = "";// EnableAnimation ? "transition: transform 0.1s;" : "";
+                string res = string.Format($"transform: scale({zoom}) translate({x}px, {y}px);");
                 return res;
             }
         }
@@ -127,7 +133,8 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
                 string x = (-Diagram.Origin.X).ToString(CultureInfo.InvariantCulture);
                 string y = (-Diagram.Origin.Y).ToString(CultureInfo.InvariantCulture);
                 string zoom = Diagram.ZoomFactor.ToString(CultureInfo.InvariantCulture);
-                string res = string.Format($"transform: translate({x}px, {y}px) scale({zoom});");
+                //string transition = "";// EnableAnimation ? "transition: transform 0.1s;" : "";
+                string res = string.Format($"transform: scale({zoom}) translate({x}px, {y}px);");
                 return res;
             } 
         }
@@ -136,8 +143,60 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             get { return string.Format(CultureInfo.InvariantCulture, "{0:0.0}, {1:0.0}", Diagram.Origin.X, Diagram.Origin.Y); }
         }
 
+        public string DocumentCursorString {
+            get { return string.Format(CultureInfo.InvariantCulture, "{0:0.0}, {1:0.0}", Diagram.DocumentCursor.X, Diagram.DocumentCursor.Y); }
+        }
+
         public string ZoomFactorPercentString {
             get { return string.Format("{0:.##}", Diagram.ZoomFactorPercent); }
         }
+
+        public bool EnableAnimation { get; internal set; }
+
+        List<GridLine> gridLines;
+        public List<GridLine> GridLines { 
+            get {
+                //if(gridLines == null)
+                    gridLines = CreateGridLines();
+                return gridLines;
+            } 
+        }
+
+        public double MinGridLineStep { get; set; } = 5;
+        public double GridLineStep { get; set; } = 20;
+        protected virtual List<GridLine> CreateGridLines() {
+            double width = ViewportBounds.Width > 0? ViewportBounds.Width: 4000;
+            double height = ViewportBounds.Height > 0? ViewportBounds.Height: 3000;
+
+            int countX = (int)(width / MinGridLineStep + 0.5) + 2;
+            int countY = (int)(height / MinGridLineStep + 0.5) + 2;
+            List<GridLine> list = new List<GridLine>(countX + countY);
+
+            PointF pt = Diagram.LocalToDocument(0.0f, 0.0f);
+            int lineStartX = (int)(pt.X / GridLineStep) - 1;
+            int lineStartY = (int)(pt.Y / GridLineStep) - 1;
+
+            PointF start = Diagram.FromDocument(new PointF((float)(lineStartX * GridLineStep), (float)(lineStartY * GridLineStep)));
+            double step = GridLineStep * Diagram.ZoomFactor;
+            while(step < MinGridLineStep)
+                step += GridLineStep * Diagram.ZoomFactor;
+            
+            double x = start.X;
+            double y = start.Y;
+            for(int i = 0; i < countX; i++, x += step) {
+                list.Add(new GridLine() { X1 = (int)x, Y1 = (int)(start.Y - step), X2 = (int)x, Y2 = (int)height });
+            }
+            for(int i = 0; i < countY; i++, y += step) {
+                list.Add(new GridLine() { X1 = (int)(start.X -  step), Y1 = (int)y, X2 = (int)width, Y2 = (int)y });
+            }
+            return list;
+        }
+    }
+
+    public class GridLine {
+        public int X1 { get; set; }
+        public int Y1 { get; set; }
+        public int X2 { get; set; }
+        public int Y2 { get; set; }
     }
 }

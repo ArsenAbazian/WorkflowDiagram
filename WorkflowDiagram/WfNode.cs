@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -25,7 +26,7 @@ namespace WorkflowDiagram {
             for(int i = 0; i < st.FrameCount; i++) {
                 StackFrame sf = st.GetFrame(i);
                 var m = sf.GetMethod();
-                if(m.DeclaringType.Name.StartsWith("XmlSerializationReader"))
+                if(m.DeclaringType != null && m.DeclaringType.Name.StartsWith("XmlSerializationReader"))
                     return true;
             }
             return false;
@@ -132,7 +133,13 @@ namespace WorkflowDiagram {
                 if(point.Requirement == WfRequirementType.Mandatory && point.Connectors.Count == 0)
                     return false;
                 for(int j = 0; j < point.Connectors.Count; j++) {
-                    if(point.Connectors[j].From == null || !point.Connectors[j].From.IsVisited(visitIndex))
+                    WfConnectionPoint fromPoint = point.Connectors[j].From;
+                    if(fromPoint == null)
+                        return false;
+                    // Skip outside node
+                    if(ScopeRoot != null && ScopeRoot != fromPoint.Node.ScopeRoot && ScopeRoot != fromPoint.Node)
+                        continue;
+                    if(!fromPoint.IsVisited(visitIndex))
                         return false;
                 }
             }
@@ -151,6 +158,8 @@ namespace WorkflowDiagram {
                     if(!pt.LastVisited)
                         return false;
                     if(pt.Value == null)
+                        return true;
+                    else if(pt.Value is object)
                         return true;
                     try {
                         if(Convert.ToBoolean(pt.Value))
@@ -322,7 +331,7 @@ namespace WorkflowDiagram {
                 if(outputs == null) {
                     outputs = CreateOutputCollection();
                     if(IsRestoringFromXml())
-                        return inputs;
+                        return outputs;
                     try {
                         SuppressPointsChanged = true;
                         outputs.Add(GetDefaultOutputsCore());
@@ -335,6 +344,17 @@ namespace WorkflowDiagram {
             }
         }
         protected WfConnectionPointCollection OutputsCore { get { return outputs; } }
+        protected List<WfConnectionPoint> PrevInputs { get; set; }
+        protected List<WfConnectionPoint> PrevOutputs { get; set; }
+
+        protected virtual void ResetPoints() {
+            PrevInputs = Inputs.ToList();
+            PrevOutputs = Outputs.ToList();
+            this.inputs = null;
+            this.outputs = null;
+            OnPointsChanged(Inputs);
+            OnPointsChanged(Outputs);
+        }
 
         public event EventHandler Changed;
         protected internal void RaiseChanged() {
@@ -429,6 +449,16 @@ namespace WorkflowDiagram {
             }
         }
 
+        [XmlIgnore]
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public WfNode ScopeRoot { get; set; }
+
+        [XmlIgnore]
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public object VisitMark { get; set; }
+
         public bool OnInitialize(WfRunner runner) {
             try {
                 VisitIndex = runner.VisitIndex;
@@ -484,5 +514,30 @@ namespace WorkflowDiagram {
         }
 
         protected virtual void ResetCore() { }
+
+        public override string ToString() {
+            return string.Format("{0} [{1}] {2}", Name, GetType().Name, VisitIndex);
+        }
+
+        public List<WfNode> GetChildNodes() { 
+            List<WfNode> nodes = new List<WfNode>();
+            return GetChildNodes(nodes);
+        }
+
+        protected List<WfNode> GetChildNodes(List<WfNode> nodes) {
+            for(int i = 0; i < Outputs.Count; i++) {
+                var point = Outputs[i];
+                for(int j = 0; j < point.Connectors.Count; j++) {
+                    var nextPoint = point.Connectors[j].To;
+                    if(nextPoint == null || nextPoint.Node == null)
+                        continue;
+                    if(!nodes.Contains(nextPoint.Node)) {
+                        nodes.Add(nextPoint.Node);
+                        nextPoint.Node.GetChildNodes(nodes);
+                    }
+                }
+            }
+            return nodes;
+        }
     }
 }

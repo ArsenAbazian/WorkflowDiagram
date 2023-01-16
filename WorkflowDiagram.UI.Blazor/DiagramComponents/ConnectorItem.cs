@@ -151,6 +151,10 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             Diagram.OnConnectorMouseDown(this, e);
         }
 
+        protected virtual void OnKeyDown(KeyboardEventArgs e) {
+            Diagram.OnKeyDown(this, e);
+        }
+
         protected override void BuildRenderTree(RenderTreeBuilder builder) {
             var viewType = Diagram.CreateViewTypeFor(this);
             int i = 0;
@@ -158,7 +162,9 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             builder.AddAttribute(i++, "class", "connector-item " + SelectionClass);
             builder.AddAttribute(i++, "connector-id", Connector.Id);
             builder.AddAttribute(i++, "onmousedown", new EventCallback(this, OnMouseDown));
+            builder.AddAttribute(i++, "onkeydown", new EventCallback(this, OnKeyDown));
             builder.AddEventStopPropagationAttribute(i++, "onmousedown", true);
+            builder.AddEventStopPropagationAttribute(i++, "onkeydown", true);
 
             UpdatePointCore();
 

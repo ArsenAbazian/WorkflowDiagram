@@ -86,6 +86,8 @@ namespace WorkflowDiagram.Nodes.Base {
 
     public enum WfValueType {
         Decimal,
+        Integer,
+        Integer64,
         Boolean,
         String,
         DateTime

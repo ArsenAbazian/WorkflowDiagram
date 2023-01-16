@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -209,12 +210,14 @@ namespace WorkflowDiagram {
                 WfNode node = Nodes[ni];
                 for(int pi = 0; pi < node.Points.Count; pi++) {
                     WfConnectionPoint point = node.Points[pi];
-                    for(int i = 0; i < point.Connectors.Count;) {
-                        if(point.Connectors[i].From == null || point.Connectors[i].To == null) {
-                            Connectors.Remove(point.Connectors[i]);
-                            point.Connectors.RemoveAt(i);
+                    if(point.GetHasInvalidConnectors()) {
+                        List<WfConnector> connectors = point.Connectors.ToList();
+                        for(int i = 0; i < connectors.Count;i++) {
+                            if(connectors[i].From == null || connectors[i].To == null) {
+                                Connectors.Remove(connectors[i]);
+                                point.Connectors.Remove(connectors[i]);
+                            }
                         }
-                        else i++;
                     }
                 }
             }
@@ -276,7 +279,7 @@ namespace WorkflowDiagram {
         public List<Type> GetAvailableNodeTypes() {
             Type nodeBase = typeof(WfNode);
             var res = SerializationHelper.Current.GetExtraTypes(GetType())
-                .Where(t => !t.IsAbstract && nodeBase.IsAssignableFrom(t))
+                .Where(t => !t.IsAbstract && nodeBase.IsAssignableFrom(t) && (t.GetCustomAttribute<BrowsableAttribute>() == null || t.GetCustomAttribute<BrowsableAttribute>().Browsable))
                 .ToList();
             return res;
         }

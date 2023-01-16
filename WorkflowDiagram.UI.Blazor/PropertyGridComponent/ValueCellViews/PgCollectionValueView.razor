@@ -1,0 +1,6 @@
+﻿@using WorkflowDiagram.UI.Blazor.NodeEditors;
+<CollectionEditor SourceCollection="@Item.Value.CollectionValue"></CollectionEditor>
+@code {
+    [Parameter]
+    public PgValueItem Item { get; set; }
+}

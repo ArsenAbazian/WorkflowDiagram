@@ -1,0 +1,6 @@
+﻿<DxTimeEdit @bind-Time="@Item.Value.Value" ReadOnly="@Item.Value.Readonly"></DxTimeEdit>
+
+@code {
+    [Parameter]
+    public PgValueItem Item { get; set; }
+}

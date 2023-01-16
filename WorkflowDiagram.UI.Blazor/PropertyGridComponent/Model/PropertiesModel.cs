@@ -69,6 +69,8 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
         protected internal virtual PropertyGridRowBase CreateRow(object[] objects, PropertyDescriptor prop) {
             if(prop.PropertyType.IsValueType || prop.PropertyType == typeof(string) || prop.PropertyType.IsArray)
                 return new PropertyGridValueRow(this, objects, prop);
+            if(prop.PropertyType.GetInterface("IList") != null)
+                return new PropertyGridValueRow(this, objects, prop);
             return new PropertyGridObjectValueRow(this, objects, prop);
         }
 

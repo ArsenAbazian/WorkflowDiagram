@@ -1,0 +1,29 @@
+﻿<div class="lb-client">
+    @foreach(var item in ListBoxComponent.ItemsSource) {
+        <ListBoxItemView Item="@item" View="@this"/>
+    }
+</div>
+@code {
+    ListBoxComponent listBoxComponent;
+    [CascadingParameter]
+    public ListBoxComponent ListBoxComponent {
+        get { return listBoxComponent; }
+        set {
+            if (ListBoxComponent == value)
+                return;
+            listBoxComponent = value;
+            OnListBoxComponentChanged();
+        }
+    }
+
+    protected virtual void OnListBoxComponentChanged() {
+        ListBoxComponent.View = this;
+    }
+
+    protected internal List<ListBoxItemView> Items { get; } = new List<ListBoxItemView>();
+    protected internal void OnAddItemCore(ListBoxItemView itemView) {
+        if (Items.Contains(itemView))
+            return;
+        Items.Add(itemView);
+    }
+}

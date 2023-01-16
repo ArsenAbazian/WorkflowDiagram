@@ -17,21 +17,24 @@
     @ontouchend="OnTouchEnd"
     @ontouchend:preventDefault>
 
-    <div class="grid-layer"></div>
+    <svg class="grid-layer">
+        @foreach(var line in GridLines) {
+            <line class="grid-line" x1="@line.X1" y1="@line.Y1" x2="@line.X2" y2="@line.Y2"/>
+        }
+    </svg>
     <svg class="connections-layer" style="@ViewportInfoString">
-        @foreach (var connector in Diagram.Document.Connectors)
-        {
+        @foreach (var connector in Diagram.Document.Connectors) {
             <ConnectorItem @key="connector" Connector="connector" />
         }
     </svg>
     <div class="nodes-layer" style="@ViewportInfoString">
-        @foreach (var node in Diagram.Document.Nodes)
-        {
+        @foreach (var node in Diagram.Document.Nodes) {
             <NodeItem @key="node" Node="node" />
         }
     </div>
     <div class="diagram-info-panel">
-        <div class="diagram-info">@OriginString</div>
+        <div class="diagram-info">Doc: @DocumentCursorString</div>
+        @*<div class="diagram-info">@OriginString</div>*@
         <div class="diagram-info">@ZoomFactorPercentString</div>
     </div>
 </div>

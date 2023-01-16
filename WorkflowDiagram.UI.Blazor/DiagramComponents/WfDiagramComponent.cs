@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using Org.BouncyCastle.Asn1.Crmf;
 using System.Drawing;
 using WorkflowDiagram.UI.Blazor.Helpers;
 
@@ -254,7 +255,23 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             PrevPoint = new Point((int)e.PageX, (int)e.PageY);
         }
 
+        PointF documentCursor;
+        public PointF DocumentCursor {
+            get { return documentCursor; }
+            set {
+                if(DocumentCursor == value)
+                    return;
+                documentCursor = value;
+                OnDocumentCursorChanged();
+            }
+        }
+
+        protected virtual void OnDocumentCursorChanged() {
+            Viewport.OnDocumentCursorChanged();
+        }
+
         protected internal virtual void OnMouseMove(object sender, MouseEventArgs e) {
+            DocumentCursor = ToDocument(e);
             if(State == WdDiagramState.Pan)
                 OnPan(e);
             else if(State == WdDiagramState.DragNode)
@@ -269,8 +286,9 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         }
 
         protected virtual void OnPan(MouseEventArgs e) {
+            Viewport.EnableAnimation = false;
             PointF current = ToViewport(e);
-            PointF delta = new PointF(current.X - PrevPoint.X, current.Y - PrevPoint.Y);
+            PointF delta = new PointF((current.X - PrevPoint.X) / ZoomFactor, (current.Y - PrevPoint.Y) / ZoomFactor);
             PrevPoint = current;
             Origin = new PointF(Origin.X - delta.X, Origin.Y - delta.Y);
         }
@@ -289,8 +307,8 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
 
         public PointF ToDocument(float x, float y) {
             PointF loc = ToViewport(x, y);
-            return new PointF((float)((loc.X + Origin.X) / ZoomFactor), (float)((loc.Y + Origin.Y) / ZoomFactor));
-            //return new PointF((float)(loc.X / ZoomFactor) + Origin.X, (float)(loc.Y / ZoomFactor) + Origin.Y);
+            //return new PointF((float)((loc.X + Origin.X) / ZoomFactor), (float)((loc.Y + Origin.Y) / ZoomFactor));
+            return new PointF((float)(loc.X / ZoomFactor) + Origin.X, (float)(loc.Y / ZoomFactor) + Origin.Y);
         }
 
         protected internal PointF ToDocumentNoScale(float x, float y) {
@@ -329,7 +347,7 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         }
 
         protected virtual void OnDragNodesMouseMove(object sender, MouseEventArgs e) {
-            PointF delta = new PointF((float)(e.PageX - PrevPoint.X), (float)(e.PageY - PrevPoint.Y));
+            PointF delta = new PointF((float)(e.PageX - PrevPoint.X) / ZoomFactor, (float)(e.PageY - PrevPoint.Y) / ZoomFactor);
             foreach(var node in SelectedItems)
                 node.Move((float)(delta.X), (float)(delta.Y));
             PrevPoint = new Point((int)e.PageX, (int)e.PageY);
@@ -352,29 +370,39 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             return null;
         }
 
-        public double[] ZoomFactors { get; set; } = new double[] { 0.1, 0.11, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.275, 0.30, 0.33, 0.36, 0.40, 0.45, 0.5, 0.55, 0.60, 0.67, 0.75, 0.8, 0.9, 1.0, 1.1, 1.25, 1.5, 1.75, 2.0, 2.25, 2.50, 2.75, 3.0, 3.5, 4.0, 4.5, 5.0 };
+        public float[] ZoomFactors { get; set; } = new float[] { 0.1f, 0.11f, 0.125f, 0.15f, 0.175f, 0.2f, 0.225f, 0.25f, 0.275f, 0.30f, 0.33f, 0.36f, 0.40f, 0.45f, 0.5f, 0.55f, 0.60f, 0.67f, 0.75f, 0.8f, 0.9f, 1.0f, 1.1f, 1.25f, 1.5f, 1.75f, 2.0f, 2.25f, 2.50f, 2.75f, 3.0f, 3.5f, 4.0f, 4.5f, 5.0f };
         protected virtual void OnZoom(WheelEventArgs e) {
+            Viewport.EnableAnimation = true;
             PointF ptDoc = ToDocument(e);
             PointF ptLocal = ToViewport(e);
 
-            double delta = (float)(e.DeltaY != 0 ? e.DeltaY : e.DeltaX);
+            float delta = (float)(e.DeltaY != 0 ? e.DeltaY : e.DeltaX);
             if(delta < 0)
                 ZoomFactor = ZoomIn(ZoomFactor);
             else
                 ZoomFactor = ZoomOut(ZoomFactor);
             Origin = new PointF(ptDoc.X - (float)(ptLocal.X / ZoomFactor), ptDoc.Y - (float)(ptLocal.Y / ZoomFactor));
+            
+            PointF ptDoc2 = ToDocument(e);
+            PointF ptLocal2 = ToViewport(e);
         }
 
-        protected virtual double ZoomIn(double zoom) {
+        protected virtual float ZoomIn(float zoom) {
             if(zoom > ZoomFactors[ZoomFactors.Length - 1])
                 return zoom;
-            return ZoomFactors.FirstOrDefault(zf => zf > zoom);
+            float res = ZoomFactors.FirstOrDefault(zf => zf > zoom);
+            if(res == 0.0f)
+                return zoom;
+            return res;
         }
 
-        protected virtual double ZoomOut(double zoom) {
+        protected virtual float ZoomOut(float zoom) {
             if(zoom < ZoomFactors[0])
                 return zoom;
-            return ZoomFactors.LastOrDefault(zf => zf < zoom);
+            float res = ZoomFactors.LastOrDefault(zf => zf < zoom);
+            if(res == 0.0f)
+                return zoom;
+            return res;
         }
 
         protected internal virtual void OnKeyDown(object sender, KeyboardEventArgs e) {
@@ -383,7 +411,7 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             KeyDown?.Invoke(sender, e);
         }
 
-        protected virtual void DeleteSelectedItems() {
+        public virtual void DeleteSelectedItems() {
             List<IDiagramItem> items = SelectedItems.ToList();
             foreach(IDiagramItem item in items) {
                 WfNode node = item.DataItem as WfNode;
@@ -426,8 +454,16 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             return p1 != p2;
         }
 
-        double zoom = 1.0f;
-        public double ZoomFactor {
+        public PointF FromDocument(PointF pt) {
+            return new PointF((pt.X - Origin.X) * ZoomFactor, (pt.Y - Origin.Y) * ZoomFactor);
+        }
+
+        internal PointF LocalToDocument(float x, float y) {
+            return new PointF(x / ZoomFactor + Origin.X, y / ZoomFactor + Origin.Y);
+        }
+
+        float zoom = 1.0f;
+        public float ZoomFactor {
             get { return zoom; }
             set {
                 if(ZoomFactor == value)

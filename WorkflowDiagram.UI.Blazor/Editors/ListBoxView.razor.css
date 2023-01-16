@@ -1,0 +1,7 @@
+﻿.lb-client {
+    border: 1px solid #ced4da;
+    font-size: .8125rem;
+    /*border-radius: 0.15rem;*/
+    overflow-y: auto;
+    height: 100%;
+}

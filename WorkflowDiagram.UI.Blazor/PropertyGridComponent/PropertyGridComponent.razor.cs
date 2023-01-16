@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using System.Collections;
 using System.Drawing;
 using WorkflowDiagram.UI.Blazor.Helpers;
 using WorkflowDiagram.UI.Blazor.PropertyGridComponent.RowViews;
@@ -59,6 +60,8 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
         protected internal virtual Type CreateViewTypeFor(PgValueItem pgValueItem) {
             if(pgValueItem.Value.GetCustomEditorType() != null)
                 return typeof(PgCustomValueView);
+            if(pgValueItem.Value.Value is IList)
+                return typeof(PgCollectionValueView);
             Type propType = pgValueItem.Value.Row.Property.PropertyType;
             if(propType == typeof(bool))
                 return typeof(PgBooleanValueView);
@@ -72,6 +75,8 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
                 return typeof(PgDateValueView);
             if(propType == typeof(Guid))
                 return typeof(PgTextValueView);
+            if(propType == typeof(TimeSpan))
+                return typeof(PgTimeSpanValueView);
 
             return null;
         }

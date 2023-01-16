@@ -66,7 +66,7 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
             var r = Bounds;
             r.Offset(dx, dy);
             Bounds = r;
-            UpdateBoundsAsync();
+            //UpdateBoundsAsync();
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder) {
@@ -93,7 +93,6 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         private void UpdateConnectorsPositions() {
             foreach(WfConnector c in Point.Connectors) {
                 ConnectorItem ci = Diagram.GetConnectorItem(c);
-                //if(Point.Type == WfConnectionPointType.In && ci.End.IsEmpty)
                 if(c != null)
                     ci.UpdateByConnectionPointCore(this);
             }
@@ -101,17 +100,20 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
 
         internal Task UpdateBoundsAsync() {
             return JsRuntimeHelper.GetBoundingClientRect(JsRuntime, this.element).ContinueWith(t => {
-                RectangleF r = t.Result;
-                r.Offset(-Diagram.Viewport.ViewportBounds.X, -Diagram.Viewport.ViewportBounds.Y);
-                Bounds = r;
+                Bounds = RectangleToLocal(t.Result);
             });
         }
 
+        RectangleF RectangleToLocal(RectangleF r) {
+            r.Offset(-Diagram.Viewport.ViewportBounds.X, -Diagram.Viewport.ViewportBounds.Y);
+            r = new RectangleF(r.X / Diagram.ZoomFactor, r.Y / Diagram.ZoomFactor, r.Width / Diagram.ZoomFactor, r.Height / Diagram.ZoomFactor);
+            r.Offset(Diagram.Origin.X, Diagram.Origin.Y);
+            return r;
+        } 
+
         internal Task UpdateBoundsAndConnectorsAsync() {
             return JsRuntimeHelper.GetBoundingClientRect(JsRuntime, this.element).ContinueWith(t => {
-                RectangleF r = t.Result;
-                r.Offset(-Diagram.Viewport.ViewportBounds.X, -Diagram.Viewport.ViewportBounds.Y);
-                Bounds = r;
+                Bounds = RectangleToLocal(t.Result);
                 UpdateConnectorsPositions();
             });
         }

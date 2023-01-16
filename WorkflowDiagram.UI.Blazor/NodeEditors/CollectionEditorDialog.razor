@@ -1,0 +1,97 @@
+﻿@using WorkflowDiagram.UI.Blazor.Editors;
+
+<CascadingValue Value="popupComponent">
+    <PopupView>
+        <div class="ce-client">
+            <div class="ce-items">
+                <div class="ce-collection-view">
+                    <ListBoxComponent @ref="ListBox" ItemsSource='@Collection'></ListBoxComponent>
+                </div>
+                <div class="ce-buttons-panel">
+                    <button class="ce-button" @onclick="OnAddButtonClick">Add</button>
+                    <button class="ce-button" @onclick="OnRemoveButtonClick">Remove</button>
+                </div>
+            </div>
+            <div class="ce-toolbar">
+                <button class="ce-button" @onclick="OnMoveItemUp"></button>
+            </div>
+            <div class="ce-properties">
+                <CascadingValue Value="propertyGridComponent">
+                    <PropertyGridView></PropertyGridView>
+                </CascadingValue>
+            </div>
+        </div>
+    </PopupView>
+</CascadingValue>
+
+@code {
+    private PopupComponent popupComponent;
+    private PropertyGridComponent propertyGridComponent;
+
+    ListBoxComponent listBox;
+    private ListBoxComponent ListBox {
+        get { return listBox; }
+        set {
+            if(ListBox == value)
+                return;
+            listBox = value;
+            OnListBoxChanged();
+        }
+    }
+
+    protected void OnListBoxChanged() {
+        if(ListBox != null)
+            ListBox.SelectedItemChanged += OnSelectedItemChanged;
+        UpdateItemProperties();
+    }
+
+    protected override void OnInitialized() {
+        base.OnInitialized();
+        this.popupComponent = new PopupComponent() { Title = "Value Editor", ShowCloseButton = true };
+        this.popupComponent.OnOk += OnPopupOkClick;
+
+
+        this.propertyGridComponent = new PropertyGridComponent();
+    }
+
+    protected override Task OnInitializedAsync() {
+        return base.OnInitializedAsync();
+    }
+
+    void OnPopupOkClick(object sender, EventArgs e) {
+        SyncCollections();
+    }
+
+    void OnMoveItemUp() {
+
+    }
+
+    void OnMoveItemDown() {
+
+    }
+
+    void OnAddButtonClick() {
+        if (ItemType == typeof(string))
+            Collection.Add("[string]");
+        else 
+            Collection.Add(ItemType.GetConstructor(new Type[] { }).Invoke(new object[] { }));
+    }
+
+    void OnRemoveButtonClick() {
+        int index = Collection.IndexOf(ListBox.SelectedItem.Item);
+        Collection.Remove(ListBox.SelectedItem.Item);
+        ListBox.SelectedItemIndex = index;
+    }
+
+    void OnSelectedItemChanged(object sender, EventArgs e) {
+        UpdateItemProperties();
+    }
+
+    void UpdateItemProperties() {
+        this.propertyGridComponent.SelectedObject = ListBox.SelectedItem == null ? null : ListBox.SelectedItem.Item;
+    }
+
+    public void ShowDialog(){
+        this.popupComponent.ShowPopup();
+    }
+}

@@ -134,6 +134,27 @@ namespace WorkflowDiagram {
             return true;
         }
 
+        public virtual void WalkTree(WfNode rootNode, Action<WfNode> onVisit) {
+            List<WfNode> currentNodes = rootNode.GetNextNodes();
+            List<WfNode> waitList = new List<WfNode>();
+            List<WfNode> nextNodes = new List<WfNode>();
+            object visitMark = new object();
+            while(currentNodes.Count > 0) {
+                nextNodes = new List<WfNode>();
+                for(int i = 0; i < currentNodes.Count;) {
+                    if(currentNodes[i].VisitMark == visitMark) {
+                        currentNodes.RemoveAt(i);
+                        continue;
+                    }
+                    onVisit(currentNodes[i]);
+                    currentNodes[i].VisitMark = visitMark;
+                    nextNodes.AddRange(currentNodes[i].GetNextNodes().ToList());
+                    currentNodes.RemoveAt(i);
+                }
+                currentNodes.AddRange(nextNodes);
+            }
+        }
+
         protected virtual bool RunCore(int maxIterationCount) {
             return RunCore(maxIterationCount, null);
         }
@@ -150,6 +171,15 @@ namespace WorkflowDiagram {
                 Reset();
             if(initStart != null)
                 initStart(startNodes);
+            List<WfNode> allNodes = new List<WfNode>();
+            for(int i = 0; i < startNodes.Count; i++) {
+                allNodes.Add(startNodes[i]);
+                List<WfNode> children = startNodes[i].GetChildNodes();
+                foreach(WfNode child in children)
+                    if(!allNodes.Contains(child))
+                        allNodes.Add(child);
+            }
+            Dictionary<WfNode, List<WfNode>> nn = new Dictionary<WfNode, List<WfNode>>();
             for(int iterationIndex = 0; iterationIndex < maxIterationCount; iterationIndex++, VisitIndex++) {
                 List<WfNode> currentNodes = new List<WfNode>(startNodes);
                 List<WfNode> waitList = new List<WfNode>();
@@ -180,16 +210,23 @@ namespace WorkflowDiagram {
                             return false;
                         }
                         var next = currentNodes[i].GetNodesFromVisitedPoints(VisitIndex);
+                        nn.Add(currentNodes[i], next);
                         foreach(var n in next) { // Move node to last...
                             nextNodes.Remove(n);
                             nextNodes.Add(n);
                         }
                         currentNodes.RemoveAt(i);
                     }
-                    currentNodes.AddRange(nextNodes);
+                    foreach(var next in nextNodes)
+                        if(!currentNodes.Contains(next))
+                            currentNodes.Add(next);
                     if(!processed) {
                         int count = currentNodes.Count(n => n.Enabled);
                         if(count > 0) {
+                            for(int i = 0; i < currentNodes.Count; i++) {
+                                if(!currentNodes[i].CheckDependency(VisitIndex))
+                                    Document.DiagnosticHelper.Error("This node is depend on others, that were not updated. " + currentNodes[i].ToString());
+                            }
                             Document.DiagnosticHelper.Error("No one node was processed, this means that your workflow entered endless loop.");
                             return false;
                         }

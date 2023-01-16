@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using WorkflowDiagram.Nodes.Base;
+using WorkflowDiagram.Nodes.Connectors;
 using WorkflowDiagram.UI.Blazor.Areas.Identity;
 using WorkflowDiagram.UI.Blazor.Helpers;
 using WorkflowDiagram.UI.Blazor.ServiceModel;
@@ -55,7 +56,9 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddDevExpressBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<UserInfo>>();
 
+//load nodes assemblies
 var node = new WfConstantValueNode();
+var node2 = new WfDatabaseConnectorNode();
 
 var app = builder.Build();
 

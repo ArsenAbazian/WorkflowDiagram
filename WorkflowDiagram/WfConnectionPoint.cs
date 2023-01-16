@@ -36,9 +36,21 @@ namespace WorkflowDiagram {
                 if(Name == value)
                     return;
                 name = value;
+                lowCaseName = null;
                 OnPropertyChanged(nameof(Name));
             }
         }
+
+        string lowCaseName;
+        [Browsable(false)]
+        public string LowCaseName {
+            get {
+                if(lowCaseName == null && Name != null)
+                    lowCaseName = Name.ToLower();
+                return lowCaseName;
+            }
+        }
+
         string text = "";
         public string Text {
             get { return text; }
@@ -184,6 +196,10 @@ namespace WorkflowDiagram {
             Value = null;
             VisitIndex = runner.VisitIndex;
             Runner = runner;
+        }
+
+        protected internal bool GetHasInvalidConnectors() {
+            return Connectors.Any(c => c.From == null || c.To == null);
         }
 
         public WfEditOperation AllowedOperations { get; set; } = WfEditOperation.None;

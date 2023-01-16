@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Collections;
 
 namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
     public class PropertyGridValueInfo {
@@ -13,7 +14,9 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
             return Row.GetAttribute<BlazorPropertyEditorAttribute>()?.EditorType;
         }
 
-        public bool Readonly { get { return Property.IsReadOnly; } }
+        public bool Readonly { 
+            get { return Property.IsReadOnly; } 
+        }
 
         public bool IsDecimal {
             get { return Property.PropertyType == typeof(decimal); }
@@ -36,6 +39,7 @@ namespace WorkflowDiagram.UI.Blazor.PropertyGridComponent {
         public int IntValue { get { return Convert.ToInt32(Value); } set { Value = value; } }
         public float FloatValue { get { return (float)Value; } set { Value = value; } }
         public bool BooleanValue { get { return Convert.ToBoolean(Value); } set { Value = value; } }
+        public IList CollectionValue { get { return Value as IList; } }
 
         protected void SubscribeEvents() {
             if(Owner is INotifyPropertyChanged)

@@ -73,7 +73,7 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
                 if(connector.Connector.To?.Node == Node)
                     connector.MoveEnd(dx, dy);
             }
-            UpdatePoints();
+            //UpdatePoints();
         }
 
         private void UpdatePoints() {

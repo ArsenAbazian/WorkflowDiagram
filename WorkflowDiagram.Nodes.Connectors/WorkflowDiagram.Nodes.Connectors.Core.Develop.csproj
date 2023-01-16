@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Npgsql" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\XmlSerialization\XmlSerialization\XmlSerialization.Core.csproj" />
     <ProjectReference Include="..\WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.Core.Develop.csproj" />
     <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.Core.Develop.csproj" />

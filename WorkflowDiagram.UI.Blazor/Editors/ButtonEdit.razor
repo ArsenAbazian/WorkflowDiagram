@@ -7,7 +7,7 @@
                 }
             </div>
             <div class="be-text-area">
-                <input class="borderless-text-box" type="text" @bind-value="@Text" />
+                <input class="borderless-text-box" type="text" @bind-value="@Text" readonly="@Readonly" />
             </div>
             <div class="be-right-button-area">
                 @foreach(var button in RightButtons) {

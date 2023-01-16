@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkflowDiagram.UI.Blazor",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkflowDiagram.Nodes.Connectors.Core.Develop", "WorkflowDiagram.Nodes.Connectors\WorkflowDiagram.Nodes.Connectors.Core.Develop.csproj", "{F92590FF-8FC9-475E-B48A-5BFF00714B02}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workflow.Tests.Core", "Workflow.Tests\Workflow.Tests.Core.csproj", "{C570EA91-CC6D-4D4E-B6AD-CB9CD6C77247}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F92590FF-8FC9-475E-B48A-5BFF00714B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F92590FF-8FC9-475E-B48A-5BFF00714B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F92590FF-8FC9-475E-B48A-5BFF00714B02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C570EA91-CC6D-4D4E-B6AD-CB9CD6C77247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C570EA91-CC6D-4D4E-B6AD-CB9CD6C77247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C570EA91-CC6D-4D4E-B6AD-CB9CD6C77247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C570EA91-CC6D-4D4E-B6AD-CB9CD6C77247}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

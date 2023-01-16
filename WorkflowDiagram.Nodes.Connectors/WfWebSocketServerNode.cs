@@ -38,7 +38,7 @@ namespace WorkflowDiagram.Nodes.Connectors {
             }
             catch(Exception e) {
                 DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Error creating websocket server. " + e.ToString());
-                HasErrors = true;
+                return false;
             }
             return true;
         }

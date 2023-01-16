@@ -1,0 +1,18 @@
+﻿<div 
+    @onmousedown="OnMouseDown"
+    class="lb-item @SelectionClass">@Item</div>
+@code {
+    [Parameter]
+    public object Item { get; set; }
+
+    ListBoxView view;
+    [Parameter]
+    public ListBoxView View {
+        get { return view; }
+        set {
+            view = value;
+            if (View != null)
+                View.OnAddItemCore(this);
+        }
+    }
+}

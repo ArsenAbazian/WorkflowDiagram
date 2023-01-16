@@ -10,13 +10,17 @@
     <PopupView>
         <SelectorComponent @bind-SelectedValue="ValueTypeCore">
             <Items>
-                <SelectorItem Name="siNumberic" Text="Numeric" Value="WfValueType.Decimal"></SelectorItem>
+                <SelectorItem Name="siInteger" Text="Integer" Value="WfValueType.Decimal"></SelectorItem>
+                <SelectorItem Name="siInteger64" Text="Big Integer" Value="WfValueType.Decimal"></SelectorItem>
+                <SelectorItem Name="siNumberic" Text="Double" Value="WfValueType.Decimal"></SelectorItem>
                 <SelectorItem Name="siBoolean" Text="Boolean" Value="WfValueType.Boolean"></SelectorItem>
                 <SelectorItem Name="siString" Text="String" Value="WfValueType.String"></SelectorItem>
                 <SelectorItem Name="siDateTime" Text="DateTime" Value="WfValueType.DateTime"></SelectorItem>
             </Items>
         </SelectorComponent>
         <div class="ove-container">
+            <div class="ove-page @IntVisibilityClass"><DxSpinEdit @bind-Value="@IntValue"></DxSpinEdit></div>
+            <div class="ove-page @LongVisibilityClass"><DxSpinEdit @bind-Value="@LongValue"></DxSpinEdit></div>
             <div class="ove-page @NumericVisibilityClass"><DxSpinEdit @bind-Value="@DoubleValue"></DxSpinEdit></div>
             <div class="ove-page @BooleanVisibilityClass"><DxCheckBox @bind-Checked="@BooleanValue">True / False</DxCheckBox></div>
             <div class="ove-page @StringVisibilityClass"><DxMemo ResizeMode="MemoResizeMode.Disabled" style="width: 350px; height=400px;" TextAreaCssClass="ove-memo" @bind-Text="@StringValue"></DxMemo></div>

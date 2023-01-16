@@ -95,6 +95,9 @@ namespace WorkflowDiagram.UI.Blazor.Editors {
             StateHasChanged();
         }
 
+        [Parameter]
+        public bool Readonly { get; set; }
+
         string displayFormat;
         public string DisplayFormat {
             get { return displayFormat; }

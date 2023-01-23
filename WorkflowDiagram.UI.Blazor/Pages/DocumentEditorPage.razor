@@ -2,6 +2,7 @@
 @using DevExpress.Blazor;
 @using DevExpress.Xpo
 @using System.Text
+@using WorkflowDiagram.UI.Blazor.Editors
 @using WorkflowDiagram.UI.Blazor.ServiceModel
 @using WorkflowDiagram.UI.Blazor.NodeEditors;
 @inject IJSRuntime JS
@@ -18,12 +19,13 @@
             <DxToolbarItem Name="biRunOnce" Text="Run Once" Tooltip="Run your code one time." />
             <DxToolbarItem Name="biOrigin" Text="Move (0,0)" Tooltip="Move to O,0" />
             <DxToolbarItem Name="biRemoveSelected" Text="Remove Selected" Tooltip="Remove Selected Items" />
+            <DxToolbarItem Name="biShowFiles" Text="Files" Tooltip="Show document's generated files"/>
+            <DxToolbarItem Name="biToggleGrid" Text="Toggle Grid" Tooltip="Show/Hide Diagram Grid"/>
         </Items>
     </DxToolbar>
     </div>
     <CollectionEditorDialog @ref="collectionEditDialog"></CollectionEditorDialog>
-    <CascadingValue Value="collectionEditDialog">
-        <div class="content-area">
+    <div class="content-area">
         <div class="panel-outer toolbox-area">
             <div class="panel">
                 <div class="panel-header">Toolbox</div>
@@ -75,8 +77,10 @@
             <div class="panel-outer properties">
                 <div class="panel">
                     <div class="panel-header">Properties</div>
-                    <CascadingValue Value="propertyGridComponent">
-                        <PropertyGridView></PropertyGridView>
+                    <CascadingValue Value="collectionEditDialog">
+                        <CascadingValue Value="propertyGridComponent">
+                            <PropertyGridView></PropertyGridView>
+                        </CascadingValue>
                     </CascadingValue>
                 </div>
             </div>
@@ -95,13 +99,22 @@
             </div>
         </div>
     </div>
-    </CascadingValue>
 </div>
 <CascadingValue Value="popupComponent">
     <PopupView>
         <div class="form-label">Uploading file. Please wait...</div>
     </PopupView>     
 </CascadingValue>
+
+<CascadingValue Value="filePopup">
+    <PopupView>
+        <div class="document-files-list">
+            <ListBoxComponent ItemsSource="@diagramComponent.Document.Files" Commands="@filesCommands">
+            </ListBoxComponent>
+        </div>
+    </PopupView>
+</CascadingValue>
+
 <InputFile class="e-file-select-wrap" OnChange="@UploadFile" />
 <MessageBoxComponent></MessageBoxComponent>
 
@@ -111,6 +124,7 @@
 
     private PropertyGridComponent propertyGridComponent;
     private PopupComponent popupComponent;
+    private PopupComponent filePopup;
 
     private CollectionEditorDialog collectionEditDialog;
 
@@ -124,12 +138,19 @@
     private WfConnectionPointCollection SelectedInputs { get; set; }
     private WfConnectionPointCollection SelectedOutputs { get; set; }
 
+    private List<ListBoxItemCommand> filesCommands;
+
     protected override void OnInitialized() {
         base.OnInitialized();
         this.document = new WfDocument();
 
-        //collectionEditDialog = new CollectionEditorDialog();
+        ListBoxItemCommand downloadFile = new ListBoxItemCommand() { Text = "Download...", Icon = "" };
+        downloadFile.Click += OnDownloadFileClick;
+
+        this.filesCommands = new ListBoxItemCommand[] { downloadFile }.ToList();
+
         popupComponent = new PopupComponent() { Title = "Upload" };
+        filePopup = new PopupComponent() { Title = "Files", ShowCloseButton = true };
         diagramComponent = new WfDiagramComponent();
         diagramComponent.SelectionChanged += (d, e) => {
             propertyGridComponent.SelectedObjects = e.Selection.Select(s => (object)s.DataItem).ToArray();
@@ -141,6 +162,11 @@
         };
         diagramComponent.Document = document;
         propertyGridComponent = new PropertyGridComponent();
+    }
+
+    protected virtual void OnDownloadFileClick(object sender, ListBoxItemCommandEventArgs e) {
+        WfFile file = (WfFile)e.Item;
+        DownloadFileFromStream(file);
     }
 
     protected override Task OnInitializedAsync() {
@@ -200,6 +226,14 @@
             OnRunOnceClick();
         else if (e.ItemName == "biRemoveSelected")
             OnRemoveSelected();
+        else if (e.ItemName == "biShowFiles")
+            OnShowFilesClick(e.ItemName);
+        else if (e.ItemName == "biToggleGrid")
+            OnToggleGrid();
+    }
+
+    void OnToggleGrid(){
+        this.diagramComponent.ShowGrid = !this.diagramComponent.ShowGrid;
     }
 
     void OnRunOnceClick() {
@@ -217,6 +251,7 @@
             Errors = this.diagramComponent.Document.DiagnosticHelper.Diagnostics;
             return;
         }
+        Errors = this.diagramComponent.Document.DiagnosticHelper.Diagnostics;
         MessageBoxComponent.Show("Run", "Successfully completed.");
         this.diagramComponent.Refresh();
     }
@@ -227,6 +262,10 @@
 
     Task OnDownloadClick() {
         return DownloadFileFromStream(this.diagramComponent.Document);
+    }
+
+    void OnShowFilesClick(string itemId) {
+        this.filePopup.ShowPopup();
     }
 
     void OnUploadClick() {
@@ -258,11 +297,24 @@
         return m;
     }
 
+    Stream GetBinaryStream(byte[] data) {
+        MemoryStream m = new MemoryStream(data);
+        return m;
+    }
+
     private async Task DownloadFileFromStream(WfDocument doc) {
         StringBuilder b = new StringBuilder();
         string fileName = "document-" + doc.Id.ToString() + ".xml";
         doc.Save(b);
         var fileStream = GetTextStream(b.ToString());
+        using var streamRef = new DotNetStreamReference(stream: fileStream);
+        await JS.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
+    }
+
+    private async Task DownloadFileFromStream(WfFile file) {
+        StringBuilder b = new StringBuilder();
+        string fileName = file.FullName;
+        var fileStream = File.OpenRead(file.ItemId);
         using var streamRef = new DotNetStreamReference(stream: fileStream);
         await JS.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
     }

@@ -21,7 +21,7 @@ namespace WorkflowDiagram.Nodes.Base {
             if(Script == null)
                 Script = CreateScript();
             if(Script == null)
-                DiagnosticHelper.Error("Could not parse expression. Compilation errors.");
+                OnError("Could not parse expression. Compilation errors.");
             return Script != null;
         }
 
@@ -33,8 +33,7 @@ namespace WorkflowDiagram.Nodes.Base {
                 Outputs[0].Visit(runner, task.Result.ReturnValue);
             }
             catch(Exception e) {
-                DiagnosticHelper.Error("Exception occurs while visit node. " + e.ToString());
-                HasErrors = true;
+                OnError("Exception occurs while visit node. " + e.ToString());
                 Outputs[0].Visit(runner, 0);
             }
         }
@@ -101,7 +100,7 @@ namespace WorkflowDiagram.Nodes.Base {
         string expression = "0";
         [Category("Expression"), 
             WinPropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemExpressionEditor"),
-            BlazorPropertyEditor("WorkflowDiagram.UI.Blazor", "WorkflowDiagram.UI.Blazor.NodeEditors.ExpressionEditor")
+            BlazorPropertyEditor("WorkflowDiagram.UI.Blazor", "WorkflowDiagram.UI.Blazor.NodeEditors.ExptessionEditor")
             ]
         public string Expression {
             get { return expression; }

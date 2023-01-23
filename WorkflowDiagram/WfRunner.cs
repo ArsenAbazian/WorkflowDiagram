@@ -196,6 +196,10 @@ namespace WorkflowDiagram {
                             currentNodes.RemoveAt(i);
                             continue;
                         }
+                        if(currentNodes[i].GetIsSkipped()) {
+                            currentNodes.RemoveAt(i);
+                            continue;
+                        }
                         processed = true;
                         VisitNode(currentNodes[i]);
                         if(currentNodes[i].HasErrors) {

@@ -173,6 +173,21 @@ namespace WorkflowDiagram {
             }
         }
 
+        public bool GetIsSkipped() {
+            for(int i = 0; i < Inputs.Count; i++) {
+                var pt = Inputs[i];
+                for(int c = 0; c < pt.Connectors.Count; c++) {
+                    var connector = pt.Connectors[c];
+                    if(connector.From == null)
+                        continue; 
+                    if(connector.From.Skipped)
+                        return true;
+                    if(connector.From.Node != null && connector.From.Node.GetIsSkipped())
+                        return true;
+                }
+            }
+            return false;
+        }
         public List<WfNode> GetNextNodes() {
             List<WfNode> nodes = new List<WfNode>();
             foreach(WfConnectionPoint point in Outputs)
@@ -436,17 +451,10 @@ namespace WorkflowDiagram {
             }
         }
 
-        bool hasErrors;
         [XmlIgnore]
         [Browsable(false)]
         public bool HasErrors {
-            get { return hasErrors; }
-            set {
-                if(HasErrors == value)
-                    return;
-                hasErrors = value;
-                OnPropertyChanged(nameof(HasErrors));
-            }
+            get { return DiagnosticHelper.HasErrors; }
         }
 
         [XmlIgnore]
@@ -459,15 +467,17 @@ namespace WorkflowDiagram {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public object VisitMark { get; set; }
 
+        public void OnError(string description) {
+            DiagnosticHelper.Error(description);
+        }
+
         public bool OnInitialize(WfRunner runner) {
             try {
                 VisitIndex = runner.VisitIndex;
                 IsInitialized = OnInitializeCore(runner);
-                HasErrors = Diagnostic.Count(d => d.Type == WfDiagnosticSeverity.Error) > 0;
             }
             catch(Exception e) {
-                DiagnosticHelper.Error("Exception occurs while initialize node. " + e.ToString());
-                HasErrors = true;
+                OnError("Exception occurs while initialize node. " + e.ToString());
                 return false;
             }
             for(int i = 0; i < Inputs.Count; i++) Inputs[i].OnInitialize(runner);
@@ -476,14 +486,16 @@ namespace WorkflowDiagram {
         }
         protected abstract bool OnInitializeCore(WfRunner runner);
         protected abstract void OnVisitCore(WfRunner runner);
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool WasVisited { get { return VisitIndex != -1; } }
         public void OnVisit(WfRunner runner) {
             try {
                 OnVisitCore(runner);
                 VisitIndex = runner.VisitIndex;
             }
             catch(Exception e) {
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, e.ToString());
-                HasErrors = true;
+                OnError(e.ToString());
             }
         }
                
@@ -506,7 +518,7 @@ namespace WorkflowDiagram {
 
         public void Reset() {
             VisitIndex = -1;
-            HasErrors = false;
+            DiagnosticHelper.Clear();
             ResetCore();
             foreach(var point in Points) {
                 point.Reset();

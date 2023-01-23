@@ -85,4 +85,8 @@ app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
+app.UseStaticFiles(new StaticFileOptions() { 
+    
+});
+
 app.Run();

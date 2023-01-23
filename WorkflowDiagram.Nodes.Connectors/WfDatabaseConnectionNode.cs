@@ -57,7 +57,7 @@ namespace WorkflowDiagram.Nodes.Connectors {
         protected virtual bool TryConnect() {
             Provider = CreateProvider();
             if(Provider == null) {
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Cannot get provider for : " + ConnectionType);
+                OnError("Cannot get provider for : " + ConnectionType);
                 return false;
             }
             if(string.IsNullOrEmpty(Host) && Inputs["Host"].Value != null)
@@ -70,28 +70,28 @@ namespace WorkflowDiagram.Nodes.Connectors {
                 Database = Convert.ToString(Inputs["Database"].Value).Trim();
             ConnectionString = string.Format("Host={0};Username={1};Password={2};Database=postgres;", Host, Username, Password);
             try {
-                if(!Provider.Connect(Host, "postgres", Username, Password)) {
-                    DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Cannot connect to postgres database: " + Host.ToString() + "/" + Database);
+                if(!Provider.Connect(this, Host, "postgres", Username, Password)) {
+                    OnError("Cannot connect to postgres database: " + Host.ToString() + "/" + Database);
                     return false;
                 }
 
-                if(!Provider.DatabaseExist(Database)) {
-                    if(!CreateIfNotExist || !Provider.CreateDatabase(Database))
+                if(!Provider.DatabaseExist(this, Database)) {
+                    if(!CreateIfNotExist || !Provider.CreateDatabase(this, Database))
                         return false;
                 }
 
-                IsConnected = Provider.Connect(Host, Database, Username, Password);
+                IsConnected = Provider.Connect(this, Host, Database, Username, Password);
                 return IsConnected;
             }
             catch(Exception e) {
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Cannot connect to postgres database: " + e.ToString());
+                OnError("Cannot connect to postgres database: " + e.ToString());
             }
             return true;
         }
 
         protected virtual WfDatabaseConnectionProvider CreateProvider() {
             if(ConnectionType == ConnectionType.PostgreSql)
-                return new WfPostgreConnectionProvider(DiagnosticHelper);
+                return new WfPostgreConnectionProvider();
             return null;
         }
 

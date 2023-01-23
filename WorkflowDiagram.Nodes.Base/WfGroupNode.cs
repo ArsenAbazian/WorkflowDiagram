@@ -44,7 +44,7 @@ namespace WorkflowDiagram.Nodes.Base {
             for(int i = 0; i < Inputs.Count; i++) {
                 for(int j = i + 1; j < Inputs.Count; j++) {
                     if(Inputs[i].Name == Inputs[j].Name) {
-                        DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Dublicate names detected. " + Inputs[i].Name);
+                        OnError("Dublicate names detected. " + Inputs[i].Name);
                         return false;
                     }
                 }

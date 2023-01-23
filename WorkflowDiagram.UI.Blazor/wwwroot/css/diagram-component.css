@@ -124,11 +124,23 @@
     background-color: var(--green);
 }
 
+.i-gray {
+    background-color: var(--veryLightGray);
+}
+
+.i-red {
+    background-color: var(--red);
+}
+
+.i-empty {
+    background-color: transparent;
+}
+
 .node-indicator {
-    width: 16px;
+    width: 4px;
     height: 4px;
     border-radius: 1px;
-    margin: 6px 2px;
+    margin: 2px 2px;
 }
 
 .node-left-item {
@@ -483,3 +495,8 @@
 }
 
 svg * { pointer-events: all; }
+
+.document-files-list {
+    width: 400px;
+    height: 600px;
+}

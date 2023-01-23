@@ -156,8 +156,9 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         List<GridLine> gridLines;
         public List<GridLine> GridLines { 
             get {
-                //if(gridLines == null)
-                    gridLines = CreateGridLines();
+                if(!Diagram.ShowGrid)
+                    return new List<GridLine>();
+                gridLines = CreateGridLines();
                 return gridLines;
             } 
         }

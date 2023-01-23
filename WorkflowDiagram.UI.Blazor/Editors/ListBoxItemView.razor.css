@@ -1,10 +1,9 @@
 ﻿.lb-item {
     padding: 3px;
     background-color: transparent; 
-    text-align: center;
     display: flex;
     align-items: center;
-    font-size: 10px;
+    justify-content: space-between;
     overflow: clip;
     cursor: default;
 }
@@ -19,4 +18,38 @@
 
 .lb-item-selected {
     background-color: rgba(34, 139, 34, 0.25);
+}
+
+.lb-item-text {
+    font-size: 10px;
+    text-align: center;
+}
+
+.lb-command-list {
+    display: flex;
+    align-items: center;
+}
+
+.lb-command {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lb-command-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.lb-command:hover .lb-command-text {
+    text-decoration: underline;
+    color: var(--green);
+}
+
+.lb-command-text {
+    font-size: 10px;
+}
+
+.empty {
+    display: none;
 }

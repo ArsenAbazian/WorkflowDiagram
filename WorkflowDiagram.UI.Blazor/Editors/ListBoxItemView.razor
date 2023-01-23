@@ -1,6 +1,17 @@
 ﻿<div 
     @onmousedown="OnMouseDown"
-    class="lb-item @SelectionClass">@Item</div>
+    class="lb-item @SelectionClass">
+        <div class="lb-item-text">@Item</div>
+        <div class="lb-command-list">
+            @foreach(ListBoxItemCommand command in View.ListBoxComponent.Commands) {
+                <div class="lb-command"
+                @onclick="(e)=>View.ListBoxComponent.OnCommandClick(Item, command)">
+                    <img class="lb-command-icon @command.IconStyle" src="@command.Icon">
+                    <div class="lb-command-text @command.TextStyle">@command.Text</div>
+                </div>
+            }
+        </div>
+    </div>
 @code {
     [Parameter]
     public object Item { get; set; }

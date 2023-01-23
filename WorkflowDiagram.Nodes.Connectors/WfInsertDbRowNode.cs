@@ -67,7 +67,7 @@ namespace WorkflowDiagram.Nodes.Connectors {
                 Outputs["Failed"].Visit(runner, null);
                 return;
             }
-            bool completed = table.Provider.Insert(table.Table, Columns);
+            bool completed = table.Provider.Insert(this, table.Table, Columns);
             if(!completed) {
                 Outputs["Table"].SkipVisit(runner, null);
                 Outputs["Failed"].Visit(runner, null);
@@ -113,6 +113,17 @@ namespace WorkflowDiagram.Nodes.Connectors {
                 return lowCaseName;
             }
         }
+    }
+
+    public class ColumnSortOrderInfo {
+        public string ColumnName { get; set; }
+        public ColumnSortDirection Mode { get; set; }
+    }
+
+    public enum ColumnSortDirection {
+        None,
+        Ascending,
+        Descending
     }
 
     public interface IColumnRefOwner {

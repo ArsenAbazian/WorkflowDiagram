@@ -30,6 +30,7 @@ namespace WorkflowDiagram {
 
         public void Clear() {
             Diagnostics.Clear();
+            HasErrors = false;
         }
 
         public void Add(WfDiagnosticSeverity type, string text) {
@@ -38,6 +39,7 @@ namespace WorkflowDiagram {
 
         public void Error(string text) {
             Add(WfDiagnosticSeverity.Error, text);
+            HasErrors = true;
         }
 
         public void Warning(string text) {
@@ -47,5 +49,7 @@ namespace WorkflowDiagram {
         public void Info(string text) {
             Add(WfDiagnosticSeverity.Info, text);
         }
+
+        public bool HasErrors { get; set; }
     }
 }

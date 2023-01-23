@@ -147,10 +147,13 @@ namespace WorkflowDiagram {
         protected bool ValueCalculated { get; set; }
         [XmlIgnore]
         public bool LastVisited { get; protected set; }
+        [XmlIgnore]
+        public bool Skipped { get; protected set; }
         public virtual void SkipVisit(WfRunner runner, object value) {
             Value = value;
             ValueCalculated = true;
             LastVisited = false;
+            Skipped = true;
             VisitIndex = runner.VisitIndex;
             if(Type == WfConnectionPointType.In)
                 return;
@@ -162,6 +165,7 @@ namespace WorkflowDiagram {
             ValueCalculated = true;
             VisitIndex = runner.VisitIndex;
             LastVisited = true;
+            Skipped = false;
             if(Type == WfConnectionPointType.In)
                 return;
             foreach(WfConnector c in Connectors)
@@ -190,6 +194,7 @@ namespace WorkflowDiagram {
             VisitIndex = -1;
             Value = null;
             ValueCalculated = false;
+            Skipped = false;
         }
 
         public virtual void OnInitialize(WfRunner runner) {

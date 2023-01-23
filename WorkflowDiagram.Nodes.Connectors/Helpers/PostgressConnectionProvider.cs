@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.Operations;
 using Npgsql;
+using Npgsql.Schema;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,14 +18,12 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
         public static WfPostgreConnectionProvider Default { get; private set; }
 
         static WfPostgreConnectionProvider() {
-            Default = new WfPostgreConnectionProvider(new WfDiagnosticHelper());
+            Default = new WfPostgreConnectionProvider();
         }
-
-        public WfPostgreConnectionProvider(WfDiagnosticHelper helper) : base(helper) { }
 
         public new NpgsqlConnection Connection { get { return (NpgsqlConnection)base.Connection; } set { base.Connection = value; } }
 
-        public override string GetColumnType(WfDataTableColumnInfo columnInfo) {
+        public override string GetColumnType(WfNode owner, WfDataTableColumnInfo columnInfo) {
             switch(columnInfo.Type) {
                 case WfDataTableColumnType.Boolean: return "boolean";
                 case WfDataTableColumnType.Integer: return "integer";
@@ -37,11 +36,11 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
             }
         }
 
-        public override string GetColumnDescription(WfDataTableColumnInfo columnInfo) {
+        public override string GetColumnDescription(WfNode owner, WfDataTableColumnInfo columnInfo) {
             StringBuilder b = new StringBuilder();
             b.Append(columnInfo.Name);
             b.Append(' ');
-            b.Append(GetColumnType(columnInfo));
+            b.Append(GetColumnType(owner, columnInfo));
             if(columnInfo.PrimaryKey) {
                 if(columnInfo.Type == WfDataTableColumnType.Integer)
                     b.Append(" SERIAL PRIMARY KEY");
@@ -67,7 +66,7 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
             return b.ToString();
         }
 
-        protected override string FormatValue(WfDataTableColumnInfo col, object value) {
+        protected override string FormatValue(WfNode owner, WfDataTableColumnInfo col, object value) {
             switch(col.Type) {
                 case WfDataTableColumnType.VarChar:
                 case WfDataTableColumnType.Text:
@@ -93,23 +92,24 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
             return Convert.ToString(value, CultureInfo.InvariantCulture);
         }
 
-        public override string GetConnectionString(string host, string dbName, string userName, string password) {
+        public override string GetConnectionString(WfNode owner, string host, string dbName, string userName, string password) {
             return string.Format("Host={0};Username={1};Password={2};Database={3};", host, userName, password, dbName);
         }
 
-        public int ExecuteQuery(string query) {
+        public int ExecuteQuery(WfNode owner, string query) {
             try {
                 using(var cmd = new NpgsqlCommand(query, Connection)) {
                     int rowCount = cmd.ExecuteNonQuery();
                     return rowCount;
                 }
             }
-            catch(Exception) {
+            catch(Exception e) {
+                owner.OnError("Error execute postgresql query: " + e.ToString());
                 return 0;
             }
         }
 
-        public override bool ExecuteBooleanQuery(string query) {
+        public override bool ExecuteBooleanQuery(WfNode owner, string query) {
             using(var cmd = new NpgsqlCommand(query, Connection)) {
                 using(var reader = cmd.ExecuteReader()) {
                     if(!reader.HasRows || !reader.Read() || !reader.IsOnRow)
@@ -119,23 +119,23 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
             }
         }
 
-        public override int ExecuteNonQuery(string query) {
+        public override int ExecuteNonQuery(WfNode owner, string query) {
             using(var cmd = new NpgsqlCommand(query, Connection)) {
                 int rowsAffected = cmd.ExecuteNonQuery();
                 return (int)rowsAffected;
             }
         }
 
-        public override bool Connect(string host, string database, string username, string password) {
+        public override bool Connect(WfNode owner, string host, string database, string username, string password) {
             if(Connection != null && Connection.State == System.Data.ConnectionState.Open)
                 Connection.Close();
-            string connectionString = GetConnectionString(host, database, username, password);
+            string connectionString = GetConnectionString(owner, host, database, username, password);
             Connection = new NpgsqlConnection(connectionString);
             Connection.Open();
             return true;
         }
 
-        public override bool DatabaseExist(string dbName) {
+        public override bool DatabaseExist(WfNode owner, string dbName) {
             using(NpgsqlCommand command = new NpgsqlCommand(string.Format("SELECT datname FROM pg_catalog.pg_database WHERE datname='{0}';", dbName), Connection)) {
                 using(var reader = command.ExecuteReader()) {
                     if(!reader.HasRows || !reader.Read() || !reader.IsOnRow)
@@ -146,7 +146,7 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
             }
         }
 
-        public override bool CreateDatabase(string dbName) {
+        public override bool CreateDatabase(WfNode owner, string dbName) {
             if(Connection == null || Connection.State != System.Data.ConnectionState.Open)
                 return false;
             try {
@@ -155,32 +155,32 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
                 }
             }
             catch(Exception e) {
-                DiagnosticHelper.Error("Cannot create database: " + e.ToString());
+                owner.OnError("Cannot create database: " + e.ToString());
                 return false;
             }
             return true;
         }
 
-        public override bool TableExist(string tableName) {
+        public override bool TableExist(WfNode owner, string tableName) {
             tableName = tableName.ToLowerInvariant();
             string query = string.Format("SELECT EXISTS (SELECT FROM information_schema.tables where table_name = '{0}');", tableName);
-            return ExecuteBooleanQuery(query);
+            return ExecuteBooleanQuery(owner, query);
         }
 
-        public override bool CreateTable(string tableName, WfDataTableColumnInfoCollection columns) {
+        public override bool CreateTable(WfNode owner, string tableName, WfDataTableColumnInfoCollection columns) {
             tableName = tableName.ToLowerInvariant();
             StringBuilder b = new StringBuilder();
             for(int i = 0; i < columns.Count; i++) {
-                b.Append(WfPostgreConnectionProvider.Default.GetColumnDescription(columns[i]));
+                b.Append(Default.GetColumnDescription(owner, columns[i]));
                 if(i < columns.Count - 1)
                     b.Append(", ");
             }
 
             string query = string.Format("CREATE TABLE IF NOT EXISTS {0} ({1});", tableName, b.ToString());
-            return ExecuteQuery(query) == 1;
+            return ExecuteQuery(owner, query) == 1;
         }
 
-        public override List<WfDataTableColumnInfo> GetTableInfo(string tableName) {
+        public override List<WfDataTableColumnInfo> GetTableInfo(WfNode owner, string tableName) {
             List<string> primaryKeys = GetPrimaryKeys(tableName);
             
             tableName = tableName.ToLowerInvariant();
@@ -223,7 +223,7 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
                 }
             }
             catch(Exception e) {
-                DiagnosticHelper.Error("Cannot get table info: " + e.ToString());
+                owner.OnError("Cannot get table info: " + e.ToString());
                 return null;
             }
             return list;
@@ -277,32 +277,32 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
             return WfDataTableColumnType.VarChar;
         }
 
-        protected override bool AddColumn(string tableName, WfDataTableColumnInfo info) {
-            string query = string.Format("ALTER TABLE IF EXISTS {0} ADD COLUMN IF NOT EXISTS {1};", tableName.ToLowerInvariant(), GetColumnDescription(info));
-            return ExecuteQuery(query) == 1;
+        protected override bool AddColumn(WfNode owner, string tableName, WfDataTableColumnInfo info) {
+            string query = string.Format("ALTER TABLE IF EXISTS {0} ADD COLUMN IF NOT EXISTS {1};", tableName.ToLowerInvariant(), GetColumnDescription(owner, info));
+            return ExecuteQuery(owner, query) == 1;
         }
 
-        protected override bool RemoveColumn(string tableName, WfDataTableColumnInfo info) {
+        protected override bool RemoveColumn(WfNode owner, string tableName, WfDataTableColumnInfo info) {
             string query = string.Format("ALTER TABLE IF EXISTS {0} DROP COLUMN IF EXISTS {1} CASCADE;", tableName.ToLowerInvariant(), info.LowCaseName);
-            return ExecuteQuery(query) == 1;
+            return ExecuteQuery(owner, query) == 1;
         }
 
-        protected virtual bool UpdateDataType(string tableName, WfDataTableColumnInfo info) {
-            string query = string.Format("ALTER TABLE IF EXISTS {0} ALTER COLUMN {1} SET DATA TYPE {2};", tableName.ToLowerInvariant(), info.LowCaseName, GetColumnType(info));
-            return ExecuteQuery(query) == 1;
+        protected virtual bool UpdateDataType(WfNode owner, string tableName, WfDataTableColumnInfo info) {
+            string query = string.Format("ALTER TABLE IF EXISTS {0} ALTER COLUMN {1} SET DATA TYPE {2};", tableName.ToLowerInvariant(), info.LowCaseName, GetColumnType(owner, info));
+            return ExecuteQuery(owner, query) == 1;
         }
 
-        protected override bool UpdateColumn(string tableName, WfDataTableColumnInfo info) {
-            if(!UpdateDataType(tableName, info))
+        protected override bool UpdateColumn(WfNode owner, string tableName, WfDataTableColumnInfo info) {
+            if(!UpdateDataType(owner, tableName, info))
                 return false;
-            if(!UpdateIsNull(tableName, info))
+            if(!UpdateIsNull(owner, tableName, info))
                 return false;
-            if(!UpdateDefaultValue(tableName, info))
+            if(!UpdateDefaultValue(owner, tableName, info))
                 return false;
             return true;
         }
 
-        protected virtual bool UpdateDefaultValue(string tableName, WfDataTableColumnInfo info) {
+        protected virtual bool UpdateDefaultValue(WfNode owner, string tableName, WfDataTableColumnInfo info) {
             string query = null;
             if(string.IsNullOrEmpty(info.DefaultValue))
                 query = string.Format("ALTER TABLE IF EXISTS {0} ALTER COLUMN {1} DROP DEFAULT;", tableName.ToLowerInvariant(), info.LowCaseName);
@@ -310,39 +310,44 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
                 query = string.Format("ALTER TABLE IF EXISTS {0} ALTER COLUMN {1} SET DEFAULT '{2}';", tableName.ToLowerInvariant(), info.LowCaseName, info.DefaultValue);
             else
                 query = string.Format("ALTER TABLE IF EXISTS {0} ALTER COLUMN {1} SET DEFAULT {2};", tableName.ToLowerInvariant(), info.LowCaseName, info.DefaultValue);
-            return ExecuteQuery(query) == 1;
+            return ExecuteQuery(owner, query) == 1;
         }
 
-        protected virtual bool UpdateIsNull(string tableName, WfDataTableColumnInfo info) {
+        protected virtual bool UpdateIsNull(WfNode owner, string tableName, WfDataTableColumnInfo info) {
             string command = info.IsNullable ? "DROP NOT NULL" : "SET NOT NULL";
             string query = string.Format("ALTER TABLE IF EXISTS {0} ALTER COLUMN {1} {2};", tableName.ToLowerInvariant(), info.LowCaseName, command);
-            return ExecuteQuery(query) == 1;
+            return ExecuteQuery(owner, query) == 1;
         }
 
         public override string ToString() {
             return "PostgreSQL Connector";
         }
 
-        public override bool Insert(string table, ColumnRefCollection columns) {
-            return ExecuteNonQuery(GetInsertQueryString(table, columns)) == 1;
+        public override bool Insert(WfNode owner, string table, ColumnRefCollection columns) {
+            return ExecuteNonQuery(owner, GetInsertQueryString(owner, table, columns)) == 1;
         }
 
-        public override DataTable Select(string query) {
-            using(var cmd = new NpgsqlCommand(query, Connection)) {
-                using(NpgsqlDataReader reader = cmd.ExecuteReader()) {
-                    //DataTable table = new DataTable();
-                    DataTable table = reader.GetSchemaTable();
-                    //for(int i = 0; i < reader.FieldCount; i++)
-                    //    table.Columns.Add(new DataColumn() { ColumnName = reader.GetName(0) });
-                    while(reader.Read()) {
-                        object[] row = new object[reader.FieldCount];
-                        reader.GetValues(row);
-                        table.Rows.Add(row);
+        public override DataTable Select(WfNode owner, string query) {
+            try {
+                using(var cmd = new NpgsqlCommand(query, Connection)) {
+                    using(NpgsqlDataReader reader = cmd.ExecuteReader()) {
+                        DataTable table = new DataTable();
+                        var columns = reader.GetColumnSchema();
+                        for(int i = 0; i < columns.Count; i++) 
+                            table.Columns.Add(new DataColumn() { ColumnName = columns[i].ColumnName, DataType = columns[i].DataType });
+                        while(reader.Read()) {
+                            object[] row = new object[reader.FieldCount];
+                            reader.GetValues(row);
+                            table.Rows.Add(row);
+                        }
+                        return table;
                     }
-                    return table;
                 }
             }
-            return null;
+            catch(Exception ex) {
+                owner.OnError("Error, while executing sql query: '" + query + "'. Error: " + ex.Message);
+                return null;
+            }
         }
     }
 }

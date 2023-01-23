@@ -4,12 +4,15 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using WorkflowDiagram.Nodes.Base;
+using WorkflowDiagram.Nodes.Connectors.Helpers;
 
 namespace WorkflowDiagram.Nodes.Connectors {
     public class WfSelectDbRowsNode : WfVisualNodeBase, IColumnRefOwner {
         public WfSelectDbRowsNode() {
-             Columns = new ColumnRefCollection(this);
+            Columns = new ColumnRefCollection(this);
+            SortColumns = new List<ColumnSortOrderInfo>();
         }
 
         public override string VisualTemplateName => "SelectDbRowsNode";
@@ -31,21 +34,33 @@ namespace WorkflowDiagram.Nodes.Connectors {
             return res;
         }
 
+        [WinPropertyEditor("WorkflowDiagram.UI.Win.Editors", "WorkflowDiagram.UI.Win.Editors.RepositoryItemExpressionEditor"),
+            BlazorPropertyEditor("WorkflowDiagram.UI.Blazor", "WorkflowDiagram.UI.Blazor.NodeEditors.MultilineEditor")]
         public string Query { get; set; }
         public ColumnRefCollection Columns { get; }
+        public List<ColumnSortOrderInfo> SortColumns { get; }
+
+        [XmlIgnore]
+        public List<string> ResultColumns { get; private set; }
 
         protected override bool OnInitializeCore(WfRunner runner) {
+            ResultColumns = new List<string>();
             return true;
         }
 
         protected override void OnVisitCore(WfRunner runner) {
-            WfDatabaseConnectorNode database = Inputs["Database"].Value as WfDatabaseConnectorNode;
-            if(database == null || database.Provider == null) {
+            var provider = Inputs["Database"].Value as WfDatabaseConnectionProvider;
+            if(provider == null) {
                 Outputs["Result"].SkipVisit(runner, null);
                 return;
             }
             string actualQuery = GetActualQuery();
-            DataTable dataTable = database.Provider.Select(actualQuery);
+            DataTable dataTable = provider.Select(this, actualQuery);
+            if(dataTable != null) {
+                foreach(DataColumn column in dataTable.Columns)
+                    ResultColumns.Add(column.ColumnName);
+            }
+            Outputs["Result"].Visit(runner, dataTable);
         }
 
         protected virtual string GetActualQuery() {
@@ -68,6 +83,22 @@ namespace WorkflowDiagram.Nodes.Connectors {
             }
             b.Append(" FROM ");
             b.Append(table.Table);
+            
+            if(SortColumns.Count > 0) {
+                b.Append(" ORDER BY ");
+                bool firstItem = true;
+                for(int i = 0; i < SortColumns.Count; i++) {
+                    if(SortColumns[i].Mode != ColumnSortDirection.None) {
+                        if(!firstItem)
+                            b.Append(", ");
+                        firstItem = false;
+                        b.Append(SortColumns[i].ColumnName);
+                        b.Append(' ');
+                        b.Append(SortColumns[i].Mode == ColumnSortDirection.Ascending ? "ASC" : "DESC");
+                    }
+                }
+            }
+            
             b.Append(';');
 
             return b.ToString();

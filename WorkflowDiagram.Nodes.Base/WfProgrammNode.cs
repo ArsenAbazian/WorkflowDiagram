@@ -90,7 +90,7 @@ namespace WorkflowDiagram.Nodes.Base {
                     doc.Load(SubDocumentFilePath);
                 }
                 catch(Exception e) {
-                    DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Cannot load sub-document from file '" + SubDocumentFilePath + "'. " + e.ToString());
+                    OnError("Cannot load sub-document from file '" + SubDocumentFilePath + "'. " + e.ToString());
                 }
                 return document;
             }
@@ -104,14 +104,12 @@ namespace WorkflowDiagram.Nodes.Base {
             WfRunner subRunner = new WfRunner(SubDocument);
             if(!subRunner.Initialize()) {
                 DiagnosticHelper.Diagnostics.AddRange(subRunner.Document.Diagnostics);
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Error initializing sub-document.");
-                HasErrors = true;
+                OnError("Error initializing sub-document.");
                 return;
             }
             if(!subRunner.Initialize()) {
                 DiagnosticHelper.Diagnostics.AddRange(subRunner.Document.Diagnostics);
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Error initializing sub-document.");
-                HasErrors = true;
+                OnError("Error initializing sub-document.");
                 return;
             }
             if(!subRunner.RunOnce((st) => {
@@ -122,8 +120,7 @@ namespace WorkflowDiagram.Nodes.Base {
                 return true;
             })) {
                 DiagnosticHelper.Diagnostics.AddRange(subRunner.Document.Diagnostics);
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Error executing sub-document.");
-                HasErrors = true;
+                OnError("Error executing sub-document.");
                 return;
             }
             for(int i = 0; i < Outputs.Count; i++) {

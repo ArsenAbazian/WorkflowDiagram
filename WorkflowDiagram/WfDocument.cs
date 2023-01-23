@@ -23,10 +23,14 @@ namespace WorkflowDiagram {
 
             Nodes = new WfNodeCollection(this);
             Connectors = new WfDocumentConnectorCollection(this);
+            Files = new List<WfFile>();
             CreationTime = DateTime.Now;
 
             InitializeDefaultColors();
         }
+
+        [XmlIgnore]
+        public List<WfFile> Files { get; }
 
         protected internal virtual void OnNodesCollectionChanged() {
             OnPropertyChanged(nameof(Nodes));
@@ -305,6 +309,8 @@ namespace WorkflowDiagram {
         }
 
         public virtual void Reset() {
+            var toRemove = Files.Where(f => f.Generated).ToList();
+            toRemove.ForEach(f => Files.Remove(f));
             Diagnostics.Clear();
             DataDictionary.Clear();
             foreach(WfConnector connector in Connectors)

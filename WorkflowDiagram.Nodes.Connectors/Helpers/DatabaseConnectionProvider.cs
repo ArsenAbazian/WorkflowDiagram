@@ -9,26 +9,23 @@ using System.Threading.Tasks;
 
 namespace WorkflowDiagram.Nodes.Connectors.Helpers {
     public abstract class WfDatabaseConnectionProvider {
-        public WfDatabaseConnectionProvider(WfDiagnosticHelper helper) {
-            DiagnosticHelper = helper;
-        }
+        public WfDatabaseConnectionProvider() { }
 
-        protected WfDiagnosticHelper DiagnosticHelper { get; private set; }
         public virtual DbConnection Connection { get; set; }
+        
+        public abstract string GetColumnDescription(WfNode owner, WfDataTableColumnInfo columnInfo);
+        public abstract string GetColumnType(WfNode owner, WfDataTableColumnInfo columnInfo);
 
-        public abstract string GetColumnDescription(WfDataTableColumnInfo columnInfo);
-        public abstract string GetColumnType(WfDataTableColumnInfo columnInfo);
+        public abstract string GetConnectionString(WfNode owner, string host, string dbName, string userName, string password);
+        public abstract bool ExecuteBooleanQuery(WfNode owner, string query);
+        public abstract int ExecuteNonQuery(WfNode owner, string query);
 
-        public abstract string GetConnectionString(string host, string dbName, string userName, string password);
-        public abstract bool ExecuteBooleanQuery(string query);
-        public abstract int ExecuteNonQuery(string query);
-
-        public string GetInsertQueryString(string tableName, ColumnRefCollection columns) {
+        public string GetInsertQueryString(WfNode owner, string tableName, ColumnRefCollection columns) {
             StringBuilder b = new StringBuilder();
             StringBuilder v = new StringBuilder();
             for(int i = 0; i < columns.Count; i++) {
                 b.Append(columns[i].LowCaseName);
-                v.Append(FormatValue(columns[i].ColumnInfo, columns[i].Point));
+                v.Append(FormatValue(owner, columns[i].ColumnInfo, columns[i].Point));
                 if(i < columns.Count - 1) {
                     b.Append(',');
                     v.Append(',');
@@ -40,18 +37,18 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
              return queryString;
         }
 
-        protected string FormatValue(WfDataTableColumnInfo columnInfo, WfConnectionPoint point) {
-            return FormatValue(columnInfo, point.Value);
+        protected string FormatValue(WfNode owner, WfDataTableColumnInfo columnInfo, WfConnectionPoint point) {
+            return FormatValue(owner, columnInfo, point.Value);
         }
-        protected abstract string FormatValue(WfDataTableColumnInfo columnInfo, object value);
-        public abstract bool Connect(string host, string database, string username, string password);
-        public abstract bool DatabaseExist(string dbName);
-        public abstract bool CreateDatabase(string dbName);
-        public abstract bool TableExist(string tableName);
-        public abstract bool CreateTable(string tableName, WfDataTableColumnInfoCollection columns);
-        public abstract List<WfDataTableColumnInfo> GetTableInfo(string tableName);
-        public bool CheckUpdateTableSchema(string tableName, WfDataTableColumnInfoCollection columns) {
-            List<WfDataTableColumnInfo> current = GetTableInfo(tableName);
+        protected abstract string FormatValue(WfNode owner, WfDataTableColumnInfo columnInfo, object value);
+        public abstract bool Connect(WfNode owner, string host, string database, string username, string password);
+        public abstract bool DatabaseExist(WfNode owner, string dbName);
+        public abstract bool CreateDatabase(WfNode owner, string dbName);
+        public abstract bool TableExist(WfNode owner, string tableName);
+        public abstract bool CreateTable(WfNode owner, string tableName, WfDataTableColumnInfoCollection columns);
+        public abstract List<WfDataTableColumnInfo> GetTableInfo(WfNode owner, string tableName);
+        public bool CheckUpdateTableSchema(WfNode owner, string tableName, WfDataTableColumnInfoCollection columns) {
+            List<WfDataTableColumnInfo> current = GetTableInfo(owner, tableName);
             if(current == null)
                 return false;
             List<WfDataTableColumnInfo> update = new List<WfDataTableColumnInfo>();
@@ -74,44 +71,44 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
                     add.Add(columns[i]);
             }
 
-            if(!RemoveColumns(tableName, remove))
+            if(!RemoveColumns(owner, tableName, remove))
                 return false;
-            if(!UpdateColumns(tableName, update))
+            if(!UpdateColumns(owner, tableName, update))
                 return false;
-            if(!AddColumns(tableName, add))
+            if(!AddColumns(owner, tableName, add))
                 return false;
             return true;
         }
 
-        protected bool RemoveColumns(string tableName, List<WfDataTableColumnInfo> columns) {
+        protected bool RemoveColumns(WfNode owner, string tableName, List<WfDataTableColumnInfo> columns) {
             for(int i = 0; i < columns.Count; i++) {
-                if(!RemoveColumn(tableName, columns[i]))
+                if(!RemoveColumn(owner, tableName, columns[i]))
                     return false;
             }
             return true;
         }
 
-        protected bool UpdateColumns(string tableName, List<WfDataTableColumnInfo> columns) {
+        protected bool UpdateColumns(WfNode owner, string tableName, List<WfDataTableColumnInfo> columns) {
             for(int i = 0; i < columns.Count; i++) {
-                if(!UpdateColumn(tableName, columns[i]))
+                if(!UpdateColumn(owner, tableName, columns[i]))
                     return false;
             }
             return true;
         }
 
-        protected bool AddColumns(string tableName, List<WfDataTableColumnInfo> columns) {
+        protected bool AddColumns(WfNode owner, string tableName, List<WfDataTableColumnInfo> columns) {
             for(int i = 0; i < columns.Count; i++) {
-                if(!AddColumn(tableName, columns[i]))
+                if(!AddColumn(owner, tableName, columns[i]))
                     return false;
             }
             return true;
         }
 
-        protected abstract bool AddColumn(string tableName, WfDataTableColumnInfo info);
-        protected abstract bool RemoveColumn(string tableName, WfDataTableColumnInfo info);
-        protected abstract bool UpdateColumn(string tableName, WfDataTableColumnInfo info);
+        protected abstract bool AddColumn(WfNode owner, string tableName, WfDataTableColumnInfo info);
+        protected abstract bool RemoveColumn(WfNode owner, string tableName, WfDataTableColumnInfo info);
+        protected abstract bool UpdateColumn(WfNode owner, string tableName, WfDataTableColumnInfo info);
 
-        public abstract bool Insert(string table, ColumnRefCollection columns);
-        public abstract DataTable Select(string actualQuery);
+        public abstract bool Insert(WfNode owner, string table, ColumnRefCollection columns);
+        public abstract DataTable Select(WfNode owner, string actualQuery);
     }
 }

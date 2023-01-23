@@ -52,31 +52,31 @@ namespace WorkflowDiagram.Nodes.Connectors {
             if(string.IsNullOrEmpty(Table)) {
                 Outputs["Table"].SkipVisit(runner, this);
                 Outputs["Failed"].Visit(runner, null);
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Table name is not specified");
+                OnError("Table name is not specified");
                 return;
             }
-            if(!Provider.TableExist(Table)) {
+            if(!Provider.TableExist(this, Table)) {
                 if(!CreateIfNotExist) {
-                    DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "There is no table with name " + Name + "in database " + Provider.Connection.Database);
+                    OnError("There is no table with name " + Name + "in database " + Provider.Connection.Database);
                     Outputs["Table"].SkipVisit(runner, this);
                     Outputs["Failed"].Visit(runner, null);
                     return;
                 }
 
-                if(!Provider.CreateTable(Table, Columns)) {
-                    DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Cannot create table with name " + Name + "in database " + Provider.Connection.Database);
+                if(!Provider.CreateTable(this, Table, Columns)) {
+                    OnError("Cannot create table with name " + Name + "in database " + Provider.Connection.Database);
                     Outputs["Table"].SkipVisit(runner, this);
                     Outputs["Failed"].Visit(runner, null);
                     return;
                 }
             }
-            if(AllowUpdateTableSchema && !Provider.CheckUpdateTableSchema(Table, Columns)) {
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Cannot check schema for table with name " + Name + "in database " + Provider.Connection.Database);
+            if(AllowUpdateTableSchema && !Provider.CheckUpdateTableSchema(this,Table, Columns)) {
+                OnError("Cannot check schema for table with name " + Name + "in database " + Provider.Connection.Database);
                 Outputs["Table"].SkipVisit(runner, this);
                 Outputs["Failed"].Visit(runner, null);
                 return;
             }
-            ActualColumns = Provider.GetTableInfo(Table);
+            ActualColumns = Provider.GetTableInfo(this,Table);
             Outputs["Table"].Visit(runner, this);
             Outputs["Failed"].SkipVisit(runner, null);
         }

@@ -477,6 +477,17 @@ namespace WorkflowDiagram.UI.Blazor.DiagramComponents {
         public Dictionary<WfConnector, ConnectorItem> ConnectorItems { get; } = new Dictionary<WfConnector, ConnectorItem>();
         public Dictionary<WfConnectionPoint, ConnectionPointItem> PointItems { get; } = new Dictionary<WfConnectionPoint, ConnectionPointItem>();
         public Dictionary<WfNode, NodeItem> NodeItems { get; } = new Dictionary<WfNode, NodeItem>();
+
+        bool showGrid = true;
+        public bool ShowGrid {
+            get { return showGrid; }
+            set {
+                if(ShowGrid == value)
+                    return;
+                showGrid = value;
+                Refresh();
+            }
+        }
     }
 
     public enum WdDiagramState {

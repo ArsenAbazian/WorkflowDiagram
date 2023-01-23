@@ -17,8 +17,28 @@ namespace WorkflowDiagram.UI.Blazor.Editors {
             }
         }
 
+        IList commands = new List<ListBoxItemCommand>();
+        [Parameter]
+        public IList Commands {
+            get { return commands; }
+            set {
+                if(Commands == value)
+                    return;
+                commands = value;
+                OnCommandsChanged();
+            }
+        }
+
+        protected internal virtual void OnCommandClick(object item, ListBoxItemCommand command) {
+            command.RaiseClick(item);
+        }
+
+        protected virtual void OnCommandsChanged() {
+
+        }
+
         protected virtual void OnItemsSourceChanged() {
-            
+
         }
 
         public ListBoxView View { get; set; }
@@ -67,7 +87,7 @@ namespace WorkflowDiagram.UI.Blazor.Editors {
         }
 
         protected override Task OnInitializedAsync() {
-            
+
             return base.OnInitializedAsync();
         }
 
@@ -86,5 +106,27 @@ namespace WorkflowDiagram.UI.Blazor.Editors {
         protected virtual void RaiseSelectionChanged() {
             SelectedItemChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        [Parameter]
+        public string Class { get; set; } = "";
     }
+
+    public class ListBoxItemCommand {
+        public string Text { get; set; }
+        public string Icon { get; set; }
+        public event ListBoxItemCommandEventHandler Click;
+
+        public void RaiseClick(object item) {
+            Click.Invoke(this, new ListBoxItemCommandEventArgs() { Item = item });
+        }
+
+        public string IconStyle { get { return string.IsNullOrEmpty(Icon) ? "empty" : ""; } }
+        public string TextStyle { get { return string.IsNullOrEmpty(Icon) ? "" : "empty"; } }
+    }
+
+    public class ListBoxItemCommandEventArgs :EventArgs {
+        public object Item { get; set; }
+    }
+
+    public delegate void ListBoxItemCommandEventHandler(object sender, ListBoxItemCommandEventArgs e);
 }

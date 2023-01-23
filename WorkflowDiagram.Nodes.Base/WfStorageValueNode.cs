@@ -22,7 +22,7 @@ namespace WorkflowDiagram.Nodes.Base {
 
         protected override bool OnInitializeCore(WfRunner runner) {
             if(string.IsNullOrEmpty(ValueName)) {
-                DiagnosticHelper.Error("Empty name for storage value is not allowed. Please specify unique name");
+                OnError("Empty name for storage value is not allowed. Please specify unique name");
                 return false;
             }
             if(!HasInputConnections)

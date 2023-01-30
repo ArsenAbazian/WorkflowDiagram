@@ -1,14 +1,7 @@
-﻿using DevExpress.XtraCharts;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WokflowDiagram.Nodes.Visualization.Forms;
-using WokflowDiagram.Nodes.Visualization.Managers;
 using WorkflowDiagram;
+using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WokflowDiagram.Nodes.Visualization {
     [WfToolboxVisible(true)]
@@ -23,12 +16,18 @@ namespace WokflowDiagram.Nodes.Visualization {
         public List<WfDiagramPane> Panes { get; set; } = new List<WfDiagramPane>();
 
         public int PaneDistance { get; set; } = 10;
-        public PaneLayoutDirection PaneLayoutDirection { get; set; } = PaneLayoutDirection.Vertical;
+        public WfChartPaneLayoutDirection PaneLayoutDirection { get; set; } = WfChartPaneLayoutDirection.Vertical;
 
         object IChartNode.SeriesSource { get { return Inputs["In"].Value; } }
-        protected override Control CreateVisualizationControl(object seriesSource) {
-            ChartUserControl control = new ChartUserControl();
-            ChartVisualizationManager.Default.InitializeChart(this, control.ChartControl);
+        protected IWfPlatformChartService ChartService { get; set; }
+
+        protected override object CreateVisualizationControl(object seriesSource) {
+            ChartService = Document.PlatformServices.GetService<IWfPlatformChartService>(this);
+            object control = ChartService.CreateChartUserControl(this);
+            ChartService.InitializeChart(this, control);
+            //WINFORM
+            //ChartUserControl control = new ChartUserControl();
+            //ChartVisualizationManager.Default.InitializeChart(this, control.ChartControl);
             return control;
         }
 

@@ -1,18 +1,11 @@
-﻿using DevExpress.LookAndFeel;
-using DevExpress.Skins;
-using DevExpress.XtraCharts;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Xml.Serialization;
-using WokflowDiagram.Nodes.Visualization;
-using WokflowDiagram.Nodes.Visualization.Forms;
 using WorkflowDiagram;
 using WorkflowDiagram.Nodes.Base;
+using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WokflowDiagram.Nodes.Visualization {
     public class WfChartFormNode : WfVisualNodeBase, IChartNode {
@@ -182,30 +175,34 @@ namespace WokflowDiagram.Nodes.Visualization {
         }
 
         protected IProgress<object> Progress { get; set; }
-        ChartForm form;
+        protected IWfPlatformChartService ChartService { get; set; }
+        IWfChartForm form;
         [XmlIgnore]
-        public ChartForm Form {
+        public IWfChartForm Form {
             get {
-                if(form == null || form.IsDisposed)
-                    form = new ChartForm();
+                if(form == null || Document.PlatformServices.ShouldRecreateForm(form))
+                    form = ChartService.CreateChartForm(this);
+                //WINFORM
+                //if(form == null || form.IsDisposed)
+                //    form = new ChartForm();
                 return form;
             }
             set { form = value; }
         }
         protected override bool OnInitializeCore(WfRunner runner) {
+            ChartService = Document.PlatformServices.GetService<IWfPlatformChartService>(this);
             foreach(var pane in Panes) {
                 if(string.IsNullOrEmpty(pane.Name)) {
-                    DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Chart pane's name should be specified.");
-                    HasErrors = true;
+                    OnError("Chart pane's name should be specified.");
                     return false;
                 }
                 if(Panes.Select(p => p.Name).Count() > 1) {
-                    DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "Chart pane's name should be unique, but dublicate name detected");
-                    HasErrors = true;
+                    OnError("Chart pane's name should be unique, but dublicate name detected");
                     return false;
                 }
             }
             Progress = new Progress<object>(dataSource => {
+                ChartService.ShowChartForm(Form, this);
                 Form.Node = this;
                 Form.Show();
             });
@@ -218,7 +215,7 @@ namespace WokflowDiagram.Nodes.Visualization {
         public List<WfDiagramPane> Panes { get; set; } = new List<WfDiagramPane>();
 
         public int PaneDistance { get; set; } = 10;
-        public PaneLayoutDirection PaneLayoutDirection { get; set; } = PaneLayoutDirection.Vertical;
+        public WfChartPaneLayoutDirection PaneLayoutDirection { get; set; } = WfChartPaneLayoutDirection.Vertical;
         object IChartNode.SeriesSource { get => Inputs["In"].Value; }
     }
 
@@ -231,8 +228,13 @@ namespace WokflowDiagram.Nodes.Visualization {
         bool Rotated { get; set; }
         List<WfDiagramPane> Panes { get; set; }
         int PaneDistance { get; set; }
-        PaneLayoutDirection PaneLayoutDirection { get; set; }
+        WfChartPaneLayoutDirection PaneLayoutDirection { get; set; }
         object SeriesSource { get; }
         List<WfDiagnosticInfo> Diagnostic { get; }
+    }
+
+    public enum WfChartPaneLayoutDirection {
+        Horizontal,
+        Vertical
     }
 }

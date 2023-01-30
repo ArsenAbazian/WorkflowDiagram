@@ -61,7 +61,7 @@ namespace WokflowDiagram.Nodes.Visualization.Forms {
                 if(item is Control)
                     control = (Control)item;
                 else if(item is WfDashboardPanelNode) {
-                    control = node.CreateVisualizationControl();
+                    control = (Control)node.CreateVisualizationControl();
                     control.Text = node.Caption;
                 }
                 if(control == null)

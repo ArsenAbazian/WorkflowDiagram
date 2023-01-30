@@ -192,9 +192,9 @@
       <Project>{fde9ea71-c293-47f5-981a-d56e9505114a}</Project>
       <Name>WorkflowDiagram.Nodes.Base.Develop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WorkflowDiagram.Nodes.Visualization\WorkflowDiagram.Nodes.Visualization.Win.Develop.csproj">
+    <ProjectReference Include="..\WorkflowDiagram.Nodes.Visualization\WorkflowDiagram.Nodes.Visualization.Develop.csproj">
       <Project>{b17d2ef7-5c40-4a49-beec-750763c6281d}</Project>
-      <Name>WorkflowDiagram.Nodes.Visualization.Win.Develop</Name>
+      <Name>WorkflowDiagram.Nodes.Visualization.Develop</Name>
     </ProjectReference>
     <ProjectReference Include="..\WorkflowDiagram.UI.Win.Editors\WorkflowDiagram.UI.Win.Editors.Develop.csproj">
       <Project>{ce484966-54e0-4c97-8d73-e2b9904c5720}</Project>

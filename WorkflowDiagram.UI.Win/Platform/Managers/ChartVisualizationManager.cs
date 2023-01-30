@@ -5,9 +5,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WorkflowDiagram;
 
 namespace WokflowDiagram.Nodes.Visualization.Managers {
@@ -81,12 +78,12 @@ namespace WokflowDiagram.Nodes.Visualization.Managers {
             object seriesSource = node.SeriesSource;
             if(seriesSource is WfChartSeriesNode) {
                 WfChartSeriesNode owner = (WfChartSeriesNode)seriesSource;
-                Series s = owner.CreateSeries();
+                Series s = (Series)owner.CreateSeries();
                 chartControl.Series.Add(s);
 
                 if(owner is WfFinancialSeriesNode) {
                     XYDiagram d = ((XYDiagram)chartControl.Diagram);
-                    d.AxisX.DateTimeScaleOptions.MeasureUnit = ((WfFinancialSeriesNode)owner).ArgumentMeauseUnit;
+                    d.AxisX.DateTimeScaleOptions.MeasureUnit = (DateTimeMeasureUnit)((WfFinancialSeriesNode)owner).ArgumentMeauseUnit;
                     d.AxisX.DateTimeScaleOptions.MeasureUnitMultiplier = ((WfFinancialSeriesNode)owner).MeasureUnitMultiplier;
                     d.AxisY.WholeRange.AlwaysShowZeroLevel = false;
                     d.EnableAxisXZooming = d.EnableAxisYScrolling = true;
@@ -109,7 +106,7 @@ namespace WokflowDiagram.Nodes.Visualization.Managers {
                     d.EnableAxisXZooming = d.EnableAxisYZooming = true;
                     d.EnableAxisYScrolling = d.EnableAxisXScrolling = true;
                     d.Rotated = node.Rotated;
-                    d.PaneLayout.Direction = node.PaneLayoutDirection;
+                    d.PaneLayout.Direction = (PaneLayoutDirection)node.PaneLayoutDirection;
                     d.PaneLayout.AutoLayoutMode = PaneAutoLayoutMode.Linear;
 
                     foreach(WfDiagramPane pane in node.Panes) {
@@ -124,7 +121,7 @@ namespace WokflowDiagram.Nodes.Visualization.Managers {
                     WfChartSeriesNode owner = item as WfChartSeriesNode;
                     if(owner == null)
                         continue;
-                    Series s = owner.CreateSeries();
+                    Series s = (Series)owner.CreateSeries();
                     if(!string.IsNullOrEmpty(owner.PaneName) && owner.PaneName != "Default") {
                         XYDiagramPaneBase pane = d.FindPaneByName(owner.PaneName);
                         if(pane == null) {
@@ -144,7 +141,7 @@ namespace WokflowDiagram.Nodes.Visualization.Managers {
                     }
 
                     if(owner is WfFinancialSeriesNode) {
-                        d.AxisX.DateTimeScaleOptions.MeasureUnit = ((WfFinancialSeriesNode)owner).ArgumentMeauseUnit;
+                        d.AxisX.DateTimeScaleOptions.MeasureUnit = (DateTimeMeasureUnit)((WfFinancialSeriesNode)owner).ArgumentMeauseUnit;
                         d.AxisY.WholeRange.AlwaysShowZeroLevel = false;
                         var view = ((XYDiagramSeriesViewBase)s.View);
 

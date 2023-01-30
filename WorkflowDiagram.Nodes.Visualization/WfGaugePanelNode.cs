@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WokflowDiagram.Nodes.Visualization.Forms;
-using WokflowDiagram.Nodes.Visualization.Managers;
 using WorkflowDiagram;
+using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WokflowDiagram.Nodes.Visualization {
     [WfToolboxVisible(true)]
@@ -27,10 +26,15 @@ namespace WokflowDiagram.Nodes.Visualization {
                 return gauges;
             } 
         }
-        protected override Control CreateVisualizationControl(object seriesSource) {
-            GaugeUserControl control = new GaugeUserControl();
-            GaugeVisualizationManager.Default.InitializeGauge(this, control);
-            return control;
+
+        protected internal IWfPlatformGaugeService GaugeService { get; set; }
+        protected override bool OnInitializeCore(WfRunner runner) {
+            GaugeService = Document.PlatformServices.GetService<IWfPlatformGaugeService>(this);
+            return base.OnInitializeCore(runner);
+        }
+
+        protected override object CreateVisualizationControl(object seriesSource) {
+            return GaugeService.CreateGaugeUserControl(this);
         }
 
         public override string ToString() {
@@ -55,11 +59,24 @@ namespace WokflowDiagram.Nodes.Visualization {
         }
 
         public int GaugesPerLine { get; set; } = -1;
-        public GaugeLayoutMode LayoutMode { get; set; } = GaugeLayoutMode.Auto;
-        public GaugeAlignMode AlignMode { get; set; } = GaugeAlignMode.Center;
+        public WfGaugeLayoutMode LayoutMode { get; set; } = WfGaugeLayoutMode.Auto;
+        public WfGaugeAlignMode AlignMode { get; set; } = WfGaugeAlignMode.Center;
     }
 
     public interface IGaugeNode {
         object GaugesSource { get; }
+    }
+
+    public enum WfGaugeLayoutMode {
+        Default,
+        Auto,
+        Horizontal,
+        Vertical
+    }
+    public enum WfGaugeAlignMode {
+        Default,
+        Near,
+        Center,
+        Far
     }
 }

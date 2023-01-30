@@ -69,17 +69,20 @@
   <ItemGroup>
     <Compile Include="Editors\IPropertyEditor.cs" />
     <Compile Include="IDiagramOwner.cs" />
+    <Compile Include="IWfPlatformServices.cs" />
     <Compile Include="PropertyEditorAttribute.cs" />
     <Compile Include="WfColor.cs" />
     <Compile Include="WfCommandsProvider.cs" />
     <Compile Include="WfConnectionPoint.cs" />
     <Compile Include="WfConnectionPointCollection.cs" />
     <Compile Include="WfConnectorCollection.cs" />
+    <Compile Include="WfCustomNode.cs" />
     <Compile Include="WfDataInfo.cs" />
     <Compile Include="WfDiagnosticInfo.cs" />
     <Compile Include="WfDocument.cs" />
     <Compile Include="WfDocumentCollection.cs" />
     <Compile Include="WfDocumentConnectorCollection.cs" />
+    <Compile Include="WfFile.cs" />
     <Compile Include="WfNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WfNodeCollection.cs" />

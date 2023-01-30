@@ -1,11 +1,6 @@
-﻿using DevExpress.XtraBars.Docking;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 using WorkflowDiagram;
 using WorkflowDiagram.Nodes.Base;
@@ -31,17 +26,18 @@ namespace WokflowDiagram.Nodes.Visualization {
             }.ToList();
         }
 
-        protected virtual Control CreateVisualizationControl(object dataSource) { return null; }
+        protected virtual object CreateVisualizationControl(object dataSource) { return null; }
 
-        public Control CreateVisualizationControl() {
+        public object CreateVisualizationControl() {
             VisualizationControl = CreateVisualizationControl(Inputs["In"].Value);
-            VisualizationControl.Dock = DockStyle.Fill;
+            //WINFORMS
+            //VisualizationControl.Dock = DockStyle.Fill;
             return VisualizationControl;
         }
 
         [XmlIgnore]
         [Browsable(false)]
-        public Control VisualizationControl { get; set; }
+        public object VisualizationControl { get; set; }
         protected override void OnVisitCore(WfRunner runner) {
             DataContext = this;
             Outputs[0].Visit(runner, this);

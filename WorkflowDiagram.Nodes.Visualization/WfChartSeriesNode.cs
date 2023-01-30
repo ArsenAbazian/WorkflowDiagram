@@ -1,14 +1,12 @@
-﻿using DevExpress.XtraCharts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using WorkflowDiagram;
 using WorkflowDiagram.Nodes.Base;
+using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WokflowDiagram.Nodes.Visualization {
     [WfToolboxVisible(false)]
@@ -40,45 +38,51 @@ namespace WokflowDiagram.Nodes.Visualization {
         }
 
         protected override bool OnInitializeCore(WfRunner runner) {
-            if(Series != null)
-                Series.Dispose();
-            Series = null;
+            ChartService = Document.PlatformServices.GetService<IWfPlatformChartService>(this);
+            IDisposable ds = NativeSeries as IDisposable;
+            if(ds != null)
+                ds.Dispose();
+            NativeSeries = null;
             if(string.IsNullOrEmpty(ArgumentDataMember)) {
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "ArgumentDataMember must be specified");
-                HasErrors = true;
+                OnError("ArgumentDataMember must be specified");
                 return false;
             }
             if(string.IsNullOrEmpty(ValueDataMember)) {
-                DiagnosticHelper.Add(WfDiagnosticSeverity.Error, "ValueDataMember must be specified");
-                HasErrors = true;
+                OnError("ValueDataMember must be specified");
                 return false;
             }
             return true;
         }
 
-        protected internal virtual Series CreateSeries() {
-            if(Series != null)
-                return Series;
-            ViewType viewType = GetViewType();
-            Series s = CreateSeriesCore(SeriesName, viewType);
-            s.Name = SeriesName;
-            s.Tag = this;
-            s.ArgumentDataMember = ArgumentDataMember;
-            InitializeValueDataMembers(s);
-            s.DataSource = DataSource;
-            Series = s;
+        protected IWfPlatformChartService ChartService { get; set; }
+
+        protected internal virtual object CreateSeries() {
+            if(NativeSeries != null)
+                return NativeSeries;
+            WfChartSeriesViewType viewType = GetViewType();
+            object s = CreateSeriesCore(SeriesName, viewType);
+            InitializeSeriesCore(s);
+            // WINFORM
+            //s.Name = SeriesName;
+            //s.Tag = this;
+            //s.ArgumentDataMember = ArgumentDataMember;
+            //s.ValueDataMembers.AddRange(ValueDataMember);
+            //s.DataSource = DataSource;
+            NativeSeries = s;
             return s;
         }
 
-        protected virtual void InitializeValueDataMembers(Series s) {
-            s.ValueDataMembers.AddRange(ValueDataMember);
+        protected virtual void InitializeSeriesCore(object s) {
+            ChartService.InitializeSeries(s, this);
         }
 
         static int creationIndex = 0;
-        protected virtual Series CreateSeriesCore(string name, ViewType viewType) {
+        protected virtual object CreateSeriesCore(string name, WfChartSeriesViewType viewType) {
             if(name == null)
                 name = viewType.ToString() + GetCreationIndex();
-            return new Series(name, viewType);
+            return ChartService.CreateSeries(name, viewType);
+            //WINFORM
+            //return new Series(name, viewType);
         }
 
         private static string GetCreationIndex() {
@@ -86,19 +90,15 @@ namespace WokflowDiagram.Nodes.Visualization {
             return string.Format(" {0}", creationIndex);
         }
 
-        protected virtual ViewType GetViewType() {
-            return ViewType.Line;
+        protected virtual WfChartSeriesViewType GetViewType() {
+            return WfChartSeriesViewType.Line;
         }
 
-        protected virtual Series Series { get; set; }
+        protected virtual object NativeSeries { get; set; }
         protected internal object DataSource { get; set; }
         protected override void OnVisitCore(WfRunner runner) {
             object dataSource = Inputs["In"].Value;
             DataSource = dataSource;
-            //if(Series == null)
-            //    Series = CreateSeries();
-            //Series.DataSource = dataSource;
-            //DataContext = Series;
             DataContext = this;
             Outputs["Series"].Visit(runner, this);
         }
@@ -153,79 +153,77 @@ namespace WokflowDiagram.Nodes.Visualization {
         DashDotDot = 5
     }
 
-    
-
-    //public enum WfAreaSeriesViewType {
-    //    Bar = 0,
-    //    StackedBar = 1,
-    //    FullStackedBar = 2,
-    //    SideBySideStackedBar = 3,
-    //    SideBySideFullStackedBar = 4,
-    //    Pie = 5,
-    //    Doughnut = 6,
-    //    NestedDoughnut = 7,
-    //    Funnel = 8,
-    //    Point = 9,
-    //    Bubble = 10,
-    //    Line = 11,
-    //    StackedLine = 12,
-    //    FullStackedLine = 13,
-    //    StepLine = 14,
-    //    Spline = 15,
-    //    ScatterLine = 16,
-    //    SwiftPlot = 17,
-    //    Area = 18,
-    //    StepArea = 19,
-    //    SplineArea = 20,
-    //    StackedArea = 21,
-    //    StackedStepArea = 22,
-    //    StackedSplineArea = 23,
-    //    FullStackedArea = 24,
-    //    FullStackedSplineArea = 25,
-    //    FullStackedStepArea = 26,
-    //    RangeArea = 27,
-    //    Stock = 28,
-    //    CandleStick = 29,
-    //    SideBySideRangeBar = 30,
-    //    RangeBar = 31,
-    //    SideBySideGantt = 32,
-    //    Gantt = 33,
-    //    PolarPoint = 34,
-    //    PolarLine = 35,
-    //    ScatterPolarLine = 36,
-    //    PolarArea = 37,
-    //    PolarRangeArea = 38,
-    //    RadarPoint = 39,
-    //    RadarLine = 40,
-    //    ScatterRadarLine = 41,
-    //    RadarArea = 42,
-    //    RadarRangeArea = 43,
-    //    Bar3D = 44,
-    //    StackedBar3D = 45,
-    //    FullStackedBar3D = 46,
-    //    ManhattanBar = 47,
-    //    SideBySideStackedBar3D = 48,
-    //    SideBySideFullStackedBar3D = 49,
-    //    Pie3D = 50,
-    //    Doughnut3D = 51,
-    //    Funnel3D = 52,
-    //    Line3D = 53,
-    //    StackedLine3D = 54,
-    //    FullStackedLine3D = 55,
-    //    StepLine3D = 56,
-    //    Area3D = 57,
-    //    StackedArea3D = 58,
-    //    FullStackedArea3D = 59,
-    //    StepArea3D = 60,
-    //    Spline3D = 61,
-    //    SplineArea3D = 62,
-    //    StackedSplineArea3D = 63,
-    //    FullStackedSplineArea3D = 64,
-    //    RangeArea3D = 65,
-    //    BoxPlot = 66,
-    //    Waterfall = 67,
-    //    SwiftPoint = 68
-    //}
+    public enum WfChartSeriesViewType {
+        Bar = 0,
+        StackedBar = 1,
+        FullStackedBar = 2,
+        SideBySideStackedBar = 3,
+        SideBySideFullStackedBar = 4,
+        Pie = 5,
+        Doughnut = 6,
+        NestedDoughnut = 7,
+        Funnel = 8,
+        Point = 9,
+        Bubble = 10,
+        Line = 11,
+        StackedLine = 12,
+        FullStackedLine = 13,
+        StepLine = 14,
+        Spline = 15,
+        ScatterLine = 16,
+        SwiftPlot = 17,
+        Area = 18,
+        StepArea = 19,
+        SplineArea = 20,
+        StackedArea = 21,
+        StackedStepArea = 22,
+        StackedSplineArea = 23,
+        FullStackedArea = 24,
+        FullStackedSplineArea = 25,
+        FullStackedStepArea = 26,
+        RangeArea = 27,
+        Stock = 28,
+        CandleStick = 29,
+        SideBySideRangeBar = 30,
+        RangeBar = 31,
+        SideBySideGantt = 32,
+        Gantt = 33,
+        PolarPoint = 34,
+        PolarLine = 35,
+        ScatterPolarLine = 36,
+        PolarArea = 37,
+        PolarRangeArea = 38,
+        RadarPoint = 39,
+        RadarLine = 40,
+        ScatterRadarLine = 41,
+        RadarArea = 42,
+        RadarRangeArea = 43,
+        Bar3D = 44,
+        StackedBar3D = 45,
+        FullStackedBar3D = 46,
+        ManhattanBar = 47,
+        SideBySideStackedBar3D = 48,
+        SideBySideFullStackedBar3D = 49,
+        Pie3D = 50,
+        Doughnut3D = 51,
+        Funnel3D = 52,
+        Line3D = 53,
+        StackedLine3D = 54,
+        FullStackedLine3D = 55,
+        StepLine3D = 56,
+        Area3D = 57,
+        StackedArea3D = 58,
+        FullStackedArea3D = 59,
+        StepArea3D = 60,
+        Spline3D = 61,
+        SplineArea3D = 62,
+        StackedSplineArea3D = 63,
+        FullStackedSplineArea3D = 64,
+        RangeArea3D = 65,
+        BoxPlot = 66,
+        Waterfall = 67,
+        SwiftPoint = 68
+    }
 
     //public enum WfPieSeriesViewType {
     //    Bar = 0,

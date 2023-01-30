@@ -1,5 +1,4 @@
-﻿using Microsoft.CodeAnalysis.Operations;
-using Npgsql;
+﻿using Npgsql;
 using Npgsql.Schema;
 using System;
 using System.Collections.Generic;
@@ -230,8 +229,9 @@ namespace WorkflowDiagram.Nodes.Connectors.Helpers {
         }
 
         private string ExtractDefaultValue(string str) {
-            string[] items = str.Split("::");
-            str = items[0];
+            int index = str.IndexOf("::");
+            if(index > -1)
+                str = str.Substring(0, index);
             if(str[0] == '\'')
                 str = str.Substring(1, str.Length - 2);
             return str;

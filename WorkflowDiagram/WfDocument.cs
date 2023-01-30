@@ -333,6 +333,9 @@ namespace WorkflowDiagram {
         [XmlIgnore]
         public IWfDocumentResourcesProvider ResourcesProvider { get; set; }
 
+        [XmlIgnore]
+        public IWfPlatformServices PlatformServices { get; set; }
+
         public event EventHandler Changed;
         
         protected internal virtual void RaiseChanged() {

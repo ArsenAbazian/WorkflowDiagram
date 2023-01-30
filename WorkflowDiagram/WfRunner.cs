@@ -214,7 +214,7 @@ namespace WorkflowDiagram {
                             return false;
                         }
                         var next = currentNodes[i].GetNodesFromVisitedPoints(VisitIndex);
-                        nn.Add(currentNodes[i], next);
+                        nn[currentNodes[i]] = next;
                         foreach(var n in next) { // Move node to last...
                             nextNodes.Remove(n);
                             nextNodes.Add(n);

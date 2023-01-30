@@ -1,5 +1,4 @@
-﻿using DevExpress.XtraCharts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -17,29 +16,30 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         [Category("Series Options")]
         public WfAreaSeriesViewType ViewType { get; set; } = WfAreaSeriesViewType.Area;
-        protected override ViewType GetViewType() {
-            return (DevExpress.XtraCharts.ViewType)ViewType;
+        protected override WfChartSeriesViewType GetViewType() {
+            return (WfChartSeriesViewType)ViewType;
         }
-        protected internal override Series CreateSeries() {
-            Series s = base.CreateSeries();
-            s.ArgumentScaleType = ScaleType.Auto;
-            AreaSeriesView view = (AreaSeriesView)s.View;
-            view.Color = Color;
-            view.AggregateFunction = SeriesAggregateFunction.Average;
-            view.Border.Thickness = LineThickness;
-            view.Border.Color = LineColor;
-            view.MarkerOptions.BorderColor = MarkerOptions.BorderColor.ToColor();
-            view.MarkerOptions.BorderVisible = MarkerOptions.ShowBorder;
-            view.MarkerOptions.Color = MarkerOptions.Color;
-            view.MarkerOptions.FillStyle.FillMode = (DevExpress.XtraCharts.FillMode)WfFillMode.Solid;
-            view.MarkerOptions.Size = MarkerOptions.Size;
-            view.MarkerOptions.Kind = (MarkerKind)MarkerOptions.Kind;
-            view.ColorEach = ColorEach;
+        //WINFORM
+        //protected internal override object CreateSeries() {
+        //    object s = base.CreateSeries();
+        //    s.ArgumentScaleType = ScaleType.Auto;
+        //    AreaSeriesView view = (AreaSeriesView)s.View;
+        //    view.Color = Color;
+        //    view.AggregateFunction = SeriesAggregateFunction.Average;
+        //    view.Border.Thickness = LineThickness;
+        //    view.Border.Color = LineColor;
+        //    view.MarkerOptions.BorderColor = MarkerOptions.BorderColor.ToColor();
+        //    view.MarkerOptions.BorderVisible = MarkerOptions.ShowBorder;
+        //    view.MarkerOptions.Color = MarkerOptions.Color;
+        //    view.MarkerOptions.FillStyle.FillMode = (DevExpress.XtraCharts.FillMode)WfFillMode.Solid;
+        //    view.MarkerOptions.Size = MarkerOptions.Size;
+        //    view.MarkerOptions.Kind = (MarkerKind)MarkerOptions.Kind;
+        //    view.ColorEach = ColorEach;
             
-            view.FillStyle.FillMode = (FillMode)FillMode;
-            view.Transparency = (byte)Transparency;
-            return s;
-        }
+        //    view.FillStyle.FillMode = (FillMode)FillMode;
+        //    view.Transparency = (byte)Transparency;
+        //    return s;
+        //}
 
         [Browsable(false)]
         [Category("Series Options")]

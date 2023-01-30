@@ -4,11 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Xml.Serialization;
-using WokflowDiagram.Nodes.Visualization.Forms;
-using WokflowDiagram.Nodes.Visualization.Managers;
 using WorkflowDiagram;
+using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WokflowDiagram.Nodes.Visualization {
     [WfToolboxVisible(true)]
@@ -17,9 +15,14 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         public override string Type => "Table Panel";
 
-        protected override Control CreateVisualizationControl(object seriesSource) {
-            TableUserControl control = new TableUserControl();
-            TableVisualizationManager.Default.InitializeTable(this, control);
+        protected IWfPlatformTableService TableService { get; set; }
+        protected override object CreateVisualizationControl(object seriesSource) {
+            TableService = Document.PlatformServices.GetService<IWfPlatformTableService>(this);
+            object control = TableService.CreateTableUserControl(this);
+            TableService.InitializeTable(this, control);
+            //WINFORM
+            //object control = new TableUserControl();
+            //TableVisualizationManager.Default.InitializeTable(this, control);
             return control;
         }
 

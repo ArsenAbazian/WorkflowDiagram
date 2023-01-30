@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using WokflowDiagram.Nodes.Visualization.Forms;
 using WorkflowDiagram;
 using WorkflowDiagram.Nodes.Base;
+using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WokflowDiagram.Nodes.Visualization {
     public class WfDashboardFormNode : WfVisualNodeBase {
@@ -67,11 +65,11 @@ namespace WokflowDiagram.Nodes.Visualization {
         }
 
         protected IProgress<object> Progress { get; set; }
-        DashboardForm form;
+        IWfDashboardForm form;
         [XmlIgnore]
-        public DashboardForm Form {
+        public IWfDashboardForm Form {
             get {
-                if(form == null || form.IsDisposed)
+                if(form == null || Document.PlatformServices.ShouldRecreateForm(form))
                     form = CreateForm();
                 return form;
             }
@@ -83,7 +81,7 @@ namespace WokflowDiagram.Nodes.Visualization {
         [Browsable(false)]
         public string SelectedWorkspaceName { get; set; }
 
-        protected virtual DashboardForm CreateForm() { return new DashboardForm(this); }
+        protected virtual IWfDashboardForm CreateForm() { return Document.PlatformServices.CreateForm<IWfDashboardForm>(); }
     }
 
     public class WfWorkspaceInfo { 

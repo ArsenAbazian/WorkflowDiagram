@@ -46,7 +46,7 @@ namespace WokflowDiagram.Nodes.Visualization.Managers {
         }
 
         private void AddGauge(WfGaugeNode gn, GaugeUserControl control) {
-            BaseGaugeWin gauge = gn.CreateGauge();
+            BaseGaugeWin gauge = (BaseGaugeWin)gn.CreatePlatformImplGauge();
             gn.Gauge = gauge;
             StateIndicatorGauge sg = gauge as StateIndicatorGauge;
             if(gauge is CircularGauge)
@@ -69,18 +69,21 @@ namespace WokflowDiagram.Nodes.Visualization.Managers {
 
         protected virtual void InitializeDigitalGauge(DigitalGauge gauge, WfGaugeNode gn) {
             WfDigitalGaugeNode dn = (WfDigitalGaugeNode)gn;
-            gauge.DisplayMode = dn.DisplayMode;
+            //TODO
+            //gauge.DisplayMode = dn.DisplayMode;
             if(dn.DigitCount > 0)
                 gauge.DigitCount = dn.DigitCount;
             if(dn.LetterSpacing > 0.0f)
                 gauge.LetterSpacing = dn.LetterSpacing;
             if(dn.ShowBackground) {
                 var comp = gauge.AddBackgroundLayer();
-                comp.ShapeType = dn.BackgroundShape;
+                //TODO
+                //comp.ShapeType = dn.BackgroundShape;
             }
             if(dn.ShowEffect) {
                 var eff = gauge.AddEffectLayer();
-                eff.ShapeType = dn.EffectShape;
+                //TODO
+                //eff.ShapeType = dn.EffectShape;
             }
         }
 

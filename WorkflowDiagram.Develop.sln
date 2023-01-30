@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagram.Nodes.Conne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagram.UI.Win.Editors.Develop", "WorkflowDiagram.UI.Win.Editors\WorkflowDiagram.UI.Win.Editors.Develop.csproj", "{CE484966-54E0-4C97-8D73-E2B9904C5720}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagram.Nodes.Visualization.Win.Develop", "WorkflowDiagram.Nodes.Visualization\WorkflowDiagram.Nodes.Visualization.Win.Develop.csproj", "{B17D2EF7-5C40-4A49-BEEC-750763C6281D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDiagram.Nodes.Visualization.Develop", "WorkflowDiagram.Nodes.Visualization\WorkflowDiagram.Nodes.Visualization.Develop.csproj", "{B17D2EF7-5C40-4A49-BEEC-750763C6281D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlSerialization", "..\XmlSerialization\XmlSerialization\XmlSerialization.csproj", "{4AF0943A-DA67-4A85-B594-3DBC3C79217A}"
 EndProject

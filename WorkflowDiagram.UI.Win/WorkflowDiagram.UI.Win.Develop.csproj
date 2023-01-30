@@ -88,6 +88,14 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraGauges.v22.1.Core, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\DevExpress 22.1\Components\Bin\Framework\DevExpress.XtraGauges.v22.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v22.1.Win, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\DevExpress 22.1\Components\Bin\Framework\DevExpress.XtraGauges.v22.1.Win.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.XtraGrid.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraLayout.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v22.1, Version=22.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -149,6 +157,61 @@
     <Compile Include="NodeItem.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Platform\Forms\ChartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Platform\Forms\ChartForm.Designer.cs">
+      <DependentUpon>ChartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\Forms\ChartUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Platform\Forms\ChartUserControl.Designer.cs">
+      <DependentUpon>ChartUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\Forms\DashboardContainerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Platform\Forms\DashboardContainerControl.Designer.cs">
+      <DependentUpon>DashboardContainerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\Forms\DashboardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Platform\Forms\DashboardForm.Designer.cs">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\Forms\GaugeUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Platform\Forms\GaugeUserControl.Designer.cs">
+      <DependentUpon>GaugeUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\Forms\TableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Platform\Forms\TableForm.Designer.cs">
+      <DependentUpon>TableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\Forms\TableFormCustomization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Platform\Forms\TableFormCustomization.Designer.cs">
+      <DependentUpon>TableFormCustomization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\Forms\TableUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Platform\Forms\TableUserControl.Designer.cs">
+      <DependentUpon>TableUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Platform\Managers\ChartVisualizationManager.cs" />
+    <Compile Include="Platform\Managers\GaugeVisualizationManager.cs" />
+    <Compile Include="Platform\Managers\TableVisualizationManager.cs" />
+    <Compile Include="Platform\WinFormPlatformServices.cs" />
+    <Compile Include="Platform\WinPlatformChartService.cs" />
+    <Compile Include="Platform\WinPlatformGaugeService.cs" />
+    <Compile Include="Platform\WinPlatformTableService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -170,6 +233,30 @@
     <EmbeddedResource Include="ConnectorsEditor.resx">
       <DependentUpon>ConnectorsEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Platform\Forms\ChartForm.resx">
+      <DependentUpon>ChartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Platform\Forms\ChartUserControl.resx">
+      <DependentUpon>ChartUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Platform\Forms\DashboardContainerControl.resx">
+      <DependentUpon>DashboardContainerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Platform\Forms\DashboardForm.resx">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Platform\Forms\GaugeUserControl.resx">
+      <DependentUpon>GaugeUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Platform\Forms\TableForm.resx">
+      <DependentUpon>TableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Platform\Forms\TableFormCustomization.resx">
+      <DependentUpon>TableFormCustomization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Platform\Forms\TableUserControl.resx">
+      <DependentUpon>TableUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -190,11 +277,20 @@
       <Project>{4af0943a-da67-4a85-b594-3dbc3c79217a}</Project>
       <Name>XmlSerialization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WorkflowDiagram.Nodes.Base\WorkflowDiagram.Nodes.Base.Develop.csproj">
+      <Project>{fde9ea71-c293-47f5-981a-d56e9505114a}</Project>
+      <Name>WorkflowDiagram.Nodes.Base.Develop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkflowDiagram.Nodes.Visualization\WorkflowDiagram.Nodes.Visualization.Develop.csproj">
+      <Project>{B17D2EF7-5C40-4A49-BEEC-750763C6281D}</Project>
+      <Name>WorkflowDiagram.Nodes.Visualization.Develop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.Develop.csproj">
       <Project>{5c2ec487-3e30-4274-8263-dbacfa5319c6}</Project>
       <Name>WorkflowDiagram.Develop</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) ==  DebugCopy copy /Y $(TargetPath) d:\Development\My\Bin\$(TargetFileName)</PostBuildEvent>

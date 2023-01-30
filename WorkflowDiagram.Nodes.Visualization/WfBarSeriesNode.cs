@@ -1,11 +1,5 @@
-﻿using DevExpress.XtraCharts;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using WorkflowDiagram;
 
@@ -17,23 +11,24 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         [Category("Series Options")]
         public WfBarSeriesViewType ViewType { get; set; } = WfBarSeriesViewType.Bar;
-        protected override ViewType GetViewType() {
-            return (DevExpress.XtraCharts.ViewType)ViewType;
+        protected override WfChartSeriesViewType GetViewType() {
+            return (WfChartSeriesViewType)ViewType;
         }
-        protected internal override Series CreateSeries() {
-            Series s = base.CreateSeries();
-            s.ArgumentScaleType = ScaleType.Auto;
-            BarSeriesView view = (BarSeriesView)s.View;
-            view.Color = Color;
-            view.AggregateFunction = SeriesAggregateFunction.Average;
-            view.Border.Thickness = LineThickness;
-            view.Border.Color = LineColor;
-            view.BarWidth = BarWidth;
-            view.ColorEach = ColorEach;
-            view.FillStyle.FillMode = (FillMode)FillMode;
-            view.Transparency = (byte)Transparency;
-            return s;
-        }
+        //WINFORM
+        //protected internal override object CreateSeries() {
+        //    object s = base.CreateSeries();
+        //    s.ArgumentScaleType = ScaleType.Auto;
+        //    BarSeriesView view = (BarSeriesView)s.View;
+        //    view.Color = Color;
+        //    view.AggregateFunction = SeriesAggregateFunction.Average;
+        //    view.Border.Thickness = LineThickness;
+        //    view.Border.Color = LineColor;
+        //    view.BarWidth = BarWidth;
+        //    view.ColorEach = ColorEach;
+        //    view.FillStyle.FillMode = (FillMode)FillMode;
+        //    view.Transparency = (byte)Transparency;
+        //    return s;
+        //}
 
         [Browsable(false)]
         [Category("Series Options")]

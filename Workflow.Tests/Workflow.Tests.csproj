@@ -85,9 +85,9 @@
       <Project>{fde9ea71-c293-47f5-981a-d56e9505114a}</Project>
       <Name>WorkflowDiagram.Nodes.Base.Develop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.csproj">
+    <ProjectReference Include="..\WorkflowDiagram\WorkflowDiagram.Develop.csproj">
       <Project>{5c2ec487-3e30-4274-8263-dbacfa5319c6}</Project>
-      <Name>WorkflowDiagram</Name>
+      <Name>WorkflowDiagram.Develop</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

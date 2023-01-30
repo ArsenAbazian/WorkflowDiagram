@@ -143,6 +143,7 @@
     <Compile Include="WfOutputNode.cs" />
     <Compile Include="WfProgrammNode.cs" />
     <Compile Include="WfRandomNode.cs" />
+    <Compile Include="WfRandomSelector.cs" />
     <Compile Include="WfRepeatNode.cs" />
     <Compile Include="WfScriptNode.cs" />
     <Compile Include="WfStorageValueNode.cs" />

@@ -1,13 +1,7 @@
-﻿using DevExpress.XtraEditors;
-using DevExpress.XtraVerticalGrid;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WokflowDiagram.Nodes.Visualization.Forms;
-using WokflowDiagram.Nodes.Visualization;
 using WorkflowDiagram;
+using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WokflowDiagram.Nodes.Visualization.Commands {
     public class WfTableFormNodeCommandsProvider : IWfCommandsProvider {
@@ -19,12 +13,12 @@ namespace WokflowDiagram.Nodes.Visualization.Commands {
 
         public override bool Execute(WfNode node) {
             WfTableFormNode tnode = node as WfTableFormNode;
-            if(tnode == null)
+            if(tnode == null || tnode.Document.PlatformServices == null)
                 return false;
-            using(TableFormCustomization form = new TableFormCustomization()) {
+            using(IWfTableCustomizationForm form = tnode.Document.PlatformServices.CreateForm<IWfTableCustomizationForm>()) {
                 form.XmlCustomizationText = tnode.XmlConfigurationText;
                 form.DataSource = tnode.DataContext;
-                if(form.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                if(form.ShowFormDialog()) {
                     tnode.XmlConfigurationText = form.XmlCustomizationText;
                 }
             }

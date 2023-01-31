@@ -25,9 +25,6 @@ namespace WokflowDiagram.Nodes.Visualization {
             ChartService = Document.PlatformServices.GetService<IWfPlatformChartService>(this);
             object control = ChartService.CreateChartUserControl(this);
             ChartService.InitializeChart(this, control);
-            //WINFORM
-            //ChartUserControl control = new ChartUserControl();
-            //ChartVisualizationManager.Default.InitializeChart(this, control.ChartControl);
             return control;
         }
 

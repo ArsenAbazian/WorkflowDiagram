@@ -81,10 +81,11 @@ namespace WokflowDiagram.Nodes.Visualization.Managers {
                 Series s = (Series)owner.CreateSeries();
                 chartControl.Series.Add(s);
 
+                XYDiagram d = ((XYDiagram)chartControl.Diagram);
+                d.AxisX.DateTimeScaleOptions.MeasureUnit = (DateTimeMeasureUnit)owner.ArgumentMeauseUnit;
+                d.AxisX.DateTimeScaleOptions.MeasureUnitMultiplier = owner.MeasureUnitMultiplier;
+
                 if(owner is WfFinancialSeriesNode) {
-                    XYDiagram d = ((XYDiagram)chartControl.Diagram);
-                    d.AxisX.DateTimeScaleOptions.MeasureUnit = (DateTimeMeasureUnit)((WfFinancialSeriesNode)owner).ArgumentMeauseUnit;
-                    d.AxisX.DateTimeScaleOptions.MeasureUnitMultiplier = ((WfFinancialSeriesNode)owner).MeasureUnitMultiplier;
                     d.AxisY.WholeRange.AlwaysShowZeroLevel = false;
                     d.EnableAxisXZooming = d.EnableAxisYScrolling = true;
                     d.EnableAxisXScrolling = d.EnableAxisYScrolling = true;

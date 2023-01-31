@@ -28,6 +28,7 @@ namespace WokflowDiagram.Nodes.Visualization {
         }
 
         protected override bool OnInitializeCore(WfRunner runner) {
+            TableServices = Document.PlatformServices.GetService<IWfPlatformTableService>(this);
             Progress = new Progress<object>(dataSource => {
                 Form.Node = this;
                 Form.DataSource = dataSource;
@@ -36,14 +37,14 @@ namespace WokflowDiagram.Nodes.Visualization {
             return true;
         }
 
-        protected IWfPlatformServices Services { get; set; }
+        protected IWfPlatformTableService TableServices { get; set; }
 
         IWfTableForm form;
         [XmlIgnore]
         public IWfTableForm Form {
             get {
                 if(form == null || Document.PlatformServices.ShouldRecreateForm(form))
-                    form = Document.PlatformServices.CreateForm<IWfTableForm>();
+                    form = TableServices.CreateTableForm(this);
                 return form;
             }
             set {

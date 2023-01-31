@@ -7,11 +7,9 @@ using WokflowDiagram.Nodes.Visualization;
 
 namespace WorkflowDiagram.Nodes.Visualization.Interfaces {
     public interface IWfPlatformChartService {
-        IWfChartForm CreateChartForm(WfChartFormNode formNode);
+        IWfChartForm CreateChartForm(IChartNode formNode);
         object CreateChartUserControl(WfChartPanelNode wfChartPanelNode);
-        object CreateSeries(string name, WfChartSeriesViewType viewType);
+        object CreateSeries(WfChartSeriesNode node, string name, WfChartSeriesViewType viewType);
         void InitializeChart(WfNode chartNode, object chartUserControl);
-        void InitializeSeries(object s, WfNode seriesNode);
-        void ShowChartForm(IWfChartForm form, WfChartFormNode wfChartFormNode);
     }
 }

@@ -182,9 +182,6 @@ namespace WokflowDiagram.Nodes.Visualization {
             get {
                 if(form == null || Document.PlatformServices.ShouldRecreateForm(form))
                     form = ChartService.CreateChartForm(this);
-                //WINFORM
-                //if(form == null || form.IsDisposed)
-                //    form = new ChartForm();
                 return form;
             }
             set { form = value; }
@@ -202,7 +199,6 @@ namespace WokflowDiagram.Nodes.Visualization {
                 }
             }
             Progress = new Progress<object>(dataSource => {
-                ChartService.ShowChartForm(Form, this);
                 Form.Node = this;
                 Form.Show();
             });

@@ -20,9 +20,6 @@ namespace WokflowDiagram.Nodes.Visualization {
             TableService = Document.PlatformServices.GetService<IWfPlatformTableService>(this);
             object control = TableService.CreateTableUserControl(this);
             TableService.InitializeTable(this, control);
-            //WINFORM
-            //object control = new TableUserControl();
-            //TableVisualizationManager.Default.InitializeTable(this, control);
             return control;
         }
 

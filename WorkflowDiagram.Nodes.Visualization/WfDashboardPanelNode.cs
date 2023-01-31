@@ -29,15 +29,13 @@ namespace WokflowDiagram.Nodes.Visualization {
         protected virtual object CreateVisualizationControl(object dataSource) { return null; }
 
         public object CreateVisualizationControl() {
-            VisualizationControl = CreateVisualizationControl(Inputs["In"].Value);
-            //WINFORMS
-            //VisualizationControl.Dock = DockStyle.Fill;
-            return VisualizationControl;
+            PlatformImplControl = CreateVisualizationControl(Inputs["In"].Value);
+            return PlatformImplControl;
         }
 
         [XmlIgnore]
         [Browsable(false)]
-        public object VisualizationControl { get; set; }
+        public object PlatformImplControl { get; set; }
         protected override void OnVisitCore(WfRunner runner) {
             DataContext = this;
             Outputs[0].Visit(runner, this);

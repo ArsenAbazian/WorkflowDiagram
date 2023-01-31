@@ -3,29 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using WokflowDiagram.Nodes.Visualization;
+using WokflowDiagram.Nodes.Visualization.Forms;
+using WokflowDiagram.Nodes.Visualization.Managers;
 using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WorkflowDiagram.UI.Win.Platform {
     public class WinPlatformTableService : IWfPlatformTableService {
         IWfTableForm IWfPlatformTableService.CreateTableForm(WfTableFormNode formNode) {
-            throw new NotImplementedException();
+            return new TableForm();
         }
 
-        object IWfPlatformTableService.CreateTableUserControl(WfTablePanelNode wfTablePanelNode) {
-            throw new NotImplementedException();
+        object IWfPlatformTableService.CreateTableUserControl(ITableNode wfTablePanelNode) {
+            return new TableUserControl();
         }
 
-        void IWfPlatformTableService.InitializeSeries(object s, WfNode seriesNode) {
-            throw new NotImplementedException();
-        }
-
-        void IWfPlatformTableService.InitializeTable(WfNode tableNode, object tableUserControl) {
-            throw new NotImplementedException();
-        }
-
-        void IWfPlatformTableService.ShowTableForm(IWfTableForm form, WfTableFormNode wfTableFormNode) {
-            throw new NotImplementedException();
+        void IWfPlatformTableService.InitializeTable(ITableNode tableNode, object tableUserControl) {
+            ((TableUserControl)tableUserControl).Node = tableNode;
+            TableVisualizationManager.Default.InitializeTable(tableNode, (TableUserControl)tableUserControl);
         }
     }
 }

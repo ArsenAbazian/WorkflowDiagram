@@ -10,9 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WokflowDiagram.Nodes.Visualization.Managers;
+using WorkflowDiagram;
+using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WokflowDiagram.Nodes.Visualization.Forms {
-    public partial class TableForm : XtraForm {
+    public partial class TableForm : XtraForm, IWfTableForm {
         public TableForm() {
             InitializeComponent();
         }
@@ -28,6 +30,10 @@ namespace WokflowDiagram.Nodes.Visualization.Forms {
         protected override void OnShown(EventArgs e) {
             base.OnShown(e);
             this.tableUserControl1.OnFormShown(this);
+        }
+
+        void IWfPlatformForm.Show() {
+            throw new NotImplementedException();
         }
     }
 }

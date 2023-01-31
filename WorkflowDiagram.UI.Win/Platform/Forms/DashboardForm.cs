@@ -10,9 +10,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
 namespace WokflowDiagram.Nodes.Visualization.Forms {
-    public partial class DashboardForm : XtraForm {
+    public partial class DashboardForm : XtraForm, IWfDashboardForm {
         public DashboardForm(WfDashboardFormNode node) : this() {
             Node = node;
         }

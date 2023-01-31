@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorkflowDiagram.Editors;
+using WorkflowDiagram.UI.Win.Platform;
 
 namespace WorkflowDiagram.UI.Win {
     public partial class WfDocumentControl : XtraUserControl, ISupportXtraAnimation {
@@ -102,6 +103,7 @@ namespace WorkflowDiagram.UI.Win {
         }
 
         protected virtual void OnDocumentChanged() {
+            Document.PlatformServices = new WinFormPlatformServices();
             Document.InitializeVisualData();
             this.beFontSize.EditValue = Document.FontSizeDelta;
             this.pgcProperties.SelectedObject = Document;
@@ -214,6 +216,10 @@ namespace WorkflowDiagram.UI.Win {
                 return;
             if(pi.PropertyType == typeof(Color)) {
                 e.RepositoryItem = new RepositoryItemColorPickEdit();
+                return;
+            }
+            else if(pi.PropertyType == typeof(WfColor)) {
+                e.RepositoryItem = new RepositoryItemWfColorEdit();
                 return;
             }
             var attr = pi.GetCustomAttribute<PropertyEditorAttribute>();

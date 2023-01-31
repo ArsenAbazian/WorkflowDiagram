@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Xml.Serialization;
 using WorkflowDiagram;
@@ -39,10 +38,10 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         protected override bool OnInitializeCore(WfRunner runner) {
             ChartService = Document.PlatformServices.GetService<IWfPlatformChartService>(this);
-            IDisposable ds = NativeSeries as IDisposable;
+            IDisposable ds = PlatformImplSeries as IDisposable;
             if(ds != null)
                 ds.Dispose();
-            NativeSeries = null;
+            PlatformImplSeries = null;
             if(string.IsNullOrEmpty(ArgumentDataMember)) {
                 OnError("ArgumentDataMember must be specified");
                 return false;
@@ -57,32 +56,19 @@ namespace WokflowDiagram.Nodes.Visualization {
         protected IWfPlatformChartService ChartService { get; set; }
 
         protected internal virtual object CreateSeries() {
-            if(NativeSeries != null)
-                return NativeSeries;
+            if(PlatformImplSeries != null)
+                return PlatformImplSeries;
             WfChartSeriesViewType viewType = GetViewType();
             object s = CreateSeriesCore(SeriesName, viewType);
-            InitializeSeriesCore(s);
-            // WINFORM
-            //s.Name = SeriesName;
-            //s.Tag = this;
-            //s.ArgumentDataMember = ArgumentDataMember;
-            //s.ValueDataMembers.AddRange(ValueDataMember);
-            //s.DataSource = DataSource;
-            NativeSeries = s;
+            PlatformImplSeries = s;
             return s;
-        }
-
-        protected virtual void InitializeSeriesCore(object s) {
-            ChartService.InitializeSeries(s, this);
         }
 
         static int creationIndex = 0;
         protected virtual object CreateSeriesCore(string name, WfChartSeriesViewType viewType) {
             if(name == null)
                 name = viewType.ToString() + GetCreationIndex();
-            return ChartService.CreateSeries(name, viewType);
-            //WINFORM
-            //return new Series(name, viewType);
+            return ChartService.CreateSeries(this, name, viewType);
         }
 
         private static string GetCreationIndex() {
@@ -94,7 +80,7 @@ namespace WokflowDiagram.Nodes.Visualization {
             return WfChartSeriesViewType.Line;
         }
 
-        protected virtual object NativeSeries { get; set; }
+        protected virtual object PlatformImplSeries { get; set; }
         protected internal object DataSource { get; set; }
         protected override void OnVisitCore(WfRunner runner) {
             object dataSource = Inputs["In"].Value;
@@ -116,16 +102,18 @@ namespace WokflowDiagram.Nodes.Visualization {
         public override string ToString() {
             return SeriesName + " Series";
         }
+
+        [Category("Data Members")]
+        public WfDateTimeMeasureUnit ArgumentMeauseUnit { get; set; } = WfDateTimeMeasureUnit.Minute;
+        [Category("Data Members")]
+        public int MeasureUnitMultiplier { get; set; } = 1;
     }
     
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class WfSeriesMarkerOptions {
         public WfColor BorderColor { get; set; }
         public bool ShowBorder { get; set; }
-        [Browsable(false)]
-        public WfColor ColorCore { get; set; }
-        [XmlIgnore]
-        public Color Color { get { return ColorCore.ToColor(); } set { ColorCore = value.ToWfColor(); } }
+        public WfColor Color { get; set; }
         public WfMarkerKind Kind { get; set; }
         public int Size { get; set; } = 10;
     }

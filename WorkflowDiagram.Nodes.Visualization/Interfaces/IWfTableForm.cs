@@ -7,7 +7,7 @@ using WokflowDiagram.Nodes.Visualization;
 
 namespace WorkflowDiagram.Nodes.Visualization.Interfaces {
     public interface IWfTableForm : IWfPlatformForm {
-        WfTableFormNode Node { get; set; }
+        ITableNode Node { get; set; }
         object DataSource { get; set; }
     }
 }

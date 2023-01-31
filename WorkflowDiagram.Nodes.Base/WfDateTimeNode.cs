@@ -26,7 +26,8 @@ namespace WorkflowDiagram.Nodes.Base {
                 new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "AMPM", Text = "AM/PM", Requirement = WfRequirementType.Optional },
                 new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Minute", Text = "Minute", Requirement = WfRequirementType.Optional },
                 new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Second", Text = "Second", Requirement = WfRequirementType.Optional },
-                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Millisecond", Text = "Millisecond", Requirement = WfRequirementType.Optional }
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Millisecond", Text = "Millisecond", Requirement = WfRequirementType.Optional },
+                new WfConnectionPoint() { Type = WfConnectionPointType.Out, Name = "Custom", Text = "Custom", Requirement = WfRequirementType.Optional }
             }.ToList();
         }
 
@@ -47,8 +48,10 @@ namespace WorkflowDiagram.Nodes.Base {
             Outputs["Minute"].Visit(runner, dt.Minute);
             Outputs["Second"].Visit(runner, dt.Second);
             Outputs["Millisecond"].Visit(runner, dt.Millisecond);
+            Outputs["Custom"].Visit(runner, dt.ToString(CustomFormat));
         }
 
+        public string CustomFormat { get; set; } = "";
         private string GetAmPm(int hour) {
             if(hour < 12)
                 return "AM";

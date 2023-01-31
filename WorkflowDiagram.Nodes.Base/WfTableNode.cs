@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Xpo.DB;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -84,11 +85,17 @@ namespace WorkflowDiagram.Nodes.Base {
             DataContext = Table;
             object value = Inputs["Rows"].Value;
             IEnumerable en = value as IEnumerable;
-            if(Inputs["Rows"].Value != null && en == null)
+            DataRow row = value as DataRow;
+            Dictionary<string, object> drow = value as Dictionary<string, object>;
+            if(Inputs["Rows"].Value != null && en == null && row == null && drow == null)
                 Diagnostic.Add(new WfDiagnosticInfo() { Type = WfDiagnosticSeverity.Warning, Text = "Value in Rows Input cannot be used as a source for table" });
             if(en != null) {
                 CheckAddColumns(en);
                 TryAddRowsToTable(en);
+            }
+            else if(value is DataRow) {
+                CheckAddColumns(value);
+                AddRow((DataRow)value);
             }
             else { 
                 CheckAddColumns(value);

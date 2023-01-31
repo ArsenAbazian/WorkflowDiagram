@@ -29,10 +29,10 @@ namespace WokflowDiagram.Nodes.Visualization {
         protected IProgress<object> Progress { get; set; }
         protected override bool OnInitializeCore(WfRunner runner) {
             GaugeService = Document.PlatformServices.GetService<IWfPlatformGaugeService>(this);
-            IDisposable ds = Gauge as IDisposable;
+            IDisposable ds = GaugePlatformImpl as IDisposable;
             if(ds != null)
                 ds.Dispose();
-            Gauge = null;
+            GaugePlatformImpl = null;
             Gauges.Clear();
 
             Progress = new Progress<object>(dataSource => {
@@ -47,25 +47,25 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         protected internal IWfPlatformGaugeService GaugeService { get; set; }
         protected internal List<WfGaugeNode> Gauges { get; } = new List<WfGaugeNode>();
-        protected internal object Gauge { get; set; }
+        protected internal object GaugePlatformImpl { get; set; }
         protected internal virtual object CreatePlatformImplGauge() {
-            if(Gauge != null && !GaugeService.ShouldRecreateGauge(Gauge))
-                return Gauge;
+            if(GaugePlatformImpl != null && !GaugeService.ShouldRecreateGauge(GaugePlatformImpl))
+                return GaugePlatformImpl;
             switch(GaugeType) {
                 case WfGaugeType.Circular:
-                    Gauge = CreateCircularGauge();
+                    GaugePlatformImpl = CreateCircularGauge();
                     break;
                 case WfGaugeType.Digital:
-                    Gauge = CreateDigitalGauge();
+                    GaugePlatformImpl = CreateDigitalGauge();
                     break;
                 case WfGaugeType.Linear:
-                    Gauge = CreateLinearGauge();
+                    GaugePlatformImpl = CreateLinearGauge();
                     break;
                     //case WfGaugeType.StateIndicator:
                     //    Gauge = CreateStateIndicatorGauge();
                     //    break;
             }
-            return Gauge;
+            return GaugePlatformImpl;
         }
 
         protected virtual object CreateCircularGauge() {
@@ -82,7 +82,6 @@ namespace WokflowDiagram.Nodes.Visualization {
 
         //protected virtual object CreateStateIndicatorGauge() {
         //    return GaugeService.CreateStateIndicatorGauge(this);
-        //    //WINFORM
         //    //return new DigitalGauge();
         //}
 
@@ -110,15 +109,15 @@ namespace WokflowDiagram.Nodes.Visualization {
         public object Value { get; set; }
 
         protected internal virtual void UpdateValue() {
-            if(Gauge == null)
+            if(GaugePlatformImpl == null)
                 return;
 
             if(GaugeType == WfGaugeType.Circular)
-                UpdateCircularGauge(Gauge);
+                UpdateCircularGauge(GaugePlatformImpl);
             else if(GaugeType == WfGaugeType.Linear)
-                UpdateLinearGauge(Gauge);
+                UpdateLinearGauge(GaugePlatformImpl);
             else if(GaugeType == WfGaugeType.Digital)
-                UpdateDigitalGauge(Gauge);
+                UpdateDigitalGauge(GaugePlatformImpl);
         }
 
         protected virtual void UpdateDigitalGauge(object gauge) {

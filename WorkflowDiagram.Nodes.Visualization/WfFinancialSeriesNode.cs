@@ -11,9 +11,6 @@ namespace WokflowDiagram.Nodes.Visualization {
         public WfFinancialSeriesNode() {
             ReductionColor = WfColor.FromArgb(255, 255, 0, 0);
             Color = WfColor.FromArgb(255, 0, 255, 0);
-            //WINFORM
-            //ReductionColor = DXSkinColors.ForeColors.Critical;
-            //Color = DXSkinColors.FillColors.Success;
         }
 
         [Category("Series Options")]
@@ -43,57 +40,15 @@ namespace WokflowDiagram.Nodes.Visualization {
             return true;
         }
         
-        //WINFORMS
-        //protected override void InitializeValueDataMembers(Series s) {
-        //    s.ValueDataMembers.AddRange(LowDataMember, HighDataMember, OpenDataMember, CloseDataMember);
-        //}
-
-        //WINFORMS
-        //protected internal override Series CreateSeries() {
-        //    Series s = base.CreateSeries();
-        //    s.ArgumentScaleType = ScaleType.DateTime;
-        //    s.CrosshairLabelPattern = "O={OV}\nH={HV}\nL={LV}\nC={CV}";
-        //    s.ValueScaleType = ScaleType.Numerical;
-
-        //    FinancialSeriesViewBase view = (FinancialSeriesViewBase)s.View;
-        //    view.Color = Color;
-        //    view.AggregateFunction = SeriesAggregateFunction.None; // SeriesAggregateFunction.Financial;
-        //    view.LineThickness = (int)(LineThickness * DpiProvider.Default.DpiScaleFactor);
-        //    view.LevelLineLength = LineLevelLength;
-
-        //    view.ReductionOptions.Color = ReductionColor;
-        //    view.ReductionOptions.Level = StockLevel.Open;
-        //    view.ReductionOptions.ColorMode = ReductionColorMode.OpenToCloseValue;
-
-        //    if(view is CandleStickSeriesView)
-        //        ((CandleStickSeriesView)view).ReductionOptions.FillMode = CandleStickFillMode.AlwaysFilled;
-
-        //    return s;
-        //}
-
+        
         [Category("Series Options")]
-        [Browsable(false)]
         public WfColor Color { get; set; } = WfColor.FromArgb(255, 0, 255, 0);
-        //WINFORMS
-        //[Category("Series Options")]
-        //[XmlIgnore]
-        //public Color Color { get { return ColorCore.ToColor(); } set { ColorCore = value.ToWfColor(); } }
 
         [Category("Series Options")]
-        [Browsable(false)]
         public WfColor ReductionColor { get; set; } = WfColor.FromArgb(255, 0, 255, 0);
-        //WINFORMS
-        //[Category("Series Options")]
-        //[XmlIgnore]
-        //public Color ReductionColor { get { return ReductionColorCore.ToColor(); } set { ReductionColorCore = value.ToWfColor(); } }
 
         [Category("Series Options")]
-        [Browsable(false)]
         public WfColor LineColor { get; set; } = WfColor.FromArgb(255, 0, 255, 0);
-        //WINFORMS
-        //[Category("Series Options")]
-        //[XmlIgnore]
-        //public Color LineColor { get { return LineColorCore.ToColor(); } set { LineColorCore = value.ToWfColor(); } }
 
         [Category("Series Options")]
         public int LineThickness { get; set; } = 1;
@@ -114,11 +69,6 @@ namespace WokflowDiagram.Nodes.Visualization {
         public virtual string HighDataMember { get; set; } = "High";
         [Category("Data Members")]
         public virtual string LowDataMember { get; set; } = "Low";
-
-        [Category("Data Members")]
-        public WfDateTimeMeasureUnit ArgumentMeauseUnit { get; set; } = WfDateTimeMeasureUnit.Minute;
-        [Category("Data Members")]
-        public int MeasureUnitMultiplier { get; set; } = 1;
     }
 
     public enum WfFinancialSeriesViewType {

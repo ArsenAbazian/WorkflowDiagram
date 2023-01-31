@@ -19,6 +19,8 @@ namespace WorkflowDiagram.Nodes.Connectors {
 
         public override string Type => "SelectDbRows";
 
+        public override string Category => "Database";
+
         protected override List<WfConnectionPoint> GetDefaultInputs() {
             var res = new WfConnectionPoint[] {
                 new WfConnectionPoint() { Name = "Database", Text = "Database", Requirement = WfRequirementType.Mandatory },

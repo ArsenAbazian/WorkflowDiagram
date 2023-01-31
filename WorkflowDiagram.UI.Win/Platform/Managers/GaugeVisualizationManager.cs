@@ -47,7 +47,7 @@ namespace WokflowDiagram.Nodes.Visualization.Managers {
 
         private void AddGauge(WfGaugeNode gn, GaugeUserControl control) {
             BaseGaugeWin gauge = (BaseGaugeWin)gn.CreatePlatformImplGauge();
-            gn.Gauge = gauge;
+            gn.GaugePlatformImpl = gauge;
             StateIndicatorGauge sg = gauge as StateIndicatorGauge;
             if(gauge is CircularGauge)
                 InitializeCircularGauge((CircularGauge)gauge, gn);

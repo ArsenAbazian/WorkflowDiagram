@@ -1,17 +1,10 @@
 ﻿using DevExpress.XtraCharts;
 using DevExpress.XtraEditors;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using WorkflowDiagram.Nodes.Visualization.Interfaces;
 
-namespace WokflowDiagram.Nodes.Visualization.Forms {
+namespace WokflowDiagram.Nodes.Visualization.Forms
+{
     public partial class ChartForm : XtraForm, IWfChartForm {
         public ChartForm() {
             InitializeComponent();

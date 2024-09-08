@@ -32,19 +32,19 @@ namespace Workflow.Tests {
             WfRunner runner = new WfRunner(doc);
             bool result = runner.RunOnce();
 
-            Assert.Equal(true, result);
+            Assert.True(result);
 
-            Assert.Equal(null, stTrue.GetValueFromStorage());
-            Assert.NotEqual(null, stFalse.GetValueFromStorage());
+            Assert.Null(stTrue.GetValueFromStorage());
+            Assert.NotNull(stFalse.GetValueFromStorage());
 
             doc.Reset();
 
             const2.Value = const1.Value;
             runner = new WfRunner(doc);
-            Assert.Equal(true, runner.RunOnce());
+            Assert.True(runner.RunOnce());
 
-            Assert.NotEqual(null, stTrue.GetValueFromStorage());
-            Assert.Equal(null, stFalse.GetValueFromStorage());
+            Assert.NotNull(stTrue.GetValueFromStorage());
+            Assert.Null(stFalse.GetValueFromStorage());
         }
 
         [Fact]
@@ -53,9 +53,9 @@ namespace Workflow.Tests {
             WfProgrammNode pg = new WfProgrammNode();
             pg.SubDocument = sub;
 
-            Assert.Equal(1, pg.Inputs.Count);
+            Assert.Single(pg.Inputs);
             Assert.Equal("Run", pg.Inputs[0].Name);
-            Assert.Equal(0, pg.Outputs.Count);
+            Assert.Empty(pg.Outputs);
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace Workflow.Tests {
             Assert.Equal(sub.Nodes[0].Name, pg.Inputs[1].Name);
             Assert.Equal(sub.Nodes[0].GetText(), pg.Inputs[1].Text);
 
-            Assert.Equal(0, pg.Outputs.Count);
+            Assert.Empty(pg.Outputs);
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace Workflow.Tests {
             Assert.Equal(sub.Nodes[1].Name, pg.Inputs[2].Name);
             Assert.Equal(sub.Nodes[1].GetText(), pg.Inputs[2].Text);
 
-            Assert.Equal(0, pg.Outputs.Count);
+            Assert.Empty(pg.Outputs);
         }
 
         [Fact]
@@ -129,7 +129,7 @@ namespace Workflow.Tests {
             Assert.Equal(sub.Nodes[2].Name, pg.Inputs[3].Name);
             Assert.Equal(sub.Nodes[2].GetText(), pg.Inputs[3].Text);
 
-            Assert.Equal(0, pg.Outputs.Count);
+            Assert.Empty(pg.Outputs);
         }
 
         [Fact]
@@ -161,7 +161,7 @@ namespace Workflow.Tests {
             Assert.Equal(sub.Nodes[1].Name, pg.Inputs[2].Name);
             Assert.Equal(sub.Nodes[1].GetText(), pg.Inputs[2].Text);
 
-            Assert.Equal(0, pg.Outputs.Count);
+            Assert.Empty(pg.Outputs);
         }
 
         [Fact]
@@ -172,7 +172,7 @@ namespace Workflow.Tests {
             WfProgrammNode pg = new WfProgrammNode();
             pg.SubDocument = sub;
 
-            Assert.Equal(1, pg.Outputs.Count);
+            Assert.Single(pg.Outputs);
 
             Assert.Equal(sub.Nodes[0].Id, pg.Outputs[0].Id);
             Assert.Equal(sub.Nodes[0].Name, pg.Outputs[0].Name);

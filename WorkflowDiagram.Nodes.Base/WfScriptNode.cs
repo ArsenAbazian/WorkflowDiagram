@@ -1,17 +1,14 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
+﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using WorkflowDiagram;
 
-namespace WorkflowDiagram.Nodes.Base {
+namespace WorkflowDiagram.Nodes.Base
+{
     public class WfScriptNode : WfVisualNodeBase {
         public override string VisualTemplateName => "Expression";
 
